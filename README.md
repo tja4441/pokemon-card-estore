@@ -6,15 +6,18 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
 ## Team
 
 - Zachary Wagner
-- MEMBER2
+- Daniel Pittman
 - MEMBER3
 - MEMBER4
+- MEMBER5
 
 
 ## Prerequisites
 
-- Java 8=>11 (Make sure to have correct JAVA_HOME setup in your environment)
-- Maven
+- Java (Old:8=>11) => (New: JDK 17.0.4.1) (Make sure to have correct JAVA_HOME setup in your environment)
+- Maven 3.8.6
+- Node.js 16.17.0
+- NPM 8.19.1
 -  _add any other tech stack requirements_
 
 
