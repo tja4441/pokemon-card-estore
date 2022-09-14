@@ -7,7 +7,7 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
 
 - Zachary Wagner
 - Daniel Pittman
-- MEMBER3
+- Jensen DeRosier
 - MEMBER4
 - MEMBER5
 
