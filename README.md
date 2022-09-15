@@ -9,7 +9,7 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
 - Daniel Pittman
 - Jensen DeRosier
 - Timothy Avila
-- MEMBER5
+- Gabriel Buxo
 
 
 ## Prerequisites
