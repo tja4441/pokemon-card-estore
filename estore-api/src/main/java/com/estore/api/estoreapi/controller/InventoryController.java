@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,17 +25,18 @@ public class InventoryController extends Controller {
     public InventoryController(InventoryDao inventoryDao){
         this.inventoryDao = inventoryDao;
     }
-    
+
     /**
-     * Responds to the GET request for a product given name
-     * @param name the name used to locate the product
+     * Responds to the GET request for a product given id
+     * @param id the id used to locate the product
      * @return ResponseEntity product object and HTTP status of OK if found<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    public ResponseEntity<Product> getProduct(@PathVariable String name){
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable int id){
         try {
-            Product product = inventoryDao.getProduct(name);
+            Product product = inventoryDao.getProduct(id);
             if(product != null){
                 return new ResponseEntity<Product>(product,HttpStatus.OK);
             }else{

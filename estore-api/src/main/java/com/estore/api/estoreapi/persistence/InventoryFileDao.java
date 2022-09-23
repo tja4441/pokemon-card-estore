@@ -7,16 +7,16 @@ import com.estore.api.estoreapi.model.Product;
 
 public class InventoryFileDao implements InventoryDao {
 
-    Map<String, Product> products;
+    Map<Integer, Product> products;
 
     /**
      ** {@inheritDoc}
      */
     @Override
-    public Product getProduct(String name) throws IOException {
+    public Product getProduct(int id) throws IOException {
         synchronized(products){
-            if(products.containsKey(name))
-                return products.get(name);
+            if(products.containsKey(id))
+                return products.get(id);
             else
                 return null;
         }   

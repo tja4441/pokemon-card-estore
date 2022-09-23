@@ -7,11 +7,11 @@ import com.estore.api.estoreapi.model.Product;
 public interface InventoryDao {
 
     /**
-     * Retrieves a product with the given name
-     * @param name The name of the product to get
-     * @return a product object with the matching name
+     * Retrieves a product with the given id
+     * @param id The id of the product to get
+     * @return a product object with the matching id
      * @throws IOException if an issue with storage
      */
-    Product getProduct(String name) throws IOException;
+    Product getProduct(int id) throws IOException;
     
 }
