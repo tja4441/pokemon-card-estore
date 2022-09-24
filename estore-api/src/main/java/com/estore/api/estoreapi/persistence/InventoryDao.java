@@ -12,6 +12,6 @@ public interface InventoryDao {
      * @return An array of product objects, may be empty
      * @throws IOException if an issue with storage
      */
-    ArrayList<Product> getProducts() throws IOException;
+    Product[] getProducts() throws IOException;
 
 }

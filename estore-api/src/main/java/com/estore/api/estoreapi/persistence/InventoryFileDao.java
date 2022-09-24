@@ -14,12 +14,14 @@ public class InventoryFileDao implements InventoryDao {
      * *{@inheritDoc}
      */
     @Override
-    public ArrayList<Product> getProducts() throws IOException {
-        ArrayList<Product> productsList = new ArrayList<>();
+    public Product[] getProducts() throws IOException {
+        ArrayList<Product> productsArrayList = new ArrayList<>();
         for(Product p : products.values()){
-            productsList.add(p);
+            productsArrayList.add(p);
         }
-        return productsList;
+        Product[] productsArray = new Product[productsArrayList.size()];
+        productsArrayList.toArray(productsArray);
+        return productsArray;
     }
   
 }
