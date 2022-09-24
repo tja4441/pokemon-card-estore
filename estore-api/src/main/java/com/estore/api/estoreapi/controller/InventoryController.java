@@ -15,7 +15,13 @@ import com.estore.api.estoreapi.persistence.InventoryDao;
 public class InventoryController extends Controller {
     
     private InventoryDao inventoryDao;
-
+    
+    /**
+     * Responds to the GET request for all products
+     * @return ResponseEntity with array of product objects (may be emty) and HTTP 
+     * status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
     @GetMapping("")
     public ResponseEntity<Product[]> getProducts(){
         try {

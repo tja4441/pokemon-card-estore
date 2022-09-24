@@ -1,7 +1,6 @@
 package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import com.estore.api.estoreapi.model.Product;
 
