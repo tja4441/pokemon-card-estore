@@ -2,6 +2,9 @@ package com.estore.api.estoreapi.controller;
 
 import java.io.IOException;
 
+
+public class InventoryController extends Controller {  
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,11 +21,27 @@ import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.persistence.InventoryDao;
 
 @RestController
-@RequestMapping("product")
+@RequestMapping("products")
 public class InventoryController extends Controller {
     
     private InventoryDao inventoryDao;
     private static final Logger LOG = Logger.getLogger(Controller.class.getName());
+
+    /**
+     * Responds to the GET request for all products
+     * @return ResponseEntity with array of product objects (may be emty) and HTTP 
+     * status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("")
+    public ResponseEntity<Product[]> getProducts(){
+        try {
+            Product[] products = inventoryDao.getProducts();
+            return new ResponseEntity<Product[]>(products,HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     /**
      * Creates a REST API controller to respond to requests

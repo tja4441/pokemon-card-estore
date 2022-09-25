@@ -4,12 +4,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.ArrayList;
+
+import com.estore.api.estoreapi.model.Product;
 
 public class InventoryFileDao implements InventoryDao {
 
     Map<Integer, Product> products;
     private String filename;
     private ObjectMapper objectMapper;
+
+    /**
+     * *{@inheritDoc}
+     */
+    @Override
+    public Product[] getProducts() throws IOException {
+        ArrayList<Product> productsArrayList = new ArrayList<>();
+        for(Product p : products.values()){
+            productsArrayList.add(p);
+        }
+        Product[] productsArray = new Product[productsArrayList.size()];
+        productsArrayList.toArray(productsArray);
+        return productsArray;
+    }
 
     /**
      ** {@inheritDoc}
