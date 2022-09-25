@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -12,7 +14,9 @@ import java.util.logging.Logger;
 import com.estore.api.estoreapi.persistence.InventoryDao;
 import com.estore.api.estoreapi.model.Product;
 
-public class InventoryController extends Controller {
+@RestController
+@RequestMapping("inventory")
+public class InventoryController extends Controller{
     private static final Logger LOG = Logger.getLogger(InventoryController.class.getName());
     private InventoryDao inventoryDao;
 
@@ -27,7 +31,7 @@ public class InventoryController extends Controller {
      */
     @PutMapping("")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-        LOG.info("PUT /products " + product);
+        LOG.info("PUT /inventory " + product);
 
         try {
             Product p = inventoryDao.updateProduct(product);

@@ -33,7 +33,7 @@ public class InventoryFileDao implements InventoryDao {
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public InventoryFileDao(@Value("${products.file}") String filename,ObjectMapper objectMapper) throws IOException {
+    public InventoryFileDao(@Value("${inventory.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();  // load the products from the file
