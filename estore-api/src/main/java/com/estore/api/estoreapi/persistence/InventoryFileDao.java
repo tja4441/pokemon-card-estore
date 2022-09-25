@@ -21,8 +21,8 @@ public class InventoryFileDao implements InventoryDao {
                 return products.get(id);
             else
                 return null;
+            }               
         }
-    }
     
     /**
      * Creates a Inventory File Dao

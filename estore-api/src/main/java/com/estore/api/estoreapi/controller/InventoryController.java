@@ -63,11 +63,11 @@ public class InventoryController extends Controller {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("")
-    public ResponseEntity<Product> createHero(@RequestBody Product product) {
-        LOG.info("POST /heroes " + product);
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        LOG.info("POST /products " + product);
 
         try {
-            Product newProduct = dao.createProduct(product);
+            Product newProduct = inventoryDao.createProduct(product);
             if (newProduct != null) {
                 return new ResponseEntity<Product>(newProduct, HttpStatus.CREATED);
             }
