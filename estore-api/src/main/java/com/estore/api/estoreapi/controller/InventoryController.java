@@ -1,10 +1,6 @@
 package com.estore.api.estoreapi.controller;
 
 import java.io.IOException;
-
-
-public class InventoryController extends Controller {  
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
