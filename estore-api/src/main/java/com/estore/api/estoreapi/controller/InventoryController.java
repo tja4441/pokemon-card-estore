@@ -33,6 +33,14 @@ public class InventoryController extends Controller {
     private InventoryDao inventoryDao;
 
     /**
+     * Creates a REST API controller to respond to requests
+     * @param inventoryDao The inventory data access object to perfom CRUD operations
+     */
+    public InventoryController(InventoryDao inventoryDao){
+        this.inventoryDao = inventoryDao;
+    }
+
+    /**
      * Deletes a {@linkplain Product product} with the given id
      * 
      * @param id The id of the {@link Product product} to delete
@@ -46,8 +54,8 @@ public class InventoryController extends Controller {
         LOG.info("DELETE /products/" + id);
 
         try {
-            Boolean heroDeleted = inventoryDao.deleteProduct(id);
-            if (heroDeleted != false)
+            Boolean productDeleted = inventoryDao.deleteProduct(id);
+            if (productDeleted != false)
                 return new ResponseEntity<>(HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -92,20 +100,20 @@ public class InventoryController extends Controller {
      */
     @GetMapping("")
     public ResponseEntity<Product[]> getProducts(){
+        LOG.info("GET /products");
         try {
             Product[] products = inventoryDao.getProducts();
-            return new ResponseEntity<Product[]>(products,HttpStatus.OK);
-        } catch (IOException e) {
+            if(products != null){
+                return new ResponseEntity<Product[]>(products,HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } 
+        catch (IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    /**
-     * Creates a REST API controller to respond to requests
-     * @param inventoryDao The inventory data access object to perfom CRUD operations
-     */
-    public InventoryController(InventoryDao inventoryDao){
-        this.inventoryDao = inventoryDao;
     }
 
     /**
@@ -117,6 +125,7 @@ public class InventoryController extends Controller {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable int id){
+        LOG.info("GET /products/" + id);
         try {
             Product product = inventoryDao.getProduct(id);
             if(product != null){
@@ -125,6 +134,7 @@ public class InventoryController extends Controller {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch (IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -148,7 +158,7 @@ public class InventoryController extends Controller {
                 return new ResponseEntity<Product>(newProduct, HttpStatus.CREATED);
             }
             else {
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }
         catch(IOException e) {

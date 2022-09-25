@@ -4,16 +4,22 @@
  * that someone might need on an individual product
  */
 package com.estore.api.estoreapi.model;
+import java.util.logging.Logger;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * This class has 2 static properties the Id of the next Product to be made and
  * price hashmap that links product ID to a price
  */
 public class Product {
-    static int ID = 0;
-    private String name;
-    private int quantity;
-    private int id;
+    private static final Logger LOG = Logger.getLogger(Product.class.getName());
+    // Package private for tests
+    static final String STRING_FORMAT = "Product [id=%d, name=%s, quantity=%j, price=%p]";
+
+    @JsonProperty("id") private int id;
+    @JsonProperty("name") private String name;
+    @JsonProperty("quantity") private int quantity;
+    @JsonProperty("price") private float price;
     
     /**
      * Each time the class is instatiated it increments the internal ID counter by 1
@@ -24,10 +30,11 @@ public class Product {
      * @param quantity the amount of an item there is
      * @param price the price of an item
      */
-    public Product(String name, int quantity, float price) {
-        this.id = ID++;
+    public Product(@JsonProperty("id") int id,@JsonProperty("name") String name, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
+        this.id = id;
         this.name = name;
         this.quantity = quantity;
+        this.price = price;
     }
 
     /**
@@ -40,21 +47,7 @@ public class Product {
         this.id = product.id;
         this.name = product.name;
         this.quantity = amount;
-    }
-
-    /**
-     * sets Product class' ID to a number(from persistant data)
-     * @param id the id of the next
-     */
-    public static void setID(int id){
-        ID = id;
-    }
-    
-    /**
-     * @return returns the id that the next new product should get
-     */
-    public static int getID(){
-        return ID;
+        //todo: Determine if this is necessary
     }
     
     /**
@@ -90,6 +83,10 @@ public class Product {
      */
     public void changeQuantity(int quantity) {
         this.quantity += quantity;
+    }
+
+    public float getPrice(){
+        return this.price;
     }
 
     /**

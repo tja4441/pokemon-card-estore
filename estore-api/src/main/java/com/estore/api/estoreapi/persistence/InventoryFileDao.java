@@ -11,12 +11,44 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+/**
+ * 
+ */
+@Component
 public class InventoryFileDao implements InventoryDao {
 
     Map<Integer,Product> products;      // provides a local cache of the product objects
     ObjectMapper objectMapper;          //Converts between Hero objects and JSON text file formats
     String filename;                    //Filename to read/write
+    private static final Logger LOG = Logger.getLogger(InventoryFileDao.class.getName());
+    private static int nextId;  // The next Id to assign to a new product
+
+    /**
+     * Creates a Product File Data Access Object
+     * 
+     * @param filename Filename to read from and write to
+     * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     */
+    public InventoryFileDao(@Value("${inventory.file}") String filename,ObjectMapper objectMapper) throws IOException {
+        this.filename = filename;
+        this.objectMapper = objectMapper;
+        load();  // load the products from the file
+    }
+
+    /**
+     * Generates the next id for a new {@linkplain Product product}
+     * 
+     * @return The next id
+     */
+    private synchronized static int nextId() {
+        int id = nextId;
+        ++nextId;
+        return id;
+    }
 
     /**
      * Generates an array of {@linkplain Product products} from the tree map
@@ -66,34 +98,6 @@ public class InventoryFileDao implements InventoryDao {
         }
     }
 
-    private static final Logger LOG = Logger.getLogger(InventoryFileDao.class.getName());
-    private static int nextId;  // The next Id to assign to a new product
-    
-     /**
-     * Creates a Product File Data Access Object
-     * 
-     * @param filename Filename to read from and write to
-     * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
-     * 
-     * @throws IOException when file cannot be accessed or read from
-     */
-    public InventoryFileDao(@Value("${inventory.file}") String filename,ObjectMapper objectMapper) throws IOException {
-        this.filename = filename;
-        this.objectMapper = objectMapper;
-        load();  // load the products from the file
-    }
-
-    /**
-     * Generates the next id for a new {@linkplain Product product}
-     * 
-     * @return The next id
-     */
-    private synchronized static int nextId() {
-        int id = nextId;
-        ++nextId;
-        return id;
-    }
-
     /**
      * Saves the {@linkplain Product products} from the map into the file as an array of JSON objects
      * 
@@ -105,8 +109,6 @@ public class InventoryFileDao implements InventoryDao {
         Product[] productArray = getProductsArray();
 
         // Serializes the Java Objects to JSON objects into the file
-        // writeValue will thrown an IOException if there is an issue
-        // with the file or reading from the file
         objectMapper.writeValue(new File(filename),productArray);
         return true;
     }
@@ -124,9 +126,7 @@ public class InventoryFileDao implements InventoryDao {
         products = new TreeMap<>();
         nextId = 0;
 
-        // Deserializes the JSON objects from the file into an array of heroes
-        // readValue will throw an IOException if there's an issue with the file
-        // or reading from the file
+        // Deserializes the JSON objects from the file into an array of products
         Product[] productArray = objectMapper.readValue(new File(filename),Product[].class);
 
         // Add each hero to the tree map and keep track of the greatest id
@@ -153,6 +153,7 @@ public class InventoryFileDao implements InventoryDao {
         productsArrayList.toArray(productsArray);
         return productsArray;
     }
+
     /**
     ** {@inheritDoc}
      */
@@ -181,11 +182,16 @@ public class InventoryFileDao implements InventoryDao {
             }               
         }
 
+    /**
+    ** {@inheritDoc}
+     */
     @Override
     public Product createProduct(Product product) throws IOException {
         synchronized(products) {
-            products.put(product.getId(), product);
-            return product;
+            Product newProduct = new Product(nextId(),product.getName(),
+                                     product.getQuantity(),product.getPrice());
+            products.put(newProduct.getId(), newProduct);
+            return newProduct;
         }
     }
 }
