@@ -22,6 +22,7 @@ public class InventoryFileDao implements InventoryDao {
             else
                 return null;
         }
+    }
     
     /**
      * Creates a Inventory File Dao
