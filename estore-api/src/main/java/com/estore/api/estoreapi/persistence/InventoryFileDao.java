@@ -90,6 +90,7 @@ public class InventoryFileDao implements InventoryDao {
         synchronized(products) {
             if(products.containsKey(id)){
                 products.remove(id);
+                nextId--;
                 return save();
             }
             else{
@@ -191,6 +192,7 @@ public class InventoryFileDao implements InventoryDao {
             Product newProduct = new Product(nextId(),product.getName(),
                                      product.getQuantity(),product.getPrice());
             products.put(newProduct.getId(), newProduct);
+            save();
             return newProduct;
         }
     }
