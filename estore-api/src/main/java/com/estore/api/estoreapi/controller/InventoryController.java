@@ -58,10 +58,6 @@ public class InventoryController extends Controller {
         }
     }
     
-    private InventoryDao inventoryDao;
-    private static final Logger LOG = Logger.getLogger(Controller.class.getName());
-    
-    
      /**
      * Updates the {@linkplain Product product} with the provided {@linkplain Product product} object, if it exists
      * 
