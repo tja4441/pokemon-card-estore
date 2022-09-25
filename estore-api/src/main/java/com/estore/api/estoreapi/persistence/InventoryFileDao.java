@@ -1,15 +1,28 @@
 package com.estore.api.estoreapi.persistence;
-
-import java.io.IOException;
-import java.util.Map;
 import com.estore.api.estoreapi.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
+import java.util.Map;
+
 public class InventoryFileDao implements InventoryDao {
+
     Map<Integer, Product> products;
     private String filename;
     private ObjectMapper objectMapper;
 
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public Product getProduct(int id) throws IOException {
+        synchronized(products){
+            if(products.containsKey(id))
+                return products.get(id);
+            else
+                return null;
+        }
+    
     /**
      * Creates a Inventory File Dao
      * 
