@@ -9,27 +9,6 @@ import java.io.IOException;
  * @author Team Engenuity
  */
 public interface InventoryDao {
-    
-    /**
-     * Retreives a Product From storage with the given ID
-     * 
-     * @param id the id of the Product to get
-     * 
-     * @return A Product with the matching ID, null if no Product found
-     * 
-     * @throws IOException
-     */
-    Product getProduct(int id) throws IOException;
-
-    /**
-     * Saves the current State of the map to a file
-     * 
-     * @return If the objects were properly saved
-     * 
-     * @throws IOException
-     */
-    Boolean save() throws IOException;
-
     /**
      * Creates and Stores product
      * 
