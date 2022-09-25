@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import com.estore.api.estoreapi.model.Product;
 
-
-
 /**
  * Defines the interface mediating Product persistance
  * 
@@ -45,11 +43,21 @@ public interface InventoryDao {
     Product createProduct(Product product) throws IOException;
     
     /**
+     * Deletes a {@linkplain Product product} when given a product id
+     * 
+     * @param id the internal {@link Product product} identifier
+     * 
+     * @return true if {@link Product product} was deleted, false if product doesn't exist
+     * 
+     * @throws IOException if system encounters any situation that inhibits deletion
+     */
+    boolean deleteProduct(int id) throws IOException;
+
+    /**
      * Retrieves all products in the inventory
      * @return An array of product objects, may be empty
      * @throws IOException if an issue with storage
      */
     Product[] getProducts() throws IOException;
-
 }
 
