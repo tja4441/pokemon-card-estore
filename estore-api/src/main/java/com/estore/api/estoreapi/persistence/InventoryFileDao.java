@@ -11,13 +11,8 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-/**
- * 
- */
 @Component
 public class InventoryFileDao implements InventoryDao {
 
@@ -199,6 +194,9 @@ public class InventoryFileDao implements InventoryDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Product[] findProducts(String subString) throws IOException {
         synchronized(products) {

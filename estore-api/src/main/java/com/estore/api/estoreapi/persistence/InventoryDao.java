@@ -68,6 +68,6 @@ public interface InventoryDao {
      * their name
      * @throws IOException if it fails to access this information
      */
-    Product[] findProducts(String sunString) throws IOException;
+    Product[] findProducts(String subString) throws IOException;
 }
 

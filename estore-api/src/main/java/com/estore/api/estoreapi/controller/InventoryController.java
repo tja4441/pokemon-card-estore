@@ -168,12 +168,18 @@ public class InventoryController extends Controller {
         }
     }
 
+    /**
+     * Respongs to a get request for an array of products that contain a
+     * specified substring in their name property
+     * @param name the substring that is being searched for in products
+     * @return ResponseEntity with a status of OK with product
+     */
     @GetMapping("/")
     public ResponseEntity<Product[]> searchProducts(@RequestParam String name) {
         LOG.info("GET /products/?name="+name);
         try {
             Product[] products = inventoryDao.findProducts(name);
-            if (products == null) {
+            if (products.length == 0) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<Product[]>(products,HttpStatus.OK);
