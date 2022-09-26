@@ -13,9 +13,6 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-/**
- * 
- */
 @Component
 public class InventoryFileDao implements InventoryDao {
 
@@ -194,6 +191,19 @@ public class InventoryFileDao implements InventoryDao {
             products.put(newProduct.getId(), newProduct);
             save();
             return newProduct;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Product[] findProducts(String subString) throws IOException {
+        synchronized(products) {
+            Product[] productArray = products.values().stream()
+                .filter(product -> subString == null || product.getName().contains(subString))
+                .toArray(size -> new Product[size]);
+            return productArray;
         }
     }
 }

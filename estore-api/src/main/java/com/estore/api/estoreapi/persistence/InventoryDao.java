@@ -59,5 +59,15 @@ public interface InventoryDao {
      * @throws IOException if an issue with storage
      */
     Product[] getProducts() throws IOException;
+
+    /**
+     * Retrieves an array of all products that contain the substring parameter
+     * as a substring
+     * @param substring A substring of the products you are trying to find
+     * @return Returns a native array of Products that have the substring in
+     * their name
+     * @throws IOException if it fails to access this information
+     */
+    Product[] findProducts(String subString) throws IOException;
 }
 

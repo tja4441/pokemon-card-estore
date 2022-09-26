@@ -1,5 +1,5 @@
 /**
- * @author Gabriel Buxo
+ * @author Team E
  * This class was implemented as feature 1 of sprint 1 and has all information
  * that someone might need on an individual product
  */
@@ -47,7 +47,7 @@ public class Product {
         this.id = product.id;
         this.name = product.name;
         this.quantity = amount;
-        //todo: Determine if this is necessary
+        //TODO: Determine if this is necessary
     }
     
     /**
