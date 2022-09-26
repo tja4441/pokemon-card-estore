@@ -11,6 +11,8 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 /**
@@ -194,6 +196,16 @@ public class InventoryFileDao implements InventoryDao {
             products.put(newProduct.getId(), newProduct);
             save();
             return newProduct;
+        }
+    }
+
+    @Override
+    public Product[] findProducts(String subString) throws IOException {
+        synchronized(products) {
+            Product[] productArray = products.values().stream()
+                .filter(product -> subString == null || product.getName().contains(subString))
+                .toArray(size -> new Product[size]);
+            return productArray;
         }
     }
 }
