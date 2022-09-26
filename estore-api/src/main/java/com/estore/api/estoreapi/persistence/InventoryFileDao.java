@@ -143,13 +143,9 @@ public class InventoryFileDao implements InventoryDao {
      */
     @Override
     public Product[] getProducts() throws IOException {
-        ArrayList<Product> productsArrayList = new ArrayList<>();
-        for(Product p : products.values()){
-            productsArrayList.add(p);
+        synchronized(products){
+            return getProductsArray();
         }
-        Product[] productsArray = new Product[productsArrayList.size()];
-        productsArrayList.toArray(productsArray);
-        return productsArray;
     }
 
     /**
