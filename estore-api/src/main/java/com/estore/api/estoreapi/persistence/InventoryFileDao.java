@@ -69,7 +69,7 @@ public class InventoryFileDao implements InventoryDao {
         ArrayList<Product> productArrayList = new ArrayList<>();
 
         for (Product product : products.values()) {
-            if (containsText == null || product.getName().contains(containsText)) {
+            if (containsText == null || product.getName().toLowerCase().contains(containsText.toLowerCase())) {
                 productArrayList.add(product);
             }
         }
@@ -196,10 +196,7 @@ public class InventoryFileDao implements InventoryDao {
     @Override
     public Product[] findProducts(String subString) throws IOException {
         synchronized(products) {
-            Product[] productArray = products.values().stream()
-                .filter(product -> subString == null || product.getName().contains(subString))
-                .toArray(size -> new Product[size]);
-            return productArray;
+            return getProductsArray(subString);
         }
     }
 }
