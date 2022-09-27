@@ -20,7 +20,6 @@ public class InventoryFileDao implements InventoryDao {
     ObjectMapper objectMapper;          //Converts between Hero objects and JSON text file formats
     String filename;                    //Filename to read/write
     private static final Logger LOG = Logger.getLogger(InventoryFileDao.class.getName());
-    private static int nextId;  // The next Id to assign to a new product
 
     /**
      * Creates a Product File Data Access Object
@@ -34,17 +33,6 @@ public class InventoryFileDao implements InventoryDao {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();  // load the products from the file
-    }
-
-    /**
-     * Generates the next id for a new {@linkplain Product product}
-     * 
-     * @return The next id
-     */
-    private synchronized static int nextId() {
-        int id = nextId;
-        ++nextId;
-        return id;
     }
 
     /**
@@ -87,7 +75,6 @@ public class InventoryFileDao implements InventoryDao {
         synchronized(products) {
             if(products.containsKey(id)){
                 products.remove(id);
-                nextId--;
                 return save();
             }
             else{
@@ -122,7 +109,6 @@ public class InventoryFileDao implements InventoryDao {
      */
     private boolean load() throws IOException {
         products = new TreeMap<>();
-        nextId = 0;
 
         // Deserializes the JSON objects from the file into an array of products
         Product[] productArray = objectMapper.readValue(new File(filename),Product[].class);
@@ -130,11 +116,7 @@ public class InventoryFileDao implements InventoryDao {
         // Add each hero to the tree map and keep track of the greatest id
         for (Product product : productArray) {
             products.put(product.getId(),product);
-            if (product.getId() > nextId)
-                nextId = product.getId();
         }
-        // Make the next id one greater than the maximum from the file
-        ++nextId;
         return true;
     }
 
@@ -182,7 +164,7 @@ public class InventoryFileDao implements InventoryDao {
     @Override
     public Product createProduct(Product product) throws IOException {
         synchronized(products) {
-            Product newProduct = new Product(nextId(),product.getName(),
+            Product newProduct = new Product(nextID(),product.getName(),
                                      product.getQuantity(),product.getPrice());
             products.put(newProduct.getId(), newProduct);
             save();
@@ -197,6 +179,16 @@ public class InventoryFileDao implements InventoryDao {
     public Product[] findProducts(String subString) throws IOException {
         synchronized(products) {
             return getProductsArray(subString);
+        }
+    }
+
+    private int nextID() {
+        synchronized(products) {
+            int i = 1;
+            while(products.containsKey(i)) {
+                i++;
+            }
+            return i;
         }
     }
 }
