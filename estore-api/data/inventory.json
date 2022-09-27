@@ -1,1 +1,1 @@
-[{"id":1,"name":"Egg","quantity":5,"price":1.05},{"id":2,"name":"Apples","quantity":1,"price":20000.04},{"id":3,"name":"Banana","quantity":10,"price":2.04},{"id":4,"name":"Windows","quantity":200000,"price":0.0}]
+[{"id":1,"name":"Apple","quantity":5,"price":1.05},{"id":2,"name":"Pear","quantity":1,"price": 2.00},{"id":3,"name":"Strawberries","quantity":10,"price":4.50},{"id":4,"name":"Grapes","quantity":40,"price":3.99},{"id":5,"name":"Eggs","quantity":65,"price":2.99},{"id":6,"name":"Blueberries","quantity":200000,"price":3.99}]
