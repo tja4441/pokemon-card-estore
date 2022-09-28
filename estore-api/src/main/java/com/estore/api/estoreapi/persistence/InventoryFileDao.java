@@ -136,10 +136,11 @@ public class InventoryFileDao implements InventoryDao {
     @Override
     public Product updateProduct(Product product) throws IOException {
         synchronized(products) {
-            if (products.containsKey(product.getId()) == false){
-                return null;  // product does not exist
+            if (products.containsKey(product.getId()) == false || 
+                product.getQuantity() < 0 || 
+                product.getPrice() < 0.00){
+                    return null;  // product does not exist, or price/quantity is negative
             }
-
             int i = 1;
             Boolean sameName = false;
             do { //checks if the product update has the same name as an existing product
@@ -179,6 +180,9 @@ public class InventoryFileDao implements InventoryDao {
         synchronized(products) {
             Product newProduct = new Product(nextID(),product.getName(),
                                      product.getQuantity(),product.getPrice());
+            if (newProduct.getQuantity() < 0 || newProduct.getPrice() < 0.00) {
+                return null;    // product quantity/price is negative
+            }
             for (Product other : products.values()) {
                 if(newProduct.equals(other)){
                     return null;
