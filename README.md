@@ -1,7 +1,7 @@
-# E-Store:  _____ _replace with your particular store type_ _____
+# E-Store:  THE Pokemon Card Store
 # Modify this document to expand any and all sections that are applicable for a better understanding from your users/testers/collaborators (remove this comment and other instructions areas for your FINAL release)
 
-An online E-store system built in Java 8=>11 and ___ _replace with other platform requirements_ ___
+An online E-store system built in JDK 17.0.4.1, Rest API, and Angular web service.
   
 ## Team
 
@@ -18,21 +18,55 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
 - Maven 3.8.6
 - Node.js 16.17.0
 - NPM 8.19.1
--  _add any other tech stack requirements_
 
 
 ## How to run it
 
-1. Clone the repository and go to the root directory.
+1. Clone the repository and go to the estore-api directory.
 2. Execute `mvn compile exec:java`
 3. Open in your browser `http://localhost:8080/`
-4.  _add any other steps required or examples of how to use/run_
+4. Going to `http://localhost:8080/products` in your browser will show all products in inventory
+5. Open powershell(windows) or open terminal(mac/linux)
+6. Use cURL instructions to interact with inventory
+
+## Example cURL instructions
+
+### WINDOWS:
+- Curl.exe -X GET 'http://localhost:8080/products'
+    - This gives full list of products
+
+- Curl.exe -X POST 'http://localhost:8080/products' -H 'Content-Type: application/json' -d '{\"name\": \"Tangerine\",\"quantity\":\"1000\", \"price\":\"2.00\"}'
+    - This makes a product
+
+- Curl.exe -X GET 'http://localhost:8080/products/?name=an’
+    - This searches the inventory
+
+- Curl.exe -X PUT 'http://localhost:8080/products' -H 'Content-Type: application/json' -d '{\"id\": \"7\",\"name\": \"Tangerine\",\"quantity\":\"35\", \"price\":\"2.00\"}'
+    - This overrides an inventory item
+
+- Curl.exe -X DELETE 'http://localhost:8080/products/8'
+    - This deletes an inventory item
+
+### MAC/LINUX:
+- Curl -X GET 'http://localhost:8080/products'
+    - This gives full list of products
+
+- Curl -X POST 'http://localhost:8080/products' -H 'Content-Type: application/json' -d '{"name": "Tangerine","quantity":"1000", "price":"2.00"}'
+    - This makes a product
+
+- Curl -X GET 'http://localhost:8080/products/?name=an’
+    - This searches the inventory
+
+- Curl -X PUT 'http://localhost:8080/products' -H 'Content-Type: application/json' -d '{"id": "7","name": "Tangerine","quantity":"35", "price":"2.00"}'
+    - This overrides an inventory item
+
+- Curl -X DELETE 'http://localhost:8080/products/8'
+    - This deletes an inventory item
+
+
 
 ## Known bugs and disclaimers
-(It may be the case that your implementation is not perfect.)
-
-Document any known bug or nuisance.
-If any shortcomings, make clear what these are and where they are located.
+- no known bugs at this time!
 
 ## How to test it
 
