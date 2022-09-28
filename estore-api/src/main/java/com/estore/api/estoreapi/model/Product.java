@@ -110,7 +110,7 @@ public class Product {
             return false;
         }
         Product otherProduct = (Product) other;
-        if(this.id == otherProduct.id) {
+        if(this.name.toLowerCase().equals(otherProduct.name.toLowerCase())) {
             return true;
         }
         else {

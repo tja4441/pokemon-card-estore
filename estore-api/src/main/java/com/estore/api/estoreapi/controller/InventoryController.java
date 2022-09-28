@@ -1,6 +1,6 @@
 package com.estore.api.estoreapi.controller;
 /**
- * Handles the REST API requests for the Hero resource
+ * Handles the REST API requests for the Product resource
  * <p>
  * {@literal @}RestController Spring annotation identifies this class as a REST API
  * method handler to the Spring framework
@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.persistence.InventoryDao;
+
+import ch.qos.logback.core.joran.conditional.ElseAction;
 
 @RestController
 @RequestMapping("products")
@@ -70,22 +72,23 @@ public class InventoryController extends Controller {
      /**
      * Updates the {@linkplain Product product} with the provided {@linkplain Product product} object, if it exists
      * 
-     * @param hero The {@link Product product} to update
+     * @param product The {@link Product product} to update
      * 
-     * @return ResponseEntity with updated {@link Product product} object and HTTP status of OK if updated<br>
-     * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
+     * @return ResponseEntity with updated {@link Product product} object and HTTP status of OK if updated
+     * ResponseEntity with HTTP status of CONFLICT if not found or update to product not valid
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PutMapping("")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
-        LOG.info("PUT /inventory " + product);
+        LOG.info("PUT /products " + product);
 
         try {
             Product p = inventoryDao.updateProduct(product);
-            if (p != null)
+            if (p != null){
             return new ResponseEntity<Product>(p,HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
     }
     catch(IOException e) {
         LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -159,7 +162,7 @@ public class InventoryController extends Controller {
                 return new ResponseEntity<Product>(newProduct, HttpStatus.CREATED);
             }
             else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
         }
         catch(IOException e) {

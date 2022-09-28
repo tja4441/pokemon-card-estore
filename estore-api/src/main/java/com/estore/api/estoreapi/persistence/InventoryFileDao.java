@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class InventoryFileDao implements InventoryDao {
 
     Map<Integer,Product> products;      // provides a local cache of the product objects
-    ObjectMapper objectMapper;          //Converts between Hero objects and JSON text file formats
+    ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
     String filename;                    //Filename to read/write
     private static final Logger LOG = Logger.getLogger(InventoryFileDao.class.getName());
 
@@ -99,7 +99,7 @@ public class InventoryFileDao implements InventoryDao {
     }
 
     /**
-     * Loads {@linkplain Hero heroes} from the JSON file into the map
+     * Loads {@linkplain Product products} from the JSON file into the map
      * <br>
      * Also sets next id to one more than the greatest id found in the file
      * 
@@ -113,7 +113,7 @@ public class InventoryFileDao implements InventoryDao {
         // Deserializes the JSON objects from the file into an array of products
         Product[] productArray = objectMapper.readValue(new File(filename),Product[].class);
 
-        // Add each hero to the tree map and keep track of the greatest id
+        // Add each product to the tree map and keep track of the greatest id
         for (Product product : productArray) {
             products.put(product.getId(),product);
         }
@@ -136,8 +136,21 @@ public class InventoryFileDao implements InventoryDao {
     @Override
     public Product updateProduct(Product product) throws IOException {
         synchronized(products) {
-            if (products.containsKey(product.getId()) == false)
+            if (products.containsKey(product.getId()) == false){
                 return null;  // product does not exist
+            }
+
+            int i = 1;
+            Boolean sameName = false;
+            do { //checks if the product update has the same name as an existing product
+                sameName = product.equals(products.get(i)) &&
+                            product.getId() != products.get(i).getId();
+                i++;
+            } while (!sameName.equals(true) && i <= products.size());
+
+            if(sameName.equals(true)){ //if a product with the same name exists, reject the update
+                return null;
+            }
 
             products.put(product.getId(),product);
             save(); // may throw an IOException
@@ -166,6 +179,11 @@ public class InventoryFileDao implements InventoryDao {
         synchronized(products) {
             Product newProduct = new Product(nextID(),product.getName(),
                                      product.getQuantity(),product.getPrice());
+            for (Product other : products.values()) {
+                if(newProduct.equals(other)){
+                    return null;
+                }
+            }
             products.put(newProduct.getId(), newProduct);
             save();
             return newProduct;
