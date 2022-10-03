@@ -21,7 +21,7 @@ public class User {
      * @param userName The username of the User
      */
     public User( @JsonProperty("id") int id, 
-                    @JsonProperty("UserName") String userName ){    //TODO shopping cart in the constructor once the shopping class is created
+                    @JsonProperty("UserName") String userName ){    //TODO put shopping cart in the constructor once the shopping cart class is created
         this.id = id;
         this.userName = userName;
         //TODO Shopping Cart
@@ -29,8 +29,9 @@ public class User {
 
     /**
      * Create a Admin with an id of 0 and a username of "Admin"
+     * (The Admin wont have a shopping cart)
      */
-    public User(){      
+    public User(){                          
         this.id = 0;
         this.userName = "Admin";
     }
