@@ -44,6 +44,11 @@ public class ShoppingCart {
         this.cartSet.remove(product);
     }
 
+    public void updateProductInCart(Product product) {
+        this.cartSet.remove(product);
+        this.cartSet.add(product);
+    }
+
     /**
      * Gets Num of Products of Cart
      * 
@@ -52,8 +57,11 @@ public class ShoppingCart {
     public int size() {
         return this.cartSet.size();
     }
+    
 
-    //TODO: Checkout Method
+    public void checkout() {
+        //TODO: Checkout Method
+    }
 
     /**
      * Formats Shopping Cart as a String
