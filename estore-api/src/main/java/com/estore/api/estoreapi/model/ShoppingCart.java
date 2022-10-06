@@ -27,6 +27,15 @@ public class ShoppingCart {
     }
 
     /**
+     * Getter for the set representing the cart, only for testing purposes
+     * 
+     * @return cartSet
+     */
+    public HashSet<Product> getCartSet() {
+        return cartSet;
+    }
+
+    /**
      * Adds Product to Cart
      * 
      * @param product
@@ -44,9 +53,16 @@ public class ShoppingCart {
         this.cartSet.remove(product);
     }
 
-    public void updateProductInCart(Product product) {
-        this.cartSet.remove(product);
-        this.cartSet.add(product);
+
+    /**
+     * Updates Old Product into New Product
+     * 
+     * @param oldP The Old Product
+     * @param newP The New Product
+     */
+    public void updateProductInCart(Product oldP, Product newP) {
+        this.cartSet.remove(oldP);
+        this.cartSet.add(newP);
     }
 
     /**
