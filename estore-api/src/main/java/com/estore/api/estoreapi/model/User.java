@@ -9,12 +9,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class User {
 
-    static final String STRING_FORMAT = "User [id=%d, UserName=%s, cart=%s]"; 
+    static final String STRING_FORMAT = "User [id=%d, UserName=%s]"; // TODO add shopping cart to string format 
 
 
     @JsonProperty("id") private int id;
     @JsonProperty("UserName") private String userName;
-    @JsonProperty("ShoppingCart") private ShoppingCart cart;
      
     /**
      * Create a user with the given id and username
@@ -22,11 +21,10 @@ public class User {
      * @param userName The username of the User
      */
     public User( @JsonProperty("id") int id, 
-                    @JsonProperty("UserName") String userName,
-                    @JsonProperty("ShoppingCart") ShoppingCart cart) {
+                    @JsonProperty("UserName") String userName ){    //TODO put shopping cart in the constructor once the shopping cart class is created
         this.id = id;
         this.userName = userName;
-        this.cart = cart;
+        //TODO Shopping Cart
     }
 
     /**
@@ -68,6 +66,6 @@ public class User {
      * {@inheritDoc}
      */
     @Override
-    public String toString() {return String.format(STRING_FORMAT,id,userName,cart);}
+    public String toString() {return String.format(STRING_FORMAT,id,userName);}
 
 }
