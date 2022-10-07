@@ -1,5 +1,12 @@
 package com.estore.api.estoreapi.controller;
-
+/**
+ * Handles the REST API requests for the User
+ * <p>
+ * {@literal @}RestController Spring annotation identifies this class as a REST API
+ * method handler to the Spring framework
+ * 
+ * @author Team E
+ */
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,16 +27,17 @@ public class UserController extends Controller {
     }
 
     public ResponseEntity<User> createUser(){
-
+        return null;
     }
 
     public ResponseEntity<User> getUser(){
-        
+        return null;
     }
 
-    
+
         
-    }
+    
 
 
 }
+

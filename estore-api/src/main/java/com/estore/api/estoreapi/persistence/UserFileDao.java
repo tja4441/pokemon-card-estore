@@ -2,6 +2,7 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -51,12 +52,23 @@ public class UserFileDao implements UserDao {
         return true;
     }
 
+    public ArrayList<User> getUserArrayList(){
+        return new ArrayList<User>(users.values());
+    }
+
+
     /**
      * {@inheritDoc}
      */
     @Override
     public User getUser(String userName) throws IOException {
-        // TODO Auto-generated method stub
+        synchronized(users){
+            for(User user: getUserArrayList()){
+                if(user.getUserName() == userName){
+                    return user;
+                }
+            }   
+        }
         return null;
     }
 
@@ -66,6 +78,9 @@ public class UserFileDao implements UserDao {
     @Override
     public User createUser(User user) throws IOException {
         // TODO Auto-generated method stub
+        synchronized(users) {
+
+        }
         return null;
     }
     /**
