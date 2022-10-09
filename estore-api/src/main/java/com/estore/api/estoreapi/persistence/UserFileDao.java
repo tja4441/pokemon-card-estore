@@ -8,13 +8,16 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 
 /**
  * 
  */
+@Component
 public class UserFileDao implements UserDao {
 
     Map<Integer,User> users;            // provides a local cache of the User objects
@@ -32,8 +35,10 @@ public class UserFileDao implements UserDao {
                         ObjectMapper objectMapper )throws IOException{
         this.filename = filename;
         this.objectMapper = objectMapper;
+        
         load();
     }
+
     /**
      * 
      * @return
@@ -49,13 +54,44 @@ public class UserFileDao implements UserDao {
         for (User user : usersArray) {
             users.put(user.getId(),user);
         }
+        init();
         return true;
     }
 
-    public ArrayList<User> getUserArrayList(){
-        return new ArrayList<User>(users.values());
+    private void init() throws IOException{
+        if(users.size() == 0 ){
+            users.put(0,new User(0,"admin", null));
+            save();
+        }
     }
 
+    private boolean save() throws IOException {
+        User[] userArray = getUsersArray();
+
+        // Serializes the Java Objects to JSON objects into the file
+        objectMapper.writeValue(new File(filename),userArray);
+        return true;
+    }
+
+    
+    private User[] getUsersArray() {
+        return getUsersArray(null);
+    }
+
+   
+    private User[] getUsersArray(String containsText) { // if containsText == null, no filter
+        ArrayList<User> usersArrayList = new ArrayList<>();
+
+        for (User user : users.values()) {
+            if (containsText == null || user.getUserName().contains(containsText)) {
+                usersArrayList.add(user);
+            }
+        }
+
+        User[] usersArray = new User[usersArrayList.size()];
+        usersArrayList.toArray(usersArray);
+        return usersArray;
+    }
 
     /**
      * {@inheritDoc}
@@ -63,13 +99,14 @@ public class UserFileDao implements UserDao {
     @Override
     public User getUser(String userName) throws IOException {
         synchronized(users){
-            for(User user: getUserArrayList()){
-                if(user.getUserName() == userName){
-                    return user;
-                }
-            }   
-        }
-        return null;
+            if(users.size() != 0){
+                User[] user = getUsersArray(userName);
+                return user[0];
+            }else{
+                return null;
+            }
+         }
+            
     }
 
     /**
@@ -77,11 +114,29 @@ public class UserFileDao implements UserDao {
      */
     @Override
     public User createUser(User user) throws IOException {
-        // TODO Auto-generated method stub
         synchronized(users) {
+            User newUser = new User(nextID(),user.getUserName(),new ShoppingCart());
+            for (User other : users.values()) {
+                if(user.equals(other)){
+                    return null;
+                }
+            }
+            users.put(user.getId(), newUser);
+            save();
+            return newUser;
 
         }
-        return null;
+    }
+
+
+     /**
+     * *{@inheritDoc}
+     */
+    @Override
+    public User[] getUsers() throws IOException {
+        synchronized(users){
+            return getUsersArray();
+        }
     }
     /**
      * 

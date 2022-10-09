@@ -23,6 +23,11 @@ public interface UserDao {
      */
     User createUser(User user) throws IOException;
 
-    
+    /**
+     * 
+     * @return
+     * @throws IOException
+     */
+    User[] getUsers() throws IOException;
     
 }

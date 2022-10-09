@@ -33,10 +33,10 @@ public class User {
      * Create a Admin with an id of 0 and a username of "Admin"
      * (The Admin wont have a shopping cart)
      */
-    public User(){                          
-        this.id = 0;
-        this.userName = "Admin";
-    }
+    //public User(){                          
+       // this.id = 0;
+       // this.userName = "Admin";
+   // }
 
     /**
      * Retrieves the id of the User
@@ -62,7 +62,7 @@ public class User {
      * @return True if the user is admin
      *         False if the user is not an admin
      */
-    public Boolean isAdmin(){return this.id == 0 && this.userName == "Admin";}
+    public Boolean isAdmin(){return this.id == 0 && this.userName == "admin" && this.cart == null;}
 
     /**
      * {@inheritDoc}
@@ -70,4 +70,20 @@ public class User {
     @Override
     public String toString() {return String.format(STRING_FORMAT,id,userName,cart);}
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object other){
+        if (!(other instanceof User)) {
+            return false;
+        }
+        User otherUser = (User) other;
+        if(this.userName.toLowerCase().equals(otherUser.userName.toLowerCase())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
