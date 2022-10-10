@@ -51,6 +51,12 @@ public class User {
     public String getUserName() {return userName;}
 
     /**
+     * 
+     * @return
+     */
+    public ShoppingCart getShoppingCart(){return this.cart;}
+
+    /**
      * Sets the username of the User
      * @param userName The username of the User
      */

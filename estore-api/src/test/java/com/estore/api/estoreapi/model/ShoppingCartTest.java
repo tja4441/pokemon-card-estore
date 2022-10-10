@@ -1,4 +1,4 @@
-package com.estore.api.estoreapi.java.model;
+package com.estore.api.estoreapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,9 +6,6 @@ import java.util.HashSet;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import com.estore.api.estoreapi.model.Product;
-import com.estore.api.estoreapi.model.ShoppingCart;
 
 @Tag("Model-Tier")
 public class ShoppingCartTest {
