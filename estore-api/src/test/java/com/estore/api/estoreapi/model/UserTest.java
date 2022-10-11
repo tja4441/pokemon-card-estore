@@ -57,6 +57,10 @@ public class UserTest {
         assertEquals(expected_String, actual_string);
     }
 
+    //TODO Another test to test isAdmin
+
+    
+
 
 
 

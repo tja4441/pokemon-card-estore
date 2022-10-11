@@ -85,7 +85,7 @@ public class InventoryController extends Controller {
         try {
             Product p = inventoryDao.updateProduct(product);
             if (p != null){
-            return new ResponseEntity<Product>(p,HttpStatus.OK);
+            return new ResponseEntity<Product>(p,HttpStatus.OK).;
             }else{
             return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
