@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.persistence.InventoryDao;
 
-import ch.qos.logback.core.joran.conditional.ElseAction;
-
 @RestController
 @RequestMapping("products")
 public class InventoryController extends Controller {

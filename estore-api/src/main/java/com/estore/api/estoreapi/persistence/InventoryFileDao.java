@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 public class InventoryFileDao implements InventoryDao {
 
     Map<Integer,Product> products;      // provides a local cache of the product objects
-    ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
-    String filename;                    //Filename to read/write
+    private ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
+    private String filename;                    //Filename to read/write
     private static final Logger LOG = Logger.getLogger(InventoryFileDao.class.getName());
 
     /**
@@ -124,7 +124,7 @@ public class InventoryFileDao implements InventoryDao {
      * *{@inheritDoc}
      */
     @Override
-    public Product[] getProducts() throws IOException {
+    public Product[] getProducts() {
         synchronized(products){
             return getProductsArray();
         }
@@ -138,7 +138,8 @@ public class InventoryFileDao implements InventoryDao {
         synchronized(products) {
             if (products.containsKey(product.getId()) == false || 
                 product.getQuantity() < 0 || 
-                product.getPrice() < 0.00){
+                product.getPrice() < 0.00 ||
+                product.getName().isBlank()){
                     return null;  // product does not exist, or price/quantity is negative
             }
             int i = 1;
@@ -163,7 +164,7 @@ public class InventoryFileDao implements InventoryDao {
      ** {@inheritDoc}
      */
     @Override
-    public Product getProduct(int id) throws IOException {
+    public Product getProduct(int id) {
         synchronized(products){
             if(products.containsKey(id))
                 return products.get(id);
@@ -180,8 +181,8 @@ public class InventoryFileDao implements InventoryDao {
         synchronized(products) {
             Product newProduct = new Product(nextID(),product.getName(),
                                      product.getQuantity(),product.getPrice());
-            if (newProduct.getQuantity() < 0 || newProduct.getPrice() < 0.00) {
-                return null;    // product quantity/price is negative
+            if (newProduct.getQuantity() < 0 || newProduct.getPrice() < 0.00 || product.getName().isBlank()) {
+                return null;    // product quantity/price is negative or name is blank
             }
             for (Product other : products.values()) {
                 if(newProduct.equals(other)){
@@ -198,7 +199,7 @@ public class InventoryFileDao implements InventoryDao {
      * {@inheritDoc}
      */
     @Override
-    public Product[] findProducts(String subString) throws IOException {
+    public Product[] findProducts(String subString) {
         synchronized(products) {
             return getProductsArray(subString);
         }
