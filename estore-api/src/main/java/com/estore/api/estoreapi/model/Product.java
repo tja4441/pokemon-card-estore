@@ -94,11 +94,7 @@ public class Product {
      */
     @Override
     public String toString(){
-        String output = "Product{" +
-            "id: " + this.id + "\n" +
-            "name: " + this.name + "\n" +
-            "quantity: " + this.quantity + "\n" + "}";
-        return output;
+        return String.format(STRING_FORMAT,id,name,quantity,price);
     }
 
     /**

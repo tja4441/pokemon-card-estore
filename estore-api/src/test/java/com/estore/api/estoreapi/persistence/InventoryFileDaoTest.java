@@ -3,6 +3,10 @@ package com.estore.api.estoreapi.persistence;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -43,14 +47,12 @@ public class InventoryFileDaoTest {
 
         // When the object mapper is supposed to read from the file
         // the mock object mapper will return the Product array above
-        when(mockObjectMapper
-            .readValue(new File("Charmander-Is-Better.txt"),Product[].class))
-                .thenReturn(testProducts);
-        inventoryFileDao = new InventoryFileDao("Pikachu-Supremacy.txt",mockObjectMapper);
+        when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"),Product[].class)).thenReturn(testProducts);
+        inventoryFileDao = new InventoryFileDao("Charmander_Is_Better.txt",mockObjectMapper);
     }
 
     @Test
-    public void testGetProducts() throws IOException {
+    public void testGetProducts() {
         // Invoke
         Product[] products = inventoryFileDao.getProducts();
 
@@ -63,7 +65,7 @@ public class InventoryFileDaoTest {
     }
 
     @Test
-    public void testFindProducts() throws IOException {
+    public void testFindProducts() {
         // Invoke
         Product[] products = inventoryFileDao.findProducts("l");
         
@@ -74,7 +76,7 @@ public class InventoryFileDaoTest {
     }
 
     @Test
-    public void testGetProduct() throws IOException {
+    public void testGetProduct() {
         // Invoke
         Product product = inventoryFileDao.getProduct(2);
 
@@ -112,54 +114,113 @@ public class InventoryFileDaoTest {
     }
 
     @Test
-    public void testUpdateProduct() {
+    public void testUpdateProduct() throws IOException {
         // Setup
-        //Product product = 
+        Product product = inventoryFileDao.createProduct(new Product(4,"Wartortle",1,10.00f));
+
+        // Invoke
+        Product result = assertDoesNotThrow(() -> inventoryFileDao.updateProduct(product),
+                                "Unexpected exception thrown - Squirtle didn't evolve");
+        
+        // Analyze
+        assertNotNull(result);
+        Product actual = inventoryFileDao.getProduct(product.getId());
+        assertEquals(actual,product);
     }
 
     @Test
-    public void testSaveException() {
+    public void testSaveException() throws IOException {
+        doThrow(new IOException()).when(mockObjectMapper)
+            .writeValue(any(File.class),any(Product[].class));
+        
+        Product product = new Product(6, "Raichu",1,20.00f);
 
+        assertThrows(IOException.class,
+                        () -> inventoryFileDao.createProduct(product),
+                        "IOException not thrown");
     }
 
     @Test
     public void testGetProductNotFound() {
+        // Invoke
+        Product product = inventoryFileDao.getProduct(10);
 
+        // Analyze
+        assertEquals(product,null);
     }
 
     @Test
     public void testDeleteProductNotFound() {
+        // Invoke
+        boolean result = assertDoesNotThrow(() -> inventoryFileDao.deleteProduct(10),
+                             "Unexpected exception thrown - product doesn't exist");
 
+        // Analyze
+        assertEquals(result,false);
+        assertEquals(inventoryFileDao.products.size(),testProducts.length);
     }
 
     @Test
-    public void testUpdateProductNotFound() {
+    public void testUpdateProductNotFound() throws IOException {
+        // Setup
+        Product product = new Product(10, "Lucario",1,20.00f);
 
+        // Invoke
+        Product result = assertDoesNotThrow(() -> inventoryFileDao.updateProduct(product),
+                                                "Unexpected exception thrown - lucario was trying to go to id 10");
+
+        // Analyze
+        assertNull(result);
     }
 
     @Test
-    public void testCreateProductSameName(){
+    public void testCreateProductSameName() throws IOException {
+        // Invoke
+        Product product = inventoryFileDao.createProduct(new Product(11, "Charmander",1,50.05f));
 
+        // Analyze
+        assertNull(product);
     }
 
     @Test
-    public void testCreateProductSpaceAsName(){
+    public void testCreateProductSpaceAsName() throws IOException {
+        // Invoke
+        Product product = inventoryFileDao.createProduct(new Product(8, " ",1,50.05f));
 
+        // Analyze
+        assertNull(product);
     }
 
     @Test
-    public void testCreateProductNegativePrice(){
+    public void testCreateProductNegativePrice() throws IOException {
+        // Invoke
+        Product product = inventoryFileDao.createProduct(new Product(8, "Clefairy",1,-50.05f));
 
+        // Analyze
+        assertNull(product);
     }
 
     @Test
-    public void testCreateProductNegativeID(){
+    public void testCreateProductNegativeQuantity() throws IOException {
+        // Invoke
+        Product product = inventoryFileDao.createProduct(new Product(8, "Clefairy",-2,50.05f));
 
+        // Analyze
+        assertNull(product);
     }
 
     @Test
     public void testConstructorException() throws IOException {
+        // Setup
+        ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
 
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .readValue(new File("Ash_Ketchum.txt"),Product[].class);
+        
+        // Invoke & Analyze
+        assertThrows(IOException.class,
+                        () -> new InventoryFileDao("Ash_Ketchum.txt",mockObjectMapper),
+                        "IOException not thrown");
     }
-    
 }
