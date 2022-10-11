@@ -58,6 +58,14 @@ public class Product {
     }
 
     /**
+     * Sets the name of the product - necessary for JSON object to Java object deserialization
+     * @param name The name of the product
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
      * @return returns the name of this product
      */
     public String getName() {
@@ -72,7 +80,8 @@ public class Product {
     }
 
     /**
-     * @param quantity Sets the quantity of the product to the amount passed in
+     * Sets the quantity of the product - necessary for JSON object to Java object deserialization
+     * @param quantity The quantity of the product
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
@@ -83,6 +92,14 @@ public class Product {
      */
     public void changeQuantity(int quantity) {
         this.quantity += quantity;
+    }
+
+    /**
+     * Sets the price of the product - necessary for JSON object to Java object deserialization
+     * @param price The price of the product
+     */
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public float getPrice(){
