@@ -14,9 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 
-/**
- * 
- */
 @Component
 public class UserFileDao implements UserDao {
 
@@ -26,10 +23,12 @@ public class UserFileDao implements UserDao {
     private static final Logger LOG = Logger.getLogger(UserFileDao.class.getName());
     
     /**
+     * Creates a User File Data Access Object
      * 
-     * @param filename
-     * @param objectMapper
-     * @throws IOException
+     * @param filename Filename to read from and write to
+     * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
+     * 
+     * @throws IOException when file cannot be accessed or read from
      */
     public UserFileDao(@Value("${users.file}") String filename, 
                         ObjectMapper objectMapper )throws IOException{
@@ -39,10 +38,14 @@ public class UserFileDao implements UserDao {
         load();
     }
 
-    /**
+   /**
+     * Loads {@linkplain User user} from the JSON file into the map
      * 
-     * @return
-     * @throws IOException
+     * Also sets next id to one more than the greatest id found in the file
+     * 
+     * @return true if the file was read successfully
+     * 
+     * @throws IOException when file cannot be accessed or read from
      */
     private boolean load() throws IOException {
         users = new TreeMap<>();
@@ -57,14 +60,25 @@ public class UserFileDao implements UserDao {
         init();
         return true;
     }
-
+    /**
+     * Checks if the file contains {@linkplain User user} admin, intilizalizes it it doesnt
+     *  with an id of 0 and an empty cart
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     */
     private void init() throws IOException{
         if(users.size() == 0 ){
             users.put(0,new User(0,"admin", null));
             save();
         }
     }
-
+    /**
+     * Saves the {@linkplain User user} from the map into the file as an array of JSON objects
+     * 
+     * @return true if the {@link User user} were written successfully
+     * 
+     * @throws IOException when file cannot be accessed or written to
+     */
     private boolean save() throws IOException {
         User[] userArray = getUsersArray();
 
@@ -73,13 +87,25 @@ public class UserFileDao implements UserDao {
         return true;
     }
 
-    
+     /**
+     * Generates an array of {@linkplain User user} from the tree map
+     * 
+     * @return  The array of {@link User user}, may be empty
+     */
     private User[] getUsersArray() {
         return getUsersArray(null);
     }
 
-   
-    private User[] getUsersArray(String containsText) { // if containsText == null, no filter
+    /**
+     * Generates an array of {@linkplain User user} from the tree map for any
+     * {@linkplain User user} that contains the text specified by containsText
+     * 
+     * If containsText is null, the array contains all of the {@linkplain User user}
+     * in the tree map
+     * 
+     * @return  The array of {@link User user}, may be empty
+     */
+    private User[] getUsersArray(String containsText) { 
         ArrayList<User> usersArrayList = new ArrayList<>();
 
         for (User user : users.values()) {
@@ -101,6 +127,7 @@ public class UserFileDao implements UserDao {
         synchronized(users){
             if(users.size() != 0){
                 User[] user = getUsersArray(userName);
+                user[0].setLoginStatus();
                 return user[0];
             }else{
                 return null;
@@ -138,10 +165,7 @@ public class UserFileDao implements UserDao {
             return getUsersArray();
         }
     }
-    /**
-     * 
-     * @return
-     */
+   
     private int nextID() {
         synchronized(users) {
             int i = 1;

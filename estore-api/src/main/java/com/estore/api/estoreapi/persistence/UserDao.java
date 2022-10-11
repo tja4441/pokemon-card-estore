@@ -23,10 +23,10 @@ public interface UserDao {
      */
     User createUser(User user) throws IOException;
 
-    /**
-     * 
-     * @return
-     * @throws IOException
+   /**
+     * Retrieves all users in the inventory
+     * @return An array of user objects, may be empty
+     * @throws IOException if an issue with storage
      */
     User[] getUsers() throws IOException;
     

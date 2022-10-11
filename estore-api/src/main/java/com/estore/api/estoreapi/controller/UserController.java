@@ -29,12 +29,26 @@ public class UserController extends Controller {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDao userDao;
 
+    /**
+     * Creates a REST API controller to respond to requests
+     * 
+     * @param userDa0 The user data access object to perfom CRUD operations
+     */
     public UserController(UserDao userDao){
         this.userDao = userDao;
     }
 
+    /**
+     * Creates a {@linkplain User user} with the provided user
+     * 
+     * @param user - The {@link user user} to create
+     * 
+     * @return ResponseEntity with created {@link User user} object and HTTP status of CREATED<br>
+     * ResponseEntity with HTTP status of CONFLICT if {@link User user} object already exists<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
     @PostMapping("")
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<User> register(@RequestBody User user){
         LOG.info("POST /login" + user);
         try {
             User newUser = userDao.createUser(user);
@@ -50,9 +64,17 @@ public class UserController extends Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    /**
+     * Gets a {@linkplain User user} with the provided username
+     * 
+     * @param User - The {@link User user} to login
+     * 
+     * @return ResponseEntity with {@link User user} object and HTTP status of CREATED
+     * ResponseEntity with HTTP status of NOT_FOUND if not found
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
     @GetMapping("/{userName}")
-    public ResponseEntity<User> getUser(@PathVariable String userName){
+    public ResponseEntity<User> login(@PathVariable String userName){
         LOG.info("GET /login/" + userName);
         try {
             User user = userDao.getUser(userName);
@@ -66,7 +88,13 @@ public class UserController extends Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    /**
+     * Gets all {@linkplain User user} 
+     * 
+     * @return ResponseEntity with an array {@link User user} objects and HTTP status of OK
+     * ResponseEntity with HTTP status of Not_FOUND if {@link User user} object is null
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
     @GetMapping("")
     public ResponseEntity<User[]> getUsers(){
         
