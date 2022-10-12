@@ -17,9 +17,9 @@ import com.estore.api.estoreapi.model.User;
 @Component
 public class UserFileDao implements UserDao {
 
-    Map<Integer,User> users;            // provides a local cache of the User objects
-    ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
-    String filename;                    //Filename to read/write
+    private Map<Integer,User> users;            // provides a local cache of the User objects
+    private ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
+    private String filename;                    //Filename to read/write
     private static final Logger LOG = Logger.getLogger(UserFileDao.class.getName());
     
     /**
