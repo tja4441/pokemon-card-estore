@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 @RestController
-@RequestMapping("login")
+@RequestMapping("home")
 public class UserController extends Controller {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDao userDao;
@@ -49,7 +49,7 @@ public class UserController extends Controller {
      */
     @PostMapping("")
     public ResponseEntity<User> register(@RequestBody User user){
-        LOG.info("POST /login" + user);
+        LOG.info("POST /home" + user);
         try {
             User newUser = userDao.createUser(user);
             if (newUser != null) {
@@ -75,7 +75,7 @@ public class UserController extends Controller {
      */
     @GetMapping("/{userName}")
     public ResponseEntity<User> login(@PathVariable String userName){
-        LOG.info("GET /login/" + userName);
+        LOG.info("GET /home/" + userName);
         try {
             User user = userDao.getUser(userName);
             if(user != null){
@@ -95,7 +95,6 @@ public class UserController extends Controller {
      * ResponseEntity with HTTP status of Not_FOUND if {@link User user} object is null
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @GetMapping("")
     public ResponseEntity<User[]> getUsers(){
         
         try {

@@ -1,5 +1,6 @@
 package com.estore.api.estoreapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -11,13 +12,10 @@ public class User {
 
     static final String STRING_FORMAT = "User [id=%d, UserName=%s, cart=%s]"; 
 
-
     @JsonProperty("id") private int id;
     @JsonProperty("UserName") private String userName;
     @JsonProperty("ShoppingCart") private ShoppingCart cart;
-    private boolean loggedIn;
 
-     
     /**
      * Create a user with the given id and username
      * @param id The id of the User
@@ -29,17 +27,7 @@ public class User {
         this.id = id;
         this.userName = userName;
         this.cart = cart;
-        this.loggedIn = false;
     }
-
-    /**
-     * Create a Admin with an id of 0 and a username of "Admin"
-     * (The Admin wont have a shopping cart)
-     */
-    //public User(){                          
-       // this.id = 0;
-       // this.userName = "Admin";
-   // }
 
     /**
      * Retrieves the id of the User
@@ -54,9 +42,10 @@ public class User {
     public String getUserName() {return userName;}
 
     /**
-     * 
-     * @return
+     * Get the user's shopping cart
+     * @return the shopping cart associated with the user
      */
+    @JsonIgnore
     public ShoppingCart getShoppingCart(){return this.cart;}
 
     /**
@@ -71,6 +60,7 @@ public class User {
      * @return True if the user is admin
      *         False if the user is not an admin
      */
+    @JsonIgnore
     public Boolean isAdmin(){return this.id == 0 && this.userName == "admin" && this.cart == null;}
     
     /**
