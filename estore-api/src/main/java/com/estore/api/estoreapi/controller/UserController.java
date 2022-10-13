@@ -32,7 +32,7 @@ public class UserController extends Controller {
     /**
      * Creates a REST API controller to respond to requests
      * 
-     * @param userDa0 The user data access object to perfom CRUD operations
+     * @param userDao The user data access object to perfom CRUD operations
      */
     public UserController(UserDao userDao){
         this.userDao = userDao;
@@ -64,6 +64,7 @@ public class UserController extends Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     /**
      * Gets a {@linkplain User user} with the provided username
      * 
@@ -88,6 +89,7 @@ public class UserController extends Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
     /**
      * Gets all {@linkplain User user} 
      * 
@@ -111,12 +113,5 @@ public class UserController extends Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
-        
-    
-
-
 }
 
