@@ -96,4 +96,30 @@ public class UserControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
     
+    @Test
+    public void getUsers() throws IOException{
+        User[] users = {createTestUser(), new User(5, "Mary", null)};
+        when(mockUserDao.getUsers()).thenReturn(users);
+        ResponseEntity<User[]> response = userController.getUsers();
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(users, response.getBody());
+    }
+
+    @Test
+    public void getUsersNotFound() throws IOException{
+        when(mockUserDao.getUsers()).thenReturn(null);
+        ResponseEntity<User[]> response = userController.getUsers();
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    /**
+     * mimics trying to login as a non-existant user
+     * @throws IOException
+     */
+    @Test
+    public void getUsersHandlesException() throws IOException {
+        doThrow(new IOException()).when(mockUserDao).getUsers();
+        ResponseEntity<User[]> response = userController.getUsers();
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
 }
