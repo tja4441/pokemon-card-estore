@@ -1,1 +1,46 @@
-[{"id":1,"name":"Apple","quantity":5,"price":1.05},{"id":2,"name":"Pear","quantity":1,"price":2.0},{"id":3,"name":"Strawberries","quantity":10,"price":4.5},{"id":4,"name":"Grapes","quantity":40,"price":3.99},{"id":5,"name":"Eggs","quantity":65,"price":2.99},{"id":6,"name":"Blueberries","quantity":200000,"price":3.99},{"id":7,"name":"Tangerine","quantity":35,"price":2.0},{"id":8,"name":"Lemon","quantity":1,"price":1.99},{"id":9,"name":"Banana","quantity":30,"price":20.0}]
+[ {
+  "id" : 1,
+  "name" : "Pikachu",
+  "quantity" : 5,
+  "price" : 1.05
+}, {
+  "id" : 2,
+  "name" : "Bulbasaur",
+  "quantity" : 1,
+  "price" : 2.0
+}, {
+  "id" : 3,
+  "name" : "Charmander",
+  "quantity" : 10,
+  "price" : 4.5
+}, {
+  "id" : 4,
+  "name" : "Squirtle",
+  "quantity" : 40,
+  "price" : 3.99
+}, {
+  "id" : 5,
+  "name" : "Treecko",
+  "quantity" : 65,
+  "price" : 2.99
+}, {
+  "id" : 6,
+  "name" : "Mudkip",
+  "quantity" : 200000,
+  "price" : 3.99
+}, {
+  "id" : 7,
+  "name" : "Torchic",
+  "quantity" : 35,
+  "price" : 2.0
+}, {
+  "id" : 8,
+  "name" : "Magikarp",
+  "quantity" : 1,
+  "price" : 1.99
+}, {
+  "id" : 9,
+  "name" : "Ditto",
+  "quantity" : 30,
+  "price" : 20.0
+} ]
