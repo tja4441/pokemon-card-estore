@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 
@@ -33,7 +34,7 @@ public class UserFileDao implements UserDao {
     public UserFileDao(@Value("${users.file}") String filename, 
                         ObjectMapper objectMapper )throws IOException{
         this.filename = filename;
-        this.objectMapper = objectMapper;
+        this.objectMapper = objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         
         load();
     }
