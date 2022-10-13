@@ -60,7 +60,7 @@ public class UserTest {
     @Test
     public void testisAdmin(){
         int id = 0;
-        String userName = "Admin";
+        String userName = "admin";
 
         User user = new User(id, userName, null);
 
