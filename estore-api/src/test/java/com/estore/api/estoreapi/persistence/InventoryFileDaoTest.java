@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import com.estore.api.estoreapi.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
  * Test the Inventory File DAO class
@@ -48,6 +49,7 @@ public class InventoryFileDaoTest {
         // When the object mapper is supposed to read from the file
         // the mock object mapper will return the Product array above
         when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"),Product[].class)).thenReturn(testProducts);
+        when(mockObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockObjectMapper);
         inventoryFileDao = new InventoryFileDao("Charmander_Is_Better.txt",mockObjectMapper);
     }
 
@@ -213,6 +215,7 @@ public class InventoryFileDaoTest {
     public void testConstructorException() throws IOException {
         // Setup
         ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
+        when(mockObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockObjectMapper);
 
         doThrow(new IOException())
             .when(mockObjectMapper)
