@@ -9,7 +9,7 @@
     <input id="new-product" #productPrice />
 
     <button type="button" class="add-button"
-    (click)="add(productName.value, productQuantity.value, productPrice.value); productName.value=''">
+    (click)="add(productName.value, productQuantity.value, productPrice.value); productName.value=''; productPrice.value=0; productQuantity.value=0">
         Add product
     </button>
 </div>
