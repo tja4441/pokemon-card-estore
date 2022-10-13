@@ -1,6 +1,7 @@
 package com.estore.api.estoreapi.persistence;
 import com.estore.api.estoreapi.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.IOException;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class InventoryFileDao implements InventoryDao {
      */
     public InventoryFileDao(@Value("${inventory.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
-        this.objectMapper = objectMapper;
+        this.objectMapper = objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         load();  // load the products from the file
     }
 
