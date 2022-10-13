@@ -1,7 +1,9 @@
 package com.estore.api.estoreapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 /**
  * The unit test suite for the User Class
@@ -10,9 +12,20 @@ import org.junit.jupiter.api.Tag;
  */
 import org.junit.jupiter.api.Test;
 
+import com.estore.api.estoreapi.controller.InventoryController;
+import com.estore.api.estoreapi.persistence.InventoryDao;
+
 
 @Tag("Model-tier")
 public class UserTest {
+    private InventoryController inventoryController;
+    private InventoryDao mockInventoryDao;
+
+    @BeforeEach
+    public void setupInventoryController(){
+        mockInventoryDao = mock(InventoryDao.class);
+        inventoryController = new InventoryController(mockInventoryDao);
+    }
 
     @Test
     public void testAdminCtor(){
@@ -33,9 +46,9 @@ public class UserTest {
 
         int expected_id = 1;
         String expected_userName = "Zach";
-        ShoppingCart expected_ShoppingCart = new ShoppingCart();
+        ShoppingCart expected_ShoppingCart = new ShoppingCart(inventoryController);
         
-        User user = new User(expected_id,expected_userName, new ShoppingCart());
+        User user = new User(expected_id,expected_userName, new ShoppingCart(inventoryController));
 
         assertEquals(expected_id, user.getId());
         assertEquals(expected_userName, user.getUserName());
@@ -45,7 +58,7 @@ public class UserTest {
     public void testToString(){
         int id = 1;
         String userName = "Zach";
-        ShoppingCart shoppingCart = new ShoppingCart();
+        ShoppingCart shoppingCart = new ShoppingCart(inventoryController);
         Product Product = new Product(1, "Carrots", 50, 2.10f);
         shoppingCart.add(Product);
         String expected_String = String.format(User.STRING_FORMAT, id, userName, shoppingCart);

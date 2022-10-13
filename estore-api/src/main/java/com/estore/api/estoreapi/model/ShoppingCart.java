@@ -2,8 +2,6 @@ package com.estore.api.estoreapi.model;
 
 import java.util.HashSet;
 
-import org.springframework.web.client.RestTemplate;
-
 import com.estore.api.estoreapi.controller.InventoryController;
 
 /**
@@ -24,9 +22,9 @@ public class ShoppingCart extends HashSet<Product>{
      * @author Jensen Derosier
      */
     public ShoppingCart(InventoryController inventoryController) {
+        this.inventoryController = inventoryController;
         this.cartSet = new HashSet<Product>();
         this.totalPrice = 0.00f;
-        this.inventoryController = inventoryController;
     }
 
     /**
@@ -37,6 +35,7 @@ public class ShoppingCart extends HashSet<Product>{
      * @author Jensen Derosier
      */
     public ShoppingCart(HashSet<Product> cartSet, InventoryController inventoryController) {
+        this.inventoryController = inventoryController;
         this.cartSet = new HashSet<Product>(cartSet);
         calculateTotalPrice();
     }
@@ -110,7 +109,7 @@ public class ShoppingCart extends HashSet<Product>{
      * 
      * @return total price of the {@link ShoppingCart cart} just purchased
      * 
-     * @return the items from the {@link ShippingCart cart} that couldn't be purchased due to lack of inventory
+     * @return the items from the {@link ShoppingCart cart} that couldn't be purchased due to lack of inventory
      * 
      * @author Daniel Pittman
      */
@@ -122,7 +121,6 @@ public class ShoppingCart extends HashSet<Product>{
 
         for (Product product : cartSet) {             // For remaining items after refresh, do the checkout process
             if(product.getQuantity() - 1 < 0){
-                restTemplate = 
                 inventoryController.updateProduct(new Product(product.getId(), product.getName(),0,product.getPrice()));
             }
             else{
@@ -137,6 +135,7 @@ public class ShoppingCart extends HashSet<Product>{
 
         // wipe the contents of the cart now that checkout has been completed
         this.cartSet = new HashSet<Product>();
+        calculateTotalPrice();
 
         return returnables;
     }
@@ -169,7 +168,10 @@ public class ShoppingCart extends HashSet<Product>{
 
     public Product[] refreshCart() {
         Product[] changedProducts = new Product[this.size()];
-        //TODO : Create this cart refreshing method
+        
+       // for (Product product : Products) {
+            
+       // }
         return changedProducts;
     }
 

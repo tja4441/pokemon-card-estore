@@ -1,20 +1,34 @@
 package com.estore.api.estoreapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import java.util.HashSet;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import com.estore.api.estoreapi.controller.InventoryController;
+import com.estore.api.estoreapi.persistence.InventoryDao;
+
 @Tag("Model-Tier")
 public class ShoppingCartTest {
+    private InventoryController inventoryController;
+    private InventoryDao mockInventoryDao;
+
+    @BeforeEach
+    public void setupInventoryController(){
+        mockInventoryDao = mock(InventoryDao.class);
+        inventoryController = new InventoryController(mockInventoryDao);
+    }
+
     @Test
     public void testCtorParams() {
         HashSet<Product> expectedSet = new HashSet<Product>();
         expectedSet.add(new Product(1, "Carrots", 50, 2.30f));
 
-        ShoppingCart cart = new ShoppingCart(expectedSet);
+        ShoppingCart cart = new ShoppingCart(expectedSet,inventoryController);
 
         assertEquals(expectedSet, cart.getCartSet());
     }
@@ -23,7 +37,7 @@ public class ShoppingCartTest {
     public void testCtorNoParams() {
         HashSet<Product> expectedSet = new HashSet<Product>();
 
-        ShoppingCart cart = new ShoppingCart();
+        ShoppingCart cart = new ShoppingCart(expectedSet,inventoryController);
 
         assertEquals(expectedSet, cart.getCartSet());
     }
@@ -32,7 +46,7 @@ public class ShoppingCartTest {
     public void testAddProduct() {
         HashSet<Product> expectedSet = new HashSet<Product>();
         
-        ShoppingCart cart = new ShoppingCart(expectedSet);
+        ShoppingCart cart = new ShoppingCart(expectedSet,inventoryController);
 
         Product p = new Product(1, "Carrots", 50, 2.10f);
         expectedSet.add(p);
@@ -47,7 +61,7 @@ public class ShoppingCartTest {
         Product p = new Product(1, "Carrots", 50, 2.10f);
         expectedSet.add(p);
         
-        ShoppingCart cart = new ShoppingCart(expectedSet);
+        ShoppingCart cart = new ShoppingCart(expectedSet,inventoryController);
 
         expectedSet.remove(p);
         cart.removeFromCart(p);
@@ -62,7 +76,7 @@ public class ShoppingCartTest {
         Product newP = new Product(1, "Carrot", 25, 2f);
         expectedSet.add(newP);
         
-        ShoppingCart cart = new ShoppingCart();
+        ShoppingCart cart = new ShoppingCart(inventoryController);
         cart.addToCart(oldP);
         cart.updateProductInCart(oldP, newP);
 
@@ -75,7 +89,7 @@ public class ShoppingCartTest {
         Product p = new Product(1, "Carrots", 50, 2.10f);
         expectedSet.add(p);
         
-        ShoppingCart cart = new ShoppingCart(expectedSet);
+        ShoppingCart cart = new ShoppingCart(expectedSet,inventoryController);
 
         assertEquals(cart.size(), 1);
     }
