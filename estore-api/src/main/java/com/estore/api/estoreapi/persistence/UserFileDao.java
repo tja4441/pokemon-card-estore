@@ -67,10 +67,8 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     private void init() throws IOException{
-        if(users.size() == 0 ){
-            users.put(0,new User(0,"admin", null));
-            save();
-        }
+        users.put(0,new User(0,"admin", null));
+        save();
     }
     /**
      * Saves the {@linkplain User user} from the map into the file as an array of JSON objects
@@ -127,7 +125,6 @@ public class UserFileDao implements UserDao {
         synchronized(users){
             if(users.size() != 0){
                 User[] user = getUsersArray(userName);
-                user[0].setLoginStatus();
                 return user[0];
             }else{
                 return null;

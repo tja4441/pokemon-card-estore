@@ -72,23 +72,7 @@ public class User {
      *         False if the user is not an admin
      */
     public Boolean isAdmin(){return this.id == 0 && this.userName == "admin" && this.cart == null;}
-
-    /**
-     * Sets login status to true
-     */
-    public void setLoginStatus(){this.loggedIn = true;}
-
-    /**
-     * Sets the login status to false
-     */
-    public void setLogOutStatus(){this.loggedIn = false;}
-
-    /**
-     * Checks if the user is logged in
-     * @return True if the user is logged in
-     * False if the user is not logged in
-     */
-    public Boolean isLoggedIn(){return this.loggedIn;}
+    
     /**
      * {@inheritDoc}
      */
