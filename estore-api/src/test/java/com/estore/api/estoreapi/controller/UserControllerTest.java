@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
-import com.estore.api.estoreapi.persistence.InventoryDao;
 import com.estore.api.estoreapi.persistence.UserDao;
 
 @Tag("Controller-tier")
@@ -36,13 +35,8 @@ public class UserControllerTest {
     public void setupUserController(){
         mockUserDao = mock(UserDao.class);
         userController = new UserController(mockUserDao);
-        User testUser = createTestUser();
     }
 
-    /**
-     * 
-     * @throws IOException should not actually ever throw this exeption
-     */
     @Test
     public void testRegisterUser() throws IOException{
         User user = createTestUser();
@@ -84,10 +78,6 @@ public class UserControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    /**
-     * mimics trying to login as a non-existant user
-     * @throws IOException
-     */
     @Test
     public void testLoginHandlesException() throws IOException {
         String name = "Jeff";
@@ -112,10 +102,6 @@ public class UserControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    /**
-     * mimics trying to login as a non-existant user
-     * @throws IOException
-     */
     @Test
     public void getUsersHandlesException() throws IOException {
         doThrow(new IOException()).when(mockUserDao).getUsers();
