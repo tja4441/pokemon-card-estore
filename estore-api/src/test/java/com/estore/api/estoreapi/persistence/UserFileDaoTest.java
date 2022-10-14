@@ -18,7 +18,6 @@ import java.util.HashSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.estore.api.estoreapi.model.ShoppingCart;
