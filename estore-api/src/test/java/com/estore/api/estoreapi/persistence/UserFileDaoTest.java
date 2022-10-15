@@ -45,6 +45,8 @@ public class UserFileDaoTest {
      */
     @BeforeEach
     public void setupUserFileDao() throws IOException {
+        mockInventoryDao = mock(InventoryDao.class);
+        inventoryController = new InventoryController(mockInventoryDao);
 
         mockObjectMapper = mock(ObjectMapper.class);
 

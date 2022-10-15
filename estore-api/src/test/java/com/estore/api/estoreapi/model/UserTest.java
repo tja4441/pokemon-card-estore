@@ -84,7 +84,7 @@ public class UserTest {
     public void testnotAdmin(){
         int id = 1;
         String userName = "Zach";
-        ShoppingCart shoppingCart = new ShoppingCart();
+        ShoppingCart shoppingCart = new ShoppingCart(inventoryController);
         Product Product = new Product(1, "Carrots", 50, 2.10f);
         shoppingCart.add(Product);
         User user = new User(id, userName, shoppingCart);
