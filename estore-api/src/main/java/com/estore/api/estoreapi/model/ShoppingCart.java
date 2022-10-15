@@ -1,8 +1,10 @@
 package com.estore.api.estoreapi.model;
 
 import java.util.HashSet;
+import java.util.logging.Logger;
 
-import com.estore.api.estoreapi.controller.InventoryController;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
  * Class Representing a Shopping Cart
@@ -11,44 +13,65 @@ import com.estore.api.estoreapi.controller.InventoryController;
  * 
  * @author Daniel Pittman
  */
-public class ShoppingCart extends HashSet<Product>{
-    private HashSet<Product> cartSet;
-    private float totalPrice;
-    private InventoryController inventoryController;
+public class ShoppingCart {
+    private static final Logger LOG = Logger.getLogger(ShoppingCart.class.getName());
+    // Package private for tests
+    static final String STRING_FORMAT = "ShoppingCart [id=%d, contents=%s, totalPrice=%f]";
+
+    @JsonProperty("id") private int id;
+    @JsonProperty("contents") private HashSet<Product> contents;
+    @JsonProperty("totalPrice") private float totalPrice;
 
     /**
-     * Constructor with no Given Set, Returns Empty Shopping Cart
+     * Constructor with no Given Set and only an id, Returns Empty Shopping Cart
      * 
      * @author Jensen Derosier
      */
-    public ShoppingCart(InventoryController inventoryController) {
-        this.inventoryController = inventoryController;
-        this.cartSet = new HashSet<Product>();
+    public ShoppingCart(@JsonProperty("id") int id) {
+        this.id = id;
+        this.contents = new HashSet<Product>();
         this.totalPrice = 0.00f;
     }
 
     /**
-     * Constructor with Given Set, Returns Shopping Cart with items from Set
+     * Constructor with Given Set and id, Returns Shopping Cart with items from Set
      * 
-     * @param cartSet the set to base the Shopping Cart off of
+     * @param id the identification of the shopping cart, which should be the same id as the user it belongs to
+     * 
+     * @param contents the set to base the Shopping Cart off of
      * 
      * @author Jensen Derosier
      */
-    public ShoppingCart(HashSet<Product> cartSet, InventoryController inventoryController) {
-        this.inventoryController = inventoryController;
-        this.cartSet = new HashSet<Product>(cartSet);
+    public ShoppingCart(@JsonProperty("id") int id, @JsonProperty("contents") HashSet<Product> contents) {
+        this.id = id;
+        this.contents = contents;
         calculateTotalPrice();
     }
 
     /**
-     * Getter for the set representing the cart, only for testing purposes
+     * Getter for the set representing the cart
      * 
      * @return cartSet
      * 
      * @author Jensen Derosier
      */
-    public HashSet<Product> getCartSet() {
-        return cartSet;
+    public HashSet<Product> getContents() {
+        return contents;
+    }
+
+    /**
+     * sets the contents of the cart - necessary for JSON object to Java object deserialization
+     * @param contents the contents being set as the carts only contents
+     */
+    public void setContents(HashSet<Product> contents) {
+        this.contents = contents;
+    }
+
+    /**
+     * @return the id of the cart, which also is the id of the user the cart belongs to
+     */
+    public int getId() {
+        return id;
     }
 
     /**
@@ -59,7 +82,7 @@ public class ShoppingCart extends HashSet<Product>{
      * @author Jensen Derosier
      */
     public void addToCart(Product product) {
-        this.cartSet.add(product);
+        this.contents.add(product);
         calculateTotalPrice();
     }
 
@@ -71,7 +94,7 @@ public class ShoppingCart extends HashSet<Product>{
      * @author Jensen Derosier
      */
     public void removeFromCart(Product product) {
-        this.cartSet.remove(product);
+        this.contents.remove(product);
         calculateTotalPrice();
     }
 
@@ -86,8 +109,8 @@ public class ShoppingCart extends HashSet<Product>{
      * @author Jensen Derosier
      */
     public void updateProductInCart(Product oldP, Product newP) {
-        this.cartSet.remove(oldP);
-        this.cartSet.add(newP);
+        this.contents.remove(oldP);
+        this.contents.add(newP);
         calculateTotalPrice();
     }
 
@@ -99,7 +122,7 @@ public class ShoppingCart extends HashSet<Product>{
      * @author Jensen Derosier
      */
     public int size() {
-        return this.cartSet.size();
+        return this.contents.size();
     }
     
     /**
@@ -113,7 +136,7 @@ public class ShoppingCart extends HashSet<Product>{
      * 
      * @author Daniel Pittman
      */
-    public Object[] checkout() {
+    public Object[] checkout() { //TODO: redo this checkout method
         Object[] returnables = new Object[3];         // This is an array that contains the different returnable objects
 
         Product[] cartChanges = refreshCart();        //refresh the cart to see if all prices and quantities apply
@@ -134,7 +157,7 @@ public class ShoppingCart extends HashSet<Product>{
         returnables[2] = cartChanges;
 
         // wipe the contents of the cart now that checkout has been completed
-        this.cartSet = new HashSet<Product>();
+        this.contents = new HashSet<Product>();
         calculateTotalPrice();
 
         return returnables;
@@ -152,6 +175,17 @@ public class ShoppingCart extends HashSet<Product>{
     }
 
     /**
+     * Sets the total price of the cart - necessary for JSON object to Java object deserialization
+     * 
+     * @param totalPrice The totalPrice of the cart
+     * 
+     * @author Daniel Pittman
+     */
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    /**
      * The method recalculates the total price of what is in the {@link ShoppingCart cart}
      * 
      * @author Daniel Pittman
@@ -159,7 +193,7 @@ public class ShoppingCart extends HashSet<Product>{
     public void calculateTotalPrice() {
         float newTotalPrice = 0.00f;
 
-        for (Product product : cartSet) {
+        for (Product product : contents) {
             newTotalPrice += product.getPrice();
         }
 
@@ -171,7 +205,7 @@ public class ShoppingCart extends HashSet<Product>{
         
        // for (Product product : Products) {
             
-       // }
+       //TODO: Make the cart have refresh capabilities
         return changedProducts;
     }
 
@@ -184,6 +218,25 @@ public class ShoppingCart extends HashSet<Product>{
      */
     @Override
     public String toString() {
-        return this.cartSet.toString();
+        return String.format(STRING_FORMAT, id,contents,totalPrice);
+    }
+
+    /**
+     * Determines if two carts are equal based on their IDs
+     * 
+     * @return true if equal, false otherwise
+     * 
+     * @author Daniel Pittman
+     */
+    public boolean equals(Object other) {
+        if (!(other instanceof ShoppingCart)) {
+            return false;
+        }
+        ShoppingCart otherCart = (ShoppingCart) other;
+        if (this.id == otherCart.id) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
