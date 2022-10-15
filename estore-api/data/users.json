@@ -1,1 +1,9 @@
-[]
+[ {
+  "id" : 0,
+  "UserName" : "admin",
+  "ShoppingCart" : null
+}, {
+  "id" : 1,
+  "UserName" : "zach",
+  "ShoppingCart" : [ ]
+} ]

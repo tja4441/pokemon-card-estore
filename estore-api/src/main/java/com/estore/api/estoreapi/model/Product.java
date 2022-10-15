@@ -107,7 +107,7 @@ public class Product {
     }
 
     /**
-     * returns a string representation of the product
+     * {@inheritDoc}
      */
     @Override
     public String toString(){
@@ -115,7 +115,7 @@ public class Product {
     }
 
     /**
-     * returns true if 2 Products have the same ID
+     *{@inheritDoc}
      */
     @Override
     public boolean equals(Object other){

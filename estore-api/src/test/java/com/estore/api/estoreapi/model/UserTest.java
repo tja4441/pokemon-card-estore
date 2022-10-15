@@ -57,7 +57,28 @@ public class UserTest {
         assertEquals(expected_String, actual_string);
     }
 
-    //TODO Another test to test isAdmin
+    @Test
+    public void testisAdmin(){
+        int id = 0;
+        String userName = "admin";
+
+        User user = new User(id, userName, null);
+
+        assertEquals(true, user.isAdmin());
+    }
+
+    @Test
+    public void testnotAdmin(){
+        int id = 1;
+        String userName = "Zach";
+        ShoppingCart shoppingCart = new ShoppingCart();
+        Product Product = new Product(1, "Carrots", 50, 2.10f);
+        shoppingCart.add(Product);
+        User user = new User(id, userName, shoppingCart);
+
+        assertEquals(false, user.isAdmin());
+    }
+
 
     
 
