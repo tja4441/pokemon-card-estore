@@ -26,6 +26,8 @@ public class ShoppingCart {
      * Constructor with no Given Set and only an id, Returns Empty Shopping Cart
      * 
      * @author Jensen Derosier
+     * 
+     * @author Daniel Pittman
      */
     public ShoppingCart(@JsonProperty("id") int id) {
         this.id = id;
@@ -41,6 +43,8 @@ public class ShoppingCart {
      * @param contents the set to base the Shopping Cart off of
      * 
      * @author Jensen Derosier
+     * 
+     * @author Daniel Pittman
      */
     public ShoppingCart(@JsonProperty("id") int id, @JsonProperty("contents") HashSet<Product> contents) {
         this.id = id;
@@ -61,6 +65,7 @@ public class ShoppingCart {
 
     /**
      * sets the contents of the cart - necessary for JSON object to Java object deserialization
+     * 
      * @param contents the contents being set as the carts only contents
      */
     public void setContents(HashSet<Product> contents) {

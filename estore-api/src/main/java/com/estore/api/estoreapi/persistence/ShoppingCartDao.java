@@ -35,7 +35,7 @@ public interface ShoppingCartDao {
      * 
      * @author Daniel Pittman
      */
-    ShoppingCart getShoppingCart(int id) throws IOException;
+    ShoppingCart getCart(int id) throws IOException;
 
     /**
      * Creates and stores {@linkplain Shoppingcart cart}
@@ -48,7 +48,7 @@ public interface ShoppingCartDao {
      * 
      * @author Daniel Pittman
      */
-    ShoppingCart createShoppingCart(ShoppingCart cart) throws IOException;
+    ShoppingCart createCart(ShoppingCart cart) throws IOException;
 
     /**
      * Deletes an {@linkplain ShoppingCart cart} given an id
@@ -61,6 +61,6 @@ public interface ShoppingCartDao {
      * 
      * @author Daniel Pittman
      */
-    boolean deleteShoppingCart(int id) throws IOException;
+    boolean deleteCart(int id) throws IOException;
 
 }
