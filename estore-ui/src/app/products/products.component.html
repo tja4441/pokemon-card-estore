@@ -1,15 +1,23 @@
-<div>
-    <label for="new-product">Product name: </label>
-    <input id="new-product" #productName />
-
-    <label for="new-product">Product quantity: </label>
-    <input type="number" id="new-product" #productQuantity min="0"/>
-
-    <label for="new-product">Product price: </label>
-    <input id="new-product" #productPrice />
-
-    <button type="button" class="add-button"
-    (click)="add(productName.value, productQuantity.value, productPrice.value); productName.value=''; productPrice.value=0; productQuantity.value=0">
-        Add product
-    </button>
-</div>
+<table>
+    <tr>
+        <td><label for="new-product">Product name: </label></td>
+        <td><input id="new-product" #productName /></td>
+    </tr>
+    <tr>
+        <td><label for="new-product">Product quantity: </label></td>
+        <td><input id="new-product" #productQuantity min="0"/></td>
+    </tr>
+    <tr>
+        <td><label for="new-product">Product price: </label></td>
+        <td><input id="new-product" #productPrice /></td>
+    </tr>
+    <tr>
+        <td><button type="button" class="add-button"
+            (click)="add(productName.value, productQuantity.value, productPrice.value); 
+            productName.value=''; 
+            productPrice.value=null; 
+            productQuantity.value=null">
+            Add product
+        </button></td>
+    </tr>
+</table>

@@ -25,7 +25,8 @@ export class ProductsComponent implements OnInit {
 
   add(name: string, quantity: any, price: any): void {
     name = name.trim();
-    quantity = Number(quantity);
+    if( isNaN(quantity) ) { return; }
+    if( isNaN(price) ) { return; }
     price = Number(price);
     if (!name) { return; }
     this.productService.addProduct({ name, quantity, price } as Product)
