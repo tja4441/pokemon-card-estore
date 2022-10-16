@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 
 @Component
@@ -68,7 +67,7 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     private void init() throws IOException{
-        users.put(0,new User(0,"admin", null));
+        users.put(0,new User(0,"admin"));
         save();
     }
     /**
@@ -140,7 +139,7 @@ public class UserFileDao implements UserDao {
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users) {
-            User newUser = new User(nextID(),user.getUserName(),new ShoppingCart());
+            User newUser = new User(nextID(),user.getUserName());
             for (User other : users.values()) {
                 if(user.equals(other)){
                     return null;

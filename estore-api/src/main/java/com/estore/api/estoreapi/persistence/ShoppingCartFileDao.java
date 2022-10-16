@@ -31,10 +31,10 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public ShoppingCartFileDao(@Value("${shoppingCarts.file}") String filename,ObjectMapper objectMapper) throws IOException{
+    public ShoppingCartFileDao(@Value("${carts.file}") String filename,ObjectMapper objectMapper) throws IOException{
         this.filename = filename;
         this.objectMapper = objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        load();  // load the products from the file
+        load();  // load the carts from the file
     }
 
     /**
@@ -72,7 +72,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     @Override
     public ShoppingCart createCart(ShoppingCart cart) throws IOException {
         synchronized(carts){
-            ShoppingCart newCart = new ShoppingCart(cart.getId(),cart.getContents());
+            ShoppingCart newCart = new ShoppingCart(cart.getId());
 
             for (ShoppingCart other : carts.values()) {
                 if(newCart.equals(other)){

@@ -77,7 +77,7 @@ public class ShoppingCartController extends Controller{
         LOG.info("PUT /ShoppingCarts " + shoppingCart);
         try {
             ShoppingCart updatedCart = shoppingCartDao.updateCart(shoppingCart);
-            if (p != null) {
+            if (updatedCart != null) {
                 return new ResponseEntity<ShoppingCart>(updatedCart,HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
