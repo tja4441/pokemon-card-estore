@@ -43,4 +43,9 @@
   "name" : "Ditto",
   "quantity" : 30,
   "price" : 20.0
+}, {
+  "id" : 10,
+  "name" : "Blastoise",
+  "quantity" : 32,
+  "price" : 20.48
 } ]
