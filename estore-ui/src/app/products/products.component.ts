@@ -25,10 +25,10 @@ export class ProductsComponent implements OnInit {
 
   add(name: string, quantity: any, price: any): void {
     name = name.trim();
-    if( isNaN(quantity) ) { return; }
-    if( isNaN(price) ) { return; }
-    price = Number(price);
-    if (!name) { return; }
+    // if( isNaN(quantity) ) { return; }
+    // if( isNaN(price) ) { return; }
+    // price = Number(price);
+    // if (!name) { return; }
     this.productService.addProduct({ name, quantity, price } as Product)
     .subscribe(product => {this.products.push(product)})
   }
