@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.UserDao;
 
@@ -28,14 +29,16 @@ import java.util.logging.Level;
 public class UserController extends Controller {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDao userDao;
+    private ShoppingCartController shoppingCartController;
 
     /**
      * Creates a REST API controller to respond to requests
      * 
      * @param userDao The user data access object to perfom CRUD operations
      */
-    public UserController(UserDao userDao){
+    public UserController(UserDao userDao, ShoppingCartController shoppingCartController){
         this.userDao = userDao;
+        this.shoppingCartController = shoppingCartController;
     }
 
     /**
@@ -53,6 +56,7 @@ public class UserController extends Controller {
         try {
             User newUser = userDao.createUser(user);
             if (newUser != null) {
+                shoppingCartController.createCart(new ShoppingCart(newUser.getId()));
                 return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
             }
             else {
@@ -114,4 +118,3 @@ public class UserController extends Controller {
         }
     }
 }
-
