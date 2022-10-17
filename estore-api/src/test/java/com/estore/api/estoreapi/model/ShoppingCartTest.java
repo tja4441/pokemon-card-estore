@@ -24,20 +24,8 @@ public class ShoppingCartTest {
     }
 
     @Test
-    public void testCtorParams() {
-        HashSet<Product> expectedSet = new HashSet<Product>();
-        expectedSet.add(new Product(1, "Carrots", 50, 2.30f));
-
-        ShoppingCart cart = new ShoppingCart(expectedSet,inventoryController);
-
-        assertEquals(expectedSet, cart.getCartSet());
-    }
-
-    @Test
-    public void testCtorNoParams() {
-        HashSet<Product> expectedSet = new HashSet<Product>();
-
-        ShoppingCart cart = new ShoppingCart(expectedSet,inventoryController);
+    public void testConstructor() {
+        
 
         assertEquals(expectedSet, cart.getCartSet());
     }
