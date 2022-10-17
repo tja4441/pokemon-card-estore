@@ -10,23 +10,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class User {
 
-    static final String STRING_FORMAT = "User [id=%d, UserName=%s, cart=%s]"; 
+    static final String STRING_FORMAT = "User [id=%d, UserName=%s]"; 
 
     @JsonProperty("id") private int id;
     @JsonProperty("UserName") private String userName;
-    @JsonProperty("ShoppingCart") private ShoppingCart cart;
 
     /**
      * Create a user with the given id and username
      * @param id The id of the User
      * @param userName The username of the User
      */
-    public User( @JsonProperty("id") int id, 
-                    @JsonProperty("UserName") String userName,
-                    @JsonProperty("ShoppingCart") ShoppingCart cart) {
+    public User( @JsonProperty("id") int id,@JsonProperty("UserName") String userName) {
         this.id = id;
         this.userName = userName;
-        this.cart = cart;
     }
 
     /**
@@ -42,13 +38,6 @@ public class User {
     public String getUserName() {return userName;}
 
     /**
-     * Get the user's shopping cart
-     * @return the shopping cart associated with the user
-     */
-    @JsonIgnore
-    public ShoppingCart getShoppingCart(){return this.cart;}
-
-    /**
      * Sets the username of the User
      * @param userName The username of the User
      */
@@ -61,13 +50,13 @@ public class User {
      *         False if the user is not an admin
      */
     @JsonIgnore
-    public Boolean isAdmin(){return this.id == 0 && this.userName == "admin" && this.cart == null;}
+    public Boolean isAdmin(){return this.id == 0 && this.userName == "admin";}
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public String toString() {return String.format(STRING_FORMAT,id,userName,cart);}
+    public String toString() {return String.format(STRING_FORMAT,id,userName);}
 
     /**
      * {@inheritDoc}

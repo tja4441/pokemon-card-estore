@@ -3,22 +3,18 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
-* Team name: TEAMNAME
+* Team name: Engenuity
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Zachary Wagner
+  * 
+  * 
+  * 
 
 ## Executive Summary
 
 This is a summary of the project.
+
 
 ### Purpose
 > _Provide a very brief statement about the project and the most
@@ -54,7 +50,7 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![Domain Model](domain-model-placeholder.png)
+![Domain Model](DomainModel.png)
 
 > _Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
