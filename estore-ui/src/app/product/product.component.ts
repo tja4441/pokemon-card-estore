@@ -7,7 +7,7 @@ import { Product } from '../product';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  @Input() card: Product | undefined = undefined;
+  @Input() card: Product | undefined;
 
   constructor() { }
 
