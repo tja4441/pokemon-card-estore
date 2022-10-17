@@ -5,10 +5,10 @@ import { Product } from '../product'
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  templateUrl: './add-products.component.html',
+  styleUrls: ['./add-products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class AddProductsComponent implements OnInit {
 
   products: Product[] = [];
 
@@ -25,10 +25,6 @@ export class ProductsComponent implements OnInit {
 
   add(name: string, quantity: any, price: any): void {
     name = name.trim();
-    // if( isNaN(quantity) ) { return; }
-    // if( isNaN(price) ) { return; }
-    // price = Number(price);
-    // if (!name) { return; }
     this.productService.addProduct({ name, quantity, price } as Product)
     .subscribe(product => {this.products.push(product)})
   }
