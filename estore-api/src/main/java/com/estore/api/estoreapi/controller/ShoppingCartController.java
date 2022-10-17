@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.persistence.ShoppingCartDao;
 
@@ -135,6 +136,115 @@ public class ShoppingCartController extends Controller{
                 return new ResponseEntity<ShoppingCart>(newCart,HttpStatus.CREATED);
             } else {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Adds an {@linkplain Product product} to the {@linkplain ShoppingCart cart} with the given id
+     * 
+     * @param id The identifier of the {@link ShoppingCart cart} object being added to
+     * 
+     * @param product the {@link Product product} to be added to the {@link ShoppingCart cart} object
+     * 
+     * @return ResponseEntity with updated {@link ShoppingCart cart} object and HTTP status of ok if cart modified successfully,
+     *         ResponseEntity with HTTP status of NOT_FOUND if {@link ShoppingCart cart} object cannot be found,
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     * 
+     * @author Daniel Pittman
+     */
+    @PutMapping("/add?{id}/{product}")
+    public ResponseEntity<ShoppingCart> addToCart(@PathVariable int id, @RequestBody Product product) {
+        LOG.info("PUT /ShoppingCarts/add?/" + id + "/" + product);
+        try {
+            ShoppingCart updatedCart = shoppingCartDao.addToCart(id,product);
+            if (updatedCart != null) {
+                return new ResponseEntity<ShoppingCart>(updatedCart,HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Deletes an {@linkplain Product product} from the {@linkplain ShoppingCart cart} with the given id
+     * 
+     * @param id the identifier of the {@link ShoppingCart cart} object being added to
+     * 
+     * @param product the {@link Product product} to be deleted from the {@link ShoppingCart cart} object
+     * 
+     * @return ResponseEntity with updated {@link ShoppingCart cart} object and HTTP status of ok if cart modified successfully,
+     *         ResponseEntity with HTTP status of NOT_FOUND if {@link ShoppingCart cart} object cannot be found,
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     * 
+     * @author Daniel Pittman
+     */
+    @PutMapping("/delete?{id}/{product}")
+    public ResponseEntity<ShoppingCart> deleteFromCart(@PathVariable int id, @RequestBody Product product) {
+        LOG.info("PUT /ShoppingCarts/delete?/" + id + "/" + product);
+        try {
+            ShoppingCart updatedCart = shoppingCartDao.deleteFromCart(id,product);
+            if (updatedCart != null) {
+                return new ResponseEntity<ShoppingCart>(updatedCart,HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Refreshes the {@linkplain Product products} inside of the {@linkplain ShoppingCart cart} with the given id
+     * 
+     * @param id the identifier of the {@link ShoppingCart cart} object being refreshed
+     * 
+     * @param inventoryController the controller of the {@linkplain Product products} within the {@link ShoppingCart cart}
+     * 
+     * @return ResponseEntity with boolean indicating if {@link Product product} objects were deleted from {@link ShoppingCart cart} and HTTP status of ok,
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     * 
+     * @author Daniel Pittman
+     */
+    @PutMapping("/refresh?{id}")
+    public ResponseEntity<Boolean> refreshCart(@PathVariable int id, @PathVariable InventoryController inventoryController) {
+        LOG.info("PUT /ShoppingCarts/refresh?/" + id );
+        try {
+            Boolean nothingDeleted = shoppingCartDao.refreshCart(id,inventoryController);
+            return new ResponseEntity<Boolean>(nothingDeleted,HttpStatus.OK);
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Checkouts the contents of the {@linkplain ShoppingCart cart} object with the given id
+     * 
+     * @param id the identifier of the {@link ShoppingCart cart} object being refreshed
+     * 
+     * @param inventoryController the controller of the {@linkplain Product products} within the {@link ShoppingCart cart}
+     * 
+     * @return ResponseEntity with checked out {@link ShoppingCart cart} object and HTTP status of ok if cart checked out successfully,
+     *         ResponseEntity with HTTP status of BAD_REQUEST if {@link ShoppingCart cart} cannot check out due to inventory shortage,
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @PutMapping("/checkout?{id}")
+    public ResponseEntity<ShoppingCart> checkout(@PathVariable int id, @PathVariable InventoryController inventoryController) {
+        LOG.info("PUT /ShoppingCarts/checkout?/" + id );
+        try {
+            ShoppingCart updatedCart = shoppingCartDao.checkout(id,inventoryController);
+            if (updatedCart != null) {
+                return new ResponseEntity<ShoppingCart>(updatedCart,HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());

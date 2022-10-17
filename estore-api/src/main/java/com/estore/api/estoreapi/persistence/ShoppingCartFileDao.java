@@ -131,10 +131,14 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     public ShoppingCart addToCart(int id, Product product) throws IOException {
         synchronized(carts) {
             ShoppingCart cart = carts.get(id);
-            cart.addToCart(product);
-            carts.put(cart.getId(), cart);
-            save();
-            return cart;
+            if (cart == null) {
+                return null;
+            } else {
+                cart.addToCart(product);
+                carts.put(cart.getId(), cart);
+                save();
+                return cart;
+            }
         }
     }
 
@@ -145,10 +149,14 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     public ShoppingCart deleteFromCart(int id, Product product) throws IOException {
         synchronized(carts) {
             ShoppingCart cart = carts.get(id);
-            cart.removeFromCart(product);
-            carts.put(cart.getId(), cart);
-            save();
-            return cart;
+            if (cart == null) {
+                return null;
+            } else {
+                cart.removeFromCart(product);
+                carts.put(cart.getId(), cart);
+                save();
+                return cart;
+            }
         }
     }
 
