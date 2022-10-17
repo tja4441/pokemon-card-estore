@@ -124,19 +124,4 @@ public interface ShoppingCartDao {
      * @author Daniel Pittman
      */
     ShoppingCart checkout(int id, InventoryController inventoryController) throws IOException;
-
-    /**
-     * Reverses the checkout procedure for the {@linkplain ShoppingCart cart} object with the given id
-     * 
-     * @param id the identifier of the {@link ShoppingCart cart} object having the checkout reversed
-     * 
-     * @param inventoryController the controller of the {@linkplain Product products} within the {@link ShoppingCart cart}
-     * 
-     * @return the {@link ShoppingCart cart} object that had the checkout procedure reversed
-     * 
-     * @throws IOException if underlying storage cannot be accessed
-     * 
-     * @author Daniel Pittman
-     */
-    ShoppingCart reverseCheckout(int id, InventoryController inventoryController) throws IOException;
 }

@@ -163,21 +163,14 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
             boolean nothingDeleted = true;
 
             for (Product product : contents) {
-                Product updatedProduct = inventoryController.getProduct(product.getId()).getBody();
-                Product newProduct = new Product(product, updatedProduct.getId());
-
-                if (updatedProduct.getQuantity() == 0 || !product.getName().equals(updatedProduct.getName()) || updatedProduct == null) {
+                Product invProduct = inventoryController.getProduct(product.getId()).getBody();
+                if (invProduct != null && invProduct.getName().equals(product.getName())) {
+                    Product newProduct = invProduct;
+                    cart.updateProductInCart(product, newProduct);
+                } else {
                     cart.removeFromCart(product);
                     nothingDeleted = false;
-                } else {
-                    if (updatedProduct.getQuantity() != product.getQuantity()) {
-                        newProduct.setQuantity(updatedProduct.getQuantity());
-                    }
                 }
-                if (product.getPrice() != updatedProduct.getPrice() && updatedProduct != null) {
-                    newProduct.setPrice(updatedProduct.getPrice());
-                }
-                cart.updateProductInCart(product, newProduct);
             }
             carts.put(cart.getId(), cart);
             save();
@@ -190,32 +183,24 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
      */
     @Override
     public ShoppingCart checkout(int id, InventoryController inventoryController) throws IOException {
-        if (refreshCart(id, inventoryController)) {
-            ShoppingCart cart = carts.get(id);
-            Product[] contents = (Product[]) cart.getContents().toArray();
-
-            for (Product product : contents) {
-                Product invProduct = inventoryController.getProduct(product.getId()).getBody();
-                if (invProduct.getQuantity() - 1 < 0) {
-                    invProduct.setQuantity(0);
-                } else {
-                    //TODO: Keep working on this
+        synchronized(carts) {
+            if (refreshCart(id, inventoryController)) {
+                ShoppingCart cart = carts.get(id);
+                Product[] contents = (Product[]) cart.getContents().toArray();
+    
+                for (Product product : contents) {
+                    Product invProduct = inventoryController.getProduct(product.getId()).getBody();
+                    int oldQuantity = invProduct.getQuantity();
+                    invProduct.setQuantity(oldQuantity - 1);
+                    inventoryController.updateProduct(invProduct);
+                    cart.removeFromCart(product);
                 }
+                save();
+                return cart;
+            } else {
+                return null;
             }
-            
-        } else {
-            return null;
         }
-        return null;
-    }
-
-    /**
-     ** {@inheritDoc}
-     */
-    @Override
-    public ShoppingCart reverseCheckout(int id, InventoryController inventoryController) throws IOException {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     /**
