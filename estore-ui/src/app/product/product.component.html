@@ -1,8 +1,6 @@
-<p>product works!</p>
-<div>
-    <div>
-        <p>Name = {{name}}</p>
-        <p>Price = {{price}}</p>
-        <p>Quantity = {{quantity}}</p>
-    </div>
+<div *ngIf="!isUndefined"\>
+    <p>Name = {{product.name}}</p>
+    <p>Price = {{product.price}}</p>
+    <p>Quantity = {{product.quantity}}</p>
 </div>
+<div *ngIf="isUndefined">Card is undefined</div>

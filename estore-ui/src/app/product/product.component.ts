@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../product';
 
 @Component({
@@ -6,17 +6,13 @@ import { Product } from '../product';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit, Product {
-  id: number
-  name: string;
-  price: number;
-  quantity: number;
+export class ProductComponent implements OnInit {
+  @Input() card: Product | undefined = undefined;
 
-  constructor(@Inject(ProductComponent) card: Product) { 
-    this.id = card.id
-    this.name = card.name;
-    this.price = card.price;
-    this.quantity = card.quantity;
+  constructor() { }
+
+  isUndefined(): Boolean {
+    return this.card == undefined;
   }
 
   ngOnInit(): void {

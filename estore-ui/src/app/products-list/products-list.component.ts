@@ -1,7 +1,7 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products-list',
@@ -9,12 +9,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./products-list.component.css']
 })
 export class ProductsListComponent implements OnInit {
-  productsList: Product[] = [];
+  @Input() observableList: Observable<Product[]> | undefined = undefined;
+  productsList: Product[] | undefined;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
-  ngOnInit(): void {
-    this.productService.getProducts().subscribe(products => this.productsList = products);
+  ngOnInit(): void { 
+    if(this.observableList != undefined){
+      this.observableList.subscribe(products => this.productsList = products);
+    }
   }
-
 }
