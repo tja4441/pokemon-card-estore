@@ -36,23 +36,6 @@ public class ShoppingCart {
     }
 
     /**
-     * Constructor with Given Set and id, Returns Shopping Cart with items from Set
-     * 
-     * @param id the identification of the shopping cart, which should be the same id as the user it belongs to
-     * 
-     * @param contents the set to base the Shopping Cart off of
-     * 
-     * @author Jensen Derosier
-     * 
-     * @author Daniel Pittman
-     */
-    //public ShoppingCart(@JsonProperty("id") int id, @JsonProperty("contents") HashSet<Product> contents) {
-       // this.id = id;
-       // this.contents = contents;
-       // calculateTotalPrice();
-   // }
-
-    /**
      * Getter for the set representing the cart
      * 
      * @return cartSet
@@ -129,44 +112,6 @@ public class ShoppingCart {
     public int size() {
         return this.contents.size();
     }
-    
-    /**
-     * Decrements the quantities of the {@link Product products} in the inventory system
-     * 
-     * @return list of the {@link ShoppingCart cart} contents that have been purchased
-     * 
-     * @return total price of the {@link ShoppingCart cart} just purchased
-     * 
-     * @return the items from the {@link ShoppingCart cart} that couldn't be purchased due to lack of inventory
-     * 
-     * @author Daniel Pittman
-     */
-    public Object[] checkout() { //TODO: redo this checkout method
-        Object[] returnables = new Object[3];         // This is an array that contains the different returnable objects
-
-      //  Product[] cartChanges = refreshCart();        //refresh the cart to see if all prices and quantities apply
-      //  HashSet<Product> bought = this.cartSet;
-
-       // for (Product product : cartSet) {             // For remaining items after refresh, do the checkout process
-        //    if(product.getQuantity() - 1 < 0){
-               // inventoryController.updateProduct(new Product(product.getId(), product.getName(),0,product.getPrice()));
-        //    }
-         //   else{
-              //  inventoryController.updateProduct(new Product(product.getId(), product.getName(),product.getQuantity() - 1,product.getPrice()));
-       //     }
-     //   }
-
-        // prepare the method returnables for being returned in a single object array
-      //  returnables[0] = bought;
-      //  returnables[1] = this.GetTotalPrice();
-      //  returnables[2] = cartChanges;
-
-        // wipe the contents of the cart now that checkout has been completed
-       // this.contents = new HashSet<Product>();
-       // calculateTotalPrice();
-
-        return returnables;
-    }
 
     /**
      * A Getter method for the total price of all {@link Product products} in the {@link ShoppingCart cart}
@@ -203,15 +148,6 @@ public class ShoppingCart {
         }
 
         this.totalPrice = newTotalPrice;
-    }
-
-    public Product[] refreshCart() {
-        Product[] changedProducts = new Product[this.size()];
-        
-       // for (Product product : Products) {
-            
-       //TODO: Make the cart have refresh capabilities
-        return changedProducts;
     }
 
     /**

@@ -2,6 +2,8 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
 
+import com.estore.api.estoreapi.controller.InventoryController;
+import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 
 /**
@@ -51,7 +53,7 @@ public interface ShoppingCartDao {
     ShoppingCart createCart(ShoppingCart cart) throws IOException;
 
     /**
-     * Deletes an {@linkplain ShoppingCart cart} given an id
+     * Deletes an {@linkplain ShoppinggCart cart} given an id
      * 
      * @param id the internal {@link ShoppingCart cart} identifier
      * 
@@ -62,5 +64,65 @@ public interface ShoppingCartDao {
      * @author Daniel Pittman
      */
     boolean deleteCart(int id) throws IOException;
+
+    /**
+     * Adds an {@linkplain Product product} to the {@linkplain ShoppingCart cart} with the given id
+     * 
+     * @param id The identifier of the {@link ShoppingCart cart} object being added to
+     * 
+     * @param product the {@link Product product} to be added to the {@link ShoppingCart cart} object
+     * 
+     * @return the {@link ShoppingCart cart} object being added to
+     * 
+     * @throws IOException if underlying storage cannot be accessed
+     * 
+     * @author Daniel Pittman
+     */
+    ShoppingCart addToCart(int id, Product product) throws IOException;
+
+    /**
+     * Deletes an {@linkplain Product product} from the {@linkplain ShoppingCart cart} with the given id
+     * 
+     * @param id the identifier of the {@link ShoppingCart cart} object being added to
+     * 
+     * @param product the {@link Product product} to be deleted from the {@link ShoppingCart cart} object
+     * 
+     * @return the {@link ShoppingCart cart} object being removed from
+     * 
+     * @throws IOException if underlying storage cannot be accessed
+     * 
+     * @author Daniel Pittman
+     */
+    ShoppingCart deleteFromCart(int id, Product product) throws IOException;
+
+    /**
+     * Refreshes the {@linkplain Product products} inside of the {@linkplain ShoppingCart cart} with the given id
+     * 
+     * @param id the identifier of the {@link ShoppingCart cart} object being refreshed
+     * 
+     * @param inventoryController the controller of the {@linkplain Product products} within the {@link ShoppingCart cart}
+     * 
+     * @return true if {@link Product products} are not removed from cart due to no remaining inventory, false otherwise
+     * 
+     * @throws IOException if underlying storage cannot be accessed
+     * 
+     * @author Daniel Pittman
+     */
+    boolean refreshCart(int id, InventoryController inventoryController) throws IOException;
+
+    /**
+     * Checkouts the contents of the {@linkplain ShoppingCart cart} object with the given id
+     * 
+     * @param id the identifier of the {@link ShoppingCart cart} object being refreshed
+     * 
+     * @param inventoryController the controller of the {@linkplain Product products} within the {@link ShoppingCart cart}
+     * 
+     * @return the {@link ShoppingCart cart} object being checked out
+     * 
+     * @throws IOException if underlying storage cannot be accessed
+     * 
+     * @author Daniel Pittman
+     */
+    ShoppingCart checkout(int id, InventoryController inventoryController) throws IOException;
 
 }

@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.estore.api.estoreapi.controller.InventoryController;
+import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -120,6 +122,91 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         ShoppingCart[] cartArray = new ShoppingCart[cartArrayList.size()];
         cartArrayList.toArray(cartArray);
         return cartArray;
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public ShoppingCart addToCart(int id, Product product) throws IOException {
+        synchronized(carts) {
+            ShoppingCart cart = carts.get(id);
+            cart.addToCart(product);
+            carts.put(cart.getId(), cart);
+            save();
+            return cart;
+        }
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public ShoppingCart deleteFromCart(int id, Product product) throws IOException {
+        synchronized(carts) {
+            ShoppingCart cart = carts.get(id);
+            cart.removeFromCart(product);
+            carts.put(cart.getId(), cart);
+            save();
+            return cart;
+        }
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public boolean refreshCart(int id,InventoryController inventoryController) throws IOException {
+        synchronized(carts) {
+            ShoppingCart cart = carts.get(id);
+            Product[] contents = (Product[]) cart.getContents().toArray();
+            boolean nothingDeleted = true;
+
+            for (Product product : contents) {
+                Product updatedProduct = inventoryController.getProduct(product.getId()).getBody();
+                Product newProduct = new Product(product, updatedProduct.getId());
+
+                if (updatedProduct.getQuantity() == 0 || !product.getName().equals(updatedProduct.getName()) || updatedProduct == null) {
+                    cart.removeFromCart(product);
+                    nothingDeleted = false;
+                } else {
+                    if (updatedProduct.getQuantity() != product.getQuantity()) {
+                        newProduct.setQuantity(updatedProduct.getQuantity());
+                    }
+                }
+                if (product.getPrice() != updatedProduct.getPrice() && updatedProduct != null) {
+                    newProduct.setPrice(updatedProduct.getPrice());
+                }
+                cart.updateProductInCart(product, newProduct);
+            }
+            carts.put(cart.getId(), cart);
+            save();
+            return nothingDeleted;
+        }
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public ShoppingCart checkout(int id, InventoryController inventoryController) throws IOException {
+        if (refreshCart(id, inventoryController)) {
+            ShoppingCart cart = carts.get(id);
+            Product[] contents = (Product[]) cart.getContents().toArray();
+
+            for (Product product : contents) {
+                Product invProduct = inventoryController.getProduct(product.getId()).getBody();
+                if (invProduct.getQuantity() - 1 < 0) {
+                    invProduct.setQuantity(0);
+                } else {
+                    //TODO: Keep working on this
+                }
+            }
+            
+        } else {
+            return null;
+        }
+        return null;
     }
 
     /**
