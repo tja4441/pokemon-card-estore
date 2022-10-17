@@ -210,6 +210,15 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     }
 
     /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public ShoppingCart reverseCheckout(int id, InventoryController inventoryController) throws IOException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
      * Loads {@linkplain ShoppingCart carts} from the JSON file into the map
      * 
      * @return true if the file was read successfuly
