@@ -11,10 +11,6 @@ export class ProductComponent implements OnInit {
 
   constructor() { }
 
-  isUndefined(): Boolean {
-    return this.card == undefined;
-  }
-
   ngOnInit(): void {
   }
 

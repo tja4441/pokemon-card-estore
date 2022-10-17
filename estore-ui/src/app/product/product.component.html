@@ -1,6 +1,3 @@
-<div *ngIf="!isUndefined"\>
-    <p>Name = {{card.name}}</p>
-    <p>Price = {{card.price}}</p>
-    <p>Quantity = {{card.quantity}}</p>
+<div *ngIf="card">
+    <p>Name = {{card.name}}, Price = {{card.price}},    Quantity = {{card.quantity}}</p>
 </div>
-<div *ngIf="isUndefined">Card is undefined</div>
