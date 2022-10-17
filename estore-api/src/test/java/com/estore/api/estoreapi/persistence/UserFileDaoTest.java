@@ -133,7 +133,7 @@ public class UserFileDaoTest {
     }
 
     @Test
-    public void testGetUserNotFound() throws IOException {  // Fails; getUser cannot assume the user exists
+    public void testGetUserNotFound() throws IOException {
         // Invoke
         User user = userFileDao.getUser("Joanne");
 
