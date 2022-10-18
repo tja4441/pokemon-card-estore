@@ -261,25 +261,29 @@ public class ShoppingCartControllerTest {
     @Test    
     public void testRefresh() throws IOException{
         int userId = 1;
-        InventoryController invCont = new InventoryController(null);
-        
+
         boolean daoRefreshesTrue = true;
-        when(mockShoppingCartDao.refreshCart(userId, invCont)).thenReturn(daoRefreshesTrue);
-        ResponseEntity<Boolean> response1 = shoppingCartController.refreshCart(userId, invCont);
+        when(mockShoppingCartDao.refreshCart(userId, mockInventoryController)).thenReturn(daoRefreshesTrue);
+        ResponseEntity<Boolean> response1 = shoppingCartController.refreshCart(userId, mockInventoryController);
         assertEquals(HttpStatus.OK, response1.getStatusCode());
         assertEquals(daoRefreshesTrue, response1.getBody());
 
         boolean daoRefreshesFalse = true;
-        when(mockShoppingCartDao.refreshCart(userId, invCont)).thenReturn(daoRefreshesFalse);
-        ResponseEntity<Boolean> response2 = shoppingCartController.refreshCart(userId, invCont);
+        when(mockShoppingCartDao.refreshCart(userId, mockInventoryController)).thenReturn(daoRefreshesFalse);
+        ResponseEntity<Boolean> response2 = shoppingCartController.refreshCart(userId, mockInventoryController);
         assertEquals(HttpStatus.OK, response2.getStatusCode());
         assertEquals(daoRefreshesFalse, response2.getBody());
     }
 
+    @Test
+    public void testRefreshHandleException() throws IOException {
+        int userId = 1;
+        doThrow(new IOException()).when(mockShoppingCartDao).refreshCart(userId, mockInventoryController);
+        ResponseEntity<Boolean> response = shoppingCartController.refreshCart(userId, mockInventoryController);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
 
-
-
-
+    
 
     
 
