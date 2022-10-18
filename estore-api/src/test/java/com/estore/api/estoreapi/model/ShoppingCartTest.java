@@ -1,7 +1,6 @@
 package com.estore.api.estoreapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 
 import java.util.HashSet;
 
@@ -9,8 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import com.estore.api.estoreapi.controller.InventoryController;
-import com.estore.api.estoreapi.persistence.InventoryDao;
 
 @Tag("Model-Tier")
 public class ShoppingCartTest {
