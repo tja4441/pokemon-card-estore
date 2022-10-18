@@ -1,0 +1,8 @@
+div {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+#loginForm{
+    border: 3px, solid, black;
+    border-radius: 10px;
+}
