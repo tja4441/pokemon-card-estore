@@ -2,7 +2,16 @@ div {
     margin-top: 1em;
     margin-bottom: 1em;
 }
-#loginForm{
-    border: 3px, solid, black;
+
+.card{
+    border: 2px solid black;
     border-radius: 10px;
+    display: inline-block;
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+.login{
+    margin-left: auto;
+    margin-right: auto;
 }
