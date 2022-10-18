@@ -283,13 +283,31 @@ public class ShoppingCartControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    
+    @Test
+    public void testCheckout() throws IOException {
+        int userId = 1;
+        ShoppingCart mockCart = new ShoppingCart(userId);
+        when(mockShoppingCartDao.checkout(userId, mockInventoryController)).thenReturn(mockCart);
+        ResponseEntity<ShoppingCart> responce = shoppingCartController.checkout(userId, mockInventoryController);
+        assertEquals(HttpStatus.OK, responce.getStatusCode());
+        assertEquals(mockCart, responce.getBody());
+    }
 
-    
+    @Test
+    public void testCheckoutBadRequest() throws IOException {
+        int userId = 1;
+        when(mockShoppingCartDao.checkout(userId, mockInventoryController)).thenReturn(null);
+        ResponseEntity<ShoppingCart> responce = shoppingCartController.checkout(userId, mockInventoryController);
+        assertEquals(HttpStatus.BAD_REQUEST, responce.getStatusCode());
+    }
 
-
-
-
+    @Test
+    public void testCheckoutHandlesException() throws IOException {
+        int userId = 1;
+        doThrow(new IOException()).when(mockShoppingCartDao).checkout(userId, mockInventoryController);
+        ResponseEntity<ShoppingCart> response = shoppingCartController.checkout(userId, mockInventoryController);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
 
     
 }
