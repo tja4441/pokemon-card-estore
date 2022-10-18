@@ -108,6 +108,17 @@ public class ShoppingCartTest {
     }
 
     @Test
+    public void testEqualCartToDifCart() {
+        int id = 2;
+        ShoppingCart cart = new ShoppingCart(id);
+
+        boolean equal = cart.equals(testCart);
+
+        assertEquals(false, equal);
+    }
+
+
+    @Test
     public void testEqualCartToNonCart() {
         Product p = new Product(1, "Carrots", 50, 2.10f);
 
