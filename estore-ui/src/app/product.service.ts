@@ -39,6 +39,13 @@ export class ProductService {
     );
   }
 
+  editProduct(product: Product){
+    return this.http.post<Product>(this.inventoryUrl, product, this.httpOptions).pipe(
+      tap((newProduct: Product) => this.log(`added product w/ id=${newProduct.id}`)),
+      catchError(this.handleError<Product>('addProduct'))
+    );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
