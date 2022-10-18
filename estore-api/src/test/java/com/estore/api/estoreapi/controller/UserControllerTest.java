@@ -18,9 +18,9 @@ import com.estore.api.estoreapi.persistence.UserDao;
 
 @Tag("Controller-tier")
 public class UserControllerTest {
-    UserController userController;
-    UserDao mockUserDao;
-    ShoppingCartController mockShoppingCartController;
+    private UserController userController;
+    private UserDao mockUserDao;
+    private ShoppingCartController mockShoppingCartController;
 
     @BeforeEach
     public void setupUserController(){
