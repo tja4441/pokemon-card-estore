@@ -51,7 +51,7 @@ public class ShoppingCartController extends Controller{
 
         try {
             Boolean cartDeleted = shoppingCartDao.deleteCart(id);
-            if (cartDeleted != false) {
+            if (cartDeleted) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
