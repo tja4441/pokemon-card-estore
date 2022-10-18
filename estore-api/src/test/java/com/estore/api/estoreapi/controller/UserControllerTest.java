@@ -48,7 +48,7 @@ public class UserControllerTest {
     public void testRegisterUserConflict() {
         User user = null;
         ResponseEntity<User> response = userController.register(user);
-        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
