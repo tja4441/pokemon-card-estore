@@ -1,7 +1,30 @@
-<p>This is where the login page will go.</p>
+<div *ngIf="!loggedIn" class="login">
+    <div class="card">
+        <h2>Login:</h2>
+        <form (ngSubmit)="login(loginName.value)">
+            <input type="text" placeholder="Username" #loginName>
+            <input type="submit">
+        </form>
+        <div *ngIf="loginFailed">
+            <p style="color: red;">Login Failed.
+                If you don't have an account try registering instead.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Register:</h2>
+        <form (ngSubmit)="register(registerName.value)">
+            <input type="text" placeholder="Username" #registerName>
+            <input type="submit">
+        </form>
+    </div>
+</div>
+
+<div *ngIf="loggedIn">
+    <p>Logged In :)</p>
+</div>
+
 <nav>
     <a routerLink=""><button>Home</button></a>
-</nav>
-<nav>
     <a routerLink="/admin"><button>I'm an Admin!</button></a>
 </nav>

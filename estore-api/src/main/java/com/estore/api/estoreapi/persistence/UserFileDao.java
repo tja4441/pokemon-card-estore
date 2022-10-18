@@ -104,17 +104,19 @@ public class UserFileDao implements UserDao {
      * @return  The array of {@link User user}, may be empty
      */
     private User[] getUsersArray(String containsText) { 
-        ArrayList<User> usersArrayList = new ArrayList<>();
+        synchronized(users){
+            ArrayList<User> usersArrayList = new ArrayList<>();
 
-        for (User user : users.values()) {
-            if (containsText == null || user.getUserName().contains(containsText)) {
-                usersArrayList.add(user);
+            for (User user : users.values()) {
+                if (containsText == null || user.getUserName().contains(containsText)) {
+                    usersArrayList.add(user);
+                }
             }
-        }
 
-        User[] usersArray = new User[usersArrayList.size()];
-        usersArrayList.toArray(usersArray);
-        return usersArray;
+            User[] usersArray = new User[usersArrayList.size()];
+            usersArrayList.toArray(usersArray);
+            return usersArray;
+        }
     }
 
     /**
@@ -122,18 +124,13 @@ public class UserFileDao implements UserDao {
      */
     @Override
     public User getUser(String userName) throws IOException {
-        synchronized(users){
-            User[] usr = getUsersArray(userName);
-            for(User user: users.values()){
-                if(user.getUserName() == userName){
-                    return usr[0];
-                }
-                }
-            }
+        User[] matchingUsers = getUsersArray(userName);
+        if(matchingUsers.length != 0){
+            return matchingUsers[0];
+        }else{
             return null;
-            
-    }
-            
+        }
+    } 
 
     /**
      * {@inheritDoc}
