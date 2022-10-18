@@ -54,6 +54,9 @@ public class UserController extends Controller {
     public ResponseEntity<User> register(@RequestBody User user){
         LOG.info("POST /home" + user);
         try {
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             if(userDao.getUser(user.getUserName()) != null) return new ResponseEntity<>(HttpStatus.CONFLICT);
             User newUser = userDao.createUser(user);
             if (newUser != null) {
