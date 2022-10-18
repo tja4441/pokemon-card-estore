@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
+import org.springframework.http.ResponseEntity;
 
 import com.estore.api.estoreapi.controller.InventoryController;
 import com.estore.api.estoreapi.model.Product;
@@ -58,8 +59,7 @@ public class ShoppingCartFileDaoTest {
         when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"),Product[].class)).thenReturn(testProducts);
         when(mockObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockObjectMapper);
 
-        when(mockObjectMapper.readValue(new File("filename.txt"),ShoppingCart[].class)).thenReturn(testShoppingCarts);
-        when(mockObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockObjectMapper);
+        //when(mockInventoryController.getProducts(),ResponseEntity.class).thenReturn(testProducts);
         shoppingCartFileDao = new ShoppingCartFileDao("filename.txt", mockObjectMapper);
     }
 
