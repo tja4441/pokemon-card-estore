@@ -62,6 +62,17 @@ public class ShoppingCartControllerTest {
     }
 
     @Test
+    public void testDeleteCartHandleException() throws IOException{
+        
+        doThrow(new IOException()).when(mockShoppingCartDao).deleteCart(1);
+
+
+        ResponseEntity<ShoppingCart> response = shoppingCartController.deleteCart(1);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+    }
+
+    @Test
     public void testUpdateCart() throws IOException{
 
         ShoppingCart cart = new ShoppingCart(3);
@@ -89,6 +100,19 @@ public class ShoppingCartControllerTest {
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
 
     }
+    @Test
+    public void testUpdateCartHandleException() throws IOException{
+        ShoppingCart cart = new ShoppingCart(3);
+        
+        doThrow(new IOException()).when(mockShoppingCartDao).updateCart(cart);
+
+
+        ResponseEntity<ShoppingCart> response = shoppingCartController.updateCart(cart);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+    }
+
+    
 
     @Test
     public void testGetCart() throws IOException{
@@ -118,6 +142,19 @@ public class ShoppingCartControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 
     }
+    @Test
+    public void testGetCartHandleException() throws IOException{
+        ShoppingCart cart = new ShoppingCart(3);
+        
+        doThrow(new IOException()).when(mockShoppingCartDao).getCart(3);
+
+
+        ResponseEntity<ShoppingCart> response = shoppingCartController.getCart(3);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+    }
+
+
 
     @Test
     public void testCreateCart() throws IOException{
@@ -131,6 +168,19 @@ public class ShoppingCartControllerTest {
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(cart, response.getBody());
+    }
+
+    @Test
+    public void testCreateCartConflict() throws IOException{
+
+        ShoppingCart cart = new ShoppingCart(1);
+        
+        when(mockShoppingCartDao.createCart(cart)).thenReturn(null);
+
+
+        ResponseEntity<ShoppingCart> response = shoppingCartController.createCart(cart);
+
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
     @Test
@@ -208,20 +258,6 @@ public class ShoppingCartControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     
     }
-
-    
-
-
-
-
-
-
-
-    
-
-
-
-
 
     
 }
