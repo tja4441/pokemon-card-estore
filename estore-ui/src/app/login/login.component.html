@@ -1,8 +1,8 @@
 <div *ngIf="!loggedIn" class="login">
     <div class="card">
         <h2>Login:</h2>
-        <form (ngSubmit)="login(username.value)">
-            <input type="text" placeholder="Username" #username>
+        <form (ngSubmit)="login(loginName.value)">
+            <input type="text" placeholder="Username" #loginName>
             <input type="submit">
         </form>
         <div *ngIf="loginFailed">
@@ -13,12 +13,13 @@
 
     <div class="card">
         <h2>Register:</h2>
-        <form (ngSubmit)="register(username.value)">
-            <input type="text" placeholder="Username" #username>
+        <form (ngSubmit)="register(registerName.value)">
+            <input type="text" placeholder="Username" #registerName>
             <input type="submit">
         </form>
     </div>
 </div>
+
 <div *ngIf="loggedIn">
     <p>Logged In :)</p>
 </div>
