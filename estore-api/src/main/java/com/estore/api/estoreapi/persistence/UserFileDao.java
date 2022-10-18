@@ -123,15 +123,17 @@ public class UserFileDao implements UserDao {
     @Override
     public User getUser(String userName) throws IOException {
         synchronized(users){
-            if(users.size() != 0){
-                User[] user = getUsersArray(userName);
-                return user[0];
-            }else{
-                return null;
+            User[] usr = getUsersArray(userName);
+            for(User user: users.values()){
+                if(user.getUserName() == userName){
+                    return usr[0];
+                }
+                }
             }
-         }
+            return null;
             
     }
+            
 
     /**
      * {@inheritDoc}
@@ -140,6 +142,9 @@ public class UserFileDao implements UserDao {
     public User createUser(User user) throws IOException {
         synchronized(users) {
             User newUser = new User(nextID(),user.getUserName());
+            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ")) {
+                return null;                                 // Username is blank or contains a space
+            }
             for (User other : users.values()) {
                 if(user.equals(other)){
                     return null;
