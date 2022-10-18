@@ -1,0 +1,28 @@
+<div *ngIf="card">
+    <table>
+        <tr>
+            <td class="attribute_headers">
+                Name:
+            </td>
+            <td>
+                {{card.name}}
+            </td>
+        </tr>
+        <tr>
+            <td class="attribute_headers">
+                Price:
+            </td>
+            <td>
+                {{card.price.toFixed(2)}}
+            </td>
+        </tr>
+        <tr>
+            <td class="attribute_headers">
+                In Stock:
+            </td>
+            <td>
+                {{card.quantity}}
+            </td>
+        </tr>
+    </table>
+</div>
