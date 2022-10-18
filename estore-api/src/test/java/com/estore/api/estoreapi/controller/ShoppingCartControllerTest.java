@@ -3,6 +3,7 @@ package com.estore.api.estoreapi.controller;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
+import com.estore.api.estoreapi.persistence.InventoryFileDao;
 import com.estore.api.estoreapi.persistence.ShoppingCartDao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -196,8 +197,6 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testDeleteFromCartHandleException() throws IOException{
-
-        ShoppingCart cart = new ShoppingCart(1);
         Product nProduct = new Product(5, "Apples", 10, 1.00f);
         
         doThrow(new IOException()).when(mockShoppingCartDao).deleteFromCart(1, nProduct);
@@ -209,8 +208,23 @@ public class ShoppingCartControllerTest {
     
     }
 
-    
+    @Test    
+    public void testRefresh() throws IOException{
+        int userId = 1;
+        InventoryController invCont = new InventoryController(null);
+        
+        boolean daoRefreshesTrue = true;
+        when(mockShoppingCartDao.refreshCart(userId, invCont)).thenReturn(daoRefreshesTrue);
+        ResponseEntity<Boolean> response1 = shoppingCartController.refreshCart(userId, invCont);
+        assertEquals(HttpStatus.OK, response1.getStatusCode());
+        assertEquals(daoRefreshesTrue, response1.getBody());
 
+        boolean daoRefreshesFalse = true;
+        when(mockShoppingCartDao.refreshCart(userId, invCont)).thenReturn(daoRefreshesFalse);
+        ResponseEntity<Boolean> response2 = shoppingCartController.refreshCart(userId, invCont);
+        assertEquals(HttpStatus.OK, response2.getStatusCode());
+        assertEquals(daoRefreshesFalse, response2.getBody());
+    }
 
 
 
