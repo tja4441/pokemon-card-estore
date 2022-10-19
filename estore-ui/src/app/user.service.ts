@@ -75,12 +75,18 @@ export class UserService {
     }
   }
 
-  getUser(): User{
+  getUser(): User {
     return {id: this.id, UserName: this.username}
   }
 
   isLoggedIn(): boolean {
     return this.id != -1 && this.username != ""
+  }
+
+  logout(): void {
+    this.id = -1;
+    this.username = ""
+    this.shoppingCart = []
   }
 
 }
