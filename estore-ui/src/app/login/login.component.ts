@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../user';
 import { MessageService } from '../message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,25 +10,31 @@ import { MessageService } from '../message.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public loggedIn = false
   public loginFailed = false
-  constructor(private userService: UserService, private logger: MessageService) { }
+  constructor(private userService: UserService, private logger: MessageService, private router: Router) { }
 
   ngOnInit(): void {}
 
-  login(username: string) {
+  login(username: string): void {
     username = username.trim()
     if(!username) return
 
     this.userService.login(username)
       .subscribe(user=> {
         this.userService.setUser(user)
-        this.loggedIn = this.userService.isLoggedIn()
 
         let USER = this.userService.getUser()
-        this.logger.add(`Logged in as User{id: ${USER.id}, username: ${USER.UserName}}`)
-        if(!this.loggedIn) this.loginFailed = true
-      })
+        if(this.userService.isLoggedIn()) {
+          this.logger.add(`Logged in as User{id: ${USER.id}, username: ${USER.UserName}}`)
+          if(username == "admin") {
+            this.router.navigate(['/admin'])
+          }
+          else {
+            this.router.navigate(["/user", {username: username}])
+          }
+        }
+        else this.loginFailed = true
+      }) 
   }
 
   register(username: string) {
@@ -38,14 +45,17 @@ export class LoginComponent implements OnInit {
     this.userService.register({UserName: username, id: -1} as User)
       .subscribe(user => {
         this.userService.setUser(user)
-        this.loggedIn = this.userService.isLoggedIn()
-
         let USER = this.userService.getUser()
-        this.logger.add(`Registered new User{id: ${USER.id}, username: ${USER.UserName}}`)
-        if(!this.loggedIn) {
-          this.loginFailed = true
-          this.logger.add("Error: Registration Failed!")
+        if(this.userService.isLoggedIn()) {
+          this.logger.add(`Registered new User{id: ${USER.id}, username: ${USER.UserName}}`)
+          if(username == "admin") {
+            this.router.navigate(['/admin'])
+          }
+          else {
+            this.router.navigate(["/user", {username: username}])
+          }
         }
+        else this.loginFailed = true
       })
   }
 
