@@ -6,5 +6,5 @@
         <button (click)="getProductsAndReload(searchName)">Search</button>
     </a>
 
-    <app-products-list [observableList]=""></app-products-list>
+    <app-products-list [observableList]="this.searchForList"></app-products-list>
 </div>
