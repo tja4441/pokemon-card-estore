@@ -13,8 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.estore.api.estoreapi.model.Product;
-import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.UserDao;
 
@@ -22,19 +20,19 @@ import com.estore.api.estoreapi.persistence.UserDao;
 public class UserControllerTest {
     private UserController userController;
     private UserDao mockUserDao;
-
-    private static User createTestUser() {
-        Product testCard = new Product(1, "Charizard", 3, 2.00f);
-        ShoppingCart cart = new ShoppingCart();
-        cart.add(testCard);
-        User user = new User(1, "Jeff", cart);
-        return user;
-    }
+    private ShoppingCartController mockShoppingCartController;
 
     @BeforeEach
     public void setupUserController(){
         mockUserDao = mock(UserDao.class);
-        userController = new UserController(mockUserDao);
+        mockShoppingCartController = mock(ShoppingCartController.class);
+        userController = new UserController(mockUserDao, mockShoppingCartController);
+    }
+
+    
+    private static User createTestUser() {
+        User user = new User(1, "Jeff");
+        return user;
     }
 
     @Test
@@ -50,7 +48,7 @@ public class UserControllerTest {
     public void testRegisterUserConflict() {
         User user = null;
         ResponseEntity<User> response = userController.register(user);
-        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
@@ -88,7 +86,7 @@ public class UserControllerTest {
     
     @Test
     public void getUsers() throws IOException{
-        User[] users = {createTestUser(), new User(5, "Mary", null)};
+        User[] users = {createTestUser(), new User(5, "Mary")};
         when(mockUserDao.getUsers()).thenReturn(users);
         ResponseEntity<User[]> response = userController.getUsers();
         assertEquals(HttpStatus.OK, response.getStatusCode());

@@ -130,7 +130,7 @@ public class UserFileDao implements UserDao {
         }else{
             return null;
         }
-    }
+    } 
 
     /**
      * {@inheritDoc}
@@ -139,6 +139,9 @@ public class UserFileDao implements UserDao {
     public User createUser(User user) throws IOException {
         synchronized(users) {
             User newUser = new User(nextID(),user.getUserName());
+            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ")) {
+                return null;                                 // Username is blank or contains a space
+            }
             for (User other : users.values()) {
                 if(user.equals(other)){
                     return null;
