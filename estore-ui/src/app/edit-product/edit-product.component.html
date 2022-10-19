@@ -1,14 +1,13 @@
-<div [hidden]="hidden">
-    <div *ngIf="!changed">
-        <h1>{{name}}</h1>
-        <form (submit)="setPrice()">
-            <input type="number" [(ngModel)]="price">
-            <input type="number" [(ngModel)]="price">
-            <input type="submit">
-        </form>
-    </div>
-    <div *ngIf="changed">
-        <h1>{{name}} has been changed</h1>
-        <button (click)="close">close</button>
-    </div>
+<div *ngIf="!changed">
+    <h1>{{name}}</h1>
+    <form (submit)="setPrice()">
+        <label>Price: </label>
+        <input type="number" [value]="product.price">
+        <label>Quantity: </label>
+        <input type="number" [value]="product.quantity">
+        <input type="submit">
+    </form>
+</div>
+<div *ngIf="changed">
+    <h1>{{name}} has been changed</h1>
 </div>
