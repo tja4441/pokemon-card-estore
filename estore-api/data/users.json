@@ -1,9 +1,7 @@
 [ {
   "id" : 0,
-  "UserName" : "admin",
-  "ShoppingCart" : null
+  "UserName" : "admin"
 }, {
   "id" : 1,
-  "UserName" : "zach",
-  "ShoppingCart" : [ ]
+  "UserName" : "zach"
 } ]

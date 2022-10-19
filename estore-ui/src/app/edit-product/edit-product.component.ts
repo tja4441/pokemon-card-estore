@@ -10,10 +10,7 @@ import { ProductService } from '../product.service';
 export class EditProductComponent implements OnInit {
   // should be passed in name, price, and quantity as input when created
   // in order to avoid erroneous calls to backend
-  @Input() id?: number
-  @Input() name?: string
-  @Input() price?: number
-  @Input() quantity?: number
+  @Input() product?: Product
   public changed = false
   public hidden = false
   constructor(private productService: ProductService) { }
@@ -21,20 +18,12 @@ export class EditProductComponent implements OnInit {
   ngOnInit(): void {}
 
   setPrice(): void{
-    if(this.id == undefined || 
-      this.name == undefined ||
-      this.price == undefined ||
-      this.quantity == undefined) return;
-    let product: Product = 
-      {
-        id: this.id, 
-        name: this.name, 
-        price: this.price, 
-        quantity: this.quantity
-      }
-    this.productService.editProduct(product)
+    if(!this.product) return;
+    else{
+      this.productService.editProduct(this.product)
       .subscribe(p => {
-        if(p.price == this.price && p.quantity == this.quantity) this.changed = true})
+        if(p.price == this.product?.price && p.quantity == this.product?.quantity) this.changed = true})
+    }
   }
 
   close(): void{

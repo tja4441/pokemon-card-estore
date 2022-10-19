@@ -1,8 +1,6 @@
 <p>List Of Cards in Stock:</p>
-<hr style="border-width: 1px;">
-<div *ngFor="let product of productsList">
-    <div>
-        <app-product [card]="product"></app-product>
+<div style="border-width: 1px;">
+    <div *ngFor="let product of productsList" style="display: inline-block;">
+        <app-product-card [card]="product"></app-product-card>
     </div>
-    <hr style="border-width: 1px;">
 </div>
