@@ -2,6 +2,7 @@ package com.estore.api.estoreapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
@@ -9,10 +10,15 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.estore.api.estoreapi.controller.InventoryController;
 import com.estore.api.estoreapi.model.Product;
@@ -32,7 +38,8 @@ public class ShoppingCartFileDaoTest {
     Product[] testProducts;
     ObjectMapper mockInvObjectMapper;
     ObjectMapper mockObjectMapper;
-    InventoryController mockInventoryController;
+    InventoryFileDao mockInventoryFileDao;
+    InventoryController inventoryController;
 
     /**
      * Before each test, we will create and inject a Mock Object Mapper to
@@ -43,23 +50,27 @@ public class ShoppingCartFileDaoTest {
     public void setupShoppingCartFileDao() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         mockInvObjectMapper = mock(ObjectMapper.class);
-        mockInventoryController = mock(InventoryController.class);
+        mockInventoryFileDao = mock(InventoryFileDao.class);
+        inventoryController = new InventoryController(mockInventoryFileDao);
 
         testShoppingCarts = new ShoppingCart[3];
         testShoppingCarts[0] = new ShoppingCart(1);
         testShoppingCarts[1] = new ShoppingCart(2);
         testShoppingCarts[2] = new ShoppingCart(3);
 
+        testProducts = new Product[4];
+        testProducts[0] = new Product(2,"Pikachu",4,100.00f);
+        testProducts[1] = new Product(3, "Bulbasaur",5,2.50f);
+        testProducts[2] = new Product(4,"Squirtle",4,1.00f);
+        testProducts[3] = new Product(5, "Charmander",3,50.05f);
+
+        when(mockInvObjectMapper.readValue(new File("Charmander_Is_Better.txt"),Product[].class)).thenReturn(testProducts);
+        when(mockInvObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockInvObjectMapper);
+        inventoryController = new InventoryController(mockInventoryFileDao);
+
         when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"),ShoppingCart[].class)).thenReturn(testShoppingCarts);
         when(mockObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockObjectMapper);
         shoppingCartFileDao = new ShoppingCartFileDao("Charmander_Is_Better.txt",mockObjectMapper);
-
-        testProducts = new Product[4];
-        testProducts[0] = new Product(2,"Pikachu",1,100.00f);
-        testProducts[1] = new Product(3, "Bulbasaur",2,2.50f);
-        testProducts[2] = new Product(4,"Squirtle",1,1.00f);
-        testProducts[3] = new Product(5, "Charmander",1,50.05f);
-        
     }
 
     @Test
@@ -132,31 +143,61 @@ public class ShoppingCartFileDaoTest {
     @Test
     public void testDeleteFromCart() throws IOException {
         // Invoke
-        ShoppingCart cart = testShoppingCarts[0];
-        cart = shoppingCartFileDao.deleteFromCart(1, new Product(1, "Greninja", 20, 200.00f));
-        ShoppingCart nullResult = shoppingCartFileDao.deleteFromCart(2, new Product(1, "Greninja", 20, 200.00f));
+        testShoppingCarts[1].getContents().add(testProducts[0]);
+        testShoppingCarts[1].getContents().add(testProducts[1]);
+
+        ShoppingCart expectedCart = testShoppingCarts[1];
+        expectedCart.getContents().remove(testProducts[1]);
+
+        ShoppingCart cart = shoppingCartFileDao.deleteFromCart(2, testProducts[1]);
+        ShoppingCart nullResult = shoppingCartFileDao.deleteFromCart(4, testProducts[1]);
+
         // Analyze
-        assertEquals(new ShoppingCart(1), cart);
+        assertEquals(expectedCart, cart);
         assertNull(nullResult);
     }
 
     @Test
     public void testRefreshCart() throws IOException {
         // Invoke
-        ShoppingCart cart1 = shoppingCartFileDao.createCart(new ShoppingCart(2));
-        shoppingCartFileDao.addToCart(2, new Product(1, "Greninja", 25, 149.99f));
-        shoppingCartFileDao.refreshCart(2, mockInventoryController);
-        ShoppingCart cart2 = shoppingCartFileDao.createCart(new ShoppingCart(3));
-        shoppingCartFileDao.addToCart(3, new Product(2, "Victini", 5, 29.50f));
-        shoppingCartFileDao.updateCart(cart2);
+        when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
+        when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
+        when(mockInventoryFileDao.getProduct(4)).thenReturn(testProducts[2]);
+        when(mockInventoryFileDao.getProduct(5)).thenReturn(testProducts[3]);
+        when(mockInventoryFileDao.getProduct(6)).thenReturn(null);
+
+        ShoppingCart expectedCart = new ShoppingCart(3);
+        expectedCart.getContents().add(testProducts[0]);
+
+        ShoppingCart cart = testShoppingCarts[2];
+        shoppingCartFileDao.addToCart(3, testProducts[0]);
+        shoppingCartFileDao.addToCart(3, new Product(6, "Greninja", 25, 149.99f));
+        shoppingCartFileDao.refreshCart(3, inventoryController);
+
         // Analyze
-        assertEquals(cart1, testShoppingCarts[0]);
-        assertEquals(cart2, new ShoppingCart(3));
+        assertEquals(expectedCart.getContents(), cart.getContents());
     }
 
     @Test
-    public void testCheckout() {
+    public void testCheckout() throws IOException{
+        // Invoke
+        HashSet<Product> emptyContents = new HashSet<Product>();
+
+        when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
+        when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
+        when(mockInventoryFileDao.getProduct(4)).thenReturn(testProducts[2]);
+        when(mockInventoryFileDao.getProduct(5)).thenReturn(testProducts[3]);
+        when(mockInventoryFileDao.getProduct(6)).thenReturn(null);
+
+        testShoppingCarts[1].addToCart(testProducts[1]);
+        testShoppingCarts[1].addToCart(testProducts[2]);
+        testShoppingCarts[2].addToCart(new Product(6,"Clefairy", 3,1.00f));
+
+        ShoppingCart cart = shoppingCartFileDao.checkout(2, inventoryController);
+        ShoppingCart nullCart = shoppingCartFileDao.checkout(3, inventoryController);
+
+        assertNull(nullCart);
+        assertEquals(emptyContents,cart.getContents() );
+
     }
-
-
 }

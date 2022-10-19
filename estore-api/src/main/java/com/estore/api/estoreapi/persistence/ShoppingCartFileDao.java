@@ -3,6 +3,7 @@ package com.estore.api.estoreapi.persistence;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -115,8 +116,8 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     private ShoppingCart[] getCartsArray() {
         ArrayList<ShoppingCart> cartArrayList = new ArrayList<>();
 
-        for (ShoppingCart product : carts.values()) {
-            cartArrayList.add(product);
+        for (ShoppingCart cart : carts.values()) {
+            cartArrayList.add(cart);
         }
 
         ShoppingCart[] cartArray = new ShoppingCart[cartArrayList.size()];
@@ -167,10 +168,12 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     public boolean refreshCart(int id,InventoryController inventoryController) throws IOException {
         synchronized(carts) {
             ShoppingCart cart = carts.get(id);
-            Product[] contents = (Product[]) cart.getContents().toArray();
+            HashSet<Product> productsSet = cart.getContents();
+            Product[] products = new Product[productsSet.size()];
+            productsSet.toArray(products);
             boolean nothingDeleted = true;
 
-            for (Product product : contents) {
+            for (Product product : products) {
                 Product invProduct = inventoryController.getProduct(product.getId()).getBody();
                 if (invProduct != null && invProduct.getName().equals(product.getName())) {
                     Product newProduct = invProduct;
@@ -194,7 +197,9 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         synchronized(carts) {
             if (refreshCart(id, inventoryController)) {
                 ShoppingCart cart = carts.get(id);
-                Product[] contents = (Product[]) cart.getContents().toArray();
+                HashSet<Product> productsSet = cart.getContents();
+                Product[] contents = new Product[productsSet.size()];
+                productsSet.toArray(contents);
     
                 for (Product product : contents) {
                     Product invProduct = inventoryController.getProduct(product.getId()).getBody();
