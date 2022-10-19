@@ -1,9 +1,10 @@
 [ {
-  "id" : 0,
-  "contents" : [ ],
-  "totalPrice" : 0.0
-}, {
   "id" : 2,
-  "contents" : [ ],
-  "totalPrice" : 0.0
+  "contents" : [ {
+    "id" : 2,
+    "name" : "Banana",
+    "quantity" : 10,
+    "price" : 2.04
+  } ],
+  "totalPrice" : 2.04
 } ]

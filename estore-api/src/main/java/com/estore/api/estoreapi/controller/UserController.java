@@ -60,7 +60,7 @@ public class UserController extends Controller {
             if(userDao.getUser(user.getUserName()) != null) return new ResponseEntity<>(HttpStatus.CONFLICT);
             User newUser = userDao.createUser(user);
             if (newUser != null) {
-                shoppingCartController.createCart(new ShoppingCart(newUser.getId()));
+                shoppingCartController.createCart(newUser.getId());
                 return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
             }
             else {
