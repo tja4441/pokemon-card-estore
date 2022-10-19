@@ -1,0 +1,10 @@
+<p>search-products works!</p>
+<div>
+    <label for="name">Product Search </label>
+    <input id="name" #name/>
+    <a routerLink="search">
+        <button onclick="getProductsByName(name)">Search</button>
+    </a>
+
+    <app-products-list [observableList]="this.searchForList"></app-products-list>
+</div>

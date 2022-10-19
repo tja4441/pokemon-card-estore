@@ -29,6 +29,15 @@ export class ProductService {
       );
   }
 
+  getProductsByString(name: String): Observable<Product[]> {
+    const inventoryUrlByName = 'http://localhost:8080/products/?name=' + name;
+    return this.http.get<Product[]>(inventoryUrlByName)
+      .pipe(
+        tap(_ => this.log('fetched products')),
+        catchError(this.handleError<Product[]>('getProducts', []))
+      );
+  }
+
   //////////////////// SAVE METHODS ////////////////////
 
   /** POST: add a new product to the inventory */
