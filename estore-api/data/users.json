@@ -4,4 +4,7 @@
 }, {
   "id" : 1,
   "UserName" : "zach"
+}, {
+  "id" : 2,
+  "UserName" : "Daniel"
 } ]
