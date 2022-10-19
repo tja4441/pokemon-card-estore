@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { ProductComponent } from './product/product.component';
 import { ProductsListComponent } from './products-list/products-list.component';
+import { RemoveProductComponent } from './remove-product/remove-product.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { SearchProductsComponent } from './search-products/search-products.compo
     UserComponent,
     ProductComponent,
     ProductsListComponent,
+    RemoveProductComponent,
     SearchProductsComponent
   ],
   imports: [

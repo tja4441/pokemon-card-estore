@@ -1,2 +1,5 @@
 <p>This is the admin page.</p>
+<a routerLink=""><button id="home">Home</button></a>
 <app-add-products></app-add-products>
+<app-messages></app-messages>
+<app-products-list [observableList]="getProducts()" [isAdmin]="true"></app-products-list
