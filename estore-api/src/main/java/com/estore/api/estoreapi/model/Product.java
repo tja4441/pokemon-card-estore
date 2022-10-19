@@ -37,18 +37,6 @@ public class Product {
         this.price = price;
     }
 
-    /**
-     * This constructor "takes"(does not actually change other products quantity)
-     * a product from an existing product(from the inventory)
-     * @param product an existing product(from the inventory)
-     * @param amount the amount of product that you are "taking" from the other product
-     */
-    public Product(Product product, int amount){
-        this.id = product.id;
-        this.name = product.name;
-        this.quantity = amount;
-        //TODO: Determine if this is necessary
-    }
     
     /**
      * @return returns the id of this product
@@ -85,13 +73,6 @@ public class Product {
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-    
-    /**
-     * @param quantity increments the quantity of the product to the amount passed in
-     */
-    public void changeQuantity(int quantity) {
-        this.quantity += quantity;
     }
 
     /**

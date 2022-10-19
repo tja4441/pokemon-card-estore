@@ -10,6 +10,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { UserComponent } from './user/user.component';
 import { ProductComponent } from './product/product.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
@@ -22,6 +23,7 @@ import { SearchProductsComponent } from './search-products/search-products.compo
     AdminComponent,
     HomeComponent,
     LoginComponent,
+    UserComponent,
     ProductComponent,
     ProductsListComponent,
     SearchProductsComponent
