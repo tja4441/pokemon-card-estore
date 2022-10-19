@@ -74,4 +74,9 @@ public class User {
             return false;
         }
     }
+
+    @Override
+    public int hashCode() {
+        return this.userName.toLowerCase().hashCode();
+    }
 }

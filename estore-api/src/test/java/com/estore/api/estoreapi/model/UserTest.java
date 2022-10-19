@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Tag;
  */
 import org.junit.jupiter.api.Test;
 
-
 @Tag("Model-tier")
 public class UserTest {
 
@@ -19,13 +18,11 @@ public class UserTest {
 
         int expected_id = 0;
         String expected_userName = "admin";
-        ShoppingCart expected_ShoppingCart = null;
         
-        User user = new User(expected_id,expected_userName, null);
+        User user = new User(expected_id,expected_userName);
 
         assertEquals(expected_id, user.getId());
         assertEquals(expected_userName, user.getUserName());
-        assertEquals(expected_ShoppingCart, user.getShoppingCart());  
     }
 
     @Test
@@ -33,24 +30,19 @@ public class UserTest {
 
         int expected_id = 1;
         String expected_userName = "Zach";
-        ShoppingCart expected_ShoppingCart = new ShoppingCart();
         
-        User user = new User(expected_id,expected_userName, new ShoppingCart());
+        User user = new User(expected_id,expected_userName);
 
         assertEquals(expected_id, user.getId());
-        assertEquals(expected_userName, user.getUserName());
-        assertEquals(expected_ShoppingCart, user.getShoppingCart());  
+        assertEquals(expected_userName, user.getUserName());  
     }
     @Test
     public void testToString(){
         int id = 1;
         String userName = "Zach";
-        ShoppingCart shoppingCart = new ShoppingCart();
-        Product Product = new Product(1, "Carrots", 50, 2.10f);
-        shoppingCart.add(Product);
-        String expected_String = String.format(User.STRING_FORMAT, id, userName, shoppingCart);
+        String expected_String = String.format(User.STRING_FORMAT, id, userName);
 
-        User user = new User(id, userName, shoppingCart);
+        User user = new User(id, userName);
 
         String actual_string = user.toString();
 
@@ -62,7 +54,7 @@ public class UserTest {
         int id = 0;
         String userName = "admin";
 
-        User user = new User(id, userName, null);
+        User user = new User(id, userName);
 
         assertEquals(true, user.isAdmin());
     }
@@ -71,19 +63,9 @@ public class UserTest {
     public void testnotAdmin(){
         int id = 1;
         String userName = "Zach";
-        ShoppingCart shoppingCart = new ShoppingCart();
-        Product Product = new Product(1, "Carrots", 50, 2.10f);
-        shoppingCart.add(Product);
-        User user = new User(id, userName, shoppingCart);
+        User user = new User(id, userName);
 
         assertEquals(false, user.isAdmin());
     }
 
-
-    
-
-
-
-
-    
 }

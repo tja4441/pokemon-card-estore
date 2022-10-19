@@ -29,16 +29,16 @@ import java.util.logging.Level;
 public class UserController extends Controller {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDao userDao;
-    //private ShoppingCartController shoppingCartController;
+    private ShoppingCartController shoppingCartController;
 
     /**
      * Creates a REST API controller to respond to requests
      * 
      * @param userDao The user data access object to perfom CRUD operations
      */
-    public UserController(UserDao userDao/*, ShoppingCartController shoppingCartController*/){
+    public UserController(UserDao userDao, ShoppingCartController shoppingCartController){
         this.userDao = userDao;
-        //this.shoppingCartController = shoppingCartController;
+        this.shoppingCartController = shoppingCartController;
     }
 
     /**
@@ -54,10 +54,13 @@ public class UserController extends Controller {
     public ResponseEntity<User> register(@RequestBody User user){
         LOG.info("POST /home" + user);
         try {
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             if(userDao.getUser(user.getUserName()) != null) return new ResponseEntity<>(HttpStatus.CONFLICT);
             User newUser = userDao.createUser(user);
             if (newUser != null) {
-                //shoppingCartController.createCart(new ShoppingCart(newUser.getId()));
+                shoppingCartController.createCart(new ShoppingCart(newUser.getId()));
                 return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
             }
             else {

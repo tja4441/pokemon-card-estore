@@ -1,4 +1,14 @@
 h1  {color: white;
     background-color: blue;
     font: 2em arial;
-    text-align: center;}
+    text-align: center;
+}
+
+.usertag {
+    float: right;
+    background-color: lightblue;
+    font-size: 12px;
+    padding: 1em;
+    border: 2px solid black;
+    margin: 1em;
+}

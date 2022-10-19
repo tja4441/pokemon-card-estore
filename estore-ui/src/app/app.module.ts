@@ -10,9 +10,11 @@ import { MessagesComponent } from './messages/messages.component';
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { UserComponent } from './user/user.component';
 import { ProductComponent } from './product/product.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { RemoveProductComponent } from './remove-product/remove-product.component';
+import { SearchProductsComponent } from './search-products/search-products.component';
 
 @NgModule({
   declarations: [
@@ -22,9 +24,11 @@ import { RemoveProductComponent } from './remove-product/remove-product.componen
     AdminComponent,
     HomeComponent,
     LoginComponent,
+    UserComponent,
     ProductComponent,
     ProductsListComponent,
-    RemoveProductComponent
+    RemoveProductComponent,
+    SearchProductsComponent
   ],
   imports: [
     BrowserModule,
