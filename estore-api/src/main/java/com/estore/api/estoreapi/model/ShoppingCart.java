@@ -169,6 +169,7 @@ public class ShoppingCart {
      * 
      * @author Daniel Pittman
      */
+    @Override
     public boolean equals(Object other) {
         if (!(other instanceof ShoppingCart)) {
             return false;
@@ -179,5 +180,10 @@ public class ShoppingCart {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
     }
 }
