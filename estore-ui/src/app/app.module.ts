@@ -5,21 +5,25 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductsComponent } from './products/products.component'
+import { AddProductsComponent } from './add-products/add-products.component'
 import { MessagesComponent } from './messages/messages.component';
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { ProductComponent } from './product/product.component';
+import { ProductsListComponent } from './products-list/products-list.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent,
+    AddProductsComponent,
     MessagesComponent,
     AdminComponent,
     HomeComponent,
     LoginComponent,
+    ProductComponent,
+    ProductsListComponent,
     EditProductComponent
   ],
   imports: [

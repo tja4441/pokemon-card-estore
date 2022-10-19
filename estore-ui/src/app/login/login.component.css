@@ -1,0 +1,14 @@
+.card{
+    border: 2px solid black;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: 16em;
+    height: 12em;
+}
+
+.login{
+    margin: auto;
+    text-align: center;
+}
