@@ -19,9 +19,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string): void {
-    username = username.trim()
+    username = username.trim().toLowerCase()
     if(!username) return
-
     this.userService.login(username)
       .subscribe(user=> {
         this.userService.setUser(user)
@@ -29,14 +28,14 @@ export class LoginComponent implements OnInit {
         this.username = USER.UserName
         if(this.userService.isLoggedIn()) {
           this.logger.add(`Logged in as User{id: ${USER.id}, username: ${USER.UserName}}`)
-          this.toPage()
+          this.goHome()
         }
         else this.loginFailed = true
       })
   }
 
   register(username: string): void {
-    username = username.trim()
+    username = username.trim().toLowerCase()
     if(!username) return
     this.logger.add(`Registering User: ${username}`)
     this.userService.register({UserName: username, id: -1} as User)
@@ -46,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.username = USER.UserName
         if(this.userService.isLoggedIn()) {
           this.logger.add(`Registered new User{id: ${USER.id}, username: ${USER.UserName}}`)
-          this.toPage()
+          this.goHome()
         }
         else this.loginFailed = true
       })
@@ -56,14 +55,7 @@ export class LoginComponent implements OnInit {
     this.userService.logout()
     this.username = this.userService.getUser().UserName
   }
-
-  toPage(): void {
-    if(this.username == "admin") {
-      this.router.navigate(['/admin'])
-    }
-    else {
-      this.router.navigate(["/user", {username: this.username}])
-    }
+  goHome(): void {
+    this.router.navigate([""])
   }
-
 }

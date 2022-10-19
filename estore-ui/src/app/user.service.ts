@@ -12,7 +12,7 @@ import { User } from './user';
 export class UserService {
   private id: number = -1
 
-  private username: string = ""
+  public username: string = ""
 
   private shoppingCart: Product[] = [];
 
@@ -27,7 +27,7 @@ export class UserService {
     private messageService: MessageService) { }
   
   //NOTE: is not able to tell when it gets different http for a Conflict
-  register(user: User) {
+  register(user: User): Observable<User> {
     return this.http.post<User>(this.userUrl, user, this.httpOptions)
     .pipe(
       tap(_ => this.log('grabbed user')),
@@ -36,7 +36,7 @@ export class UserService {
   }
   
   //NOTE: is not able to tell when it gets different http for a Conflict
-  login(username: string){
+  login(username: string): Observable<User> {
     const url = `${this.userUrl}/${username}`;
     return this.http.get<User>(url)
       .pipe(

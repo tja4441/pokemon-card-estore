@@ -21,6 +21,6 @@
 </div>
 <div *ngIf="username" class="loggedIn">
     <h2>Already logged in as {{username | titlecase}}</h2>
-    <button (click)="toPage()">continue as user</button>
+    <button (click)="goHome()">continue as user</button>
     <button (click)="logout()">log out</button>
 </div>
