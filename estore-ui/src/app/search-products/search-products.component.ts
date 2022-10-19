@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from 'rxjs';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
 
@@ -11,19 +11,40 @@ import { ProductService } from '../product.service';
 export class SearchProductsComponent implements OnInit {
   private productService: ProductService;
   searchForList: Observable<Product[]> | undefined;
-  name: String | undefined;
+  private searchTerms = new Subject<string>();
+  name: string;
 
   constructor(productService: ProductService) {
     this.productService = productService;
+    this.name = ""
   }
 
-  getProductsByName(name: String): void {
-    this.searchForList = this.productService.getProductsByString(name);
+  getProductsByName(name: string): void {
+    this.name = name;
+    this.searchTerms.next(name);
+  }
+
+  reload(): void {
+    window.location.reload;
+  }
+
+  getProductsAndReload(name: string): void {
+    this.getProductsByName(name);
+    this.reload();
   }
 
   ngOnInit(): void {
     if(this.name){
-      this.searchForList = this.productService.getProductsByString(this.name);
+      this.searchForList = this.searchTerms.pipe(
+        // wait 300ms after each keystroke before considering the term
+        debounceTime(300),
+  
+        // ignore new term if same as previous term
+        distinctUntilChanged(),
+  
+        // switch to new search observable each time the term changes
+        switchMap((name: string) => this.productService.getProductsByString(name)),
+      );
     }
   }
 
