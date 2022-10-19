@@ -9,7 +9,7 @@ import { ProductService } from '../product.service';
   styleUrls: ['./search-products.component.css']
 })
 export class SearchProductsComponent implements OnInit {
-  products$!: Observable<Product[]>;
+  obsProducts$!: Observable<Product[]>;
   private searchTerms = new Subject<string>();
 
   constructor(private productService: ProductService) {}
@@ -19,7 +19,7 @@ export class SearchProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products$! = this.searchTerms.pipe(
+    this.obsProducts$! = this.searchTerms.pipe(
       debounceTime(300),
 
       distinctUntilChanged(),
