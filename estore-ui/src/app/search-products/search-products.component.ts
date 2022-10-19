@@ -9,43 +9,22 @@ import { ProductService } from '../product.service';
   styleUrls: ['./search-products.component.css']
 })
 export class SearchProductsComponent implements OnInit {
-  private productService: ProductService;
-  searchForList: Observable<Product[]> | undefined;
+  products$!: Observable<Product[]>;
   private searchTerms = new Subject<string>();
-  name: string;
 
-  constructor(productService: ProductService) {
-    this.productService = productService;
-    this.name = ""
-  }
+  constructor(private productService: ProductService) {}
 
-  getProductsByName(name: string): void {
-    this.name = name;
-    this.searchTerms.next(name);
-  }
-
-  reload(): void {
-    window.location.reload;
-  }
-
-  getProductsAndReload(name: string): void {
-    this.getProductsByName(name);
-    this.reload();
+  search(term: string): void {
+    this.searchTerms.next(term);
   }
 
   ngOnInit(): void {
-    if(this.name){
-      this.searchForList = this.searchTerms.pipe(
-        // wait 300ms after each keystroke before considering the term
-        debounceTime(300),
-  
-        // ignore new term if same as previous term
-        distinctUntilChanged(),
-  
-        // switch to new search observable each time the term changes
-        switchMap((name: string) => this.productService.getProductsByString(name)),
-      );
-    }
-  }
+    this.products$! = this.searchTerms.pipe(
+      debounceTime(300),
 
+      distinctUntilChanged(),
+
+      switchMap((term: string) => this.productService.getProductsByString(term)),
+    );
+  }
 }
