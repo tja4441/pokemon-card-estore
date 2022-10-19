@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Product } from './product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of} from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
 @Injectable({
@@ -30,7 +30,7 @@ export class ProductService {
   }
 
   getProductsByString(name: String): Observable<Product[]> {
-    const inventoryUrlByName = 'http://localhost:8080/products/?name=' + name;
+    const inventoryUrlByName = this.inventoryUrl + '/?name=' + name;
     return this.http.get<Product[]>(inventoryUrlByName)
       .pipe(
         tap(_ => this.log('fetched products')),

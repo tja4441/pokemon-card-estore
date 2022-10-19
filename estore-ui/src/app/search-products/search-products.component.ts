@@ -11,6 +11,7 @@ import { ProductService } from '../product.service';
 export class SearchProductsComponent implements OnInit {
   private productService: ProductService;
   searchForList: Observable<Product[]> | undefined;
+  name: String | undefined;
 
   constructor(productService: ProductService) {
     this.productService = productService;
@@ -21,6 +22,9 @@ export class SearchProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.name){
+      this.searchForList = this.productService.getProductsByString(this.name);
+    }
   }
 
 }

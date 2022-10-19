@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent},
   { path: 'login', component: LoginComponent},
   { path: '', component: HomeComponent},
-  { path: 'search', component: SearchProductsComponent }
+  { path: 'search/:name', component: SearchProductsComponent }
 ];
 
 @NgModule({
