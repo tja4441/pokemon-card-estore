@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -16,8 +13,6 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
-import org.springframework.http.ResponseEntity;
 
 import com.estore.api.estoreapi.controller.InventoryController;
 import com.estore.api.estoreapi.model.Product;
@@ -35,6 +30,7 @@ public class ShoppingCartFileDaoTest {
     ShoppingCartFileDao shoppingCartFileDao;
     ShoppingCart[] testShoppingCarts;
     Product[] testProducts;
+    ObjectMapper mockInvObjectMapper;
     ObjectMapper mockObjectMapper;
     InventoryController mockInventoryController;
 
@@ -46,27 +42,31 @@ public class ShoppingCartFileDaoTest {
     @BeforeEach
     public void setupShoppingCartFileDao() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
+        mockInvObjectMapper = mock(ObjectMapper.class);
         mockInventoryController = mock(InventoryController.class);
 
-        testProducts = new Product[1];
-        testProducts[0] = new Product(2,"Greninja",20,200.00f);
+        testShoppingCarts = new ShoppingCart[3];
+        testShoppingCarts[0] = new ShoppingCart(1);
+        testShoppingCarts[1] = new ShoppingCart(2);
+        testShoppingCarts[2] = new ShoppingCart(3);
 
-        ShoppingCart testShoppingCart = new ShoppingCart(1);
-        testShoppingCart.addToCart(new Product(1, "Greninja", 20, 200.00f));
-        testShoppingCarts = new ShoppingCart[1];
-        testShoppingCarts[0] = testShoppingCart;
-        
-        when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"),Product[].class)).thenReturn(testProducts);
+        when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"),ShoppingCart[].class)).thenReturn(testShoppingCarts);
         when(mockObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockObjectMapper);
+        shoppingCartFileDao = new ShoppingCartFileDao("Charmander_Is_Better.txt",mockObjectMapper);
 
-        //when(mockInventoryController.getProducts(),ResponseEntity.class).thenReturn(testProducts);
-        shoppingCartFileDao = new ShoppingCartFileDao("filename.txt", mockObjectMapper);
+        testProducts = new Product[4];
+        testProducts[0] = new Product(2,"Pikachu",1,100.00f);
+        testProducts[1] = new Product(3, "Bulbasaur",2,2.50f);
+        testProducts[2] = new Product(4,"Squirtle",1,1.00f);
+        testProducts[3] = new Product(5, "Charmander",1,50.05f);
+        
     }
 
     @Test
     public void testUpdateCart() throws IOException {
         // Setup
         ShoppingCart cart = new ShoppingCart(1);
+        cart.addToCart(testProducts[1]);
 
         // Invoke
         ShoppingCart result = assertDoesNotThrow(() -> shoppingCartFileDao.updateCart(cart),
@@ -74,7 +74,7 @@ public class ShoppingCartFileDaoTest {
 
         // Analyze
         assertNotNull(result);
-        ShoppingCart actual = shoppingCartFileDao.getCart(1);
+        ShoppingCart actual = shoppingCartFileDao.getCart(cart.getId());
         assertEquals(actual, cart);
     }
 
@@ -90,10 +90,15 @@ public class ShoppingCartFileDaoTest {
     @Test
     public void testCreateCart() throws IOException {
         // Invoke
-        ShoppingCart cart = shoppingCartFileDao.createCart(new ShoppingCart(2));
+        ShoppingCart cart = new ShoppingCart(4);
+
+        ShoppingCart result = assertDoesNotThrow(() -> shoppingCartFileDao.createCart(cart),
+                                    "Unexpected exception thrown");
+
         // Analyze
-        assertNotNull(cart);
-        ShoppingCart actual = new ShoppingCart(2);
+        assertNotNull(result);
+
+        ShoppingCart actual = new ShoppingCart(4);
         assertEquals(actual.getId(), cart.getId());
         assertEquals(actual.getContents(), cart.getContents());
         assertEquals(actual.GetTotalPrice(), cart.GetTotalPrice());
@@ -113,11 +118,14 @@ public class ShoppingCartFileDaoTest {
     @Test
     public void testAddToCart() throws IOException {
         // Invoke
-        ShoppingCart cart = new ShoppingCart(1);
-        cart = shoppingCartFileDao.addToCart(1, new Product(1, "Greninja", 20, 200.00f));
-        ShoppingCart nullResult = shoppingCartFileDao.addToCart(2, new Product(1, "Greninja", 20, 200.00f));
+        ShoppingCart expectedCart = testShoppingCarts[0];
+        expectedCart.getContents().add(testProducts[1]);
+
+        ShoppingCart cart = shoppingCartFileDao.addToCart(1, testProducts[1]);
+        ShoppingCart nullResult = shoppingCartFileDao.addToCart(4, testProducts[1]);
+
         // Analyze
-        assertEquals(testShoppingCarts[0], cart);
+        assertEquals(expectedCart, cart);
         assertNull(nullResult);
     }
 
