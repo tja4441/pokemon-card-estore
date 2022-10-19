@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.estore.api.estoreapi.controller.InventoryControllerTest;
 import com.estore.api.estoreapi.model.Product;
 
 /**
@@ -37,6 +38,8 @@ public class UserFileDaoTest {
     ObjectMapper mockObjectMapper;
     ShoppingCart[] testShoppingCarts;
     ArrayList<HashSet<Product>> testProductSets;
+    InventoryDao mockInventoryDao;
+    
 
     /**
      * Before each test, create test Users with different ShoppingCarts
@@ -45,32 +48,18 @@ public class UserFileDaoTest {
      */
     @BeforeEach
     public void setupUserFileDao() throws IOException {
+        mockInventoryDao = mock(InventoryDao.class);
 
         mockObjectMapper = mock(ObjectMapper.class);
 
-        /** ArrayList of Product sets to be put in ShoppingCarts */
-        testProductSets = new ArrayList<HashSet<Product>>();
-        HashSet<Product> setOne = new HashSet<Product>();
-        setOne.add( new Product(2,"Pikachu",10,100.00f));
-        testProductSets.add( setOne );
-        HashSet<Product> setTwo = setOne;
-        setTwo.add( new Product(3, "Magikarp",1,24999.99f));
-        testProductSets.add( setTwo );
-
-        /** Array of ShoppingCarts for testing */
-        testShoppingCarts = new ShoppingCart[3];
-        testShoppingCarts[0] = new ShoppingCart();
-        testShoppingCarts[1] = new ShoppingCart(testProductSets.get(0));
-        testShoppingCarts[2] = new ShoppingCart(testProductSets.get(1));
-
         /** Array of Users for testing */
         testUsers = new User[6];
-        testUsers[0] = new User(0, "admin", null);
-        testUsers[1] = new User(1,"Tim",testShoppingCarts[0]);
-        testUsers[2] = new User(2, "Zach",testShoppingCarts[1]);
-        testUsers[3] = new User(3,"Daniel",testShoppingCarts[1]);
-        testUsers[4] = new User(4, "Gabe",testShoppingCarts[2]);
-        testUsers[5] = new User(5, "Jensen", testShoppingCarts[2]);
+        testUsers[0] = new User(0, "admin");
+        testUsers[1] = new User(1,"Tim");
+        testUsers[2] = new User(2, "Zach");
+        testUsers[3] = new User(3,"Daniel");
+        testUsers[4] = new User(4, "Gabe");
+        testUsers[5] = new User(5, "Jensen");
 
         /** Behavior definitions for the mockObjectMapper */
         when(mockObjectMapper.readValue(new File("filename.txt"),User[].class)).thenReturn(testUsers);
@@ -104,7 +93,7 @@ public class UserFileDaoTest {
     @Test
     public void createUser() throws IOException {
         // Setup
-        User user = new User(6, "Bob", testShoppingCarts[0]);
+        User user = new User(6, "Bob");
 
         // Invoke
         User result = assertDoesNotThrow(() -> userFileDao.createUser(user),
@@ -114,7 +103,6 @@ public class UserFileDaoTest {
         assertNotNull(result);
         User actual = userFileDao.getUser(user.getUserName());
         assertEquals(actual.getUserName(),user.getUserName());
-        assertEquals(actual.getShoppingCart(),user.getShoppingCart());
         assertEquals(actual.getId(),user.getId());
     }
 
@@ -123,7 +111,7 @@ public class UserFileDaoTest {
         doThrow(new IOException()).when(mockObjectMapper)
             .writeValue(any(File.class),any(User[].class));
         
-        User user = new User(6, "Gerald",testShoppingCarts[1]);
+        User user = new User(6, "Gerald");
 
         assertThrows(IOException.class,
                         () -> userFileDao.createUser(user),
@@ -140,9 +128,9 @@ public class UserFileDaoTest {
     }
 
     @Test
-    public void testCreateUserSameName() throws IOException {   // Fails; createUser cannot assume username is not already in use
+    public void testCreateUserSameName() throws IOException { 
         // Invoke
-        User user = userFileDao.createUser(new User(6, "Gabriel",testShoppingCarts[0]));
+        User user = userFileDao.createUser(new User(6, "Zach"));
 
         // Analyze
         assertNull(user);
@@ -151,10 +139,20 @@ public class UserFileDaoTest {
     @Test
     public void testCreateUserSpaceName() throws IOException {   // Fails; createUser cannot assume username is visible
         // Invoke
-        User user = userFileDao.createUser(new User(6, "  ",testShoppingCarts[0]));
+        User user = userFileDao.createUser(new User(6, "  "));
 
         // Analyze
         assertNull(user);
+    }
+    @Test
+    public void testCreateUserContainsSpaceName() throws IOException {   // Fails; createUser cannot assume username is visible
+        // Invoke
+        User user = userFileDao.createUser(new User(6, "Bob John"));
+        User user2 = userFileDao.createUser(new User(7, "Bo        b"));
+
+        // Analyze
+        assertNull(user);
+        assertNull(user2);
     }
 
     @Test
