@@ -4,5 +4,8 @@
     <div>
         <app-product [card]="product"></app-product>
     </div>
+    <div *ngIf="isAdmin">
+        <app-remove-product [product]="product"></app-remove-product>
+    </div>
     <hr style="border-width: 1px;">
 </div>

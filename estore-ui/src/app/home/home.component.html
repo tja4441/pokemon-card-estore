@@ -1,2 +1,14 @@
 <p>The Home Page</p>
-<app-products-list [observableList]="getProducts()"></app-products-list>
+<div *ngIf="!this.isLoggedIn()">
+    <a routerLink="login"><button id="login">Login</button></a>
+</div>
+<div *ngIf="this.isLoggedIn() && this.isAdmin()">
+    <a routerLink="admin"><button id="admin">Admin</button></a>
+</div>
+<div *ngIf="this.isLoggedIn() && !this.isAdmin()">
+    <a routerLink="login"><button id="login">Login (Will be shopping cart)</button></a>
+</div>
+<app-products-list [observableList]="getProducts()" [isAdmin]="false"></app-products-list>
+<div *ngIf="this.isLoggedIn() && this.isAdmin()">
+    <app-messages></app-messages>
+</div>

@@ -83,4 +83,8 @@ export class UserService {
     return this.id != -1 && this.username != ""
   }
 
+  isAdmin(): boolean {
+    return this.id == 0 && this.username == "admin";
+  }
+
 }

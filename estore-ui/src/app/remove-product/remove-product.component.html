@@ -1,1 +1,5 @@
-<p>remove-product works!</p>
+<div *ngIf="product">
+    <!-- Maybe add confirmation button so not accidental deletion -->
+    <button type="button" class="removeProduct"
+        (click)="this.removeProduct(product.id)">Remove Product</button>
+</div>
