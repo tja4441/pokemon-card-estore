@@ -9,6 +9,7 @@ import { User } from './user';
 @Injectable({
   providedIn: 'root'
 })
+//id = -1, username = "", and shopping cart is an empty array if user is logged out
 export class UserService {
   private id: number = -1
 
@@ -16,8 +17,10 @@ export class UserService {
 
   private shoppingCart: Product[] = [];
 
+  //baseline url for user functions
   private userUrl = 'http://localhost:8080/home';
 
+  //neccessary httpOptions for posting a json object
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -27,6 +30,12 @@ export class UserService {
     private messageService: MessageService) { }
   
   //NOTE: is not able to tell when it gets different http for a Conflict
+  /**
+   * Tries to register a user to the database and catches an error if
+   * the server returns a bad http response
+   * @param user The user that you would like to register to the database
+   * @returns An observable that resolves to the user after it 
+   */
   register(user: User): Observable<User> {
     return this.http.post<User>(this.userUrl, user, this.httpOptions)
     .pipe(
@@ -36,6 +45,12 @@ export class UserService {
   }
   
   //NOTE: is not able to tell when it gets different http for a Conflict
+   /**
+   * Tries to log in a user to the database and catches an error if
+   * the server returns a bad http response
+   * @param username The username that you would like to register to the database
+   * @returns An observable that resolves to the user after it 
+   */
   login(username: string): Observable<User> {
     const url = `${this.userUrl}/${username}`;
     return this.http.get<User>(url)
@@ -68,6 +83,10 @@ export class UserService {
     this.messageService.add(`UserService: ${message}`);
   }
   
+  /**
+   * sets the global user to the passed in user
+   * @param user the "global" user
+   */
   setUser(user: User): void{
     if(user){
       this.id = user.id
@@ -75,17 +94,30 @@ export class UserService {
     }
   }
 
+  /**
+   * @returns returns the "global" user
+   */
   getUser(): User {
     return {id: this.id, UserName: this.username}
   }
 
+  /**
+   * @returns returns true if there is a logged in "global" user
+   */
   isLoggedIn(): boolean {
     return this.id != -1 && this.username != ""
   }
 
+  /**
+   * @returns returns true if the global user is logged in as "admin"
+   */
   isAdmin(): boolean {
     return this.id == 0 && this.username == "admin";
    }
+  
+  /**
+  * logs out "global" user
+  */
   logout(): void {
     this.id = -1;
     this.username = ""

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   public title = 'Pokémon Card Store'
   constructor(public userService: UserService, private router: Router){}
+  
   redirect(){
     if(this.userService.isAdmin()) this.router.navigate(["/admin"])
     else this.router.navigate(["/user", {username: this.userService.username}])

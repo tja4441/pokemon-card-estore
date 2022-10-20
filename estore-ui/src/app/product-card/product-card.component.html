@@ -1,9 +1,10 @@
-<div class="card" *ngIf="card" (click)="changeFace()">
+<div class="card" *ngIf="card" (click)="edit()">
     <div *ngIf="!editing" >
         <app-product [card]="card"></app-product>
     </div>
     <div *ngIf="editing">
         <app-edit-product (changedProductEvent)="itemChange($event)" [card]="card"></app-edit-product>
-        <app-remove-product [product]="card"></app-remove-product>
+        <!-- event triggered in delete triggers event here which is sent all the way up to product list -->
+        <app-remove-product (deletedItemEvent)="deleteItem($event)" [product]="card"></app-remove-product>
     </div>
 </div>

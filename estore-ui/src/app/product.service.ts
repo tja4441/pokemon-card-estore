@@ -19,7 +19,10 @@ export class ProductService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  /** GET products from the inventory */
+  /** 
+   * GETs products from the inventory on our server
+   * @returns returns an observable that resolves to a a product array holding all products in inventory
+   */
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.inventoryUrl)
       .pipe(
@@ -28,8 +31,13 @@ export class ProductService {
       );
   }
 
-  getProductsByString(name: String): Observable<Product[]> {
-    const inventoryUrlByName = this.inventoryUrl + '/?name=' + name;
+  /**
+   * GETs products from the backend that contain a given substring
+   * @param substring the substring you are looking for a card to contain in its name
+   * @returns returns an observable that resolves to a a product array holding all cards that contain substring
+   */
+  getProductsByString(substring: String): Observable<Product[]> {
+    const inventoryUrlByName = this.inventoryUrl + '/?name=' + substring;
     return this.http.get<Product[]>(inventoryUrlByName)
       .pipe(
         tap(_ => this.log('fetched products')),
@@ -39,7 +47,12 @@ export class ProductService {
 
   //////////////////// SAVE METHODS ////////////////////
 
-  /** POST: add a new product to the inventory */
+  
+  /** 
+   * POST: add a new product to the inventory
+   * @param product the product that you would like to add to add to the database
+   * @returns an observable that resolves to a product after it has been added to the database
+   */
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(this.inventoryUrl, product, this.httpOptions).pipe(
       tap((newProduct: Product) => this.log(`added product w/ id=${newProduct.id}`)),
@@ -47,14 +60,23 @@ export class ProductService {
     );
   }
 
-  editProduct(product: Product){
+  /**
+   * PUT edits an item in the database
+   * @param product an item containing the changes you would like to apply to this item
+   * @returns an observable that resolves to a product after it has been added edited in the database
+   */
+  editProduct(product: Product): Observable<Product> {
     return this.http.put<Product>(this.inventoryUrl, product, this.httpOptions).pipe(
       tap((newProduct: Product) => this.log(`edited product w/ id=${newProduct.id}`)),
       catchError(this.handleError<Product>('editProduct'))
     );
   }
 
-  /** DELETE: remove product from the inventory */
+  /** 
+   * DELETE: remove product from the inventory
+   * @param id the id of the item that you would liek to delete from the database
+   * @returns an observable that resolves to the deleted product
+   */
   removeProduct(id: number): Observable<Product> {
     const url = this.inventoryUrl + '/' + id
 

@@ -8,15 +8,8 @@ import { Product } from '../product';
 })
 export class ProductComponent implements OnInit {
   @Input() card: Product | undefined;
-  id: number;
 
   constructor() {
-    if(this.card) {
-      this.id = this.card.id;
-    }
-    else {
-      this.id = 0
-    }
   }
 
   ngOnInit(): void {

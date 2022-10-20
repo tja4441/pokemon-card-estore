@@ -15,11 +15,12 @@ export class SearchProductsComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   search(term: string): void {
-    this.searchTerms.next(term);
+    this.searchTerms.next(term.trim());
   }
 
   ngOnInit(): void {
     this.obsProducts$! = this.searchTerms.pipe(
+      //time to wait for another input before actually triggering
       debounceTime(300),
 
       distinctUntilChanged(),
