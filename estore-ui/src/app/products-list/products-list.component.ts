@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../product';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-products-list',
@@ -8,20 +9,21 @@ import { Product } from '../product';
   styleUrls: ['./products-list.component.css']
 })
 export class ProductsListComponent implements OnInit {
-  @Input() observableList: Observable<Product[]> | undefined;
   @Input() isAdmin: Boolean | undefined;
-  productsList: Product[] | undefined;
+  productsList: Product[] = [];
 
-  constructor() { }
+  constructor(private productService: ProductService) { }
 
-  ngOnInit(): void { 
-    if(this.observableList != undefined){
-      this.observableList.subscribe(products => this.productsList = products);
-    }
+  ngOnInit(): void {
+    //gets products from productService and then when they resolve sets productList
+      this.productService.getProducts().subscribe(products => this.productsList = products)
   }
 
+  /**
+   * deletes "all"(should really only ever be 1) products from the product list that have id "id"
+   * @param id id of product to remove from list
+   */
   deleteItem(id: number): void {
-    if(!this.productsList) return
     this.productsList = this.productsList.filter((p: Product) => p.id != id)
   }
 }
