@@ -22,9 +22,4 @@ export class UserComponent implements OnInit {
     const username = this.route.snapshot.paramMap.get('username')
     this.username = username ? username: ""
   }
-
-  getProducts(): Observable<Product[]> {
-    return this.productService.getProducts();
-  }
-
 }

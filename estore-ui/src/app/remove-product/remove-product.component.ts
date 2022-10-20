@@ -15,6 +15,10 @@ export class RemoveProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * removes a product with id "id" from the database and sends an event up to product card that holds this
+   * @param id the id of product to be removed
+   */
   removeProduct(id: number): void {
     this.productService.removeProduct(id).subscribe(() =>{
       this.deletedItemEvent.emit(id)});

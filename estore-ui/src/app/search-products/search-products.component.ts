@@ -20,6 +20,7 @@ export class SearchProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.obsProducts$! = this.searchTerms.pipe(
+      //time to wait for another input before actually triggering
       debounceTime(300),
 
       distinctUntilChanged(),

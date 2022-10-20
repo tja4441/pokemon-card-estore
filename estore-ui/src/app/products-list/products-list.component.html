@@ -1,6 +1,4 @@
 <p>List Of Cards in Stock:</p>
-<div style="border-width: 1px;">
-    <div *ngFor="let product of productsList" style="display: inline-block;">
-        <app-product-card (deletedItemEvent)="deleteItem($event)" [card]="product"></app-product-card>
-    </div>
+<div *ngFor="let product of productsList" style="display: inline-block;">
+    <app-product-card (deletedItemEvent)="deleteItem($event)" [card]="product"></app-product-card>
 </div>

@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.UserDao;
 
@@ -25,7 +23,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 @RestController
-@RequestMapping("home")
+@RequestMapping("user")
 public class UserController extends Controller {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDao userDao;
@@ -52,7 +50,7 @@ public class UserController extends Controller {
      */
     @PostMapping("")
     public ResponseEntity<User> register(@RequestBody User user){
-        LOG.info("POST /home" + user);
+        LOG.info("POST /user" + user);
         try {
             if (user == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -84,7 +82,7 @@ public class UserController extends Controller {
      */
     @GetMapping("/{userName}")
     public ResponseEntity<User> login(@PathVariable String userName){
-        LOG.info("GET /home/" + userName);
+        LOG.info("GET /user/" + userName);
         try {
             User user = userDao.getUser(userName);
             if(user != null){
