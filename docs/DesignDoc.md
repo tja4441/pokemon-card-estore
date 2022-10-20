@@ -7,9 +7,11 @@ geometry: margin=1in
 * Team name: Engenuity
 * Team members
   * Zachary Wagner
-  * 
-  * 
-  * 
+  * Daniel Pittman
+  * Jensen DeRosier
+  * Timothy Avila
+  * Gabriel Buxo
+  
 
 ## Executive Summary
 
@@ -26,6 +28,7 @@ This is a summary of the project.
 | Term | Definition |
 |------|------------|
 | SPA | Single Page |
+| Stack | Spring API + Angular UI |
 
 
 ## Requirements
@@ -128,8 +131,8 @@ with the e-store application.
 > screenshots from the tool and/or corresponding source code that was flagged._
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
+
+The back end (API) was tested by creating and running JUnit tests. The front end (UI) was tested by manually manipulating the UI. These tests were used to find any bugs that existed in the stack. The tests also verified that the program has the correct operation at each tier of the stack.
 
 ### Acceptance Testing
 > _Report on the number of user stories that have passed all their
@@ -139,8 +142,22 @@ with the e-store application.
 > acceptance testing and if there are any concerns._
 
 ### Unit Testing and Code Coverage
-> _Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets. If there are any anomalies, discuss
-> those._
+
+Before testing, we agreed on a code coverage target to meet while testing—this target aimed for 90% coverage. We set the target at 90% because it would ensure that the classes would be tested thoroughly for correct operation without wasting time on parts that are not significant.
+
+We created and ran unit tests for each class we made on the back end (API). After running the tests, we ran a code coverage tool to generate a report on how well the JUnit tests covered our code. The code coverage report gave an average of 96% across each tier (Controller, Model, Persistence). This report shows that we exceeded our target and expectations. The breakdown of the report is shown below.
+
+  * The code coverage for the Controller tier is 95%. 
+
+    ![Controller Tier Coverage](ControllerTier.png)
+
+  * The code coverage for the Model tier is 97%.
+
+    ![Persistence Tier Coverage](PersistenceTier.png)
+
+  * The code coverage for the Persistence tier is 97%
+
+    ![Model Tier Coverage](ModelTier.png)
+
+Further testing may be needed to cover more branches. However, this may be unnecessary as the missed branches do not seem essential and would be a waste of our limited time. 
+
