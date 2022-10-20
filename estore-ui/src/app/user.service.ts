@@ -89,4 +89,8 @@ export class UserService {
     this.shoppingCart = []
   }
 
+  isAdmin(): boolean{
+    return this.username == "admin"
+  }
+
 }

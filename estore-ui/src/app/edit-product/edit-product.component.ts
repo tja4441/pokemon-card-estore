@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
 
@@ -10,23 +10,23 @@ import { ProductService } from '../product.service';
 export class EditProductComponent implements OnInit {
   // should be passed in name, price, and quantity as input when created
   // in order to avoid erroneous calls to backend
-  @Input() product?: Product
-  public changed = false
-  public hidden = false
+  @Input() card?: Product
+  @Output() changedProductEvent = new EventEmitter<Product>()
   constructor(private productService: ProductService) { }
 
-  ngOnInit(): void {}
-
-  setPrice(): void{
-    if(!this.product) return;
-    else{
-      this.productService.editProduct(this.product)
-      .subscribe(p => {
-        if(p.price == this.product?.price && p.quantity == this.product?.quantity) this.changed = true})
-    }
+  ngOnInit(): void {
   }
 
-  close(): void{
-    this.hidden = true
+  setPrice(price: number, quantity: number): void {
+    console.log(this.card)
+    console.log(price)
+    console.log(quantity)
+    if(!this.card || isNaN(price) || isNaN(quantity)) return
+    this.card.price = price
+    this.card.quantity = quantity
+    this.productService.editProduct(this.card)
+    .subscribe((p: Product) => {
+      if(p.price == this.card?.price && p.quantity == this.card?.quantity) this.changedProductEvent.emit(p)
+    })
   }
 }

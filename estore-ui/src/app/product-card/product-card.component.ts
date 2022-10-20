@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { Product } from '../product';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-product-card',
@@ -10,12 +11,21 @@ import { Product } from '../product';
 export class ProductCardComponent implements OnInit {
   @Input() card: Product | undefined;
   public editing: boolean = false;
-  constructor() { }
+  constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   changeFace(){
-    this.editing = !this.editing
+    if(this.userService.isAdmin()) this.editing = true
   }
+
+  submit(){
+    this.editing = false
+  }
+
+  itemChange(newProduct: Product){
+    this.card = newProduct;
+    this.editing = false
+  }
+
 }

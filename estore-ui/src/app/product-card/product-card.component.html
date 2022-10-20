@@ -3,6 +3,6 @@
         <app-product [card]="card"></app-product>
     </div>
     <div *ngIf="editing">
-        <app-edit-product [card]="card"></app-edit-product>
+        <app-edit-product (changedProductEvent)="itemChange($event)" [card]="card"></app-edit-product>
     </div>
 </div>

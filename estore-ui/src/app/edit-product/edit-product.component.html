@@ -1,13 +1,10 @@
-<div *ngIf="!changed">
-    <h1>{{name}}</h1>
-    <form (submit)="setPrice()">
+<div *ngIf="card">
+    <h1>{{card.name}}</h1>
+    <form (submit)="setPrice(priceInput.value, quantityInput.value)">
         <label>Price: </label>
-        <input type="number" [value]="product.price">
+        <input type="number" [value]="card.price" #priceInput>
         <label>Quantity: </label>
-        <input type="number" [value]="product.quantity">
+        <input type="number" [value]="card.quantity" #quantityInput>
         <input type="submit">
     </form>
-</div>
-<div *ngIf="changed">
-    <h1>{{name}} has been changed</h1>
 </div>
