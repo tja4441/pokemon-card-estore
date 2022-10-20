@@ -111,4 +111,9 @@ public class Product {
             return false;
         }
     }
+
+    @Override
+    public int hashCode() {
+        return name.toLowerCase().hashCode();
+    }
 }

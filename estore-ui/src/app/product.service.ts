@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Product } from './product';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of} from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
 @Injectable({
@@ -12,10 +12,9 @@ export class ProductService {
 
   private inventoryUrl = 'http://localhost:8080/products';   // URL to web api
 
-  httpOptions = {
+  httpOptions = { 
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
@@ -29,6 +28,15 @@ export class ProductService {
       );
   }
 
+  getProductsByString(name: String): Observable<Product[]> {
+    const inventoryUrlByName = this.inventoryUrl + '/?name=' + name;
+    return this.http.get<Product[]>(inventoryUrlByName)
+      .pipe(
+        tap(_ => this.log('fetched products')),
+        catchError(this.handleError<Product[]>('getProducts', []))
+      );
+  }
+
   //////////////////// SAVE METHODS ////////////////////
 
   /** POST: add a new product to the inventory */
@@ -36,6 +44,16 @@ export class ProductService {
     return this.http.post<Product>(this.inventoryUrl, product, this.httpOptions).pipe(
       tap((newProduct: Product) => this.log(`added product w/ id=${newProduct.id}`)),
       catchError(this.handleError<Product>('addProduct'))
+    );
+  }
+
+  /** DELETE: remove product from the inventory */
+  removeProduct(id: number): Observable<Product> {
+    const url = this.inventoryUrl + '/' + id
+
+    return this.http.delete<Product>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`removed product w/ id=${id}`)),
+      catchError(this.handleError<Product>('removeProduct'))
     );
   }
 

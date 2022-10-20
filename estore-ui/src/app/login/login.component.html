@@ -1,4 +1,4 @@
-<div *ngIf="!loggedIn" class="login">
+<div *ngIf="!username" class="login">
     <div class="card">
         <h2>Login:</h2>
         <form (ngSubmit)="login(loginName.value)">
@@ -19,12 +19,8 @@
         </form>
     </div>
 </div>
-
-<div *ngIf="loggedIn">
-    <p>Logged In :)</p>
+<div *ngIf="username" class="loggedIn">
+    <h2>Already logged in as {{username | titlecase}}</h2>
+    <button (click)="goHome()">continue as user</button>
+    <button (click)="logout()">log out</button>
 </div>
-
-<nav>
-    <a routerLink=""><button>Home</button></a>
-    <a routerLink="/admin"><button>I'm an Admin!</button></a>
-</nav>
