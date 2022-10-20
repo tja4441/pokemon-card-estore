@@ -135,11 +135,12 @@ with the e-store application.
 The back end (API) was tested by creating and running JUnit tests. The front end (UI) was tested by manually manipulating the UI. These tests were used to find any bugs that existed in the stack. The tests also verified that the program has the correct operation at each tier of the stack.
 
 ### Acceptance Testing
-> _Report on the number of user stories that have passed all their
-> acceptance criteria tests, the number that have some acceptance
-> criteria tests failing, and the number of user stories that
-> have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
+
+  * Eight User stories have passed all of their acceptance criteria tests
+  * Zero User stories have failing acceptance criteria tests
+  * All tests in the sprint have been tested and checked
+
+While acceptance testing, we discovered we used a hash set for the shopping cart model but did not override the hashcode in the product model. This flaw caused issues when attempting to delete an item from a shopping cart, as the item would not delete. This flaw was not, however, caught in the Junit test. Even though a test was written to test this functionality, the test still passed. We are puzzled about why the test passed without implementing the hashcode in the product model, but we are pleased that this flaw has been corrected.
 
 ### Unit Testing and Code Coverage
 
