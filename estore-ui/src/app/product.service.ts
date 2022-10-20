@@ -12,10 +12,9 @@ export class ProductService {
 
   private inventoryUrl = 'http://localhost:8080/products';   // URL to web api
 
-  httpOptions = {
+  httpOptions = { 
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
@@ -52,6 +51,16 @@ export class ProductService {
     return this.http.put<Product>(this.inventoryUrl, product, this.httpOptions).pipe(
       tap((newProduct: Product) => this.log(`edited product w/ id=${newProduct.id}`)),
       catchError(this.handleError<Product>('editProduct'))
+    );
+  }
+
+  /** DELETE: remove product from the inventory */
+  removeProduct(id: number): Observable<Product> {
+    const url = this.inventoryUrl + '/' + id
+
+    return this.http.delete<Product>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`removed product w/ id=${id}`)),
+      catchError(this.handleError<Product>('removeProduct'))
     );
   }
 

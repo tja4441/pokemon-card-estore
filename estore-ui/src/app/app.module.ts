@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { ProductComponent } from './product/product.component';
 import { ProductsListComponent } from './products-list/products-list.component';
+import { RemoveProductComponent } from './remove-product/remove-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
@@ -30,6 +31,7 @@ import { SearchProductsComponent } from './search-products/search-products.compo
     ProductsListComponent,
     EditProductComponent,
     ProductCardComponent,
+    RemoveProductComponent,
     SearchProductsComponent
   ],
   imports: [

@@ -42,7 +42,7 @@ public interface ShoppingCartDao {
     /**
      * Creates and stores {@linkplain Shoppingcart cart}
      * 
-     * @param {@link ShoppingCart cart} object being created 
+     * @param id The identification of the {@link Shoppingcart cart} object being created 
      * 
      * @return the {@link ShoppingCart cart} that was created
      * 
@@ -50,7 +50,7 @@ public interface ShoppingCartDao {
      * 
      * @author Daniel Pittman
      */
-    ShoppingCart createCart(ShoppingCart cart) throws IOException;
+    ShoppingCart createCart(int id) throws IOException;
 
     /**
      * Deletes an {@linkplain ShoppinggCart cart} given an id

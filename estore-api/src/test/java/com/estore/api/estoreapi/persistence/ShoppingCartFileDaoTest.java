@@ -103,7 +103,7 @@ public class ShoppingCartFileDaoTest {
         // Invoke
         ShoppingCart cart = new ShoppingCart(4);
 
-        ShoppingCart result = assertDoesNotThrow(() -> shoppingCartFileDao.createCart(cart),
+        ShoppingCart result = assertDoesNotThrow(() -> shoppingCartFileDao.createCart(4),
                                     "Unexpected exception thrown");
 
         // Analyze

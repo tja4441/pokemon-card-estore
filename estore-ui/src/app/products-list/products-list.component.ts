@@ -9,6 +9,7 @@ import { Product } from '../product';
 })
 export class ProductsListComponent implements OnInit {
   @Input() observableList: Observable<Product[]> | undefined;
+  @Input() isAdmin: Boolean | undefined;
   productsList: Product[] | undefined;
 
   constructor() { }

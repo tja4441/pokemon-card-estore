@@ -73,9 +73,9 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     ** {@inheritDoc}
      */
     @Override
-    public ShoppingCart createCart(ShoppingCart cart) throws IOException {
+    public ShoppingCart createCart(int id) throws IOException {
         synchronized(carts){
-            ShoppingCart newCart = new ShoppingCart(cart.getId());
+            ShoppingCart newCart = new ShoppingCart(id);
 
             for (ShoppingCart other : carts.values()) {
                 if(newCart.equals(other)){

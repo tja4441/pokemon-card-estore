@@ -5,6 +5,7 @@ import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.InventoryFileDao;
 import com.estore.api.estoreapi.persistence.ShoppingCartDao;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doThrow;
@@ -160,12 +161,13 @@ public class ShoppingCartControllerTest {
     @Test
     public void testCreateCart() throws IOException{
 
-        ShoppingCart cart = new ShoppingCart(1);
+        int cartID = 1;
+        ShoppingCart cart = new ShoppingCart(cartID);
         
-        when(mockShoppingCartDao.createCart(cart)).thenReturn(cart);
+        when(mockShoppingCartDao.createCart(1)).thenReturn(cart);
 
 
-        ResponseEntity<ShoppingCart> response = shoppingCartController.createCart(cart);
+        ResponseEntity<ShoppingCart> response = shoppingCartController.createCart(cartID);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(cart, response.getBody());
@@ -173,13 +175,11 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testCreateCartConflict() throws IOException{
-
-        ShoppingCart cart = new ShoppingCart(1);
         
-        when(mockShoppingCartDao.createCart(cart)).thenReturn(null);
+        when(mockShoppingCartDao.createCart(1)).thenReturn(null);
 
 
-        ResponseEntity<ShoppingCart> response = shoppingCartController.createCart(cart);
+        ResponseEntity<ShoppingCart> response = shoppingCartController.createCart(1);
 
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
@@ -187,12 +187,12 @@ public class ShoppingCartControllerTest {
     @Test
     public void testCreateCartHandleException() throws IOException{
 
-        ShoppingCart cart = new ShoppingCart(1);
+        int cartID = 1;
         
-        doThrow(new IOException()).when(mockShoppingCartDao).createCart(cart);
+        doThrow(new IOException()).when(mockShoppingCartDao).createCart(cartID);
 
 
-        ResponseEntity<ShoppingCart> response = shoppingCartController.createCart(cart);
+        ResponseEntity<ShoppingCart> response = shoppingCartController.createCart(cartID);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     

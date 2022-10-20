@@ -128,10 +128,10 @@ public class ShoppingCartController extends Controller{
      * @author Daniel Pittman
      */
     @PostMapping("")
-    public ResponseEntity<ShoppingCart> createCart(@RequestBody ShoppingCart cart) {
-        LOG.info("POST /ShoppingCarts " + cart);
+    public ResponseEntity<ShoppingCart> createCart(@RequestBody int id) {
+        LOG.info("POST /ShoppingCarts " + id);
         try {
-            ShoppingCart newCart = shoppingCartDao.createCart(cart);
+            ShoppingCart newCart = shoppingCartDao.createCart(id);
             if (newCart != null) {
                 return new ResponseEntity<ShoppingCart>(newCart,HttpStatus.CREATED);
             } else {
@@ -156,9 +156,9 @@ public class ShoppingCartController extends Controller{
      * 
      * @author Daniel Pittman
      */
-    @PutMapping("/add?{id}/{product}")
+    @PutMapping("/{id}/add")
     public ResponseEntity<ShoppingCart> addToCart(@PathVariable int id, @RequestBody Product product) {
-        LOG.info("PUT /ShoppingCarts/add?/" + id + "/" + product);
+        LOG.info("PUT /ShoppingCarts/" + id + "/add/" + product);
         try {
             ShoppingCart updatedCart = shoppingCartDao.addToCart(id,product);
             if (updatedCart != null) {
@@ -185,9 +185,9 @@ public class ShoppingCartController extends Controller{
      * 
      * @author Daniel Pittman
      */
-    @PutMapping("/delete?{id}/{product}")
+    @PutMapping("/{id}/delete")
     public ResponseEntity<ShoppingCart> deleteFromCart(@PathVariable int id, @RequestBody Product product) {
-        LOG.info("PUT /ShoppingCarts/delete?/" + id + "/" + product);
+        LOG.info("PUT /ShoppingCarts/" + id + "/delete/" + product);
         try {
             ShoppingCart updatedCart = shoppingCartDao.deleteFromCart(id,product);
             if (updatedCart != null) {
@@ -213,9 +213,9 @@ public class ShoppingCartController extends Controller{
      * 
      * @author Daniel Pittman
      */
-    @PutMapping("/refresh?{id}")
-    public ResponseEntity<Boolean> refreshCart(@PathVariable int id, @PathVariable InventoryController inventoryController) {
-        LOG.info("PUT /ShoppingCarts/refresh?/" + id );
+    @PutMapping("/{id}/refresh")
+    public ResponseEntity<Boolean> refreshCart(@PathVariable int id) {
+        LOG.info("PUT /ShoppingCarts/" + id + "/refresh" );
         try {
             Boolean nothingDeleted = shoppingCartDao.refreshCart(id,inventoryController);
             return new ResponseEntity<Boolean>(nothingDeleted,HttpStatus.OK);
@@ -236,9 +236,9 @@ public class ShoppingCartController extends Controller{
      *         ResponseEntity with HTTP status of BAD_REQUEST if {@link ShoppingCart cart} cannot check out due to inventory shortage,
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @PutMapping("/checkout?{id}")
-    public ResponseEntity<ShoppingCart> checkout(@PathVariable int id, @PathVariable InventoryController inventoryController) {
-        LOG.info("PUT /ShoppingCarts/checkout?/" + id );
+    @PutMapping("/{id}/checkout")
+    public ResponseEntity<ShoppingCart> checkout(@PathVariable int id) {
+        LOG.info("PUT /ShoppingCarts/" + id + "/checkout");
         try {
             ShoppingCart updatedCart = shoppingCartDao.checkout(id,inventoryController);
             if (updatedCart != null) {
