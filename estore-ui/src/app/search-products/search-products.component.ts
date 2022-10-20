@@ -9,23 +9,26 @@ import { ProductService } from '../product.service';
   styleUrls: ['./search-products.component.css']
 })
 export class SearchProductsComponent implements OnInit {
-  obsProducts$!: Observable<Product[]>;
+  public products: Product[] = []
   private searchTerms = new Subject<string>();
-
+  public empty = false
   constructor(private productService: ProductService) {}
 
   search(term: string): void {
-    this.searchTerms.next(term.trim());
+    term = term.trim()
+    if(!term) this.empty = true
+    else this.empty = false
+    this.searchTerms.next(term);
   }
 
   ngOnInit(): void {
-    this.obsProducts$! = this.searchTerms.pipe(
+    this.searchTerms.pipe(
       //time to wait for another input before actually triggering
       debounceTime(300),
 
       distinctUntilChanged(),
 
       switchMap((term: string) => this.productService.getProductsByString(term)),
-    );
+    ).subscribe((p)=>this.products = p)
   }
 }
