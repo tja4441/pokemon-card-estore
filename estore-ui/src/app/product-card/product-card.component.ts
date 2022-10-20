@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../product';
 import { UserService } from '../user.service';
 
@@ -10,6 +9,7 @@ import { UserService } from '../user.service';
 })
 export class ProductCardComponent implements OnInit {
   @Input() card: Product | undefined;
+  @Output() deletedItemEvent = new EventEmitter<number>()
   public editing: boolean = false;
   constructor(private userService: UserService) { }
 
@@ -28,4 +28,7 @@ export class ProductCardComponent implements OnInit {
     this.editing = false
   }
 
+  deleteItem(id: number) {
+    this.deletedItemEvent.emit(id);
+  }
 }

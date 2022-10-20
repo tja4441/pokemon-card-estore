@@ -18,9 +18,6 @@ export class EditProductComponent implements OnInit {
   }
 
   setPrice(price: number, quantity: number): void {
-    console.log(this.card)
-    console.log(price)
-    console.log(quantity)
     if(!this.card || isNaN(price) || isNaN(quantity)) return
     this.card.price = price
     this.card.quantity = quantity

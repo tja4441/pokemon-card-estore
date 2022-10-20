@@ -19,4 +19,9 @@ export class ProductsListComponent implements OnInit {
       this.observableList.subscribe(products => this.productsList = products);
     }
   }
+
+  deleteItem(id: number): void {
+    if(!this.productsList) return
+    this.productsList = this.productsList.filter((p: Product) => p.id != id)
+  }
 }
