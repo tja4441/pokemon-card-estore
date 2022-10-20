@@ -1,8 +1,8 @@
 [ {
   "id" : 1,
   "name" : "Pikachu",
-  "quantity" : 5,
-  "price" : 1.05
+  "quantity" : 1,
+  "price" : 3.0
 }, {
   "id" : 2,
   "name" : "Bulbasaur",

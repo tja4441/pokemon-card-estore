@@ -47,6 +47,13 @@ export class ProductService {
     );
   }
 
+  editProduct(product: Product){
+    return this.http.put<Product>(this.inventoryUrl, product, this.httpOptions).pipe(
+      tap((newProduct: Product) => this.log(`edited product w/ id=${newProduct.id}`)),
+      catchError(this.handleError<Product>('editProduct'))
+    );
+  }
+
   /** DELETE: remove product from the inventory */
   removeProduct(id: number): Observable<Product> {
     const url = this.inventoryUrl + '/' + id

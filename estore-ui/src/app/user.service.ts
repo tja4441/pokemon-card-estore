@@ -91,5 +91,4 @@ export class UserService {
     this.username = ""
     this.shoppingCart = []
   }
-
 }

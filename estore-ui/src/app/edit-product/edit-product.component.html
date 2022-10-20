@@ -1,0 +1,10 @@
+<div *ngIf="card">
+    <h1>{{card.name}}</h1>
+    <form (submit)="setPrice(priceInput.value, quantityInput.value)">
+        <label>Price: </label>
+        <input type="number" [value]="card.price" #priceInput>
+        <label>Quantity: </label>
+        <input type="number" [value]="card.quantity" #quantityInput>
+        <input type="submit">
+    </form>
+</div>
