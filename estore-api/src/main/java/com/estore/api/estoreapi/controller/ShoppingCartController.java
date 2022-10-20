@@ -214,7 +214,7 @@ public class ShoppingCartController extends Controller{
      * @author Daniel Pittman
      */
     @PutMapping("/{id}/refresh")
-    public ResponseEntity<Boolean> refreshCart(@PathVariable int id, @PathVariable InventoryController inventoryController) {
+    public ResponseEntity<Boolean> refreshCart(@PathVariable int id) {
         LOG.info("PUT /ShoppingCarts/" + id + "/refresh" );
         try {
             Boolean nothingDeleted = shoppingCartDao.refreshCart(id,inventoryController);
@@ -237,7 +237,7 @@ public class ShoppingCartController extends Controller{
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PutMapping("/{id}/checkout")
-    public ResponseEntity<ShoppingCart> checkout(@PathVariable int id, @PathVariable InventoryController inventoryController) {
+    public ResponseEntity<ShoppingCart> checkout(@PathVariable int id) {
         LOG.info("PUT /ShoppingCarts/" + id + "/checkout");
         try {
             ShoppingCart updatedCart = shoppingCartDao.checkout(id,inventoryController);
