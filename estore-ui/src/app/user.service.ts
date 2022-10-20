@@ -86,6 +86,7 @@ export class UserService {
   isAdmin(): boolean {
     return this.id == 0 && this.username == "admin";
    }
+   
   logout(): void {
     this.id = -1;
     this.username = ""

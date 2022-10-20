@@ -15,46 +15,57 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private logger: MessageService, private router: Router) { }
 
   ngOnInit(): void {
+    //when home page loads looks to see if the user is logged in
     this.username = this.userService.getUser().UserName;
   }
 
+  /**
+   * sets the "Global" user to this user in userService then redirects to home
+   * if the user is valid and sets loginFailed to true otherwise
+   * @param user user that has been added and retrieved from the backend
+   */
+  private addedUser(user: User){
+    //sets user property of userservice for login persistance accross multiple routes
+    this.userService.setUser(user)
+    if(this.userService.isLoggedIn()) this.goHome()
+    else this.loginFailed = true
+  }
+
+  /**
+   * Tries to log in user. However, if the user tries to log in
+   * with a username thats not in the database sets loginFailed to true
+   * @param username entered username
+   */
   login(username: string): void {
+    //removes whitespace and casing from name during as preprocessing
     username = username.trim().toLowerCase()
+    //does nothing if user entered nothing or just whitespace
     if(!username) return
+    //checks if user is in the backend
+    this.logger.add(`Logging in as User: ${username}`)
     this.userService.login(username)
-      .subscribe(user=> {
-        this.userService.setUser(user)
-        let USER = this.userService.getUser()
-        this.username = USER.UserName
-        if(this.userService.isLoggedIn()) {
-          this.logger.add(`Logged in as User{id: ${USER.id}, username: ${USER.UserName}}`)
-          this.goHome()
-        }
-        else this.loginFailed = true
-      })
+      .subscribe(user=> this.addedUser(user))
   }
 
   register(username: string): void {
+    //removes whitespace and casing from name during as preprocessing
     username = username.trim().toLowerCase()
+    //does nothing if user entered nothing or just whitespace
     if(!username) return
     this.logger.add(`Registering User: ${username}`)
     this.userService.register({UserName: username, id: -1} as User)
-      .subscribe(user => {
-        this.userService.setUser(user)
-        let USER = this.userService.getUser()
-        this.username = USER.UserName
-        if(this.userService.isLoggedIn()) {
-          this.logger.add(`Registered new User{id: ${USER.id}, username: ${USER.UserName}}`)
-          this.goHome()
-        }
-        else this.loginFailed = true
-      })
+      .subscribe(user => this.addedUser(user))
   }
 
+  /**
+   * logs out "Global"(userService) user and sets username to an empty string to
+   * swap div back to login screen
+   */
   logout(): void {
     this.userService.logout()
-    this.username = this.userService.getUser().UserName
+    this.username = "";
   }
+  
   goHome(): void {
     this.router.navigate([""])
   }

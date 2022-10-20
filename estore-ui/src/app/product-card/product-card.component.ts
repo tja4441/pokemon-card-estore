@@ -15,19 +15,31 @@ export class ProductCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  changeFace(){
+  /**
+   * Sets edit to true if the suer is an admin
+   * This flips the card over to the edit side
+   */
+  edit(){
     if(this.userService.isAdmin()) this.editing = true
   }
 
-  submit(){
+  /**
+   * Changes this card to newCard.
+   * Triggered on card edit change so it changes editing to to false,
+   * flipping the card back to its display side
+   * @param newCard 
+   */
+  itemChange(newCard: Product){
+    this.card = newCard;
     this.editing = false
   }
 
-  itemChange(newProduct: Product){
-    this.card = newProduct;
-    this.editing = false
-  }
-
+  /**
+   * Triggered by remove-product event emitter.
+   * Triggers its own event emiter which goes back to the product list in order
+   * to inform it that this card should be deleted.
+   * @param id 
+   */
   deleteItem(id: number) {
     this.deletedItemEvent.emit(id);
   }

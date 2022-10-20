@@ -8,8 +8,6 @@ import { ProductService } from '../product.service';
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-  // should be passed in name, price, and quantity as input when created
-  // in order to avoid erroneous calls to backend
   @Input() card?: Product
   @Output() changedProductEvent = new EventEmitter<Product>()
   constructor(private productService: ProductService) { }
@@ -17,13 +15,23 @@ export class EditProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * changes this cards price and or quantity in the backend and sends an event
+   * so that the UI knows to change as well
+   * @param price price to change to
+   * @param quantity quantity to change to
+   */
   setPrice(price: number, quantity: number): void {
     if(!this.card || isNaN(price) || isNaN(quantity)) return
     this.card.price = price
     this.card.quantity = quantity
+    //uses productService to edit data on the backend
     this.productService.editProduct(this.card)
     .subscribe((p: Product) => {
-      if(p.price == this.card?.price && p.quantity == this.card?.quantity) this.changedProductEvent.emit(p)
+      //after it has successfully changed on the backend emits event with the new product
+      if(p.price == this.card?.price && p.quantity == this.card?.quantity) {
+        this.changedProductEvent.emit(p)
+      }
     })
   }
 }

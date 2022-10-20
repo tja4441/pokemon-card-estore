@@ -7,4 +7,8 @@
     "price" : 2.04
   } ],
   "totalPrice" : 2.04
+}, {
+  "id" : 3,
+  "contents" : [ ],
+  "totalPrice" : 0.0
 } ]
