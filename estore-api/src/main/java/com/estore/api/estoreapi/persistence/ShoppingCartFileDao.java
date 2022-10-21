@@ -132,12 +132,20 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     public ShoppingCart addToCart(int id, Product product) throws IOException {
         synchronized(carts) {
             ShoppingCart cart = carts.get(id);
+            boolean productIncremented = false;
             if (cart == null) {
                 return null;
             } else {
-                cart.addToCart(product);
-                carts.put(cart.getId(), cart);
-                save();
+                for (Product cartProduct : cart.getContents()) {
+                    if (product.getId() == cartProduct.getId()) {
+                        cartProduct.setQuantity(cartProduct.getQuantity() + 1);
+                        productIncremented = true;
+                    } 
+                }
+                if (!productIncremented) {
+                    cart.addToCart(new Product(product.getId(), product.getName(), 1, product.getPrice()));
+                }
+                updateCart(cart);
                 return cart;
             }
         }
