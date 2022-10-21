@@ -18,7 +18,7 @@ export class UserService {
   private shoppingCart: Product[] = [];
 
   //baseline url for user functions
-  private userUrl = 'http://localhost:8080/home';
+  private userUrl = 'http://localhost:8080/user';
 
   //neccessary httpOptions for posting a json object
   private httpOptions = {
