@@ -140,6 +140,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                     if (product.getId() == cartProduct.getId()) {
                         if (product.getQuantity() > cartProduct.getQuantity()) {
                             cartProduct.setQuantity(cartProduct.getQuantity() + 1);
+                            cart.calculateTotalPrice();
                             productIncremented = true;
                         }
                         break;
@@ -200,7 +201,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
 
             for (Product product : products) {
                 Product invProduct = inventoryController.getProduct(product.getId()).getBody();
-                if (invProduct != null && invProduct.getName().equals(product.getName())) {
+                if (invProduct != null && invProduct.getName().equals(product.getName()) && invProduct.getQuantity() > 0) {
                     if (invProduct.getQuantity() < product.getQuantity()) {
                         cart.updateProductInCart(product, invProduct);
                         nothingChanged = false;
@@ -210,11 +211,9 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                         cart.updateProductInCart(product, newProduct);
                         nothingChanged = false;
                     }
-                    break;
                 } else {
                     cart.removeFromCart(product);
                     nothingChanged = false;
-                    break;
                 }
             }
             updateCart(cart);
