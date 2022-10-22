@@ -138,8 +138,11 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
             } else {
                 for (Product cartProduct : cart.getContents()) {
                     if (product.getId() == cartProduct.getId()) {
-                        cartProduct.setQuantity(cartProduct.getQuantity() + 1);
-                        productIncremented = true;
+                        if (product.getQuantity() > cartProduct.getQuantity()) {
+                            cartProduct.setQuantity(cartProduct.getQuantity() + 1);
+                            productIncremented = true;
+                        }
+                        break;
                     } 
                 }
                 if (!productIncremented) {
@@ -158,13 +161,27 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     public ShoppingCart deleteFromCart(int id, Product product) throws IOException {
         synchronized(carts) {
             ShoppingCart cart = carts.get(id);
+            boolean productInCart = true;
             if (cart == null) {
                 return null;
             } else {
-                cart.removeFromCart(product);
-                carts.put(cart.getId(), cart);
-                save();
-                return cart;
+                for (Product cartProduct : cart.getContents()) {
+                    if (product.getId() == cartProduct.getId()) {
+                        if (cartProduct.getQuantity() != 1) {
+                            cart.removeFromCart(cartProduct);
+                        } else {
+                            cartProduct.setQuantity(cartProduct.getQuantity() - 1);
+                        }
+                        productInCart = true;
+                        break;
+                    } 
+                }
+                if (productInCart) {
+                    updateCart(cart);
+                    return cart;
+                } else {
+                    return null;
+                }
             }
         }
     }
