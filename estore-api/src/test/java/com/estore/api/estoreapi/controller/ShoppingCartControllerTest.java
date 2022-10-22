@@ -182,6 +182,17 @@ public class ShoppingCartControllerTest {
     }
 
     @Test
+    public void testAddToCartHandleNotFound() throws IOException{
+        Product nProduct = new Product(5, "Apples", 10, 1.00f);
+        
+        when(mockShoppingCartDao.addToCart(1, nProduct)).thenReturn(null);
+
+        ResponseEntity<ShoppingCart> response = shoppingCartController.addToCart(1, nProduct);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
     public void testDeleteFromCart() throws IOException{
         ShoppingCart cart = new ShoppingCart(1);
         Product nProduct = new Product(5, "Apples", 10, 1.00f);
@@ -203,6 +214,17 @@ public class ShoppingCartControllerTest {
         ResponseEntity<ShoppingCart> response = shoppingCartController.deleteFromCart(1, nProduct);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void testDeleteFromCartConflict() throws IOException{
+        Product nProduct = new Product(5, "Apples", 10, 1.00f);
+        
+        when(mockShoppingCartDao.deleteFromCart(1, nProduct)).thenReturn(null);
+
+        ResponseEntity<ShoppingCart> response = shoppingCartController.deleteFromCart(1, nProduct);
+
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
     @Test    

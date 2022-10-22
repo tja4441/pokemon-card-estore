@@ -2,7 +2,6 @@ package com.estore.api.estoreapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
@@ -11,14 +10,10 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import com.estore.api.estoreapi.controller.InventoryController;
 import com.estore.api.estoreapi.model.Product;
@@ -197,7 +192,6 @@ public class ShoppingCartFileDaoTest {
         ShoppingCart nullCart = shoppingCartFileDao.checkout(3, inventoryController);
 
         assertNull(nullCart);
-        assertEquals(emptyContents,cart.getContents() );
-
+        assertEquals(emptyContents,cart.getContents());
     }
 }

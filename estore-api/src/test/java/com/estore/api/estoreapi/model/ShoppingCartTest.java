@@ -125,4 +125,14 @@ public class ShoppingCartTest {
 
         assertEquals(false, equal);
     }
+
+    @Test
+    public void testHashCode() {
+        ShoppingCart cart = new ShoppingCart(1);
+        int expectedHash = 1;
+
+        int hash = cart.hashCode();
+
+        assertEquals(expectedHash, hash);
+    }
 }
