@@ -236,13 +236,11 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     
                 for (Product product : contents) {
                     Product invProduct = inventoryController.getProduct(product.getId()).getBody();
-                    int oldQuantity = invProduct.getQuantity();
-                    invProduct.setQuantity(oldQuantity - 1);
+                    invProduct.setQuantity(invProduct.getQuantity() - product.getQuantity());
                     inventoryController.updateProduct(invProduct);
                     cart.removeFromCart(product);
                 }
-                save();
-                return cart;
+                return updateCart(cart);
             } else {
                 return null;
             }

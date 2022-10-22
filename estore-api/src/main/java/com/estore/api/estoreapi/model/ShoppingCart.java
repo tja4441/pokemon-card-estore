@@ -144,7 +144,7 @@ public class ShoppingCart {
         float newTotalPrice = 0.00f;
 
         for (Product product : contents) {
-            newTotalPrice += product.getPrice();
+            newTotalPrice += product.getPrice() * product.getQuantity();
         }
 
         this.totalPrice = newTotalPrice;
