@@ -196,21 +196,29 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
             HashSet<Product> productsSet = cart.getContents();
             Product[] products = new Product[productsSet.size()];
             productsSet.toArray(products);
-            boolean nothingDeleted = true;
+            boolean nothingChanged = true;
 
             for (Product product : products) {
                 Product invProduct = inventoryController.getProduct(product.getId()).getBody();
                 if (invProduct != null && invProduct.getName().equals(product.getName())) {
-                    Product newProduct = invProduct;
-                    cart.updateProductInCart(product, newProduct);
+                    if (invProduct.getQuantity() < product.getQuantity()) {
+                        cart.updateProductInCart(product, invProduct);
+                        nothingChanged = false;
+                    }
+                    else if (invProduct.getPrice() != product.getPrice()){
+                        Product newProduct = new Product(product.getId(), product.getName(), product.getQuantity(), invProduct.getPrice());
+                        cart.updateProductInCart(product, newProduct);
+                        nothingChanged = false;
+                    }
+                    break;
                 } else {
                     cart.removeFromCart(product);
-                    nothingDeleted = false;
+                    nothingChanged = false;
+                    break;
                 }
             }
-            carts.put(cart.getId(), cart);
-            save();
-            return nothingDeleted;
+            updateCart(cart);
+            return nothingChanged;
         }
     }
 
