@@ -162,7 +162,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     public ShoppingCart deleteFromCart(int id, Product product) throws IOException {
         synchronized(carts) {
             ShoppingCart cart = carts.get(id);
-            boolean productInCart = true;
+            boolean productInCart = false;
             if (cart == null) {
                 return null;
             } else {
