@@ -38,7 +38,7 @@ public class ShoppingCartTest {
         Product p = new Product(1, "Carrots", 50, 2.10f);
         expectedContents.add(p);
         testCart.addToCart(p);
-        float expectedTotalPrice = p.getPrice();
+        float expectedTotalPrice = p.getPrice() * p.getQuantity();
 
         assertEquals(expectedContents, testCart.getContents());
         assertEquals(expectedTotalPrice, testCart.GetTotalPrice());
@@ -64,7 +64,7 @@ public class ShoppingCartTest {
         Product oldP = new Product(1, "Carrots", 50, 2.10f);
         Product newP = new Product(1, "Carrot", 25, 2f);
         expectedContents.add(newP);
-        float expectedTotalPrice = newP.getPrice();
+        float expectedTotalPrice = newP.getPrice() * newP.getQuantity();
         
         testCart.addToCart(oldP);
         testCart.updateProductInCart(oldP, newP);
@@ -117,7 +117,6 @@ public class ShoppingCartTest {
         assertEquals(false, equal);
     }
 
-
     @Test
     public void testEqualCartToNonCart() {
         Product p = new Product(1, "Carrots", 50, 2.10f);
@@ -126,7 +125,4 @@ public class ShoppingCartTest {
 
         assertEquals(false, equal);
     }
-
-
-
 }
