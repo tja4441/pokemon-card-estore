@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.estore.api.estoreapi.controller.InventoryControllerTest;
 import com.estore.api.estoreapi.model.Product;
 
 /**

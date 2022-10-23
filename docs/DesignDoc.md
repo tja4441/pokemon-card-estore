@@ -149,7 +149,11 @@ Our view tier is our user's way of interacting with our backend and our products
 
 ### ViewModel Tier
 <p style='text-align: justify;'>
-The architecture for our project consists of three seperate Controllers that each have their own DAO and Model. The three controllers deal with requests that manipulate Product, User, and Shopping Cart data that are stored in JSON in a file. Each controller calls the designated DAO, which views the infromation in the files. The controllers return the data that the DAOs obtained, which allows anything with a connection to the controller to view the information in the DAO, and thus the models.
+The architecture for our project consists of three seperate Controllers that each have their own DAO and Model. The three controllers deal with requests that manipulate Product, User, and Shopping Cart data that are stored in JSON in a file. Each controller calls the designated DAO, which views the infromation in the files. The controllers return the data that the DAOs obtained, which allows anything with a connection to the controller to view the information in the DAO, and thus the models. 
+</p>
+
+<p style='text-align: justify;'>
+The three controllers are connected as follows: The UserController can see and use the ShoppingCartController and the ShoppingCartController can see and use the InventoryController, however, the InventoryController cannot see or use the ShoppingCartController and the ShoppingCartController cannot see or use the UserController. This implementation is done to separate the logic and storage of shopping carts from users while also allowing the creation of shopping carts with the creation of users and the ability for shopping carts to do the logic necessary to refresh and have products added/removed from. This ViewModel Tier has been designed to ensure that single responsibility and restful behavior is of utmost concern.
 </p>
 
 
@@ -187,7 +191,7 @@ The back end (API) was tested by creating and running JUnit tests. The front end
 
 ### Acceptance Testing
 
-  * Eight User stories have passed all of their acceptance criteria tests
+  * Nine User stories have passed all of their acceptance criteria tests
   * Zero User stories have failing acceptance criteria tests
   * All tests in the sprint have been tested and checked
 
@@ -202,18 +206,18 @@ Before testing, we agreed on a code coverage target to meet while testing—this
 </p>
 
 <p style='text-align: justify;'>
-We created and ran unit tests for each class we made on the back end (API). After running the tests, we ran a code coverage tool to generate a report on how well the JUnit tests covered our code. The code coverage report gave an average of 96% across each tier (Controller, Model, Persistence). This report shows that we exceeded our target and expectations. The breakdown of the report is shown below.
+We created and ran unit tests for each class we made on the back end (API). After running the tests, we ran a code coverage tool to generate a report on how well the JUnit tests covered our code. The code coverage report gave an average of 97% across each tier (Controller, Model, Persistence). This report shows that we exceeded our target and expectations. The breakdown of the report is shown below.
 </p>
 
-  * The code coverage for the Controller tier is 95%. 
+  * The code coverage for the Controller tier is 96%. 
 
     ![Controller Tier Coverage](ControllerTier.png)
 
-  * The code coverage for the Model tier is 97%.
+  * The code coverage for the Model tier is 95%.
 
     ![Persistence Tier Coverage](PersistenceTier.png)
 
-  * The code coverage for the Persistence tier is 97%
+  * The code coverage for the Persistence tier is 99%
 
     ![Model Tier Coverage](ModelTier.png)
 
