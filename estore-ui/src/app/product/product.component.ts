@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../product';
 import { Location } from '@angular/common';

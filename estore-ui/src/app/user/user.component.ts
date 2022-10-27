@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../product.service';
-import { Observable } from 'rxjs';
-import { Product } from '../product';
 
 @Component({
   selector: 'app-user',
@@ -12,11 +9,7 @@ import { Product } from '../product';
 export class UserComponent implements OnInit {
   public username: string = ""
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private productService: ProductService
-  ) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const username = this.route.snapshot.paramMap.get('username')

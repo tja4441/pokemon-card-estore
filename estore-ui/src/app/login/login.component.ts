@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../user';
+import { Location } from '@angular/common';
 import { MessageService } from '../message.service';
 import { Router } from '@angular/router';
 
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public username = ""
   public loginFailed = false
-  constructor(private userService: UserService, private logger: MessageService, private router: Router) { }
+  constructor(private userService: UserService, private logger: MessageService, private router: Router,private location: Location) { }
 
   ngOnInit(): void {
     //when home page loads looks to see if the user is logged in
@@ -68,5 +69,9 @@ export class LoginComponent implements OnInit {
   
   goHome(): void {
     this.router.navigate([""])
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
