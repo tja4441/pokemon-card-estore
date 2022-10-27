@@ -19,6 +19,15 @@ export class ProductService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
+     /** GET hero by id. Will 404 if id not found */
+  getProduct(id: number): Observable<Product> {
+    const url = `${this.inventoryUrl}/${id}`;
+    return this.http.get<Product>(url).pipe(
+      tap(_ => this.log(`fetched product id=${id}`)),
+      catchError(this.handleError<Product>(`getProduct id=${id}`))
+    );
+  }
+
   /** 
    * GETs products from the inventory on our server
    * @returns returns an observable that resolves to a a product array holding all products in inventory

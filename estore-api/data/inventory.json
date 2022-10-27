@@ -4,11 +4,6 @@
   "quantity" : 1,
   "price" : 3.0
 }, {
-  "id" : 2,
-  "name" : "Bulbasaur",
-  "quantity" : 1,
-  "price" : 2.0
-}, {
   "id" : 3,
   "name" : "Charmander",
   "quantity" : 10,
@@ -53,9 +48,4 @@
   "name" : "Volcarona",
   "quantity" : 1,
   "price" : 2500.0
-}, {
-  "id" : 12,
-  "name" : "Emboar",
-  "quantity" : 20,
-  "price" : 1.0
 } ]
