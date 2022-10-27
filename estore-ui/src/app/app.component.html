@@ -1,9 +1,5 @@
   <h1><b>{{title}}</b></h1>
   
-  <nav>
-    <a routerLink="/login"><button>Login</button></a>
-    <a routerLink=""><button>Home</button></a>
-  </nav>
   <div class="usertag" *ngIf="userService.username" (click)="redirect()" >
     <p>Logged in as: {{userService.username | titlecase}}</p>
     <p>Click here to go to your page!</p>
