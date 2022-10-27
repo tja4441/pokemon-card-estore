@@ -16,7 +16,7 @@ export class ProductCardComponent implements OnInit {
   ngOnInit(): void {}
 
   /**
-   * Sets edit to true if the suer is an admin
+   * Sets edit to true if the useer is an admin
    * This flips the card over to the edit side
    */
   edit(){

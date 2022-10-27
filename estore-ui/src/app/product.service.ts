@@ -19,7 +19,7 @@ export class ProductService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-     /** GET hero by id. Will 404 if id not found */
+  /** GET Product by id. Will 404 if id not found */
   getProduct(id: number): Observable<Product> {
     const url = `${this.inventoryUrl}/${id}`;
     return this.http.get<Product>(url).pipe(

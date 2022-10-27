@@ -27,7 +27,6 @@
                     </td>
                 </tr>
             </table>
-            <app-product [card]="card"></app-product>
         </div>
         <div *ngIf="editing">
             <app-edit-product (changedProductEvent)="itemChange($event)" [card]="card"></app-edit-product>
