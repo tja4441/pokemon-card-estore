@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import com.estore.api.estoreapi.controller.InventoryController;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
+import com.estore.api.estoreapi.model.Type;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -54,11 +55,11 @@ public class ShoppingCartFileDaoTest {
         testShoppingCarts[2] = new ShoppingCart(3);
 
         testProducts = new Product[5];
-        testProducts[0] = new Product(2,"Pikachu",4,100.00f);
-        testProducts[1] = new Product(3, "Bulbasaur",5,2.50f);
-        testProducts[2] = new Product(4,"Squirtle",4,1.00f);
-        testProducts[3] = new Product(5, "Charmander",3,50.05f);
-        testProducts[4] = new Product(7, "Clefairy", 10, 2.00f);
+        testProducts[0] = new Product(2,"Pikachu",Type.ELECTRIC,4,100.00f);
+        testProducts[1] = new Product(3,"Bulbasaur",Type.GRASS,5,2.50f);
+        testProducts[2] = new Product(4,"Squirtle",Type.WATER,4,1.00f);
+        testProducts[3] = new Product(5, "Charmander",Type.FIRE,3,50.05f);
+        testProducts[4] = new Product(7,"Clefairy",Type.FAIRY,10,2.00f);
 
         when(mockInvObjectMapper.readValue(new File("Charmander_Is_Better.txt"),Product[].class)).thenReturn(testProducts);
         when(mockInvObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockInvObjectMapper);
@@ -182,9 +183,9 @@ public class ShoppingCartFileDaoTest {
     @Test
     public void testAddToCartIncrement() throws IOException {
         // Invoke
-        testShoppingCarts[0].getContents().add(new Product(7, "Clefairy", 1, 2.00f));
+        testShoppingCarts[0].getContents().add(new Product(7,"Clefairy",Type.FAIRY,1,2.00f));
         ShoppingCart expectedCart = testShoppingCarts[0];
-        expectedCart.getContents().add(new Product(7, "Clefairy", 2, 2.00f));
+        expectedCart.getContents().add(new Product(7, "Clefairy", Type.FAIRY, 2, 2.00f));
 
         ShoppingCart cart = shoppingCartFileDao.addToCart(1, testProducts[4]);
         ShoppingCart nullResult = shoppingCartFileDao.addToCart(4, testProducts[1]);
@@ -201,7 +202,7 @@ public class ShoppingCartFileDaoTest {
         testShoppingCarts[1].calculateTotalPrice();
 
         ShoppingCart expectedCart = new ShoppingCart(2);
-        expectedCart.getContents().add(new Product(2,"Pikachu",3,100.00f));
+        expectedCart.getContents().add(new Product(2,"Pikachu",Type.ELECTRIC,3,100.00f));
         expectedCart.calculateTotalPrice();
 
         ShoppingCart cart = shoppingCartFileDao.deleteFromCart(2, testProducts[0]);
@@ -215,7 +216,7 @@ public class ShoppingCartFileDaoTest {
     @Test
     public void testDeleteFromCartSingle() throws IOException {
         // Invoke
-        testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",1,100.00f));
+        testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",Type.ELECTRIC,1,100.00f));
         testShoppingCarts[1].calculateTotalPrice();
 
         ShoppingCart expectedCart = new ShoppingCart(2);
@@ -231,12 +232,12 @@ public class ShoppingCartFileDaoTest {
     @Test
     public void testDeleteFromCartProductNotFound() throws IOException {
         // Invoke
-        testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",1,100.00f));
+        testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",Type.ELECTRIC,1,100.00f));
         testShoppingCarts[1].calculateTotalPrice();
 
         ShoppingCart expectedCart = null;
 
-        ShoppingCart nullCart = shoppingCartFileDao.deleteFromCart(2, new Product(10,"Pichu",10,100.00f));
+        ShoppingCart nullCart = shoppingCartFileDao.deleteFromCart(2, new Product(10,"Pichu",Type.ELECTRIC,10,100.00f));
 
         // Analyze
         assertEquals(expectedCart, nullCart);
@@ -256,7 +257,7 @@ public class ShoppingCartFileDaoTest {
 
         ShoppingCart cart = testShoppingCarts[2];
         shoppingCartFileDao.addToCart(3, testProducts[0]);
-        shoppingCartFileDao.addToCart(3, new Product(6, "Greninja", 25, 149.99f));
+        shoppingCartFileDao.addToCart(3, new Product(6,"Greninja",Type.DARK,25,149.99f));
         shoppingCartFileDao.refreshCart(3, inventoryController);
 
         // Analyze
@@ -277,7 +278,7 @@ public class ShoppingCartFileDaoTest {
         expectedCart.getContents().add(testProducts[4]);
 
         ShoppingCart cart = testShoppingCarts[2];
-        cart.getContents().add(new Product(7, "Clefairy", 20, 2.00f));
+        cart.getContents().add(new Product(7,"Clefairy",Type.FAIRY,20,2.00f));
         cart.calculateTotalPrice();
         shoppingCartFileDao.refreshCart(3, inventoryController);
 
@@ -299,7 +300,7 @@ public class ShoppingCartFileDaoTest {
         expectedCart.getContents().add(testProducts[4]);
 
         ShoppingCart cart = testShoppingCarts[2];
-        cart.getContents().add(new Product(7, "Clefairy", 10, 4.00f));
+        cart.getContents().add(new Product(7,"Clefairy",Type.FAIRY,10,4.00f));
         cart.calculateTotalPrice();
         shoppingCartFileDao.refreshCart(3, inventoryController);
 
@@ -320,7 +321,7 @@ public class ShoppingCartFileDaoTest {
 
         testShoppingCarts[1].addToCart(testProducts[1]);
         testShoppingCarts[1].addToCart(testProducts[2]);
-        testShoppingCarts[2].addToCart(new Product(6,"Clefairy", 3,1.00f));
+        testShoppingCarts[2].addToCart(new Product(6,"Clefairy",Type.FAIRY,3,1.00f));
 
         ShoppingCart cart = shoppingCartFileDao.checkout(2, inventoryController);
         ShoppingCart nullCart = shoppingCartFileDao.checkout(3, inventoryController);

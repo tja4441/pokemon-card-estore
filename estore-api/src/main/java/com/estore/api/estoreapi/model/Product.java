@@ -14,10 +14,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Product {
     private static final Logger LOG = Logger.getLogger(Product.class.getName());
     // Package private for tests
-    static final String STRING_FORMAT = "Product [id=%d, name=%s, quantity=%d, price=%f]";
+    static final String STRING_FORMAT = "Product [id=%d, name=%s, type=%s, quantity=%d, price=%f]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
+    @JsonProperty("type") private Type type;
     @JsonProperty("quantity") private int quantity;
     @JsonProperty("price") private float price;
     
@@ -30,9 +31,10 @@ public class Product {
      * @param quantity the amount of an item there is
      * @param price the price of an item
      */
-    public Product(@JsonProperty("id") int id,@JsonProperty("name") String name, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
+    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("type") Type type, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
         this.id = id;
         this.name = name;
+        this.type = type;
         this.quantity = quantity;
         this.price = price;
     }
@@ -58,6 +60,13 @@ public class Product {
      */
     public String getName() {
         return name;
+    }
+
+    /** 
+     * @return returns the type of this product
+     */
+    public Type getType() {
+        return type;
     }
 
     /**
@@ -92,7 +101,7 @@ public class Product {
      */
     @Override
     public String toString(){
-        return String.format(STRING_FORMAT,id,name,quantity,price);
+        return String.format(STRING_FORMAT,id,name,type,quantity,price);
     }
 
     /**
@@ -104,7 +113,7 @@ public class Product {
             return false;
         }
         Product otherProduct = (Product) other;
-        if(this.name.toLowerCase().equals(otherProduct.name.toLowerCase())) {
+        if((this.name.toLowerCase().equals(otherProduct.name.toLowerCase())) && this.type == otherProduct.type) {
             return true;
         }
         else {
@@ -114,6 +123,7 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return name.toLowerCase().hashCode();
+        String hashString = name + type;
+        return hashString.toLowerCase().hashCode();
     }
 }

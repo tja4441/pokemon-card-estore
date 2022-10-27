@@ -35,7 +35,7 @@ public class ShoppingCartTest {
     @Test
     public void testAddProduct() {
         HashSet<Product> expectedContents = new HashSet<Product>();
-        Product p = new Product(1, "Carrots", 50, 2.10f);
+        Product p = new Product(1,"Carrots",Type.GRASS,50,2.10f);
         expectedContents.add(p);
         testCart.addToCart(p);
         float expectedTotalPrice = p.getPrice() * p.getQuantity();
@@ -47,7 +47,7 @@ public class ShoppingCartTest {
     @Test
     public void testRemoveProduct() {
         HashSet<Product> expectedContents = new HashSet<Product>();
-        Product p = new Product(1, "Carrots", 50, 2.10f);
+        Product p = new Product(1,"Carrots",Type.PSYCHIC,50,2.10f);
         expectedContents.add(p);
         testCart.addToCart(p);
 
@@ -61,8 +61,8 @@ public class ShoppingCartTest {
     @Test
     public void testUpdateProductInCart() {
         HashSet<Product> expectedContents = new HashSet<Product>();
-        Product oldP = new Product(1, "Carrots", 50, 2.10f);
-        Product newP = new Product(1, "Carrot", 25, 2f);
+        Product oldP = new Product(1,"Carrots",Type.GRASS,50,2.10f);
+        Product newP = new Product(1,"Carrot",Type.GRASS,25,2f);
         expectedContents.add(newP);
         float expectedTotalPrice = newP.getPrice() * newP.getQuantity();
         
@@ -76,7 +76,7 @@ public class ShoppingCartTest {
     @Test
     public void testSizeOf() {
         HashSet<Product> expectedContents = new HashSet<Product>();
-        Product p = new Product(1, "Carrots", 50, 2.10f);
+        Product p = new Product(1,"Carrots",Type.GRASS,50,2.10f);
         expectedContents.add(p);
         int expectedSize = expectedContents.size();
         
@@ -119,7 +119,7 @@ public class ShoppingCartTest {
 
     @Test
     public void testEqualCartToNonCart() {
-        Product p = new Product(1, "Carrots", 50, 2.10f);
+        Product p = new Product(1,"Carrots",Type.GRASS,50,2.10f);
 
         boolean equal = testCart.equals(p);
 

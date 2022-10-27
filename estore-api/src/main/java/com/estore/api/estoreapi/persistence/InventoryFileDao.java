@@ -181,7 +181,7 @@ public class InventoryFileDao implements InventoryDao {
     @Override
     public Product createProduct(Product product) throws IOException {
         synchronized(products) {
-            Product newProduct = new Product(nextID(),product.getName(),
+            Product newProduct = new Product(nextID(),product.getName(),product.getType(),
                                      product.getQuantity(),product.getPrice());
             if (newProduct.getQuantity() < 0 || newProduct.getPrice() < 0.00 || product.getName().isBlank()) {
                 return null;    // product quantity/price is negative or name is blank

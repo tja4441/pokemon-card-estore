@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.estore.api.estoreapi.model.Product;
+import com.estore.api.estoreapi.model.Type;
 import com.estore.api.estoreapi.persistence.InventoryDao;
 
 /**
@@ -32,7 +33,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProduct() throws IOException{
-        Product product = new Product(1, "Apples", 10, 1.00F);
+        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
 
         when(mockInventoryDao.getProduct(product.getId())).thenReturn(product);
 
@@ -46,7 +47,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProductNotFound() throws IOException{
-        Product product = new Product(1, "Apples", 10, 1.00F);
+        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
 
         when(mockInventoryDao.getProduct(product.getId())).thenReturn(null);
 
@@ -70,7 +71,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProduct() throws IOException{
-        Product product = new Product(1, "Apples", 10, 1.00F);
+        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
 
         when(mockInventoryDao.createProduct(product)).thenReturn(product);
 
@@ -83,7 +84,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProductFailed() throws IOException{
-        Product product = new Product(1, "Apples", 10, 1.00F);
+        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
 
         when(mockInventoryDao.createProduct(product)).thenReturn(null);
 
@@ -94,7 +95,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProductHandleException() throws IOException{
-        Product product = new Product(1, "Apples", 10, 1.00F);
+        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
 
         doThrow(new IOException()).when(mockInventoryDao).createProduct(product);
 
@@ -105,7 +106,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testUpdateProduct() throws IOException{
-        Product product = new Product(1, "Apples", 10, 1.00F);
+        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
 
         when(mockInventoryDao.updateProduct(product)).thenReturn(product);
 
@@ -119,7 +120,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testUpdateProductHandleException() throws IOException{
-        Product product = new Product(1, "Apples", 10, 1.00F);
+        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
 
         doThrow(new IOException()).when(mockInventoryDao).updateProduct(product);
 
@@ -131,8 +132,8 @@ public class InventoryControllerTest {
     @Test
     public void testGetProducts() throws IOException{
         Product[] products = new Product[2];
-        products[0] = new Product(1, "Apples", 10, 1.00F);
-        products[1] = new Product(2, "Pear", 100, 0.50F);
+        products[0] = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        products[1] = new Product(2,"Pear",Type.WATER,100,0.50F);
 
         when(mockInventoryDao.getProducts()).thenReturn(products);
 
@@ -156,9 +157,9 @@ public class InventoryControllerTest {
     public void testSearchProducts() throws IOException{
         String searchString = "berries";
         Product[] products = new Product[3];
-        products[0] = new Product(1, "Blueberries", 10, 1.00F);
-        products[1] = new Product(2, "Banana", 100, 0.50F);
-        products[2] = new Product(3, "Strawberries", 40, 1.50F);
+        products[0] = new Product(1,"Blueberries",Type.WATER,10,1.00F);
+        products[1] = new Product(2,"Banana",Type.NORMAL,100,0.50F);
+        products[2] = new Product(3,"Strawberries",Type.FIRE,40,1.50F);
 
         when(mockInventoryDao.findProducts(searchString)).thenReturn(products);
 
