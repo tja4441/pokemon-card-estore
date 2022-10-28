@@ -19,6 +19,10 @@
         <form (ngSubmit)="register(registerName.value)">
             <input type="text" placeholder="Username" #registerName>
             <input type="submit">
+            <div *ngIf="registerFailed">
+                <p style="color: red;">
+                Username is Taken. Please Try again!</p>
+            </div>
         </form>
     </div>
 </div>

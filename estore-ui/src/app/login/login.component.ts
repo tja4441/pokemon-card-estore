@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public username = ""
   public loginFailed = false
+  public registerFailed = false
   constructor(private userService: UserService, private logger: MessageService, private router: Router,private location: Location) { }
 
   ngOnInit(): void {
@@ -32,6 +33,13 @@ export class LoginComponent implements OnInit {
     else this.loginFailed = true
   }
 
+  private addedRegister(user: User){
+    //sets user property of userservice for login persistance accross multiple routes
+    this.userService.setUser(user)
+    if(this.userService.isLoggedIn()) this.goHome()
+    else this.registerFailed = true
+  }
+  
   /**
    * Tries to log in user. However, if the user tries to log in
    * with a username thats not in the database sets loginFailed to true
@@ -55,7 +63,7 @@ export class LoginComponent implements OnInit {
     if(!username) return
     this.logger.add(`Registering User: ${username}`)
     this.userService.register({UserName: username, id: -1} as User)
-      .subscribe(user => this.addedUser(user))
+      .subscribe(user => this.addedRegister(user))
   }
 
   /**
