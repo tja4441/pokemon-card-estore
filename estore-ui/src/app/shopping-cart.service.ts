@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { MessageService } from './message.service';
+import { Product } from './product';
 import { ShoppingCart } from './ShoppingCart';
 
 @Injectable({
@@ -26,6 +27,38 @@ export class ShoppingCartService {
       tap(_ => this.log(`fetched cart id=${id}`)),
       catchError(this.handleError<ShoppingCart>(`getShoppingCart id=${id}`))
     );
+  }
+
+  deleteCart(id: number): Observable<ShoppingCart> {
+    const url = `${this.cartUrl}/${id}`;
+    return this.http.delete<ShoppingCart>(url).pipe(
+      tap(_ => this.log(`fetched cart id=${id}`)),
+      catchError(this.handleError<ShoppingCart>(`deleteShoppingCart id=${id}`))
+    );
+  }
+
+  updateCart(ShoppingCart: ShoppingCart): Observable<ShoppingCart> {
+
+  }
+
+  createCart(id: number): Observable<ShoppingCart> {
+
+  }
+
+  addToCart(id: number, product: Product): Observable<ShoppingCart> {
+
+  }
+
+  deleteFromCart(id: number, product: Product): Observable<ShoppingCart> {
+
+  }
+
+  refreshCart(id: number): Observable<ShoppingCart> {
+
+  }
+
+  checkout(id: number): Observable<ShoppingCart> {
+
   }
 
 
