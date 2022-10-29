@@ -1,1 +1,26 @@
-<p>cart-product works!</p>
+<div class="card" *ngIf="product">
+    <table>
+        <tr>
+            <td class="attribute_headers">
+                Name:
+            </td>
+            <td>
+                {{product.name}}
+            </td>
+        </tr>
+        <tr>
+            <td class="attribute_headers">
+                Price:
+            </td>
+            <td class="td">
+                {{product.price.toFixed(2)}}
+            </td>
+            <td>
+            <p>Quanity: </p>
+            </td>
+            <td>
+                {{product.quantity}}
+            </td>
+        </tr>
+    </table>
+</div>

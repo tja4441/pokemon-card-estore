@@ -5,6 +5,15 @@
     "name" : "Apple",
     "quantity" : 1,
     "price" : 5.0
+  }, {
+    "id" : 2,
+    "name" : "Pikachu",
+    "quantity" : 1,
+    "price" : 26.89
   } ],
-  "totalPrice" : 5.0
+  "totalPrice" : 31.89
+}, {
+  "id" : 2,
+  "contents" : [ ],
+  "totalPrice" : 0.0
 } ]

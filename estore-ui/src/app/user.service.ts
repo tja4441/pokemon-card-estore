@@ -6,7 +6,7 @@ import { Product } from './product';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from './user';
 import { ShoppingCart } from './ShoppingCart';
-
+import { ShoppingCartService } from './shopping-cart.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +16,7 @@ export class UserService {
 
   public username: string = ""
 
-  private shoppingCart: Product[] = [];
+  private shoppingCart!: ShoppingCart; 
 
   //baseline url for user functions
   private userUrl = 'http://localhost:8080/user';
@@ -28,7 +28,8 @@ export class UserService {
   
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private cartService: ShoppingCartService) { }
   
   //NOTE: is not able to tell when it gets different http for a Conflict
   /**
@@ -92,6 +93,8 @@ export class UserService {
     if(user){
       this.id = user.id
       this.username = user.UserName
+      this.cartService.getCart(user.id)
+      .subscribe(shoppingCart => this.shoppingCart = shoppingCart)
     }
   }
 
@@ -100,6 +103,10 @@ export class UserService {
    */
   getUser(): User {
     return {id: this.id, UserName: this.username}
+  }
+
+  getCart(): ShoppingCart {
+    return this.shoppingCart
   }
 
   /**
@@ -122,6 +129,6 @@ export class UserService {
   logout(): void {
     this.id = -1;
     this.username = ""
-    this.shoppingCart = []
+   
   }
 }
