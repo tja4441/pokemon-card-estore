@@ -124,10 +124,12 @@ public class UserFileDao implements UserDao {
      */
     @Override
     public User getUser(String userName) throws IOException {
-        User[] matchingUsers = getUsersArray(userName);
-        if(matchingUsers.length != 0){
-            return matchingUsers[0];
-        }else{
+        synchronized(users) {
+            for(User user: users.values()){
+                if(user.getUserName().equals(userName)){
+                    return user;
+                }
+            }
             return null;
         }
     } 

@@ -15,4 +15,11 @@ export class AppComponent {
     if(this.userService.isAdmin()) this.router.navigate(["/admin"])
     else this.router.navigate(["/user", {username: this.userService.username}])
   }
+  isAdmin() : Boolean{
+    return this.userService.isAdmin();
+  }
+
+  isLoggedInUser() : Boolean{
+    return this.userService.isLoggedIn() && !this.userService.isAdmin();
+  }
 }
