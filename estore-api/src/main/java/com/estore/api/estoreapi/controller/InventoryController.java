@@ -175,9 +175,9 @@ public class InventoryController extends Controller {
      * @param name the substring that is being searched for in products
      * @return ResponseEntity with a status of OK with product
      */
-    @GetMapping("/")
-    public ResponseEntity<Product[]> searchProducts(@RequestParam String name) {
-        LOG.info("GET /products/?name="+name);
+    @GetMapping("/name/{name}")
+    public ResponseEntity<Product[]> searchProducts(@PathVariable String name) {
+        LOG.info("GET /products/"+name);
         try {
             Product[] products = inventoryDao.findProducts(name);
             if (products.length == 0) {
@@ -196,9 +196,9 @@ public class InventoryController extends Controller {
      * @param type the string that represents the type being searched for
      * @return ResponseEntity with a status of OK with the products
      */
-    @GetMapping("/")
-    public ResponseEntity<Product[]> getProductsByType(@RequestParam String type) {
-        LOG.info("GET /products/?type="+type);
+    @GetMapping("/type/{type}")
+    public ResponseEntity<Product[]> getProductsByType(@PathVariable String type) {
+        LOG.info("GET /products/"+type);
         try {
             Product[] products = inventoryDao.getProductsType(type);
             if (products.length == 0) {

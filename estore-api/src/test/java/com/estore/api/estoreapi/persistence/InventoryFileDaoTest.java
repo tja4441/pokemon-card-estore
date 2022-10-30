@@ -228,4 +228,14 @@ public class InventoryFileDaoTest {
                         () -> new InventoryFileDao("Ash_Ketchum.txt",mockObjectMapper),
                         "IOException not thrown");
     }
+
+    @Test
+    public void testGetProductsByType() throws IOException {
+        // Invoke
+        Product[] products = inventoryFileDao.getProductsType("FIRE");
+
+        // Analyze
+        assertEquals(products.length, 1);
+        assertEquals(products[0], testProducts[3]);
+    }
 }

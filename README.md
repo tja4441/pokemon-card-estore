@@ -38,8 +38,11 @@ An online E-store system built in JDK 17.0.4.1, Rest API, and Angular web servic
 - Curl.exe -X POST 'http://localhost:8080/products' -H 'Content-Type: application/json' -d '{\"name\": \"Tangerine\",\"quantity\":\"1000\", \"price\":\"2.00\"}'
     - This makes a product
 
-- Curl.exe -X GET 'http://localhost:8080/products/?name=an’
+- Curl.exe -X GET 'http://localhost:8080/products/name/an’
     - This searches the inventory
+
+- Curl.exe -X GET 'http://localhost:8080/products/type/WATER’
+    - This searches the inventory for Water Types
 
 - Curl.exe -X PUT 'http://localhost:8080/products' -H 'Content-Type: application/json' -d '{\"id\": \"7\",\"name\": \"Tangerine\",\"quantity\":\"35\", \"price\":\"2.00\"}'
     - This overrides an inventory item
