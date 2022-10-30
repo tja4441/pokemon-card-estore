@@ -58,8 +58,7 @@ export class LoginComponent implements OnInit {
     //checks if user is in the backend
     this.logger.add(`Logging in as User: ${username}`)
     this.userService.login(username)
-      .subscribe(user=> {this.addedUser(user)
-      this.cartService.instantiateCart(user.id)})
+      .subscribe(user=> this.addedUser(user))
     
   }
 
@@ -80,7 +79,6 @@ export class LoginComponent implements OnInit {
   logout(): void {
     this.userService.logout()
     this.username = "";
-    this.cartService.logout()
   }
   
   goHome(): void {

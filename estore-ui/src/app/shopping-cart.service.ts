@@ -12,7 +12,6 @@ export class ShoppingCartService {
 
   private cartUrl = 'http://localhost:8080/ShoppingCarts';   // URL to web api
 
-  public shoppingCart: ShoppingCart | undefined
 
   httpOptions = { 
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -32,7 +31,7 @@ export class ShoppingCartService {
    * @returns the cart if found and no conflicts
    * 
    */
-  fetchCart(id: number): Observable<ShoppingCart> {
+  getCart(id: number): Observable<ShoppingCart> {
     const url = `${this.cartUrl}/${id}`;
     return this.http.get<ShoppingCart>(url).pipe(
       tap(_ => this.log(`fetched cart id=${id}`)),
@@ -40,21 +39,7 @@ export class ShoppingCartService {
     );
   }
 
-  instantiateCart(id: number){
-    this.fetchCart(id).subscribe(shoppingCart =>this.shoppingCart = shoppingCart)
-  }
-
-  getCart(): ShoppingCart | undefined{
-    return this.shoppingCart
-  }
-
-  logout(){
-    this.shoppingCart = undefined
-  }
-
-  replaceCart(cart: ShoppingCart){
-    this.shoppingCart = cart
-  }
+  
 
 
   /**

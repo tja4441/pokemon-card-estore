@@ -1,17 +1,17 @@
 [ {
   "id" : 1,
   "contents" : [ {
-    "id" : 2,
+    "id" : 1,
     "name" : "Pikachu",
     "quantity" : 1,
-    "price" : 26.89
+    "price" : 3.0
   }, {
     "id" : 3,
     "name" : "Charmander",
-    "quantity" : 10,
+    "quantity" : 1,
     "price" : 4.5
   } ],
-  "totalPrice" : 71.89
+  "totalPrice" : 7.5
 }, {
   "id" : 2,
   "contents" : [ ],

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from '../product';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { ShoppingCart } from '../ShoppingCart';
@@ -15,24 +16,28 @@ export class ShoppingCartComponent implements OnInit {
   public contents: Product[] = []
 
   constructor(private userService: UserService,
-    private cartService: ShoppingCartService ) {
+    private cartService: ShoppingCartService,
+    private route: Router ) {
       
      }
 
   ngOnInit(): void {
-    let cart = this.cartService.getCart()
-    if(cart){this.shoppingCart = cart }
-    this.contents = this.getContents();
+    this.getCart()
   }
-
-  
 
   getContents(): Product[] {
     return Array.from(this.shoppingCart.contents)
   }
 
-  updateCart(shoppingCart: ShoppingCart){
-    this.shoppingCart = shoppingCart
+  getCart(){
+    this.cartService.getCart(this.userService.getUser().id)
+    .subscribe(shoppingCart => {this.shoppingCart = shoppingCart
+      this.contents = this.getContents()})
   }
+
+  refresh(){
+    this.route.navigate(["/user", {username: this.userService.username}])
+  }
+
 
 }
