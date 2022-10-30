@@ -2,7 +2,7 @@
     <label for="search-box" style="float: left;">Product Search</label>
     <input #searchBox id="search-box" (input)="search(searchBox.value, type.value)" style="float: left;"/>
     
-    <select #type (input)="search(searchBox.value, type.value)" style="float: left;">
+    <select #type (input)="search(searchBox.value, type.value)">
       <option value="">Select Type</option>
       <option value="DARK">Dark</option>
       <option value="DRAGON">Dragon</option>

@@ -20,27 +20,27 @@ export class SearchProductsComponent implements OnInit {
     type = type.trim()
     if(term || type) this.empty = false
     else this.empty = true
-    this.searchTerms.next(term);
+    this.searchTerms.next(term)
     this.typeTerms.next(type)
   }
 
   ngOnInit(): void {
     this.searchTerms.pipe(
-      //time to wait for another input before actually triggering
+      //time to wait for another input before triggering
       debounceTime(300),
 
       distinctUntilChanged(),
 
       switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p)=>this.products = p)
+    ).subscribe((p) => this.products = p)
 
     this.typeTerms.pipe(
-      //time to wait for another input before actually triggering
+      //time to wait for another input before triggering
       debounceTime(300),
 
       distinctUntilChanged(),
 
       switchMap((type: string) => this.productService.getProductsByType(type)),
-    ).subscribe((p)=>this.products = this.products.filter(val => p.includes(val)))
+    ).subscribe((p) => this.products = p)
   }
 }
