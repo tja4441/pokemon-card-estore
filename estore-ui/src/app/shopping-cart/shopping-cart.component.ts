@@ -31,5 +31,5 @@ export class ShoppingCartComponent implements OnInit {
   getContents(): Product[] {
     return Array.from(this.shoppingCart.contents)
   }
-  
+
 }
