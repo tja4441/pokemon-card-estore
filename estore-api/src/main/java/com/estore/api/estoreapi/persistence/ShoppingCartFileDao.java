@@ -177,6 +177,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                             cart.removeFromCart(cartProduct);
                         } else {
                             cartProduct.setQuantity(cartProduct.getQuantity() - 1);
+                            cart.calculateTotalPrice();
                         }
                         productInCart = true;
                         break;

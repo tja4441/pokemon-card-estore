@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
 export class CartProductComponent implements OnInit {
 
   @Input() product!: Product
-  @Output() shoppingCartAdd = new EventEmitter()
+  @Output() shoppingCart = new EventEmitter()
   invProduct!: Product
 
   constructor(private userService: UserService,
@@ -27,7 +27,12 @@ export class CartProductComponent implements OnInit {
 
   addToCart(): void{
     this.cartService.addToCart(this.userService.getUser().id, this.invProduct )
-    .subscribe(shoppingCart => this.shoppingCartAdd.emit())
+    .subscribe(shoppingCart => this.shoppingCart.emit())
+  }
+
+  deleteFromCart(): void{
+    this.cartService.deleteFromCart(this.userService.getUser().id, this.invProduct)
+    .subscribe(shoppingCart => this.shoppingCart.emit())
   }
 
   getProduct(){

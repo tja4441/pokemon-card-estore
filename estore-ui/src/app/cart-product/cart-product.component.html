@@ -15,11 +15,20 @@
             <td class="td">
                 {{product.price.toFixed(2)}}
             </td>
+            
             <td>
-            <p>Quanity: </p>
+                <button type="button" 
+                (click)="deleteFromCart()">-</button>
             </td>
             <td>
+                <p>Quanity: </p>
+                </td>
+            <td>
+                
                 {{product.quantity}}
+                
+            </td>
+            <td>
                 <button type="button" 
                 (click)="addToCart()">+</button>
             </td>
