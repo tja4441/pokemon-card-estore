@@ -104,7 +104,7 @@ public class ShoppingCartController extends Controller{
     public ResponseEntity<ShoppingCart> getCart(@PathVariable int id) {
         LOG.info("GET /ShoppingCarts/" + id);
         try {
-            ShoppingCart cart = shoppingCartDao.getCart(id);
+            ShoppingCart cart = shoppingCartDao.getCart(id, inventoryController);
             if (cart != null) {
                 return new ResponseEntity<ShoppingCart>(cart,HttpStatus.OK);
             } else {
