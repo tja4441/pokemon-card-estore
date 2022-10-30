@@ -69,5 +69,13 @@ public interface InventoryDao {
      * @throws IOException if it fails to access this information
      */
     Product[] findProducts(String subString) throws IOException;
+
+    /**
+     * Retreives an array of all products where their type is the string specified
+     * @param type A String that corresponds to one of the types of pokemon
+     * @return Returns an Array of Products that are the type specified
+     * @throws IOException if it fails to access the information
+     */
+    Product[] getProductsType(String type) throws IOException;
 }
 

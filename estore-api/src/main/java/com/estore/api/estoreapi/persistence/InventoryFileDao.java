@@ -207,6 +207,24 @@ public class InventoryFileDao implements InventoryDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public Product[] getProductsType(String type) {
+        synchronized(products) {
+            ArrayList<Product> productsList = new ArrayList<>();
+            for (Product product : products.values()) {
+                if (type == null || product.getType().toString() == type) {
+                    productsList.add(product);
+                }
+            }
+
+            Product[] products = new Product[productsList.size()];
+            productsList.toArray(products);
+            return products;
+        }
+    }
+
     private int nextID() {
         synchronized(products) {
             int i = 1;

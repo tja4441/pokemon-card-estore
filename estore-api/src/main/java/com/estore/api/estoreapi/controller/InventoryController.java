@@ -170,7 +170,7 @@ public class InventoryController extends Controller {
     }
 
     /**
-     * Respongs to a get request for an array of products that contain a
+     * Responds to a get request for an array of products that contain a
      * specified substring in their name property
      * @param name the substring that is being searched for in products
      * @return ResponseEntity with a status of OK with product
@@ -190,5 +190,25 @@ public class InventoryController extends Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-}
 
+    /**
+     * Responds to a get request for an array of products that are a certain type
+     * @param type the string that represents the type being searched for
+     * @return ResponseEntity with a status of OK with the products
+     */
+    @GetMapping("/")
+    public ResponseEntity<Product[]> getProductsByType(@RequestParam String type) {
+        LOG.info("GET /products/?type="+type);
+        try {
+            Product[] products = inventoryDao.getProductsType(type);
+            if (products.length == 0) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<Product[]>(products,HttpStatus.OK);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}
