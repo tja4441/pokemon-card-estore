@@ -1,6 +1,23 @@
 <div id="search-component">
-    <label for="search-box">Product Search</label>
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <label for="search-box" style="float: left;">Product Search</label>
+    <input #searchBox id="search-box" (input)="search(searchBox.value, type.value)" style="float: left;"/>
+    
+    <select #type (input)="search(searchBox.value, type.value)" style="float: left;">
+      <option value="">Select Type</option>
+      <option value="DARK">Dark</option>
+      <option value="DRAGON">Dragon</option>
+      <option value="ELECTRIC">Electric</option>
+      <option value="FAIRY">Fairy</option>
+      <option value="FIGHTING">Fighting</option>
+      <option value="FIRE">Fire</option>
+      <option value="GRASS">Grass</option>
+      <option value="NORMAL">Normal</option>
+      <option value="PSYCHIC">Psychic</option>
+      <option value="STEEL">Steel</option>
+      <option value="TRAINER">Trainer</option>
+      <option value="WATER">Water</option>
+  </select>
+  <br>
   
     <ul *ngIf="!empty" class="search-result">
       <li *ngFor="let product of products" >
