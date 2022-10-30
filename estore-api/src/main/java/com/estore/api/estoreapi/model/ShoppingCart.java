@@ -1,7 +1,6 @@
 package com.estore.api.estoreapi.model;
 
 import java.util.HashSet;
-import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Daniel Pittman
  */
 public class ShoppingCart {
-    private static final Logger LOG = Logger.getLogger(ShoppingCart.class.getName());
     // Package private for tests
     static final String STRING_FORMAT = "ShoppingCart [id=%d, contents=%s, totalPrice=%f]";
 

@@ -4,7 +4,6 @@
  * that someone might need on an individual product
  */
 package com.estore.api.estoreapi.model;
-import java.util.logging.Logger;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * price hashmap that links product ID to a price
  */
 public class Product {
-    private static final Logger LOG = Logger.getLogger(Product.class.getName());
     // Package private for tests
     static final String STRING_FORMAT = "Product [id=%d, name=%s, type=%s, quantity=%d, price=%f]";
 

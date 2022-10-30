@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -23,8 +22,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     Map<Integer,ShoppingCart> carts;            // provides a local cache of the carts
     private ObjectMapper objectMapper;          // converts between ShoppingCart objects and JSON text file formats
     private String filename;                    // Filename to read/write
-    private static final Logger LOG = Logger.getLogger(ShoppingCartFileDao.class.getName());
-
+    
     /**
      * Creates a {@linkplain ShoppingCart cart} File Data Access Object
      * 

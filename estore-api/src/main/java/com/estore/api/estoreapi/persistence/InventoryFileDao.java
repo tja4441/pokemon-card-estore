@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 import java.io.File;
 import java.util.TreeMap;
-import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +19,6 @@ public class InventoryFileDao implements InventoryDao {
     Map<Integer,Product> products;      // provides a local cache of the product objects
     private ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
     private String filename;                    //Filename to read/write
-    private static final Logger LOG = Logger.getLogger(InventoryFileDao.class.getName());
 
     /**
      * Creates a Product File Data Access Object
