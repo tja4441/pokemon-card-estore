@@ -4,6 +4,25 @@
         <td><input id="new-product" #productName /></td>
     </tr>
     <tr>
+        <td><label for="new-product">Product Type: </label></td>
+        <td>
+            <select id="new_product" #productType>
+                <option value="DARK">Dark</option>
+                <option value="DRAGON">Dragon</option>
+                <option value="ELECTRIC">Electric</option>
+                <option value="FAIRY">Fairy</option>
+                <option value="FIGHTING">Fighting</option>
+                <option value="FIRE">Fire</option>
+                <option value="GRASS">Grass</option>
+                <option value="NORMAL">Normal</option>
+                <option value="PSYCHIC">Psychic</option>
+                <option value="STEEL">Steel</option>
+                <option value="TRAINER">Trainer</option>
+                <option value="WATER">Water</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
         <td><label for="new-product">Product quantity: </label></td>
         <td><input id="new-product" #productQuantity min="0"/></td>
     </tr>
@@ -13,7 +32,7 @@
     </tr>
     <tr>
         <td><button type="button" class="add-button"
-            (click)="add(productName.value, productQuantity.value, productPrice.value); 
+            (click)="add(productName.value, productType.value, productQuantity.value, productPrice.value); 
             productName.value=''; 
             productPrice.value=null; 
             productQuantity.value=null">

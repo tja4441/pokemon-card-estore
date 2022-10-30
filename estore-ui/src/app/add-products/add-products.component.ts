@@ -29,14 +29,15 @@ export class AddProductsComponent implements OnInit {
   /**
    * adds a new card to the database and then changes this.products to reflect change
    * @param name name of product
+   * @param type type of the product
    * @param quantity quantity of product
    * @param price price of the card
    */
-  add(name: string, quantity: any, price: any): void {
+  add(name: string, type: string, quantity: any, price: any): void {
     //removes whitespace
     name = name.trim();
     //tries to add product to the server using productService
-    this.productService.addProduct({ name, quantity, price } as Product)
+    this.productService.addProduct({ name, type, quantity, price } as Product)
     //productService returns product on success which is added to UI/this.products
     .subscribe(product => this.products.push(product))
   }
