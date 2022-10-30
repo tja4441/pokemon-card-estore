@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
 
@@ -9,14 +8,17 @@ import { ProductService } from '../product.service';
   styleUrls: ['./products-list.component.css']
 })
 export class ProductsListComponent implements OnInit {
-  @Input() isAdmin: Boolean | undefined;
   productsList: Product[] = [];
 
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     //gets products from productService and then when they resolve sets productList
-      this.productService.getProducts().subscribe(products => this.productsList = products)
+    this.getProducts();
+  }
+
+  getProducts(): void {
+    this.productService.getProducts().subscribe(productsList => this.productsList = productsList)
   }
 
   /**

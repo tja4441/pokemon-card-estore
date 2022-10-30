@@ -8,3 +8,8 @@
     height: 16em;
     vertical-align: top;
 }
+.attribute_headers {
+    padding: 5%;
+    width: 100px;
+    text-align: right;
+}
