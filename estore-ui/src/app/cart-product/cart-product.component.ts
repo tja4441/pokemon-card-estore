@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Product } from '../product';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { ShoppingCart } from '../ShoppingCart';
@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
 export class CartProductComponent implements OnInit {
 
   @Input() product!: Product
-  @Input() shoppingCart!: ShoppingCart
+  @Output() shoppingCartAdd = new EventEmitter<ShoppingCart>()
 
   constructor(private userService: UserService,
     private cartService: ShoppingCartService) { }
@@ -23,7 +23,8 @@ export class CartProductComponent implements OnInit {
 
   addToCart(): void{
     this.cartService.addToCart(this.userService.getUser().id, this.product)
-    .subscribe(shoppingCart => this.shoppingCart = shoppingCart)
+    .subscribe(shoppingCart => {this.shoppingCartAdd.emit(shoppingCart)
+        this.cartService.replaceCart(shoppingCart)})
   }
 
 }

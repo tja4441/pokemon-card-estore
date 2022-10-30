@@ -12,6 +12,8 @@ export class ShoppingCartService {
 
   private cartUrl = 'http://localhost:8080/ShoppingCarts';   // URL to web api
 
+  public shoppingCart: ShoppingCart | undefined
+
   httpOptions = { 
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -19,6 +21,7 @@ export class ShoppingCartService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
+    
   ) { }
 
   /**
@@ -29,13 +32,30 @@ export class ShoppingCartService {
    * @returns the cart if found and no conflicts
    * 
    */
-  getCart(id: number): Observable<ShoppingCart> {
+  fetchCart(id: number): Observable<ShoppingCart> {
     const url = `${this.cartUrl}/${id}`;
     return this.http.get<ShoppingCart>(url).pipe(
       tap(_ => this.log(`fetched cart id=${id}`)),
       catchError(this.handleError<ShoppingCart>(`getShoppingCart id=${id}`))
     );
   }
+
+  instantiateCart(id: number){
+    this.fetchCart(id).subscribe(shoppingCart =>this.shoppingCart = shoppingCart)
+  }
+
+  getCart(): ShoppingCart | undefined{
+    return this.shoppingCart
+  }
+
+  logout(){
+    this.shoppingCart = undefined
+  }
+
+  replaceCart(cart: ShoppingCart){
+    this.shoppingCart = cart
+  }
+
 
   /**
    * connects the ui requests to delete a cart to the ShoppingCart Controller

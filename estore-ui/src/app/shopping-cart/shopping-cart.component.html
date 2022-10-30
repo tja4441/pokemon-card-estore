@@ -1,7 +1,7 @@
 <div *ngIf="shoppingCart" >
     <p>Items In Your Shopping Cart!</p>
     <div *ngFor="let product of contents" >
-        <app-cart-product [product]="product" [shoppingCart]="shoppingCart" ></app-cart-product>
+        <app-cart-product [product]="product" (shoppingCartAdd) = "updateCart($event)" ></app-cart-product>
     </div>
     <div>
     <p>Total: {{shoppingCart.totalPrice.toFixed(2)}}</p>

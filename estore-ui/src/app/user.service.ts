@@ -16,8 +16,6 @@ export class UserService {
 
   public username: string = ""
 
-  private shoppingCart!: ShoppingCart; 
-
   //baseline url for user functions
   private userUrl = 'http://localhost:8080/user';
 
@@ -28,8 +26,7 @@ export class UserService {
   
   constructor(
     private http: HttpClient,
-    private messageService: MessageService,
-    private cartService: ShoppingCartService) { }
+    private messageService: MessageService) { }
   
   //NOTE: is not able to tell when it gets different http for a Conflict
   /**
@@ -93,8 +90,7 @@ export class UserService {
     if(user){
       this.id = user.id
       this.username = user.UserName
-      this.cartService.getCart(user.id)
-      .subscribe(shoppingCart => this.shoppingCart = shoppingCart)
+      
     }
   }
 
@@ -105,9 +101,6 @@ export class UserService {
     return {id: this.id, UserName: this.username}
   }
 
-  getCart(): ShoppingCart {
-    return this.shoppingCart
-  }
 
   /**
    * @returns returns true if there is a logged in "global" user
