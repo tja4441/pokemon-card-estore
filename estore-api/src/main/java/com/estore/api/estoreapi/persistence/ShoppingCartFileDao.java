@@ -143,6 +143,9 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                             cart.calculateTotalPrice();
                             productIncremented = true;
                         }
+                        else if(product.getQuantity() == cartProduct.getQuantity()){
+                            return cart;
+                        }
                         break;
                     } 
                 }
@@ -168,7 +171,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
             } else {
                 for (Product cartProduct : cart.getContents()) {
                     if (product.getId() == cartProduct.getId()) {
-                        if (cartProduct.getQuantity() != 1) {
+                        if (cartProduct.getQuantity() <= 1) {
                             cart.removeFromCart(cartProduct);
                         } else {
                             cartProduct.setQuantity(cartProduct.getQuantity() - 1);
