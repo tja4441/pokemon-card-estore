@@ -13,10 +13,11 @@ public class OrderHistory {
 
     private static final Logger LOG = Logger.getLogger(OrderHistory.class.getName());
     // Package private for tests
-    static final String STRING_FORMAT = "OrderHistory [id=%d, purchasedCart=%s, timeStamp=%s]";
+    static final String STRING_FORMAT = "OrderHistory [id=%d, purchasedCart=%s, orderNumber=%d, timeStamp=%s]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("purchasedCart") private ShoppingCart purchasedCart;
+    @JsonProperty("orderNumber") private int orderNumber;
     @JsonProperty("timeStamp") private String timeStamp; // string formatted as "HH:MM:SS" to be parsed later
 
      /**
@@ -24,9 +25,10 @@ public class OrderHistory {
      * 
      * @author Timothy Avila
      */
-    public OrderHistory(@JsonProperty("id") int id, @JsonProperty("purchasedCart") ShoppingCart purchasedCart, @JsonProperty("timeStamp") String timeStamp) {
+    public OrderHistory(@JsonProperty("id") int id, @JsonProperty("purchasedCart") ShoppingCart purchasedCart, @JsonProperty("orderNumber") int orderNumber, @JsonProperty("timeStamp") String timeStamp) {
         this.id = id;
         this.purchasedCart = purchasedCart;
+        this.orderNumber = orderNumber;
         this.timeStamp = timeStamp;
     }
 
@@ -53,6 +55,17 @@ public class OrderHistory {
     }
 
     /**
+     * A Getter method for the number of this order.
+     * 
+     * @return positive int corresponding to order number
+     * 
+     * @author Timothy Avila
+     */
+    public int getOrderNumber() {
+        return this.orderNumber;
+    }
+
+    /**
      * A Getter method for the time of purchase of an Order.
      * 
      * @return {@link String String} containing the time of an order, formatted as HH:MM:SS
@@ -72,6 +85,6 @@ public class OrderHistory {
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, id,purchasedCart, timeStamp);
+        return String.format(STRING_FORMAT, id, purchasedCart, orderNumber, timeStamp);
     }
 }
