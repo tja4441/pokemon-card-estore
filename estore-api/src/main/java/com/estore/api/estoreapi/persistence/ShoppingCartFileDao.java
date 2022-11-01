@@ -7,11 +7,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.estore.api.estoreapi.controller.InventoryController;
+import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,8 +24,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class ShoppingCartFileDao implements ShoppingCartDao {
 
     Map<Integer,ShoppingCart> carts;            // provides a local cache of the carts
-    private ObjectMapper objectMapper;          // converts between ShoppingCart objects and JSON text file formats
-    private String filename;                    // Filename to read/write
+    Map<Integer,OrderHistory> orders;           // provides a local cache of all orders
+    private ObjectMapper objectMapper;          // converts ShoppingCart or OrderHistory objects to/from JSON text file formats
+    private String cartFilename;                // Filename to read/write carts
+    private String orderFilename;               // Filename to read/write orders
     private static final Logger LOG = Logger.getLogger(ShoppingCartFileDao.class.getName());
 
     /**
@@ -34,8 +39,9 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public ShoppingCartFileDao(@Value("${carts.file}") String filename,ObjectMapper objectMapper) throws IOException{
-        this.filename = filename;
+    public ShoppingCartFileDao(@Value("${carts.file}") String cartFilename, String orderFilename,ObjectMapper objectMapper) throws IOException{
+        this.cartFilename = cartFilename;
+        this.orderFilename = orderFilename;
         this.objectMapper = objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         load();  // load the carts from the file
     }
@@ -229,6 +235,11 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         synchronized(carts) {
             if (refreshCart(id, inventoryController)) {
                 ShoppingCart cart = carts.get(id);
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                String timeStamp = LocalDateTime.now().format(dtf);
+                OrderHistory order = new OrderHistory(id, cart, nextOrderNumber(), timeStamp);
+                orders.put(order.getOrderNumber(), order);
+                saveOrderHistory();
                 HashSet<Product> productsSet = cart.getContents();
                 Product[] contents = new Product[productsSet.size()];
                 productsSet.toArray(contents);
@@ -259,7 +270,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         carts = new TreeMap<>();
 
         // Deserializes the JSON objects from the file into an array of carts
-        ShoppingCart[] cartArray = objectMapper.readValue(new File(filename),ShoppingCart[].class);
+        ShoppingCart[] cartArray = objectMapper.readValue(new File(cartFilename),ShoppingCart[].class);
 
         // Add each product to the tree map
         for (ShoppingCart shoppingCart : cartArray) {
@@ -281,7 +292,68 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         ShoppingCart[] cartArray = getCartsArray();
 
         // Serializes the Java Objects to JSON objects into the file
-        objectMapper.writeValue(new File(filename),cartArray);
+        objectMapper.writeValue(new File(cartFilename),cartArray);
         return true;
+    }
+
+    /**
+     * Loads {@linkplain OrderHistory orders} from the orderHistory JSON file into the map
+     * 
+     * @return true if the file was read successfuly
+     * 
+     * @throws IOException when file cannot be accessed or read from
+     * 
+     * @author Timothy Avila
+     */
+    private boolean loadOrderHistory() throws IOException {
+        orders = new TreeMap<>();
+
+        // Deserializes the JSON objects from the file into an array of orders
+        OrderHistory[] orderHistory = objectMapper.readValue(new File(orderFilename),OrderHistory[].class);
+
+        // Add each order to the tree map
+        for (OrderHistory order : orderHistory) {
+            orders.put(order.getOrderNumber(), order);
+        }
+        return true;
+    }
+
+    /**
+     * Saves the {@linkplain OrderHistory orders} from the map into the file as an array of JSON objects
+     * 
+     * @return true if the {@link OrderHistory orders} were written successfully
+     * 
+     * @throws IOException when file cannot be accessed or written to
+     * 
+     * @author Timothy Avila
+     */
+    private boolean saveOrderHistory() throws IOException {
+        OrderHistory[] orders = getOrders();
+
+        // Serializes the Java Objects to JSON objects into the file
+        objectMapper.writeValue(new File(orderFilename),orders);
+        return true;
+    }
+
+    private OrderHistory[] getOrders() {
+        ArrayList<OrderHistory> orderArrayList = new ArrayList<>();
+
+        for (OrderHistory order : orders.values()) {
+            orderArrayList.add(order);
+        }
+
+        OrderHistory[] ordersArray = new OrderHistory[orderArrayList.size()];
+        orderArrayList.toArray(ordersArray);
+        return ordersArray;
+    }
+
+    private int nextOrderNumber() {
+        synchronized(orders) {
+            int i = 1;
+            while(orders.containsKey(i)) {
+                i++;
+            }
+            return i;
+        }
     }
 }

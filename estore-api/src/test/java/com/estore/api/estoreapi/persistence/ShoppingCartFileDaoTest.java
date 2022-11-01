@@ -64,9 +64,9 @@ public class ShoppingCartFileDaoTest {
         when(mockInvObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockInvObjectMapper);
         inventoryController = new InventoryController(mockInventoryFileDao);
 
-        when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"),ShoppingCart[].class)).thenReturn(testShoppingCarts);
+        when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"), ShoppingCart[].class)).thenReturn(testShoppingCarts);
         when(mockObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockObjectMapper);
-        shoppingCartFileDao = new ShoppingCartFileDao("Charmander_Is_Better.txt",mockObjectMapper);
+        shoppingCartFileDao = new ShoppingCartFileDao("Charmander_Is_Better.txt", "Squirtle_Is_Worse.txt",mockObjectMapper);
     }
 
     @Test
