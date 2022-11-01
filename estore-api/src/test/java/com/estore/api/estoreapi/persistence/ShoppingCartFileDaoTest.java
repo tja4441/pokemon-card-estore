@@ -344,7 +344,7 @@ public class ShoppingCartFileDaoTest {
         testShoppingCarts[1].addToCart(testProducts[1]);
         testShoppingCarts[1].addToCart(testProducts[2]);
 
-        shoppingCartFileDao.checkout(2, inventoryController);
+        ShoppingCart cart = shoppingCartFileDao.checkout(2, inventoryController);
 
         OrderHistory order = shoppingCartFileDao.getOrders()[shoppingCartFileDao.getOrders().length - 1];
         
