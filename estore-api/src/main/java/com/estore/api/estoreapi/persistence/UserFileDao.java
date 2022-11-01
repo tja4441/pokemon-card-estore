@@ -67,7 +67,7 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     private void init() throws IOException{
-        users.put(0,new User(-1,"admin", "admin"));
+        users.put(-1,new User(-1,"admin", "admin"));
         save();
     }
     /**
