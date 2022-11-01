@@ -20,7 +20,7 @@ import com.estore.api.estoreapi.persistence.ShoppingCartDao;
 
 @RestController
 @RequestMapping("ShoppingCarts")
-public class ShoppingCartController extends Controller{
+public class ShoppingCartController {
     private static final Logger LOG = Logger.getLogger(ShoppingCartController.class.getName());
     private ShoppingCartDao shoppingCartDao;
     private InventoryController inventoryController;
