@@ -14,15 +14,18 @@ public class User {
 
     @JsonProperty("id") private int id;
     @JsonProperty("UserName") private String userName;
+    @JsonProperty("Password") private String password;
 
     /**
      * Create a user with the given id and username
      * @param id The id of the User
      * @param userName The username of the User
+     * @param password The hashed Password of the user
      */
-    public User( @JsonProperty("id") int id,@JsonProperty("UserName") String userName) {
+    public User( @JsonProperty("id") int id, @JsonProperty("UserName") String userName, @JsonProperty("Password") String password) {
         this.id = id;
         this.userName = userName;
+        this.password = password;
     }
 
     /**
@@ -38,10 +41,16 @@ public class User {
     public String getUserName() {return userName;}
 
     /**
+     * Retrieves the password of the User
+     * @return The password of the User
+     */
+    public String getPass() {return password;}
+
+    /**
      * Sets the username of the User
      * @param userName The username of the User
      */
-    public void setUserName(String userName){this.userName = userName;}
+    public void setUserName(String userName) {this.userName = userName;}
 
     /**
      * Checks if the user is an admin by checking if the user has an id of 0 and a 
@@ -50,7 +59,7 @@ public class User {
      *         False if the user is not an admin
      */
     @JsonIgnore
-    public Boolean isAdmin(){return this.id == 0 && this.userName == "admin";}
+    public Boolean isAdmin(){return this.id < 0;}
     
     /**
      * {@inheritDoc}

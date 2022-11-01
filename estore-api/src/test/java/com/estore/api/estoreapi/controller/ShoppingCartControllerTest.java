@@ -32,7 +32,7 @@ public class ShoppingCartControllerTest {
     }
 
     private static User createTestUser() {
-        User user = new User(1, "Jeff");
+        User user = new User(1, "Jeff", "");
         return user;
     }
 

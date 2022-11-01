@@ -51,8 +51,8 @@ export class UserService {
    * @param username The username that you would like to register to the database
    * @returns An observable that resolves to the user after it 
    */
-  login(username: string): Observable<User> {
-    const url = `${this.userUrl}/${username}`;
+  login(username: string, password: string): Observable<User> {
+    const url = `${this.userUrl}/${username}/${password}`;
     return this.http.get<User>(url)
       .pipe(
         tap(_ => this.log('grabbed user')),

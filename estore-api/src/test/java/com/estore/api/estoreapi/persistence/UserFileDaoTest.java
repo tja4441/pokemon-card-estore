@@ -53,12 +53,12 @@ public class UserFileDaoTest {
 
         /** Array of Users for testing */
         testUsers = new User[6];
-        testUsers[0] = new User(0, "admin");
-        testUsers[1] = new User(1,"Tim");
-        testUsers[2] = new User(2, "Zach");
-        testUsers[3] = new User(3,"Daniel");
-        testUsers[4] = new User(4, "Gabe");
-        testUsers[5] = new User(5, "Jensen");
+        testUsers[0] = new User(0, "admin", "admin");
+        testUsers[1] = new User(1,"Tim", "TimPass");
+        testUsers[2] = new User(2, "Zach", "ZachPass");
+        testUsers[3] = new User(3,"Daniel", "DanielPass");
+        testUsers[4] = new User(4, "Gabe", "GabePass");
+        testUsers[5] = new User(5, "Jensen", "JensenPass");
 
         /** Behavior definitions for the mockObjectMapper */
         when(mockObjectMapper.readValue(new File("filename.txt"),User[].class)).thenReturn(testUsers);
@@ -92,7 +92,7 @@ public class UserFileDaoTest {
     @Test
     public void createUser() throws IOException {
         // Setup
-        User user = new User(6, "Bob");
+        User user = new User(6, "Bob", "BobPass");
 
         // Invoke
         User result = assertDoesNotThrow(() -> userFileDao.createUser(user),
@@ -110,7 +110,7 @@ public class UserFileDaoTest {
         doThrow(new IOException()).when(mockObjectMapper)
             .writeValue(any(File.class),any(User[].class));
         
-        User user = new User(6, "Gerald");
+        User user = new User(6, "Gerald", "GeraldPass");
 
         assertThrows(IOException.class,
                         () -> userFileDao.createUser(user),
@@ -129,7 +129,7 @@ public class UserFileDaoTest {
     @Test
     public void testCreateUserSameName() throws IOException { 
         // Invoke
-        User user = userFileDao.createUser(new User(6, "Zach"));
+        User user = userFileDao.createUser(new User(6, "Zach", "ZachPass"));
 
         // Analyze
         assertNull(user);
@@ -138,16 +138,26 @@ public class UserFileDaoTest {
     @Test
     public void testCreateUserSpaceName() throws IOException {   // Fails; createUser cannot assume username is visible
         // Invoke
-        User user = userFileDao.createUser(new User(6, "  "));
+        User user = userFileDao.createUser(new User(6, "  ", " "));
 
         // Analyze
         assertNull(user);
     }
+
+    @Test
+    public void testCreateUserNoPass() throws IOException {   // Fails; createUser cannot assume username is visible
+        // Invoke
+        User user = userFileDao.createUser(new User(6, "Jabe", ""));
+
+        // Analyze
+        assertNull(user);
+    }
+
     @Test
     public void testCreateUserContainsSpaceName() throws IOException {   // Fails; createUser cannot assume username is visible
         // Invoke
-        User user = userFileDao.createUser(new User(6, "Bob John"));
-        User user2 = userFileDao.createUser(new User(7, "Bo        b"));
+        User user = userFileDao.createUser(new User(6, "Bob John", "password"));
+        User user2 = userFileDao.createUser(new User(7, "Bo        b", "password"));
 
         // Analyze
         assertNull(user);

@@ -55,6 +55,9 @@ public class UserController extends Controller {
             if (user == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
+            if(user.getUserName().isBlank() || user.getPass().isBlank()) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
             if(userDao.getUser(user.getUserName()) != null) return new ResponseEntity<>(HttpStatus.CONFLICT);
             User newUser = userDao.createUser(user);
             if (newUser != null) {
@@ -80,12 +83,13 @@ public class UserController extends Controller {
      * ResponseEntity with HTTP status of NOT_FOUND if not found
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @GetMapping("/{userName}")
-    public ResponseEntity<User> login(@PathVariable String userName){
-        LOG.info("GET /user/" + userName);
+    @GetMapping("/{userName}/{password}")
+    public ResponseEntity<User> login(@PathVariable String userName, @PathVariable String password){
+        LOG.info("GET /user/" + userName + "/" + password);
         try {
             User user = userDao.getUser(userName);
             if(user != null){
+                if(!user.getPass().equals(password)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
                 return new ResponseEntity<User>(user,HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);

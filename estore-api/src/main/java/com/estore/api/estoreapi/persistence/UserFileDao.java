@@ -67,7 +67,7 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     private void init() throws IOException{
-        users.put(0,new User(0,"admin"));
+        users.put(0,new User(-1,"admin", "admin"));
         save();
     }
     /**
@@ -140,8 +140,8 @@ public class UserFileDao implements UserDao {
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users) {
-            User newUser = new User(nextID(),user.getUserName());
-            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ")) {
+            User newUser = new User(nextID(), user.getUserName(), user.getPass());
+            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ") || user.getPass().isBlank()) {
                 return null;                                 // Username is blank or contains a space
             }
             for (User other : users.values()) {
@@ -152,10 +152,8 @@ public class UserFileDao implements UserDao {
             users.put(newUser.getId(), newUser);
             save();
             return newUser;
-
         }
     }
-
 
      /**
      * *{@inheritDoc}

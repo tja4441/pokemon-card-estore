@@ -45,24 +45,26 @@ export class LoginComponent implements OnInit {
    * with a username thats not in the database sets loginFailed to true
    * @param username entered username
    */
-  login(username: string): void {
+  login(username: string, password: string): void {
     //removes whitespace and casing from name during as preprocessing
     username = username.trim().toLowerCase()
     //does nothing if user entered nothing or just whitespace
     if(!username) return
+    if(!password) return
     //checks if user is in the backend
     this.logger.add(`Logging in as User: ${username}`)
-    this.userService.login(username)
+    this.userService.login(username, password)
       .subscribe(user=> this.addedUser(user))
   }
 
-  register(username: string): void {
+  register(username: string, password: string, confirm: string): void {
     //removes whitespace and casing from name during as preprocessing
     username = username.trim().toLowerCase()
     //does nothing if user entered nothing or just whitespace
     if(!username) return
+    if(password != confirm) return;
     this.logger.add(`Registering User: ${username}`)
-    this.userService.register({UserName: username, id: -1} as User)
+    this.userService.register({UserName: username, id: -1, password: password} as User)
       .subscribe(user => this.addedRegister(user))
   }
 
