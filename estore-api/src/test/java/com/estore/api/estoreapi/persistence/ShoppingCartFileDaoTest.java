@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.estore.api.estoreapi.controller.InventoryController;
+import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,6 +32,7 @@ public class ShoppingCartFileDaoTest {
     ShoppingCartFileDao shoppingCartFileDao;
     ShoppingCart[] testShoppingCarts;
     Product[] testProducts;
+    OrderHistory[] testOrderHistories;
     ObjectMapper mockInvObjectMapper;
     ObjectMapper mockObjectMapper;
     InventoryFileDao mockInventoryFileDao;
@@ -53,6 +55,12 @@ public class ShoppingCartFileDaoTest {
         testShoppingCarts[1] = new ShoppingCart(2);
         testShoppingCarts[2] = new ShoppingCart(3);
 
+        testOrderHistories = new OrderHistory[3];
+        testOrderHistories[0] = new OrderHistory(1, testShoppingCarts[0], 1, "10/31/2022 09:40:00");
+        testOrderHistories[1] = new OrderHistory(2, testShoppingCarts[1], 2, "10/31/2022 09:42:00");
+        testOrderHistories[1] = new OrderHistory(3, testShoppingCarts[2], 3, "10/31/2022 09:43:00");
+        
+
         testProducts = new Product[5];
         testProducts[0] = new Product(2,"Pikachu",4,100.00f);
         testProducts[1] = new Product(3, "Bulbasaur",5,2.50f);
@@ -65,6 +73,7 @@ public class ShoppingCartFileDaoTest {
         inventoryController = new InventoryController(mockInventoryFileDao);
 
         when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"), ShoppingCart[].class)).thenReturn(testShoppingCarts);
+        when(mockObjectMapper.readValue(new File("Squirtle_Is_Worse.txt"), OrderHistory[].class)).thenReturn(testOrderHistories);
         when(mockObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockObjectMapper);
         shoppingCartFileDao = new ShoppingCartFileDao("Charmander_Is_Better.txt", "Squirtle_Is_Worse.txt",mockObjectMapper);
     }
@@ -325,7 +334,10 @@ public class ShoppingCartFileDaoTest {
         ShoppingCart cart = shoppingCartFileDao.checkout(2, inventoryController);
         ShoppingCart nullCart = shoppingCartFileDao.checkout(3, inventoryController);
 
+        OrderHistory order = shoppingCartFileDao.getOrders()[shoppingCartFileDao.getOrders().length - 1];
+
         assertNull(nullCart);
         assertEquals(emptyContents,cart.getContents());
+        assertEquals(testOrderHistories[1], order);
     }
 }

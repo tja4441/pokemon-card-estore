@@ -39,11 +39,12 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public ShoppingCartFileDao(@Value("${carts.file}") String cartFilename, String orderFilename,ObjectMapper objectMapper) throws IOException{
+    public ShoppingCartFileDao(@Value("${carts.file}") String cartFilename, @Value("${order-history.file}") String orderFilename,ObjectMapper objectMapper) throws IOException{
         this.cartFilename = cartFilename;
         this.orderFilename = orderFilename;
         this.objectMapper = objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         load();  // load the carts from the file
+        loadOrderHistory();     // load the orders from the order-history file
     }
 
     /**
@@ -235,7 +236,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         synchronized(carts) {
             if (refreshCart(id, inventoryController)) {
                 ShoppingCart cart = carts.get(id);
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
                 String timeStamp = LocalDateTime.now().format(dtf);
                 OrderHistory order = new OrderHistory(id, cart, nextOrderNumber(), timeStamp);
                 orders.put(order.getOrderNumber(), order);
@@ -312,9 +313,10 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         OrderHistory[] orderHistory = objectMapper.readValue(new File(orderFilename),OrderHistory[].class);
 
         // Add each order to the tree map
-        for (OrderHistory order : orderHistory) {
-            orders.put(order.getOrderNumber(), order);
-        }
+            for (OrderHistory order : orderHistory) {
+                System.out.println(order);      //TODO: Get rid of Debug line
+                orders.put(order.getOrderNumber(), order);
+            }
         return true;
     }
 
@@ -335,7 +337,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         return true;
     }
 
-    private OrderHistory[] getOrders() {
+    public OrderHistory[] getOrders() {
         ArrayList<OrderHistory> orderArrayList = new ArrayList<>();
 
         for (OrderHistory order : orders.values()) {

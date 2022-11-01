@@ -18,7 +18,7 @@ public class OrderHistory {
     @JsonProperty("id") private int id;
     @JsonProperty("purchasedCart") private ShoppingCart purchasedCart;
     @JsonProperty("orderNumber") private int orderNumber;
-    @JsonProperty("timeStamp") private String timeStamp; // string formatted as "yyyy/MM/dd HH:mm:ss" to be parsed later
+    @JsonProperty("timeStamp") private String timeStamp; // string formatted as "MM/dd/yyyy HH:mm:ss" to be parsed later
 
      /**
      * Constructor with all required parameters, returns an OrderHistory object
@@ -68,7 +68,7 @@ public class OrderHistory {
     /**
      * A Getter method for the time of purchase of an Order.
      * 
-     * @return {@link String String} containing the time of an order, formatted as yyyy/MM/dd HH:mm:ss
+     * @return {@link String String} containing the time of an order, formatted as MM/dd/yyyy HH:mm:ss
      * 
      * @author Timothy Avila
      */
