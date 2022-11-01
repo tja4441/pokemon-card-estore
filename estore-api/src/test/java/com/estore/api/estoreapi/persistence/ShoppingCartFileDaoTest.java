@@ -334,10 +334,24 @@ public class ShoppingCartFileDaoTest {
         ShoppingCart cart = shoppingCartFileDao.checkout(2, inventoryController);
         ShoppingCart nullCart = shoppingCartFileDao.checkout(3, inventoryController);
 
-        OrderHistory order = shoppingCartFileDao.getOrders()[shoppingCartFileDao.getOrders().length - 1];
-
         assertNull(nullCart);
         assertEquals(emptyContents,cart.getContents());
-        assertEquals(testOrderHistories[1], order);
+    }
+
+    @Test
+    public void testOrderHistory() throws IOException{
+        //Invoke
+        testShoppingCarts[1].addToCart(testProducts[1]);
+        testShoppingCarts[1].addToCart(testProducts[2]);
+
+        shoppingCartFileDao.checkout(2, inventoryController);
+
+        OrderHistory order = shoppingCartFileDao.getOrders()[shoppingCartFileDao.getOrders().length - 1];
+        
+        //Analyze
+        assertEquals(testOrderHistories[1].getId(), order.getId());
+        assertEquals(testOrderHistories[1].getCart(), order.getCart());
+        assertEquals(testOrderHistories[1].getOrderNumber(), order.getOrderNumber());
+        assertEquals(testOrderHistories[1].getTime(), order.getTime());
     }
 }
