@@ -13,13 +13,15 @@ export class SearchProductsComponent implements OnInit {
   private searchTerms = new Subject<string>();
   private typeTerms = new Subject<string>();
   public empty = false
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) {
+    this.productService.getProducts().subscribe(p => this.products = p)
+  }
 
   search(term: string, type: string): void {
     term = term.trim()
     type = type.trim()
-    if(term || type) this.empty = false
-    else this.empty = true
+    if (!type && !term) this.empty = true
+    else this.empty = false
     this.searchTerms.next(term)
     this.typeTerms.next(type)
   }
@@ -32,7 +34,7 @@ export class SearchProductsComponent implements OnInit {
       distinctUntilChanged(),
 
       switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p) => this.products = p)
+    ).subscribe((p) => this.products = this.products.filter(val => p.includes(val)))
 
     this.typeTerms.pipe(
       //time to wait for another input before triggering
@@ -41,6 +43,6 @@ export class SearchProductsComponent implements OnInit {
       distinctUntilChanged(),
 
       switchMap((type: string) => this.productService.getProductsByType(type)),
-    ).subscribe((p) => this.products = p)
+    ).subscribe((p) => this.products = this.products.filter(val => p.includes(val)))
   }
 }
