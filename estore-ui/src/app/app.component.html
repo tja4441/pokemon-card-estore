@@ -1,9 +1,10 @@
-  <h1><b>{{title}}</b></h1>
-  <div class="usertag" *ngIf="isAdmin()"  (click)="redirect()" >
-    <p>Admin DashBoard</p>
-  </div>
-  <div class="usertag" *ngIf="isLoggedInUser()"  (click)="redirect()" >
-    <p>Logged in as: {{userService.username | titlecase}}</p>
-    <p>Click here to go to your page!</p>
-  </div>
-  <router-outlet></router-outlet>
+<h1><b>{{title}}</b></h1>
+<div class="usertag" *ngIf="isAdmin()"  (click)="redirect()" >
+  <p>Admin DashBoard</p>
+</div>
+<div class="usertag" *ngIf="isLoggedInUser()"  (click)="redirect()" >
+  <p>Logged in as: {{userService.username | titlecase}}</p>
+  <p>Click here to go to your page!</p>
+</div>
+<router-outlet></router-outlet>
+<app-messages></app-messages>

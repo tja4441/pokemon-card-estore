@@ -20,7 +20,7 @@ public class User {
      * Create a user with the given id and username
      * @param id The id of the User
      * @param userName The username of the User
-     * @param password The hashed Password of the user
+     * @param password The user's password
      */
     public User( @JsonProperty("id") int id, @JsonProperty("UserName") String userName, @JsonProperty("Password") String password) {
         this.id = id;

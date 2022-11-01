@@ -4,6 +4,7 @@ import { User } from '../user';
 import { Location } from '@angular/common';
 import { MessageService } from '../message.service';
 import { Router } from '@angular/router';
+import { passUser } from '../passUser';
 
 @Component({
   selector: 'app-login',
@@ -58,13 +59,15 @@ export class LoginComponent implements OnInit {
   }
 
   register(username: string, password: string, confirm: string): void {
+    this.logger.add(`Trying to Register User: ${username} Pass: ${password} Confirm: ${password}`)
     //removes whitespace and casing from name during as preprocessing
     username = username.trim().toLowerCase()
     //does nothing if user entered nothing or just whitespace
     if(!username) return
     if(password != confirm) return;
+    this.logger.add(`username not empty, password and confirm match`)
     this.logger.add(`Registering User: ${username}`)
-    this.userService.register({UserName: username, id: -1, password: password} as User)
+    this.userService.register({UserName: username, id: -1, Password: password} as passUser)
       .subscribe(user => this.addedRegister(user))
   }
 

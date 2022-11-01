@@ -5,6 +5,7 @@ import { MessageService } from './message.service';
 import { Product } from './product';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from './user';
+import { passUser } from './passUser';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class UserService {
    * @param user The user that you would like to register to the database
    * @returns An observable that resolves to the user after it 
    */
-  register(user: User): Observable<User> {
+  register(user: passUser): Observable<User> {
     return this.http.post<User>(this.userUrl, user, this.httpOptions)
     .pipe(
       tap(_ => this.log('grabbed user')),
