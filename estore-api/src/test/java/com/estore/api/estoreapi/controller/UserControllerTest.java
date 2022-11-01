@@ -63,7 +63,7 @@ public class UserControllerTest {
     public void testLogin() throws IOException{
         User user = createTestUser();
         when(mockUserDao.getUser(user.getUserName())).thenReturn(user);
-        ResponseEntity<User> response = userController.login(user.getUserName(), user.getPass());
+        ResponseEntity<User> response = userController.login(user.getUserName(), user.getPassword());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(user, response.getBody());
     }

@@ -140,8 +140,8 @@ public class UserFileDao implements UserDao {
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users) {
-            User newUser = new User(nextID(), user.getUserName(), user.getPass());
-            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ") || user.getPass().isBlank()) {
+            User newUser = new User(nextID(), user.getUserName(), user.getPassword());
+            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ") || user.getPassword().isBlank()) {
                 return null;                                 // Username is blank or contains a space
             }
             for (User other : users.values()) {

@@ -55,13 +55,13 @@ public class UserController extends Controller {
             if (user == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            if(user.getUserName().isBlank() || user.getPass().isBlank()) {
+            if(user.getUserName().isBlank() || user.getPassword().isBlank()) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
             if(userDao.getUser(user.getUserName()) != null) return new ResponseEntity<>(HttpStatus.CONFLICT);
             User newUser = userDao.createUser(user);
             if (newUser != null) {
-                LOG.info("Registered user:" + user + " Pass:" + user.getPass());
+                LOG.info("Registered user:" + user + " Pass:" + user.getPassword());
                 shoppingCartController.createCart(newUser.getId());
                 return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
             }
@@ -90,7 +90,7 @@ public class UserController extends Controller {
         try {
             User user = userDao.getUser(userName);
             if(user != null){
-                if(!user.getPass().equals(password)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                if(!user.getPassword().equals(password)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
                 return new ResponseEntity<User>(user,HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);

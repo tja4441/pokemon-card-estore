@@ -44,7 +44,7 @@ public class User {
      * Retrieves the password of the User
      * @return The password of the User
      */
-    public String getPass() {return password;}
+    public String getPassword() {return password;}
 
     /**
      * Sets the username of the User

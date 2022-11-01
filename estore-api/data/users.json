@@ -1,7 +1,13 @@
 [ {
-  "id" : 0,
-  "UserName" : "admin"
+  "id" : -1,
+  "UserName" : "admin",
+  "Password" : "admin"
 }, {
   "id" : 1,
-  "UserName" : "zach"
+  "UserName" : "zach",
+  "Password" : "Password1"
+}, {
+  "id" : 2,
+  "UserName" : "jorb",
+  "Password" : "JorbPass1"
 } ]

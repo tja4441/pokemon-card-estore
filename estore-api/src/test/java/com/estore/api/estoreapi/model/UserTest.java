@@ -24,7 +24,7 @@ public class UserTest {
 
         assertEquals(expected_id, user.getId());
         assertEquals(expected_userName, user.getUserName());
-        assertEquals(expected_password, user.getPass());
+        assertEquals(expected_password, user.getPassword());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class UserTest {
 
         assertEquals(expected_id, user.getId());
         assertEquals(expected_userName, user.getUserName());  
-        assertEquals(expected_password, user.getPass());  
+        assertEquals(expected_password, user.getPassword());  
     }
     @Test
     public void testToString(){
