@@ -13,9 +13,9 @@ public class OrderHistoryTest {
         OrderHistory order = new OrderHistory(1, new ShoppingCart(1), 1, "11/1/2022 09:03:50");
 
         assertEquals(1, order.getId());
-        assertEquals(new ShoppingCart(1), order.getCart());
+        assertEquals(new ShoppingCart(1), order.getPurchasedCart());
         assertEquals(1, order.getOrderNumber());
-        assertEquals("11/1/2022 09:03:50", order.getTime());
+        assertEquals("11/1/2022 09:03:50", order.getTimeStamp());
     }
 
     @Test

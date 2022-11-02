@@ -47,7 +47,7 @@ public class OrderHistory {
      * 
      * @author Timothy Avila
      */
-    public ShoppingCart getCart() {
+    public ShoppingCart getPurchasedCart() {
         return this.purchasedCart;
     }
 
@@ -69,7 +69,7 @@ public class OrderHistory {
      * 
      * @author Timothy Avila
      */
-    public String getTime() {
+    public String getTimeStamp() {
         return this.timeStamp;
     }
 

@@ -363,9 +363,9 @@ public class ShoppingCartFileDaoTest {
         
         //Analyze
         assertEquals(testOrderHistories[0].getId(), orders[0].getId());
-        assertEquals(testOrderHistories[0].getCart(), orders[0].getCart());
+        assertEquals(testOrderHistories[0].getPurchasedCart(), orders[0].getPurchasedCart());
         assertEquals(testOrderHistories[0].getOrderNumber(), orders[0].getOrderNumber());
-        assertEquals(LocalDateTime.now().format(dtf), orders[0].getTime());
+        assertEquals(LocalDateTime.now().format(dtf), orders[0].getTimeStamp());
     }
 
     @Test
@@ -392,18 +392,18 @@ public class ShoppingCartFileDaoTest {
         assertEquals(2,orderArray3.length);
 
         assertEquals(testOrderHistories[0].getId(), orderArray1[0].getId());
-        assertEquals(testOrderHistories[0].getCart(), orderArray1[0].getCart());
+        assertEquals(testOrderHistories[0].getPurchasedCart(), orderArray1[0].getPurchasedCart());
         assertEquals(testOrderHistories[0].getOrderNumber(), orderArray1[0].getOrderNumber());
-        assertEquals(LocalDateTime.now().format(dtf), orderArray1[0].getTime());
+        assertEquals(LocalDateTime.now().format(dtf), orderArray1[0].getTimeStamp());
 
         assertEquals(testOrderHistories[1].getId(), orderArray3[0].getId());
-        assertEquals(testOrderHistories[1].getCart(), orderArray3[0].getCart());
+        assertEquals(testOrderHistories[1].getPurchasedCart(), orderArray3[0].getPurchasedCart());
         assertEquals(testOrderHistories[1].getOrderNumber(), orderArray3[0].getOrderNumber());
-        assertEquals(LocalDateTime.now().format(dtf), orderArray3[0].getTime());
+        assertEquals(LocalDateTime.now().format(dtf), orderArray3[0].getTimeStamp());
 
         assertEquals(testOrderHistories[2].getId(), orderArray3[1].getId());
-        assertEquals(testOrderHistories[2].getCart(), orderArray3[1].getCart());
+        assertEquals(testOrderHistories[2].getPurchasedCart(), orderArray3[1].getPurchasedCart());
         assertEquals(testOrderHistories[2].getOrderNumber(), orderArray3[1].getOrderNumber());
-        assertEquals(LocalDateTime.now().format(dtf), orderArray3[1].getTime());
+        assertEquals(LocalDateTime.now().format(dtf), orderArray3[1].getTimeStamp());
     }
 }

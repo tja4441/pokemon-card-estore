@@ -236,11 +236,13 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         synchronized(carts) {
             if (refreshCart(id, inventoryController)) {
                 ShoppingCart cart = carts.get(id);
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-                String timeStamp = LocalDateTime.now().format(dtf);
-                OrderHistory order = new OrderHistory(id, cart, nextOrderNumber(), timeStamp);
-                orders.put(order.getOrderNumber(), order);
-                saveOrderHistory();
+                synchronized(orders) {
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+                    String timeStamp = LocalDateTime.now().format(dtf);
+                    OrderHistory order = new OrderHistory(id, cart, nextOrderNumber(), timeStamp);
+                    orders.put(order.getOrderNumber(), order);
+                    saveOrderHistory();
+                }
                 HashSet<Product> productsSet = cart.getContents();
                 Product[] contents = new Product[productsSet.size()];
                 productsSet.toArray(contents);
@@ -314,9 +316,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
 
         // Add each order to the tree map
             for (OrderHistory order : orderHistory) {
-                if (order != null) {
-                    orders.put(order.getOrderNumber(), order);
-                }
+                orders.put(order.getOrderNumber(), order);
             }
         return true;
     }
@@ -331,10 +331,10 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
      * @author Timothy Avila
      */
     private boolean saveOrderHistory() throws IOException {
-        OrderHistory[] orders = getOrders();
+        OrderHistory[] ordersArray = getOrders();
 
         // Serializes the Java Objects to JSON objects into the file
-        objectMapper.writeValue(new File(orderFilename),orders);
+        objectMapper.writeValue(new File(orderFilename),ordersArray);
         return true;
     }
 
@@ -374,8 +374,6 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                 orderArrayList.add(order);
             } 
         }
-
-        System.out.println(orderArrayList);
         
         OrderHistory[] ordersArray = new OrderHistory[orderArrayList.size()];
         orderArrayList.toArray(ordersArray);
