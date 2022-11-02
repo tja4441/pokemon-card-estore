@@ -1,7 +1,5 @@
 package com.estore.api.estoreapi.model;
 
-import java.util.logging.Logger;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -11,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class OrderHistory {
 
-    private static final Logger LOG = Logger.getLogger(OrderHistory.class.getName());
     // Package private for tests
     static final String STRING_FORMAT = "OrderHistory [id=%d, purchasedCart=%s, orderNumber=%d, timeStamp=%s]";
 
@@ -33,9 +30,9 @@ public class OrderHistory {
     }
 
     /**
-     * A Getter method for the id of the {@link OrderHistory OrderHistory} of a {@link User user}.
+     * A Getter method for the {@link User user's} id that made this order.
      * 
-     * @return id
+     * @return id of the {@link User user} that made this order.
      * 
      * @author Timothy Avila
      */

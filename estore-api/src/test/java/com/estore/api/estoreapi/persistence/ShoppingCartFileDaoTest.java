@@ -9,6 +9,8 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +39,7 @@ public class ShoppingCartFileDaoTest {
     ObjectMapper mockObjectMapper;
     InventoryFileDao mockInventoryFileDao;
     InventoryController inventoryController;
+    DateTimeFormatter dtf;
 
     /**
      * Before each test, we will create and inject a Mock Object Mapper to
@@ -67,6 +70,8 @@ public class ShoppingCartFileDaoTest {
         testProducts[2] = new Product(4,"Squirtle",4,1.00f);
         testProducts[3] = new Product(5, "Charmander",3,50.05f);
         testProducts[4] = new Product(7, "Clefairy", 10, 2.00f);
+
+        dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
 
         when(mockInvObjectMapper.readValue(new File("Charmander_Is_Better.txt"),Product[].class)).thenReturn(testProducts);
         when(mockInvObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockInvObjectMapper);
@@ -360,7 +365,7 @@ public class ShoppingCartFileDaoTest {
         assertEquals(testOrderHistories[0].getId(), orders[0].getId());
         assertEquals(testOrderHistories[0].getCart(), orders[0].getCart());
         assertEquals(testOrderHistories[0].getOrderNumber(), orders[0].getOrderNumber());
-        //assertEquals(testOrderHistories[0].getTime(), orders[0].getTime());
+        assertEquals(LocalDateTime.now().format(dtf), orders[0].getTime());
     }
 
     @Test
@@ -389,16 +394,16 @@ public class ShoppingCartFileDaoTest {
         assertEquals(testOrderHistories[0].getId(), orderArray1[0].getId());
         assertEquals(testOrderHistories[0].getCart(), orderArray1[0].getCart());
         assertEquals(testOrderHistories[0].getOrderNumber(), orderArray1[0].getOrderNumber());
-        //assertEquals(testOrderHistories[0].getTime(), orderArray1[0].getTime());
+        assertEquals(LocalDateTime.now().format(dtf), orderArray1[0].getTime());
 
         assertEquals(testOrderHistories[1].getId(), orderArray3[0].getId());
         assertEquals(testOrderHistories[1].getCart(), orderArray3[0].getCart());
         assertEquals(testOrderHistories[1].getOrderNumber(), orderArray3[0].getOrderNumber());
-        //assertEquals(testOrderHistories[1].getTime(), orderArray3[0].getTime());
+        assertEquals(LocalDateTime.now().format(dtf), orderArray3[0].getTime());
 
         assertEquals(testOrderHistories[2].getId(), orderArray3[1].getId());
         assertEquals(testOrderHistories[2].getCart(), orderArray3[1].getCart());
         assertEquals(testOrderHistories[2].getOrderNumber(), orderArray3[1].getOrderNumber());
-        //assertEquals(testOrderHistories[2].getTime(), orderArray3[1].getTime());
+        assertEquals(LocalDateTime.now().format(dtf), orderArray3[1].getTime());
     }
 }
