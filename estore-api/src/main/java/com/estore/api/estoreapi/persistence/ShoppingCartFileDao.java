@@ -338,6 +338,13 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         return true;
     }
 
+    /**
+     * Returns the {@linkplain OrderHistory orders} from the order cache
+     * 
+     * @return {@link OrderHistory orders} from the order cache
+     * 
+     * @author Timothy Avila
+     */
     public OrderHistory[] getOrders() {
         ArrayList<OrderHistory> orderArrayList = new ArrayList<>();
 
@@ -345,6 +352,31 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
             orderArrayList.add(order);
         }
 
+        OrderHistory[] ordersArray = new OrderHistory[orderArrayList.size()];
+        orderArrayList.toArray(ordersArray);
+        return ordersArray;
+    }
+
+    /**
+     * Returns the {@linkplain OrderHistory orders} from the order cache with a given id
+     * 
+     * @param id integer corresponding to id of user who made an order
+     * 
+     * @return {@link OrderHistory orders} from the order cache with a given id
+     * 
+     * @author Timothy Avila
+     */
+    public OrderHistory[] searchOrders(int id) {
+        ArrayList<OrderHistory> orderArrayList = new ArrayList<>();
+
+        for (OrderHistory order : orders.values()) {
+            if (order.getId() == id) {
+                orderArrayList.add(order);
+            } 
+        }
+
+        System.out.println(orderArrayList);
+        
         OrderHistory[] ordersArray = new OrderHistory[orderArrayList.size()];
         orderArrayList.toArray(ordersArray);
         return ordersArray;

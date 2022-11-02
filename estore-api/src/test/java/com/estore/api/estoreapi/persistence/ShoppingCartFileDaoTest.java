@@ -58,7 +58,7 @@ public class ShoppingCartFileDaoTest {
         testOrderHistories = new OrderHistory[3];
         testOrderHistories[0] = new OrderHistory(1, testShoppingCarts[0], 1, "10/31/2022 09:40:00");
         testOrderHistories[1] = new OrderHistory(2, testShoppingCarts[1], 2, "10/31/2022 09:42:00");
-        testOrderHistories[1] = new OrderHistory(3, testShoppingCarts[2], 3, "10/31/2022 09:43:00");
+        testOrderHistories[2] = new OrderHistory(3, testShoppingCarts[2], 3, "10/31/2022 09:43:00");
         
 
         testProducts = new Product[5];
@@ -344,14 +344,42 @@ public class ShoppingCartFileDaoTest {
         testShoppingCarts[1].addToCart(testProducts[1]);
         testShoppingCarts[1].addToCart(testProducts[2]);
 
-        ShoppingCart cart = shoppingCartFileDao.checkout(2, inventoryController);
+        shoppingCartFileDao.checkout(2, inventoryController);
 
-        OrderHistory order = shoppingCartFileDao.getOrders()[shoppingCartFileDao.getOrders().length - 1];
+        OrderHistory[] orders = shoppingCartFileDao.getOrders();
         
         //Analyze
-        assertEquals(testOrderHistories[1].getId(), order.getId());
-        assertEquals(testOrderHistories[1].getCart(), order.getCart());
-        assertEquals(testOrderHistories[1].getOrderNumber(), order.getOrderNumber());
-        assertEquals(testOrderHistories[1].getTime(), order.getTime());
+        assertEquals(testOrderHistories[0].getId(), orders[0].getId());
+        assertEquals(testOrderHistories[0].getCart(), orders[0].getCart());
+        assertEquals(testOrderHistories[0].getOrderNumber(), orders[0].getOrderNumber());
+        assertEquals(testOrderHistories[0].getTime(), orders[0].getTime());
+    }
+
+    @Test
+    public void testSearchOrders() throws IOException{
+        //Invoke
+        testShoppingCarts[2].addToCart(testProducts[1]);
+        shoppingCartFileDao.checkout(3, inventoryController);
+
+        testShoppingCarts[2].addToCart(testProducts[2]);
+        shoppingCartFileDao.checkout(3, inventoryController);
+
+        testShoppingCarts[0].addToCart(testProducts[3]);
+        shoppingCartFileDao.checkout(1, inventoryController);
+
+        OrderHistory[] orders = shoppingCartFileDao.searchOrders(3);
+
+        //Analyze
+        assertEquals(2, orders.length);
+
+        assertEquals(testOrderHistories[0].getId(), orders[0].getId());
+        assertEquals(testOrderHistories[0].getCart(), orders[0].getCart());
+        assertEquals(testOrderHistories[0].getOrderNumber(), orders[0].getOrderNumber());
+        assertEquals(testOrderHistories[0].getTime(), orders[0].getTime());
+
+        assertEquals(testOrderHistories[1].getId(), orders[0].getId());
+        assertEquals(testOrderHistories[1].getCart(), orders[0].getCart());
+        assertEquals(testOrderHistories[1].getOrderNumber(), orders[0].getOrderNumber());
+        assertEquals(testOrderHistories[1].getTime(), orders[0].getTime());
     }
 }
