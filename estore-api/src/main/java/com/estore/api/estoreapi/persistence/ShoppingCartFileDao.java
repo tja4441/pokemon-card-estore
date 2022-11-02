@@ -150,6 +150,9 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                             cart.calculateTotalPrice();
                             productIncremented = true;
                         }
+                        else if(product.getQuantity() == cartProduct.getQuantity()){
+                            return cart;
+                        }
                         break;
                     } 
                 }
@@ -175,10 +178,11 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
             } else {
                 for (Product cartProduct : cart.getContents()) {
                     if (product.getId() == cartProduct.getId()) {
-                        if (cartProduct.getQuantity() != 1) {
+                        if (cartProduct.getQuantity() <= 1) {
                             cart.removeFromCart(cartProduct);
                         } else {
                             cartProduct.setQuantity(cartProduct.getQuantity() - 1);
+                            cart.calculateTotalPrice();
                         }
                         productInCart = true;
                         break;
@@ -236,13 +240,9 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         synchronized(carts) {
             if (refreshCart(id, inventoryController)) {
                 ShoppingCart cart = carts.get(id);
-                synchronized(orders) {
-                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-                    String timeStamp = LocalDateTime.now().format(dtf);
-                    OrderHistory order = new OrderHistory(id, cart, nextOrderNumber(), timeStamp);
-                    orders.put(order.getOrderNumber(), order);
-                    saveOrderHistory();
-                }
+
+                setAndSaveOrder(id, cart);
+            
                 HashSet<Product> productsSet = cart.getContents();
                 Product[] contents = new Product[productsSet.size()];
                 productsSet.toArray(contents);
@@ -387,6 +387,16 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                 i++;
             }
             return i;
+        }
+    }
+
+    private void setAndSaveOrder(int id, ShoppingCart cart) throws IOException{
+        synchronized(orders){
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+            String timeStamp = LocalDateTime.now().format(dtf);
+            OrderHistory order = new OrderHistory(id, cart, nextOrderNumber(), timeStamp);
+            orders.put(order.getOrderNumber(), order);
+            saveOrderHistory();
         }
     }
 }

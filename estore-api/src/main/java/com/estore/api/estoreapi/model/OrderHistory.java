@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class OrderHistory {
 
     // Package private for tests
-    static final String STRING_FORMAT = "OrderHistory [id=%d, purchasedCart=%s, orderNumber=%d, timeStamp=%s]";
+    static final String STRING_FORMAT = "OrderHistory [orderNumber=%d, timeStamp=%s, purchasedCart=%s, id=%d]";
 
-    @JsonProperty("id") private int id;
-    @JsonProperty("purchasedCart") private ShoppingCart purchasedCart;
     @JsonProperty("orderNumber") private int orderNumber;
     @JsonProperty("timeStamp") private String timeStamp; // string formatted as "MM/dd/yyyy HH:mm:ss" to be parsed later
+    @JsonProperty("purchasedCart") private ShoppingCart purchasedCart;
+    @JsonProperty("id") private int id;
 
      /**
      * Constructor with all required parameters, returns an OrderHistory object
@@ -40,6 +40,10 @@ public class OrderHistory {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * A Getter method for the cart of purchased products in the {@link OrderHistory OrderHistory} of a {@link User user}.
      * 
@@ -49,6 +53,10 @@ public class OrderHistory {
      */
     public ShoppingCart getPurchasedCart() {
         return this.purchasedCart;
+    }
+
+    public void setShoppingCart(ShoppingCart cart){
+        this.purchasedCart = cart;
     }
 
     /**
@@ -62,6 +70,10 @@ public class OrderHistory {
         return this.orderNumber;
     }
 
+    public void setOrderNumber(int orderNumber){
+        this.orderNumber = orderNumber;
+    }
+
     /**
      * A Getter method for the time of purchase of an Order.
      * 
@@ -73,6 +85,10 @@ public class OrderHistory {
         return this.timeStamp;
     }
 
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
     /**
      * Formats OrderHistory as a String
      * 
@@ -82,6 +98,6 @@ public class OrderHistory {
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, id, purchasedCart, orderNumber, timeStamp);
+        return String.format(STRING_FORMAT, orderNumber, timeStamp, purchasedCart, id);
     }
 }
