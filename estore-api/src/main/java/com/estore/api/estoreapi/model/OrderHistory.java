@@ -100,4 +100,25 @@ public class OrderHistory {
     public String toString() {
         return String.format(STRING_FORMAT, orderNumber, timeStamp, purchasedCart, id);
     }
+
+    /**
+     * Determines if two orders are equal based on their OrderNumbers
+     * 
+     * @return true if equal, false otherwise
+     * 
+     * @author Timothy Avila
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof OrderHistory)) {
+            return false;
+        }
+        OrderHistory otherOrder = (OrderHistory) other;
+        return this.orderNumber == otherOrder.orderNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.orderNumber;
+    }
 }
