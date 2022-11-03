@@ -382,6 +382,13 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         return ordersArray;
     }
 
+    /**
+     * Returns the next available order number, increasing sequentially from 1
+     * 
+     * @return int corresponding to next order number
+     * 
+     * @author Timothy Avila
+     */
     private int nextOrderNumber() {
         synchronized(orders) {
             int i = 1;
@@ -392,6 +399,15 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         }
     }
 
+    /**
+     * Creates and saves an {@link OrderHistory OrderHistory} object to a JSON file for data persistence
+     * 
+     * @param id int corresponding to the ID of the {@link User user} that made the order.
+     * 
+     * @param cart the {@link ShoppingCart shopping cart} that the {@link User user} had when they placed the order.
+     * 
+     * @throws IOException
+     */
     private void setAndSaveOrder(int id, ShoppingCart cart) throws IOException{
         synchronized(orders){
             ShoppingCart orderCart = new ShoppingCart(cart.getId());
