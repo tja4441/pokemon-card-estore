@@ -12,7 +12,7 @@ export class SearchProductsComponent implements OnInit {
   public products: Product[] = []
   private searchTerms = new Subject<string>();
   private typeTerms = new Subject<string>();
-  public empty = false
+  public empty = true
   constructor(private productService: ProductService) {
     this.productService.getProducts().subscribe(p => this.products = p)
   }
@@ -20,10 +20,15 @@ export class SearchProductsComponent implements OnInit {
   search(term: string, type: string): void {
     term = term.trim()
     type = type.trim()
+
     if (!type && !term) this.empty = true
     else this.empty = false
-    this.searchTerms.next(term)
-    this.typeTerms.next(type)
+
+    if(!term) this.productService.getProducts().subscribe(p => this.products = p)
+    if(!type) this.productService.getProducts().subscribe(p => this.products = p)
+
+    if(term) this.searchTerms.next(term)
+    if(type) this.typeTerms.next(type)
   }
 
   ngOnInit(): void {

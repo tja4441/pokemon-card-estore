@@ -176,7 +176,7 @@ public class InventoryController extends Controller {
      */
     @GetMapping("/name/{name}")
     public ResponseEntity<Product[]> searchProducts(@PathVariable String name) {
-        LOG.info("GET /products/"+name);
+        LOG.info("GET /products/name/"+name);
         try {
             Product[] products = inventoryDao.findProducts(name);
             if (products.length == 0) {
@@ -197,7 +197,7 @@ public class InventoryController extends Controller {
      */
     @GetMapping("/type/{type}")
     public ResponseEntity<Product[]> getProductsByType(@PathVariable String type) {
-        LOG.info("GET /products/"+type);
+        LOG.info("GET /products/type"+type);
         try {
             Product[] products = inventoryDao.getProductsType(type);
             if (products.length == 0) {
