@@ -12,9 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.estore.api.estoreapi.model.PassChange;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.UserDao;
 
@@ -99,6 +102,11 @@ public class UserController extends Controller {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PutMapping("/password")
+    public ResponseEntity<User> changePassword(@RequestBody PassChange passChange) {
+        return null;
     }
     
     /**
