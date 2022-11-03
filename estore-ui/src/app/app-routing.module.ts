@@ -7,10 +7,12 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 import { ProductComponent } from './product/product.component';
+import { CanActivateRouteGuard } from './CanActivateRouteGuard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'admin', component: AdminComponent},
+  { path: 'admin', component: AdminComponent,
+  canActivate: [CanActivateRouteGuard]},
   { path: 'user', component: UserComponent},
   { path: 'products', component: AddProductsComponent},
   { path: 'login', component: LoginComponent},

@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+
+import { CanActivateRouteGuard } from './CanActivateRouteGuard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddProductsComponent } from './add-products/add-products.component'
@@ -42,7 +44,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [CanActivateRouteGuard ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
