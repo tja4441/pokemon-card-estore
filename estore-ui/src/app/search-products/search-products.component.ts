@@ -26,25 +26,25 @@ export class SearchProductsComponent implements OnInit {
   public empty = true
   constructor(private productService: ProductService) {}
 
-  flipBool(type: string) {
+  flipBool(type: string, term: string) {
     this.typeDict[type] = !this.typeDict[type]
-    
+    this.search(term)
   }
 
   search(term: string): void {
-    let typeSelected: boolean = false
-    typeSelected = false
-    for(let key in this.typeDict) {
-      if(this.typeDict[key]) {
-        typeSelected = true
-        this.products = this.products.filter(val => val.types.includes(key))
-      }
-    }
-
     term = term.trim()
-    if (!term && !typeSelected) this.empty = true
+    if (!term) this.empty = true
     else this.empty = false
     this.searchTerms.next(term)
+  }
+
+  filterByTypes(products: Product[]): Product[] {
+    for(let key in this.typeDict) {
+      if(this.typeDict[key]) {
+        products = products.filter(val => val.types.includes(key))
+      }
+    }
+    return products
   }
 
   ngOnInit(): void {
@@ -55,6 +55,6 @@ export class SearchProductsComponent implements OnInit {
       distinctUntilChanged(),
 
       switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p) => this.products = this.products.filter(val => p.includes(val)))
+    ).subscribe((p) => this.products = this.filterByTypes(p))
   }
 }
