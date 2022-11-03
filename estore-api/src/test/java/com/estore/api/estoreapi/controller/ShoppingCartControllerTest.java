@@ -158,9 +158,11 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testAddToCart() throws IOException{
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
         ShoppingCart cart = new ShoppingCart(1);
-        Product nProduct = new Product(5,"Apples",Type.GRASS,10,1.00f);
-        Product expectedProduct = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Product nProduct = new Product(5,"Apples",typeArray,10,1.00f);
+        Product expectedProduct = new Product(5,"Apple",typeArray,1,1.00f);
         cart.getContents().add(expectedProduct);
         
         when(mockShoppingCartDao.addToCart(1,nProduct)).thenReturn(cart);
@@ -173,7 +175,9 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testAddToCartHandleException() throws IOException{
-        Product nProduct = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         doThrow(new IOException()).when(mockShoppingCartDao).addToCart(1, nProduct);
 
@@ -184,7 +188,9 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testAddToCartHandleNotFound() throws IOException{
-        Product nProduct = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         when(mockShoppingCartDao.addToCart(1, nProduct)).thenReturn(null);
 
@@ -195,8 +201,10 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testDeleteFromCart() throws IOException{
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
         ShoppingCart cart = new ShoppingCart(1);
-        Product nProduct = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         when(mockShoppingCartDao.deleteFromCart(1,nProduct)).thenReturn(cart);
 
@@ -208,7 +216,9 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testDeleteFromCartHandleException() throws IOException{
-        Product nProduct = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         doThrow(new IOException()).when(mockShoppingCartDao).deleteFromCart(1, nProduct);
 
@@ -219,7 +229,9 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testDeleteFromCartConflict() throws IOException{
-        Product nProduct = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         when(mockShoppingCartDao.deleteFromCart(1, nProduct)).thenReturn(null);
 

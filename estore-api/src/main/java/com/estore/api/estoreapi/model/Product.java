@@ -12,11 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Product {
     // Package private for tests
-    static final String STRING_FORMAT = "Product [id=%d, name=%s, type=%s, quantity=%d, price=%f]";
+    static final String STRING_FORMAT = "Product [id=%d, name=%s, types=%s, quantity=%d, price=%f]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
-    @JsonProperty("type") private Type[] types;
+    @JsonProperty("types") private Type[] types;
     @JsonProperty("quantity") private int quantity;
     @JsonProperty("price") private float price;
     
@@ -29,7 +29,7 @@ public class Product {
      * @param quantity the amount of an item there is
      * @param price the price of an item
      */
-    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("type") Type[] types, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
+    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("types") Type[] types, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
         this.id = id;
         this.name = name;
         this.types = types;

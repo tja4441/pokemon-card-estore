@@ -33,7 +33,10 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProduct() throws IOException{
-        Product product = new Product(5,"Apple",[Type.GRASS],1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+
+        Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         when(mockInventoryDao.getProduct(product.getId())).thenReturn(product);
 
@@ -47,7 +50,10 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProductNotFound() throws IOException{
-        Product product = new Product(5,"Apple",[Type.GRASS],1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+
+        Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         when(mockInventoryDao.getProduct(product.getId())).thenReturn(null);
 
@@ -71,7 +77,9 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProduct() throws IOException{
-        Product product = new Product(5,"Apple",[Type.GRASS],1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+        Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         when(mockInventoryDao.createProduct(product)).thenReturn(product);
 
@@ -84,7 +92,9 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProductFailed() throws IOException{
-        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+        Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         when(mockInventoryDao.createProduct(product)).thenReturn(null);
 
@@ -95,7 +105,9 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProductHandleException() throws IOException{
-        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+        Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         doThrow(new IOException()).when(mockInventoryDao).createProduct(product);
 
@@ -106,7 +118,9 @@ public class InventoryControllerTest {
 
     @Test
     public void testUpdateProduct() throws IOException{
-        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+        Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         when(mockInventoryDao.updateProduct(product)).thenReturn(product);
 
@@ -120,7 +134,9 @@ public class InventoryControllerTest {
 
     @Test
     public void testUpdateProductHandleException() throws IOException{
-        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
+        Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         doThrow(new IOException()).when(mockInventoryDao).updateProduct(product);
 
@@ -131,9 +147,11 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProducts() throws IOException{
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
         Product[] products = new Product[2];
-        products[0] = new Product(5,"Apple",Type.GRASS,1,1.00f);
-        products[1] = new Product(2,"Pear",Type.WATER,100,0.50F);
+        products[0] = new Product(5,"Apple",typeArray,1,1.00f);
+        products[1] = new Product(2,"Pear",typeArray,100,0.50F);
 
         when(mockInventoryDao.getProducts()).thenReturn(products);
 
@@ -155,11 +173,13 @@ public class InventoryControllerTest {
 
     @Test
     public void testSearchProducts() throws IOException{
+        Type[] typeArray = new Type[1];
+        typeArray[0] = Type.GRASS;
         String searchString = "berries";
         Product[] products = new Product[3];
-        products[0] = new Product(1,"Blueberries",Type.WATER,10,1.00F);
-        products[1] = new Product(2,"Banana",Type.NORMAL,100,0.50F);
-        products[2] = new Product(3,"Strawberries",Type.FIRE,40,1.50F);
+        products[0] = new Product(1,"Blueberries",typeArray,10,1.00F);
+        products[1] = new Product(2,"Banana",typeArray,100,0.50F);
+        products[2] = new Product(3,"Strawberries",typeArray,40,1.50F);
 
         when(mockInventoryDao.findProducts(searchString)).thenReturn(products);
 
