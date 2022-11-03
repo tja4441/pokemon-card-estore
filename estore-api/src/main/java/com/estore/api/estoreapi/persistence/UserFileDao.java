@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.estore.api.estoreapi.model.PassChange;
 import com.estore.api.estoreapi.model.User;
 
 @Component
@@ -152,6 +153,24 @@ public class UserFileDao implements UserDao {
             users.put(newUser.getId(), newUser);
             save();
             return newUser;
+        }
+    }
+
+    /**
+    * *{@inheritDoc}
+    */
+    @Override
+    public boolean changePassword(int id, PassChange change) throws IOException {
+        synchronized(users) {
+            User user = users.get(id);
+            if(user == null) return false;
+            else if(!user.getPassword().equals(change.getOld())) return false;
+            else {
+                user.setPassword(change.getNew());
+                users.put(id, user);
+                save();
+                return true;
+            }
         }
     }
 

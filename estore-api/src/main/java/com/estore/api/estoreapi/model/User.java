@@ -53,6 +53,12 @@ public class User {
     public void setUserName(String userName) {this.userName = userName;}
 
     /**
+     * Sets the password of the User
+     * @param password The password of the User
+     */
+    public void setPassword(String password) {this.password = password;}
+
+    /**
      * Checks if the user is an admin by checking if the user has an id of 0 and a 
      * username of "Admin"
      * @return True if the user is admin

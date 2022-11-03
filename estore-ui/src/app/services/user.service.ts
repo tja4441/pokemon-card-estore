@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of} from 'rxjs';
 import { MessageService } from './message.service';
-import { Product } from './product';
+import { Product } from '../model/product';
 import { catchError, map, tap } from 'rxjs/operators';
-import { User } from './user';
-import { passUser } from './passUser';
+import { User } from '../model/user';
+import { passUser } from '../model/passUser';
 
 @Injectable({
   providedIn: 'root'
 })
 //id = -1, username = "", and shopping cart is an empty array if user is logged out
 export class UserService {
-  private id: number = -1
+  private id: number = 0
 
   public username: string = ""
 
@@ -106,21 +106,21 @@ export class UserService {
    * @returns returns true if there is a logged in "global" user
    */
   isLoggedIn(): boolean {
-    return this.id != -1 && this.username != ""
+    return this.id != 0 && this.username != ""
   }
 
   /**
    * @returns returns true if the global user is logged in as "admin"
    */
   isAdmin(): boolean {
-    return this.id == 0 && this.username == "admin";
+    return this.id < 0;
    }
   
   /**
   * logs out "global" user
   */
   logout(): void {
-    this.id = -1;
+    this.id = 0;
     this.username = ""
     this.shoppingCart = []
   }

@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import { ProductService } from '../product.service';
-import { Product } from '../product';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../model/product';
 
 @Component({
   selector: 'app-remove-product',

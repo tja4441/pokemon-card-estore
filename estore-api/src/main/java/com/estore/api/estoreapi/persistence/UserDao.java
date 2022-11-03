@@ -2,6 +2,7 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
 
+import com.estore.api.estoreapi.model.PassChange;
 import com.estore.api.estoreapi.model.User;
 
 public interface UserDao {
@@ -29,5 +30,14 @@ public interface UserDao {
      * @throws IOException if an issue with storage
      */
     User[] getUsers() throws IOException;
-    
+
+    /**
+     * Attemps to change the user with the specified ids password.
+     * If the old password that the user sends does not match the actual stored
+     * password or a user does not exist at the given id it returns false otherwise true.
+     * @param id the id of the user that you would like to change the password of
+     * @param change A password change object that contains an old and new password
+     * @return returns true on success and false on a failed opperation
+     */
+    public boolean changePassword(int id, PassChange change) throws IOException;
 }

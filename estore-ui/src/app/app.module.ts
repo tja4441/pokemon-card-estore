@@ -5,19 +5,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddProductsComponent } from './add-products/add-products.component'
+import { AddProductsComponent } from './products/add-products/add-products.component'
 import { MessagesComponent } from './messages/messages.component';
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
-import { ProductComponent } from './product/product.component';
-import { ProductsListComponent } from './products-list/products-list.component';
-import { RemoveProductComponent } from './remove-product/remove-product.component';
-import { EditProductComponent } from './edit-product/edit-product.component';
-import { ProductCardComponent } from './product-card/product-card.component';
-import { SearchProductsComponent } from './search-products/search-products.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProductComponent } from './products/product/product.component';
+import { ProductsListComponent } from './products/products-list/products-list.component';
+import { RemoveProductComponent } from './products/remove-product/remove-product.component';
+import { EditProductComponent } from './products/edit-product/edit-product.component';
+import { ProductCardComponent } from './products/product-card/product-card.component';
+import { SearchProductsComponent } from './products/search-products/search-products.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +32,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     EditProductComponent,
     ProductCardComponent,
     RemoveProductComponent,
-    SearchProductsComponent,
-    DashboardComponent
+    SearchProductsComponent
   ],
   imports: [
     BrowserModule,

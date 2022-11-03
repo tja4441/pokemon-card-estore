@@ -104,9 +104,18 @@ public class UserController extends Controller {
         }
     }
 
-    @PutMapping("/password")
-    public ResponseEntity<User> changePassword(@RequestBody PassChange passChange) {
-        return null;
+    @PutMapping("/password/{id}")
+    public ResponseEntity<Boolean> changePassword(@PathVariable int id, @RequestBody PassChange passChange) {
+        LOG.info("Put /password/" + id);
+        try {
+            boolean success = userDao.changePassword(id, passChange);
+            if(success) return new ResponseEntity<>(HttpStatus.OK);
+            else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     
     /**
@@ -117,7 +126,6 @@ public class UserController extends Controller {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     public ResponseEntity<User[]> getUsers(){
-        
         try {
             User[] users = userDao.getUsers();
             if(users != null){

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
-import { User } from '../user';
+import { UserService } from '../services/user.service';
+import { User } from '../model/user';
 import { Location } from '@angular/common';
-import { MessageService } from '../message.service';
+import { MessageService } from '../services/message.service';
 import { Router } from '@angular/router';
-import { passUser } from '../passUser';
+import { passUser } from '../model/passUser';
 
 @Component({
   selector: 'app-login',

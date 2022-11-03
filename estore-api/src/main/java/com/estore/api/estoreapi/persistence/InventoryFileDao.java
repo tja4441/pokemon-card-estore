@@ -140,7 +140,7 @@ public class InventoryFileDao implements InventoryDao {
             if (products.containsKey(product.getId()) == false || 
                 product.getQuantity() < 0 || 
                 product.getPrice() < 0.00 ||
-                product.getName().isBlank()){
+                product.getName().isBlank()) {
                     return null;  // product does not exist, or price/quantity is negative
             }
             int i = 1;
