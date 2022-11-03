@@ -175,15 +175,11 @@ public class ShoppingCart {
             return false;
         }
         ShoppingCart otherCart = (ShoppingCart) other;
-        if (this.id == otherCart.id) {
-            return true;
-        } else {
-            return false;
-        }
+        return (this.hashCode() == otherCart.hashCode());
     }
 
     @Override
     public int hashCode() {
-        return this.id;
+        return this.id * contents.hashCode();
     }
 }

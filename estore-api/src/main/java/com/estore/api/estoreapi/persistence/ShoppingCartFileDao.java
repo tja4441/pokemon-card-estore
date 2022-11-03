@@ -26,6 +26,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     Map<Integer,ShoppingCart> carts;            // provides a local cache of the carts
     Map<Integer,OrderHistory> orders;           // provides a local cache of all orders
     private ObjectMapper objectMapper;          // converts ShoppingCart or OrderHistory objects to/from JSON text file formats
+    private ObjectMapper orderMapper;
     private String cartFilename;                // Filename to read/write carts
     private String orderFilename;               // Filename to read/write orders
     private static final Logger LOG = Logger.getLogger(ShoppingCartFileDao.class.getName());
@@ -43,6 +44,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         this.cartFilename = cartFilename;
         this.orderFilename = orderFilename;
         this.objectMapper = objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        this.orderMapper = objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         load();  // load the carts from the file
         loadOrderHistory();     // load the orders from the order-history file
     }
@@ -312,7 +314,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         orders = new TreeMap<>();
 
         // Deserializes the JSON objects from the file into an array of orders
-        OrderHistory[] orderHistory = objectMapper.readValue(new File(orderFilename),OrderHistory[].class);
+        OrderHistory[] orderHistory = orderMapper.readValue(new File(orderFilename),OrderHistory[].class);
 
         // Add each order to the tree map
             for (OrderHistory order : orderHistory) {
@@ -334,7 +336,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
         OrderHistory[] ordersArray = getOrders();
 
         // Serializes the Java Objects to JSON objects into the file
-        objectMapper.writeValue(new File(orderFilename),ordersArray);
+        orderMapper.writeValue(new File(orderFilename),ordersArray);
         return true;
     }
 
@@ -392,9 +394,12 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
 
     private void setAndSaveOrder(int id, ShoppingCart cart) throws IOException{
         synchronized(orders){
+            ShoppingCart orderCart = new ShoppingCart(cart.getId());
+            orderCart.setContents(cart.getContents());
+            orderCart.setTotalPrice(cart.GetTotalPrice());
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
             String timeStamp = LocalDateTime.now().format(dtf);
-            OrderHistory order = new OrderHistory(id, cart, nextOrderNumber(), timeStamp);
+            OrderHistory order = new OrderHistory(id, orderCart, nextOrderNumber(), timeStamp);
             orders.put(order.getOrderNumber(), order);
             saveOrderHistory();
         }
