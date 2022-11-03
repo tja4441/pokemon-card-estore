@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
@@ -214,7 +215,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
 
             for (Product product : products) {
                 Product invProduct = inventoryController.getProduct(product.getId()).getBody();
-                if (invProduct != null && invProduct.getName().equals(product.getName()) && invProduct.getQuantity() > 0) {
+                if (invProduct != null && invProduct.getName().equals(product.getName()) && invProduct.getQuantity() > 0 && Arrays.equals(product.getTypes(), invProduct.getTypes())) {
                     if (invProduct.getQuantity() < product.getQuantity()) {
                         cart.updateProductInCart(product, invProduct);
                         nothingChanged = false;

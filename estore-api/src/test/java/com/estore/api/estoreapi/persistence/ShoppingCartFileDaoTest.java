@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -345,7 +347,7 @@ public class ShoppingCartFileDaoTest {
         shoppingCartFileDao.refreshCart(3, inventoryController);
 
         // Analyze
-        assertEquals(expectedCart.getContents(), cart.getContents());
+        assertTrue(Arrays.equals(cart.getContents().toArray(), expectedCart.getContents().toArray()));
     }
 
     @Test

@@ -4,6 +4,8 @@
  * that someone might need on an individual product
  */
 package com.estore.api.estoreapi.model;
+import java.util.Arrays;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -111,7 +113,7 @@ public class Product {
             return false;
         }
         Product otherProduct = (Product) other;
-        if((this.name.toLowerCase().equals(otherProduct.name.toLowerCase())) && this.types.equals(otherProduct.types)) {
+        if((this.name.toLowerCase().equals(otherProduct.name.toLowerCase())) && Arrays.equals(this.types, otherProduct.getTypes())) {
             return true;
         }
         else {
