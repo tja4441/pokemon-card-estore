@@ -1,23 +1,39 @@
 <div id="search-component">
     <label for="search-box" style="float: left;">Product Search</label>
-    <input #searchBox id="search-box" (input)="search(searchBox.value, type.value)" style="float: left;"/>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" style="float: left;">
+
+    <input type="checkbox" id="dark" name="typeSelect" onselect="flipBool('DARK')">
+    <label for="dark">Dark</label>
+    <input type="checkbox" id="dragon" name="typeSelect" onselect="flipBool('DRAGON')">
+    <label for="dragon">Dragon</label>
+    <input type="checkbox" id="electric" name="typeSelect" onselect="flipBool('ELECTRIC')">
+    <label for="electric">Electric</label>
+    <input type="checkbox" id="fairy" name="typeSelect" onselect="flipBool('FAIRY')">
+    <label for="fairy">Fairy</label>
+    <input type="checkbox" id="fighting" name="typeSelect" onselect="flipBool('FIGHTING')">
+    <label for="fighting">Fighting</label>
+    <input type="checkbox" id="fire" name="typeSelect" onselect="flipBool('FIRE')">
+    <label for="fire">Fire</label>
+    <input type="checkbox" id="grass" name="typeSelect" onselect="flipBool('GRASS')">
+    <label for="grass">Grass</label>
+    <input type="checkbox" id="normal" name="typeSelect" onselect="flipBool('NORMAL')">
+    <label for="normal">Normal</label>
+    <input type="checkbox" id="psychic" name="typeSelect" onselect="flipBool('PSYCHIC')">
+    <label for="psychic">Psychic</label>
+    <input type="checkbox" id="steel" name="typeSelect" onselect="flipBool('STEEL')">
+    <label for="steel">Steel</label>
+    <input type="checkbox" id="water" name="typeSelect" onselect="flipBool('WATER')">
+    <label for="water">Water</label>
+    <input type="checkbox" id="trainer" name="typeSelect" onselect="flipBool('TRAINER')">
+    <label for="trainer">Trainer</label>
+    <br>
     
-    <select #type (input)="search(searchBox.value, type.value)">
-      <option value="">Select Type</option>
-      <option value="DARK">Dark</option>
-      <option value="DRAGON">Dragon</option>
-      <option value="ELECTRIC">Electric</option>
-      <option value="FAIRY">Fairy</option>
-      <option value="FIGHTING">Fighting</option>
-      <option value="FIRE">Fire</option>
-      <option value="GRASS">Grass</option>
-      <option value="NORMAL">Normal</option>
-      <option value="PSYCHIC">Psychic</option>
-      <option value="STEEL">Steel</option>
-      <option value="TRAINER">Trainer</option>
-      <option value="WATER">Water</option>
-  </select>
-  <br>
+    <p>typeDict keys/values</p>
+    <ul>
+      <li *ngFor="let item of typeDict | keyvalue" >
+        <p>{{item.key}}, {{item.value}}</p>
+      </li>
+    </ul>
   
     <ul *ngIf="!empty" class="search-result">
       <li *ngFor="let product of products" >

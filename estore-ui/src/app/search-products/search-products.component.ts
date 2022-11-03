@@ -11,24 +11,32 @@ import { ProductService } from '../product.service';
 export class SearchProductsComponent implements OnInit {
   public products: Product[] = []
   private searchTerms = new Subject<string>();
-  private typeTerms = new Subject<string>();
+  public typeDict: any = {"DARK" : false,
+                           "DRAGON" : false,
+                           "ELECTRIC" : false,
+                           "FAIRY" : false,
+                           "FIGHTING" : false,
+                           "FIRE" : false,
+                           "GRASS" : false,
+                           "NORMAL" : false,
+                           "PSYCHIC" : false,
+                           "STEEL" : false,
+                           "WATER" : false,
+                           "TRAINER" : false}
   public empty = true
   constructor(private productService: ProductService) {
     this.productService.getProducts().subscribe(p => this.products = p)
   }
 
-  search(term: string, type: string): void {
+  flipBool(type: string) {
+    this.typeDict[type] = !this.typeDict[type]
+  }
+
+  search(term: string): void {
     term = term.trim()
-    type = type.trim()
-
-    if (!type && !term) this.empty = true
+    if (!term) this.empty = true
     else this.empty = false
-
-    if(!term) this.productService.getProducts().subscribe(p => this.products = p)
-    if(!type) this.productService.getProducts().subscribe(p => this.products = p)
-
-    if(term) this.searchTerms.next(term)
-    if(type) this.typeTerms.next(type)
+    this.searchTerms.next(term)
   }
 
   ngOnInit(): void {
@@ -39,15 +47,6 @@ export class SearchProductsComponent implements OnInit {
       distinctUntilChanged(),
 
       switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p) => this.products = this.products.filter(val => p.includes(val)))
-
-    this.typeTerms.pipe(
-      //time to wait for another input before triggering
-      debounceTime(300),
-
-      distinctUntilChanged(),
-
-      switchMap((type: string) => this.productService.getProductsByType(type)),
-    ).subscribe((p) => this.products = this.products.filter(val => p.includes(val)))
+    ).subscribe((p) => this.products = p)
   }
 }
