@@ -114,9 +114,6 @@ public class Product {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += name.toLowerCase().hashCode();
-        hash += quantity;
-        return hash;
+        return name.toLowerCase().hashCode();
     }
 }
