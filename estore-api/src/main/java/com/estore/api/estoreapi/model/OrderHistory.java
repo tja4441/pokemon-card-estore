@@ -40,6 +40,13 @@ public class OrderHistory {
         return this.id;
     }
 
+    /**
+     * A Setter method for the id of the user who placed this order.
+     * 
+     * @param id the id of the user who placed this order
+     * 
+     * @author Timothy Avila
+     */
     public void setId(int id) {
         this.id = id;
     }
@@ -55,7 +62,14 @@ public class OrderHistory {
         return this.purchasedCart;
     }
 
-    public void setShoppingCart(ShoppingCart cart){
+    /**
+     * A Setter method for the cart of purchased products in this order.
+     * 
+     * @param cart {@link ShoppingCart cart} of purchased items
+     * 
+     * @author Timothy Avila
+     */
+    public void setPurchasedCart(ShoppingCart cart){
         this.purchasedCart = cart;
     }
 
@@ -70,6 +84,13 @@ public class OrderHistory {
         return this.orderNumber;
     }
 
+    /**
+     * A Setter method for the number of this order
+     * 
+     * @param orderNumber int to replace orderNumber
+     * 
+     * @author Timothy Avila
+     */
     public void setOrderNumber(int orderNumber){
         this.orderNumber = orderNumber;
     }
@@ -85,6 +106,13 @@ public class OrderHistory {
         return this.timeStamp;
     }
 
+    /**
+     * A Setter method for the time that this order was placed.
+     * 
+     * @param timeStamp the time that this order was placed
+     * 
+     * @author Timothy Avila
+     */
     public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
     }
@@ -117,6 +145,9 @@ public class OrderHistory {
         return this.orderNumber == otherOrder.orderNumber;
     }
 
+    /**
+     *{@inheritDoc}}
+     */
     @Override
     public int hashCode() {
         return this.orderNumber;

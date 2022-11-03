@@ -1,6 +1,10 @@
 package com.estore.api.estoreapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -19,11 +23,45 @@ public class OrderHistoryTest {
     }
 
     @Test
+    public void testSetters() {
+        OrderHistory order = new OrderHistory(0, null, 0, null);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+
+        order.setId(2);
+        order.setPurchasedCart(new ShoppingCart(2));
+        order.setOrderNumber(2);
+        order.setTimeStamp(LocalDateTime.now().format(dtf));
+
+        assertEquals(2, order.getId());
+        assertEquals(new ShoppingCart(2), order.getPurchasedCart());
+        assertEquals(2, order.getOrderNumber());
+        assertEquals(LocalDateTime.now().format(dtf), order.getTimeStamp());
+    }
+
+    @Test
     public void testToString() {
         OrderHistory order = new OrderHistory(1, new ShoppingCart(1), 1, "11/1/2022 09:03:50");
 
         assertEquals("OrderHistory [id=1, purchasedCart=ShoppingCart [id=1, contents=[], totalPrice=0.000000], orderNumber=1, timeStamp=11/1/2022 09:03:50]",
          order.toString());
+    }
+
+    @Test
+    public void testEquals() {
+        OrderHistory o1 = new OrderHistory(1, new ShoppingCart(1), 1, "11/1/2022 09:03:50");
+        OrderHistory o2 = new OrderHistory(10, new ShoppingCart(10), 1, "01/1/1822 00:03:50");
+        OrderHistory o3 = new OrderHistory(1, new ShoppingCart(1), 2, "11/1/2022 09:03:50");
+
+        assertEquals(o1, o2);
+        assertNotEquals(o1, o3);
+        assertNotEquals(o2, o3);
+    }
+
+    @Test
+    public void testHashCode() {
+        OrderHistory orderHistory = new OrderHistory(1, new ShoppingCart(1), 1, "11/1/2022 09:03:50");
+
+        assertEquals(orderHistory.getOrderNumber(), orderHistory.hashCode());
     }
     
 }
