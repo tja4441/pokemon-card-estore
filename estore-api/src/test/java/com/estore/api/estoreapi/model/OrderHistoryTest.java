@@ -42,7 +42,7 @@ public class OrderHistoryTest {
     public void testToString() {
         OrderHistory order = new OrderHistory(1, new ShoppingCart(1), 1, "11/1/2022 09:03:50");
 
-        assertEquals("OrderHistory [id=1, purchasedCart=ShoppingCart [id=1, contents=[], totalPrice=0.000000], orderNumber=1, timeStamp=11/1/2022 09:03:50]",
+        assertEquals("OrderHistory [orderNumber=1, timeStamp=11/1/2022 09:03:50, purchasedCart=ShoppingCart [id=1, contents=[], totalPrice=0.000000], id=1]",
          order.toString());
     }
 

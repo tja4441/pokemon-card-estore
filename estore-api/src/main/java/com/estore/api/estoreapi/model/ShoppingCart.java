@@ -180,6 +180,6 @@ public class ShoppingCart {
 
     @Override
     public int hashCode() {
-        return this.id * contents.hashCode();
+        return this.id;
     }
 }
