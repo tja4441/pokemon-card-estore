@@ -51,10 +51,12 @@ public class OrderHistoryTest {
         OrderHistory o1 = new OrderHistory(1, new ShoppingCart(1), 1, "11/1/2022 09:03:50");
         OrderHistory o2 = new OrderHistory(10, new ShoppingCart(10), 1, "01/1/1822 00:03:50");
         OrderHistory o3 = new OrderHistory(1, new ShoppingCart(1), 2, "11/1/2022 09:03:50");
+        ShoppingCart s = new ShoppingCart(0);
 
         assertEquals(o1, o2);
         assertNotEquals(o1, o3);
         assertNotEquals(o2, o3);
+        assertNotEquals(o1, s);
     }
 
     @Test

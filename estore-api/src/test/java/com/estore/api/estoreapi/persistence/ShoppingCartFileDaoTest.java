@@ -346,7 +346,7 @@ public class ShoppingCartFileDaoTest {
     }
 
     @Test
-    public void testOrderHistory() throws IOException{
+    public void testGetOrders() throws IOException{
         when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
         when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
         when(mockInventoryFileDao.getProduct(4)).thenReturn(testProducts[2]);
