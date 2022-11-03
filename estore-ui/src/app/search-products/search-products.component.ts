@@ -24,17 +24,26 @@ export class SearchProductsComponent implements OnInit {
                            "WATER" : false,
                            "TRAINER" : false}
   public empty = true
-  constructor(private productService: ProductService) {
-    this.productService.getProducts().subscribe(p => this.products = p)
-  }
+  constructor(private productService: ProductService) {}
 
   flipBool(type: string) {
     this.typeDict[type] = !this.typeDict[type]
   }
 
   search(term: string): void {
+    this.productService.getProducts().subscribe(p => this.products = p)
+    let typeSelected: boolean = false
+    for(let key in this.typeDict) {
+      let typeArray: Product[]
+      if(this.typeDict[key]) {
+        typeSelected = true
+        this.productService.getProductsByType(key).subscribe(p => typeArray = p)
+        this.products = this.products.filter(val => typeArray.includes(val))
+      }
+    }
+
     term = term.trim()
-    if (!term) this.empty = true
+    if (!term && !typeSelected) this.empty = true
     else this.empty = false
     this.searchTerms.next(term)
   }
@@ -47,6 +56,6 @@ export class SearchProductsComponent implements OnInit {
       distinctUntilChanged(),
 
       switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p) => this.products = p)
+    ).subscribe((p) => this.products = this.products.filter(val => p.includes(val)))
   }
 }

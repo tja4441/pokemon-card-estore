@@ -2,39 +2,32 @@
     <label for="search-box" style="float: left;">Product Search</label>
     <input #searchBox id="search-box" (input)="search(searchBox.value)" style="float: left;">
 
-    <input type="checkbox" id="dark" name="typeSelect" onselect="flipBool('DARK')">
+    <input type="checkbox" id="dark" (change)="flipBool('DARK')">
     <label for="dark">Dark</label>
-    <input type="checkbox" id="dragon" name="typeSelect" onselect="flipBool('DRAGON')">
+    <input type="checkbox" id="dragon" (change)="flipBool('DRAGON')">
     <label for="dragon">Dragon</label>
-    <input type="checkbox" id="electric" name="typeSelect" onselect="flipBool('ELECTRIC')">
+    <input type="checkbox" id="electric" (change)="flipBool('ELECTRIC')">
     <label for="electric">Electric</label>
-    <input type="checkbox" id="fairy" name="typeSelect" onselect="flipBool('FAIRY')">
+    <input type="checkbox" id="fairy" (change)="flipBool('FAIRY')">
     <label for="fairy">Fairy</label>
-    <input type="checkbox" id="fighting" name="typeSelect" onselect="flipBool('FIGHTING')">
+    <input type="checkbox" id="fighting" (change)="flipBool('FIGHTING')">
     <label for="fighting">Fighting</label>
-    <input type="checkbox" id="fire" name="typeSelect" onselect="flipBool('FIRE')">
+    <input type="checkbox" id="fire" (change)="flipBool('FIRE')">
     <label for="fire">Fire</label>
-    <input type="checkbox" id="grass" name="typeSelect" onselect="flipBool('GRASS')">
+    <input type="checkbox" id="grass" (change)="flipBool('GRASS')">
     <label for="grass">Grass</label>
-    <input type="checkbox" id="normal" name="typeSelect" onselect="flipBool('NORMAL')">
+    <input type="checkbox" id="normal" (change)="flipBool('NORMAL')">
     <label for="normal">Normal</label>
-    <input type="checkbox" id="psychic" name="typeSelect" onselect="flipBool('PSYCHIC')">
+    <input type="checkbox" id="psychic" (change)="flipBool('PSYCHIC')">
     <label for="psychic">Psychic</label>
-    <input type="checkbox" id="steel" name="typeSelect" onselect="flipBool('STEEL')">
+    <input type="checkbox" id="steel" (change)="flipBool('STEEL')">
     <label for="steel">Steel</label>
-    <input type="checkbox" id="water" name="typeSelect" onselect="flipBool('WATER')">
+    <input type="checkbox" id="water" (change)="flipBool('WATER')">
     <label for="water">Water</label>
-    <input type="checkbox" id="trainer" name="typeSelect" onselect="flipBool('TRAINER')">
+    <input type="checkbox" id="trainer" (change)="flipBool('TRAINER')">
     <label for="trainer">Trainer</label>
     <br>
-    
-    <p>typeDict keys/values</p>
-    <ul>
-      <li *ngFor="let item of typeDict | keyvalue" >
-        <p>{{item.key}}, {{item.value}}</p>
-      </li>
-    </ul>
-  
+
     <ul *ngIf="!empty" class="search-result">
       <li *ngFor="let product of products" >
         <a routerLink="/product/{{product.id}}">
