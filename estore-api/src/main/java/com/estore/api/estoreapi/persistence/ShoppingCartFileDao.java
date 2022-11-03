@@ -395,8 +395,15 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     private void setAndSaveOrder(int id, ShoppingCart cart) throws IOException{
         synchronized(orders){
             ShoppingCart orderCart = new ShoppingCart(cart.getId());
-            orderCart.setContents(cart.getContents());
-            orderCart.setTotalPrice(cart.GetTotalPrice());
+            HashSet<Product> newContents = new HashSet<>();
+
+            for (Product product : cart.getContents()) {
+                Product newProduct = new Product(product.getId(), product.getName(), product.getQuantity(), product.getPrice());
+                newContents.add(newProduct);
+            }
+            orderCart.setContents(newContents);
+            orderCart.calculateTotalPrice();
+            
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
             String timeStamp = LocalDateTime.now().format(dtf);
             OrderHistory order = new OrderHistory(id, orderCart, nextOrderNumber(), timeStamp);
