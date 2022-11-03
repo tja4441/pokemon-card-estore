@@ -2,13 +2,13 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,11 +24,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class ShoppingCartFileDao implements ShoppingCartDao {
 
     Map<Integer,ShoppingCart> carts;            // provides a local cache of the carts
-    Map<Integer,OrderHistory> orders;           // provides a local cache of all orders
-    private ObjectMapper objectMapper;          // converts ShoppingCart or OrderHistory objects to/from JSON text file formats
+    Map<Integer,OrderHistory> orders;
+    private ObjectMapper objectMapper;          // converts between ShoppingCart objects and JSON text file formats
     private ObjectMapper orderMapper;
-    private String cartFilename;                // Filename to read/write carts
-    private String orderFilename;               // Filename to read/write orders
+    private String cartFilename;                    // Filename to read/write
+    private String orderFilename;
     private static final Logger LOG = Logger.getLogger(ShoppingCartFileDao.class.getName());
 
     /**
@@ -416,7 +416,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
             HashSet<Product> newContents = new HashSet<>();
 
             for (Product product : cart.getContents()) {
-                Product newProduct = new Product(product.getId(), product.getName(), product.getQuantity(), product.getPrice());
+                Product newProduct = new Product(product.getId(), product.getName(), product.getTypes(), product.getQuantity(), product.getPrice());
                 newContents.add(newProduct);
             }
             orderCart.setContents(newContents);
