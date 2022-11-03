@@ -119,6 +119,9 @@ public class Product {
         }
     }
 
+    /**
+     *{@inheritDoc}}
+     */
     @Override
     public int hashCode() {
         String hashString = name + types;
