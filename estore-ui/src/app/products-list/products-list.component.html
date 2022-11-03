@@ -1,4 +1,3 @@
-<p>List Of Cards in Stock:</p>
 <div *ngFor="let product of productsList" style="display: inline-block;">
     <app-product-card (deletedItemEvent)="deleteItem($event)" [card]="product"></app-product-card>
 </div>

@@ -16,7 +16,7 @@ public class Product {
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
-    @JsonProperty("type") private Type type;
+    @JsonProperty("type") private Type[] types;
     @JsonProperty("quantity") private int quantity;
     @JsonProperty("price") private float price;
     
@@ -29,10 +29,10 @@ public class Product {
      * @param quantity the amount of an item there is
      * @param price the price of an item
      */
-    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("type") Type type, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
+    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("type") Type[] types, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
         this.id = id;
         this.name = name;
-        this.type = type;
+        this.types = types;
         this.quantity = quantity;
         this.price = price;
     }
@@ -63,8 +63,8 @@ public class Product {
     /** 
      * @return returns the type of this product
      */
-    public Type getType() {
-        return type;
+    public Type[] getTypes() {
+        return types;
     }
 
     /**
@@ -99,7 +99,7 @@ public class Product {
      */
     @Override
     public String toString(){
-        return String.format(STRING_FORMAT,id,name,type,quantity,price);
+        return String.format(STRING_FORMAT,id,name,types,quantity,price);
     }
 
     /**
@@ -111,7 +111,7 @@ public class Product {
             return false;
         }
         Product otherProduct = (Product) other;
-        if((this.name.toLowerCase().equals(otherProduct.name.toLowerCase())) && this.type == otherProduct.type) {
+        if((this.name.toLowerCase().equals(otherProduct.name.toLowerCase())) && this.types.equals(otherProduct.types)) {
             return true;
         }
         else {
@@ -121,7 +121,7 @@ public class Product {
 
     @Override
     public int hashCode() {
-        String hashString = name + type;
+        String hashString = name + types;
         return hashString.toLowerCase().hashCode();
     }
 }

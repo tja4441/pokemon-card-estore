@@ -33,7 +33,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProduct() throws IOException{
-        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Product product = new Product(5,"Apple",[Type.GRASS],1,1.00f);
 
         when(mockInventoryDao.getProduct(product.getId())).thenReturn(product);
 
@@ -47,7 +47,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProductNotFound() throws IOException{
-        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Product product = new Product(5,"Apple",[Type.GRASS],1,1.00f);
 
         when(mockInventoryDao.getProduct(product.getId())).thenReturn(null);
 
@@ -71,7 +71,7 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProduct() throws IOException{
-        Product product = new Product(5,"Apple",Type.GRASS,1,1.00f);
+        Product product = new Product(5,"Apple",[Type.GRASS],1,1.00f);
 
         when(mockInventoryDao.createProduct(product)).thenReturn(product);
 

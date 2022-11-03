@@ -3,7 +3,7 @@
   "name" : "Pikachu",
   "type" : "ELECTRIC",
   "quantity" : 1,
-  "price" : 3.0
+  "price" : 9.0
 }, {
   "id" : 2,
   "name" : "Bulbasaur",

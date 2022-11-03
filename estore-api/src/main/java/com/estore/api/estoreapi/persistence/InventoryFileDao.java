@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.util.Map;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.io.File;
 import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Value;
@@ -179,7 +179,7 @@ public class InventoryFileDao implements InventoryDao {
     @Override
     public Product createProduct(Product product) throws IOException {
         synchronized(products) {
-            Product newProduct = new Product(nextID(),product.getName(),product.getType(),
+            Product newProduct = new Product(nextID(),product.getName(),product.getTypes(),
                                      product.getQuantity(),product.getPrice());
             if (newProduct.getQuantity() < 0 || newProduct.getPrice() < 0.00 || product.getName().isBlank()) {
                 return null;    // product quantity/price is negative or name is blank
@@ -212,7 +212,7 @@ public class InventoryFileDao implements InventoryDao {
         synchronized(products) {
             ArrayList<Product> productsList = new ArrayList<>();
             for (Product product : products.values()) {
-                if (type == null || product.getType() == Type.valueOf(type)) {
+                if (type == null || Arrays.asList(product.getTypes()).contains(Type.valueOf(type))) {
                     productsList.add(product);
                 }
             }

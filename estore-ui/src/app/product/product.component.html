@@ -2,7 +2,7 @@
 <div *ngIf="product" >
         <table>
             <tr>
-                <td class="attribute_headers">
+                <td>
                     Name:
                 </td>
                 <td>
@@ -10,7 +10,15 @@
                 </td>
             </tr>
             <tr>
-                <td class="attribute_headers">
+                <td>
+                    Types:
+                </td>
+                <td>
+                    {{product.types}}
+                </td>
+            </tr>
+            <tr>
+                <td>
                     Price:
                 </td>
                 <td>
@@ -18,7 +26,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="attribute_headers">
+                <td>
                     In Stock:
                 </td>
                 <td>

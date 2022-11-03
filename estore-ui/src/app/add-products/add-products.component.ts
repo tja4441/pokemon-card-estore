@@ -11,11 +11,30 @@ import { Product } from '../product'
 export class AddProductsComponent implements OnInit {
 
   products: Product[] = [];
+  public typeDict: any = {"DARK" : false,
+                           "DRAGON" : false,
+                           "ELECTRIC" : false,
+                           "FAIRY" : false,
+                           "FIGHTING" : false,
+                           "FIRE" : false,
+                           "GRASS" : false,
+                           "NORMAL" : false,
+                           "PSYCHIC" : false,
+                           "STEEL" : false,
+                           "WATER" : false,
+                           "TRAINER" : false}
+  public typeList: string[] = []
 
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getProducts();
+  }
+
+  flipBool(type: string) {
+    this.typeDict[type] = !this.typeDict[type]
+    if(this.typeDict[type]) this.typeList.push(type)
+    else this.typeList.splice(this.typeList.indexOf(type), 1)
   }
 
   /**
@@ -29,15 +48,15 @@ export class AddProductsComponent implements OnInit {
   /**
    * adds a new card to the database and then changes this.products to reflect change
    * @param name name of product
-   * @param type type of the product
+   * @param types type of the product
    * @param quantity quantity of product
    * @param price price of the card
    */
-  add(name: string, type: string, quantity: any, price: any): void {
+  add(name: string, types: string[], quantity: any, price: any): void {
     //removes whitespace
     name = name.trim();
     //tries to add product to the server using productService
-    this.productService.addProduct({ name, type, quantity, price } as Product)
+    this.productService.addProduct({ name, types, quantity, price } as Product)
     //productService returns product on success which is added to UI/this.products
     .subscribe(product => this.products.push(product))
   }
