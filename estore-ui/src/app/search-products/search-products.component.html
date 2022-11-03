@@ -27,6 +27,7 @@
     <input type="checkbox" id="trainer" (change)="flipBool('TRAINER')">
     <label for="trainer">Trainer</label>
     <br>
+    <br>
 
     <ul *ngIf="!empty" class="search-result">
       <li *ngFor="let product of products" >

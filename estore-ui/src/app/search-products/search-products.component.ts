@@ -28,17 +28,16 @@ export class SearchProductsComponent implements OnInit {
 
   flipBool(type: string) {
     this.typeDict[type] = !this.typeDict[type]
+    
   }
 
   search(term: string): void {
-    this.productService.getProducts().subscribe(p => this.products = p)
     let typeSelected: boolean = false
+    typeSelected = false
     for(let key in this.typeDict) {
-      let typeArray: Product[]
       if(this.typeDict[key]) {
         typeSelected = true
-        this.productService.getProductsByType(key).subscribe(p => typeArray = p)
-        this.products = this.products.filter(val => typeArray.includes(val))
+        this.products = this.products.filter(val => val.types.includes(key))
       }
     }
 
