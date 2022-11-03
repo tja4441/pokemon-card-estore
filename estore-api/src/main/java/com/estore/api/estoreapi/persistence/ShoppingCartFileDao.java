@@ -318,7 +318,9 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
 
         // Add each order to the tree map
             for (OrderHistory order : orderHistory) {
-                orders.put(order.getOrderNumber(), order);
+                if (order != null) {
+                    orders.put(order.getOrderNumber(), order);
+                }
             }
         return true;
     }
