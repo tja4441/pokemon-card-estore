@@ -67,7 +67,7 @@ export class UserService {
   * change of password form
   */
   public changePass(changePass: ChangePass): Observable<boolean> {
-    const url = `${this.userUrl}/password/${this.id}`;
+    const url = `${this.userUrl}/password/${this.id}`
     return this.http.put<boolean>(url, changePass, this.httpOptions)
       .pipe(
         tap(_ => this.log(`attempting to change password from ${changePass.oldPass} to ${changePass.newPass}`)),
@@ -75,13 +75,22 @@ export class UserService {
       )
   }
 
-  public createAdmin(user: PassUser) {
+  public createAdmin(user: PassUser): Observable<User> {
     const url = this.userUrl + "/createAdmin"
     return this.http.post<User>(url, user, this.httpOptions)
     .pipe(
       tap(_ => this.log('creating admin...')),
       catchError(this.handleError<User>('create admin'))
     );
+  }
+
+  public deleteAccount(): Observable<boolean> {
+    const url = `${this.userUrl}/${this.id}`
+    return this.http.delete<boolean>(url)
+    .pipe(
+      tap(_ => this.log("deleting account...")),
+      catchError(this.handleError<boolean>('delete account'))
+    )
   }
 
   /**

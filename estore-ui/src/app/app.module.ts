@@ -20,7 +20,9 @@ import { SearchProductsComponent } from './products/search-products/search-produ
 import { AdminEditComponent } from './admin/admin-edit/admin-edit.component';
 import { AdminStatsComponent } from './admin/admin-stats/admin-stats.component';
 import { AdminAccountsComponent } from './admin/admin-accounts/admin-accounts.component';
-import { ChangePasswordFormComponent } from './change-password-form/change-password-form.component';
+import { ChangePasswordFormComponent } from './account/change-password-form/change-password-form.component';
+import { DisplayUserInfoComponent } from './account/display-user-info/display-user-info.component';
+import { DeleteAccountComponent } from './account/delete-account/delete-account.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { ChangePasswordFormComponent } from './change-password-form/change-passw
     AdminEditComponent,
     AdminStatsComponent,
     AdminAccountsComponent,
-    ChangePasswordFormComponent
+    ChangePasswordFormComponent,
+    DisplayUserInfoComponent,
+    DeleteAccountComponent
   ],
   imports: [
     BrowserModule,

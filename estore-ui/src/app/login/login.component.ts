@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     username = username.trim()
     //does nothing if user entered nothing or just whitespace
     if(!username || !password || !confirm) return
-    if(password != confirm) return;
+    if(password != confirm) return
     this.logger.add(`username not empty, password and confirm match`)
     this.logger.add(`Registering User: ${username}`)
     this.userService.register({UserName: username, id: -1, Password: password} as PassUser)

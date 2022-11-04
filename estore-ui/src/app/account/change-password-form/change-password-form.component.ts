@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { ChangePass } from '../model/changePass';
+import { UserService } from '../../services/user.service';
+import { ChangePass } from '../../model/changePass';
 
 @Component({
   selector: 'app-change-password-form',

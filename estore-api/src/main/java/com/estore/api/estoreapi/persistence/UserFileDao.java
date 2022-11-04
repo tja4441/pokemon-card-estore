@@ -22,6 +22,7 @@ public class UserFileDao implements UserDao {
     private ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
     private String filename;                    //Filename to read/write
     private static final Logger LOG = Logger.getLogger(UserFileDao.class.getName());
+    private static final int ADMIN_ID = -1;
     
     /**
      * Creates a User File Data Access Object
@@ -68,7 +69,7 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     private void init() throws IOException{
-        users.put(-1,new User(-1,"admin", "admin"));
+        users.put(ADMIN_ID,new User(ADMIN_ID,"admin", "admin"));
         save();
     }
     /**
@@ -202,6 +203,20 @@ public class UserFileDao implements UserDao {
     public User[] getUsers() throws IOException {
         synchronized(users){
             return getUsersArray();
+        }
+    }
+    
+    /**
+     * *{@inheritDoc}}
+     */
+    @Override
+    public boolean deleteUser(int id) throws IOException {
+        if(id == ADMIN_ID) return false;
+        synchronized(users) {
+            User removedUser = users.remove(id);
+            if(removedUser == null) return false;
+            save();
+            return true;
         }
     }
    

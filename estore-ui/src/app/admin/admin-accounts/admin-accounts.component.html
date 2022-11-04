@@ -1,4 +1,7 @@
+<app-display-user-info></app-display-user-info>
+
 <app-change-password-form></app-change-password-form>
+
 <h2>Create New Admin</h2>
 <div *ngIf="attempted">
     <p class="error" *ngIf="emptyField">One or more fields has been left empty</p>
@@ -15,3 +18,5 @@
     <input type="password" id="confirm" placeholder="Password" #confirm><br/>
     <input type="submit">
 </form>
+
+<app-delete-account></app-delete-account>

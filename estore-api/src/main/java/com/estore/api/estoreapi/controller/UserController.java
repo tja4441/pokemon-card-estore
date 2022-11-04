@@ -1,4 +1,5 @@
 package com.estore.api.estoreapi.controller;
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 /**
  * Handles the REST API requests for the User
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
  * @author Team E
  */
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -130,15 +132,40 @@ public class UserController extends Controller {
         }
     }
 
+    /**
+     * changes the password of a user
+     * @param id the id of the user that you would like to affect
+     * @param passChange passChange object has user input for old and new password
+     * @return
+     */
     @PutMapping("/password/{id}")
     public ResponseEntity<Boolean> changePassword(@PathVariable int id, @RequestBody PassChange passChange) {
-        LOG.info("Put /password/" + id);
+        LOG.info("PUT /password/" + id);
         try {
             boolean success = userDao.changePassword(id, passChange);
             if(success) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
             else return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
         }
         catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deleteUser(@PathVariable int id) {
+        LOG.info("DELETE /" + id);
+        try {
+            boolean success = userDao.deleteUser(id);
+            if(success) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+            else return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+        }
+        catch(IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -151,6 +178,7 @@ public class UserController extends Controller {
      * ResponseEntity with HTTP status of Not_FOUND if {@link User user} object is null
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
+    @GetMapping("")
     public ResponseEntity<User[]> getUsers(){
         try {
             User[] users = userDao.getUsers();

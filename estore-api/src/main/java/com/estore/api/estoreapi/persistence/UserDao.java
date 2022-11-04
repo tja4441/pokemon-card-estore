@@ -40,12 +40,21 @@ public interface UserDao {
     User[] getUsers() throws IOException;
 
     /**
-     * Attemps to change the user with the specified ids password.
+     * Attempts to change the user with the specified ids password.
      * If the old password that the user sends does not match the actual stored
      * password or a user does not exist at the given id it returns false otherwise true.
      * @param id the id of the user that you would like to change the password of
      * @param change A password change object that contains an old and new password
      * @return returns true on success and false on a failed opperation
+     * @throws IOExeption throws exeption if there is an issue with changing persistant storage
      */
     public boolean changePassword(int id, PassChange change) throws IOException;
+
+    /**
+     * Attempts to delete a user from the database by ID. Can not delete account "admin"/id -1
+     * @param id the id of the user that is to be deleted
+     * @return returns true on success and false if the given id is -1 or no user exists at the passed id
+     * @throws IOException throws exeption if there is an issue with changing persistant storage
+     */
+    public boolean deleteUser(int id) throws IOException;
 }
