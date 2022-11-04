@@ -5,12 +5,13 @@ import { MessageService } from './message.service';
 import { Product } from '../model/product';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../model/user';
-import { passUser } from '../model/passUser';
+import { PassUser } from '../model/passUser';
+import { ChangePass } from '../model/changePass';
 
 @Injectable({
   providedIn: 'root'
 })
-//id = -1, username = "", and shopping cart is an empty array if user is logged out
+//id = 0, username = "", and shopping cart is an empty array if user is logged out
 export class UserService {
   private id: number = 0
 
@@ -37,7 +38,7 @@ export class UserService {
    * @param user The user that you would like to register to the database
    * @returns An observable that resolves to the user after it 
    */
-  register(user: passUser): Observable<User> {
+  public register(user: PassUser): Observable<User> {
     return this.http.post<User>(this.userUrl, user, this.httpOptions)
     .pipe(
       tap(_ => this.log('grabbed user')),
@@ -52,13 +53,26 @@ export class UserService {
    * @param username The username that you would like to register to the database
    * @returns An observable that resolves to the user after it 
    */
-  login(username: string, password: string): Observable<User> {
+  public login(username: string, password: string): Observable<User> {
     const url = `${this.userUrl}/${username}/${password}`;
     return this.http.get<User>(url)
       .pipe(
-        tap(_ => this.log('grabbed user')),
+        tap(_ => this.log('grabbing user...')),
         catchError(this.handleError<User>('login'))
       );
+  }
+
+  /**
+  * Attempts to change password of this user using information from a
+  * change of password form
+  */
+  public changePass(changePass: ChangePass): Observable<boolean> {
+    const url = `${this.userUrl}/password/${this.id}`;
+    return this.http.put<boolean>(url, changePass, this.httpOptions)
+      .pipe(
+        tap(_ => this.log(`attempting to change password from ${changePass.oldPass} to ${changePass.newPass}`)),
+        catchError(this.handleError<boolean>('change password'))
+      )
   }
 
   /**

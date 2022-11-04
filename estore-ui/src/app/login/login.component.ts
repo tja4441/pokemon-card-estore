@@ -4,7 +4,7 @@ import { User } from '../model/user';
 import { Location } from '@angular/common';
 import { MessageService } from '../services/message.service';
 import { Router } from '@angular/router';
-import { passUser } from '../model/passUser';
+import { PassUser } from '../model/passUser';
 
 @Component({
   selector: 'app-login',
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
     if(password != confirm) return;
     this.logger.add(`username not empty, password and confirm match`)
     this.logger.add(`Registering User: ${username}`)
-    this.userService.register({UserName: username, id: -1, Password: password} as passUser)
+    this.userService.register({UserName: username, id: -1, Password: password} as PassUser)
       .subscribe(user => this.addedRegister(user))
   }
 

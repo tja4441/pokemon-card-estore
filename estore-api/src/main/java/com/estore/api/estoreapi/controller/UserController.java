@@ -109,8 +109,8 @@ public class UserController extends Controller {
         LOG.info("Put /password/" + id);
         try {
             boolean success = userDao.changePassword(id, passChange);
-            if(success) return new ResponseEntity<>(HttpStatus.OK);
-            else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            if(success) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+            else return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
         }
         catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());

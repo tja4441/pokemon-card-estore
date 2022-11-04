@@ -17,6 +17,10 @@ import { RemoveProductComponent } from './products/remove-product/remove-product
 import { EditProductComponent } from './products/edit-product/edit-product.component';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { SearchProductsComponent } from './products/search-products/search-products.component';
+import { AdminEditComponent } from './admin/admin-edit/admin-edit.component';
+import { AdminStatsComponent } from './admin/admin-stats/admin-stats.component';
+import { AdminAccountsComponent } from './admin/admin-accounts/admin-accounts.component';
+import { ChangePasswordFormComponent } from './change-password-form/change-password-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { SearchProductsComponent } from './products/search-products/search-produ
     EditProductComponent,
     ProductCardComponent,
     RemoveProductComponent,
-    SearchProductsComponent
+    SearchProductsComponent,
+    AdminEditComponent,
+    AdminStatsComponent,
+    AdminAccountsComponent,
+    ChangePasswordFormComponent
   ],
   imports: [
     BrowserModule,

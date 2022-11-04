@@ -1,0 +1,9 @@
+<app-change-password-form></app-change-password-form>
+<h2>Create New Admin</h2>
+<form (ngSubmit)="createAdmin(user.value, pass.value)">
+    <label for="user">Username</label>
+    <input type="text" id="user" placeholder="Username" #user><br/>
+    <label for="pass">Password</label>
+    <input type="password" id="pass" placeholder="password" #pass><br/>
+    <input type="submit">
+</form>
