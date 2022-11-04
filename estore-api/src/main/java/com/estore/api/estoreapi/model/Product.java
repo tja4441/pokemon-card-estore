@@ -112,6 +112,9 @@ public class Product {
         }
     }
 
+    /**
+     *{@inheritDoc}}
+     */
     @Override
     public int hashCode() {
         return name.toLowerCase().hashCode();
