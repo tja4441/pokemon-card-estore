@@ -8,12 +8,14 @@ import { UserComponent } from './user/user.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 import { ProductComponent } from './product/product.component';
 import { AdminGuard } from './AdminGuard';
+import { UserGuard } from 'src/UserGuard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'admin', component: AdminComponent,
   canActivate: [AdminGuard]},
-  { path: 'user', component: UserComponent},
+  { path: 'user', component: UserComponent,
+  canActivate: [UserGuard]},
   { path: 'products', component: AddProductsComponent},
   { path: 'login', component: LoginComponent},
   { path: 'search/:name', component: SearchProductsComponent },

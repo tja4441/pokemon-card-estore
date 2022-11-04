@@ -21,6 +21,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {CookieService} from 'ngx-cookie-service';
+import { UserGuard } from 'src/UserGuard';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import {CookieService} from 'ngx-cookie-service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [AdminGuard, CookieService ],
+  providers: [AdminGuard, UserGuard, CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
