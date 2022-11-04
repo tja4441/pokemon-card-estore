@@ -47,23 +47,22 @@ export class LoginComponent implements OnInit {
    * @param username entered username
    */
   login(username: string, password: string): void {
-    //removes whitespace and casing from name during as preprocessing
-    username = username.trim().toLowerCase()
+    //removes whitespace from name during as preprocessing
+    username = username.trim()
     //does nothing if user entered nothing or just whitespace
-    if(!username) return
-    if(!password) return
+    if(!username || !password ) return
     //checks if user is in the backend
     this.logger.add(`Logging in as User: ${username}`)
     this.userService.login(username, password)
-      .subscribe(user=> this.addedUser(user))
+      .subscribe(user => this.addedUser(user))
   }
 
   register(username: string, password: string, confirm: string): void {
     this.logger.add(`Trying to Register User: ${username} Pass: ${password} Confirm: ${password}`)
-    //removes whitespace and casing from name during as preprocessing
-    username = username.trim().toLowerCase()
+    //removes whitespace from name during as preprocessing
+    username = username.trim()
     //does nothing if user entered nothing or just whitespace
-    if(!username) return
+    if(!username || !password || !confirm) return
     if(password != confirm) return;
     this.logger.add(`username not empty, password and confirm match`)
     this.logger.add(`Registering User: ${username}`)

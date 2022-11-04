@@ -82,12 +82,7 @@ public class User {
             return false;
         }
         User otherUser = (User) other;
-        if(this.userName.toLowerCase().equals(otherUser.userName.toLowerCase())) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.userName.equals(otherUser.userName);
     }
 
     @Override

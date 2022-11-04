@@ -141,7 +141,28 @@ public class UserFileDao implements UserDao {
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users) {
-            User newUser = new User(nextID(), user.getUserName(), user.getPassword());
+            User newUser = new User(nextUserID(), user.getUserName(), user.getPassword());
+            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ") || user.getPassword().isBlank()) {
+                return null;                                 // Username is blank or contains a space
+            }
+            for (User other : users.values()) {
+                if(user.equals(other)){
+                    return null;
+                }
+            }
+            users.put(newUser.getId(), newUser);
+            save();
+            return newUser;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User createAdmin(User user) throws IOException {
+        synchronized(users) {
+            User newUser = new User(nextAdminID(), user.getUserName(), user.getPassword());
             if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ") || user.getPassword().isBlank()) {
                 return null;                                 // Username is blank or contains a space
             }
@@ -184,11 +205,21 @@ public class UserFileDao implements UserDao {
         }
     }
    
-    private int nextID() {
+    private int nextUserID() {
         synchronized(users) {
             int i = 1;
             while(users.containsKey(i)) {
                 i++;
+            }
+            return i;
+        }
+    }
+
+    private int nextAdminID() {
+        synchronized(users) {
+            int i = -1;
+            while(users.containsKey(i)) {
+                i--;
             }
             return i;
         }

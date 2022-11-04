@@ -24,6 +24,14 @@ public interface UserDao {
      */
     User createUser(User user) throws IOException;
 
+    /**
+     * Creates an admin
+     * @param user the username and password of the too be created admin
+     * @return the created Admin
+     * @throws IOException If it fails to edit storage
+     */
+    public User createAdmin(User user) throws IOException;
+
    /**
      * Retrieves all users in the inventory
      * @return An array of user objects, may be empty

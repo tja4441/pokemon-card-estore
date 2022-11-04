@@ -41,7 +41,7 @@ export class UserService {
   public register(user: PassUser): Observable<User> {
     return this.http.post<User>(this.userUrl, user, this.httpOptions)
     .pipe(
-      tap(_ => this.log('grabbed user')),
+      tap(_ => this.log('registering user...')),
       catchError(this.handleError<User>('register'))
     );
   }
@@ -73,6 +73,15 @@ export class UserService {
         tap(_ => this.log(`attempting to change password from ${changePass.oldPass} to ${changePass.newPass}`)),
         catchError(this.handleError<boolean>('change password'))
       )
+  }
+
+  public createAdmin(user: PassUser) {
+    const url = this.userUrl + "/createAdmin"
+    return this.http.post<User>(url, user, this.httpOptions)
+    .pipe(
+      tap(_ => this.log('creating admin...')),
+      catchError(this.handleError<User>('create admin'))
+    );
   }
 
   /**

@@ -27,17 +27,10 @@
             <div class="input">
                 <label for="ruser">Username: </label>
                 <input id="ruser" type="text" placeholder="Username" #regName><br/>
-            </div>
-            
-            <div class="input">
                 <label for="rpass">Password: </label>
                 <input type="password" id="rpass" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #regPass><br/>
-            </div>
-            <div class="input">
                 <label for="confirm">Retype Password: </label>
                 <input type="password" id="confirm" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #confirm><br/>
-            </div>
-            <div class="input">
                 <input type="submit" (click)="register(regName.value, regPass.value, confirm.value)">
             </div>
             <div *ngIf="registerFailed">

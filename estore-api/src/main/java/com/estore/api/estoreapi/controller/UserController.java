@@ -78,6 +78,32 @@ public class UserController extends Controller {
         }
     }
 
+    @PostMapping("/createAdmin")
+    public ResponseEntity<User> createAdmin(@RequestBody User user) {
+        LOG.info("POST /user/createAdmin" + user);
+        try {
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            if(user.getUserName().isBlank() || user.getPassword().isBlank()) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            if(userDao.getUser(user.getUserName()) != null) return new ResponseEntity<>(HttpStatus.CONFLICT);
+            User newUser = userDao.createAdmin(user);
+            if (newUser != null) {
+                LOG.info("Registered user:" + user + " Pass:" + user.getPassword());
+                return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /**
      * Gets a {@linkplain User user} with the provided username
      * 
