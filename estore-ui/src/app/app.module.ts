@@ -20,6 +20,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [CanActivateRouteGuard ],
+  providers: [CanActivateRouteGuard, CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
