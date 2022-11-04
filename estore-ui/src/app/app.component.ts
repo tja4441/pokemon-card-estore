@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
-import { ThisReceiver } from '@angular/compiler';
-import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-root',
