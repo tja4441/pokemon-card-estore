@@ -8,18 +8,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Jensen DeRosier
  */
 public enum Type {
-    GRASS ("Grass"),
-    FIRE ("Fire"),
-    WATER ("Water"),
-    ELECTRIC ("Electric"),
-    FIGHTING ("Fighting"),
-    PSYCHIC ("Psychic"),
-    NORMAL ("Normal"),
-    DARK ("Dark"),
-    STEEL ("Steel"),
-    DRAGON ("Dragon"),
-    FAIRY ("Fairy"),
-    TRAINER ("Trainer");
+    GRASS ("GRASS"),
+    FIRE ("FIRE"),
+    WATER ("WATER"),
+    ELECTRIC ("ELECTRIC"),
+    FIGHTING ("FIGHTING"),
+    PSYCHIC ("PSYCHIC"),
+    NORMAL ("NORMAL"),
+    DARK ("DARK"),
+    STEEL ("STEEL"),
+    DRAGON ("DRAGON"),
+    FAIRY ("FAIRY"),
+    TRAINER ("TRAINER");
 
     @JsonProperty("string") private String name;
 
