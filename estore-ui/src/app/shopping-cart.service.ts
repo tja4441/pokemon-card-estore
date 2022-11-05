@@ -98,11 +98,11 @@ export class ShoppingCartService {
    * 
    * @returns shoppingCart refreshed and status of ok if okay
    */
-  refreshCart(id: number): Observable<ShoppingCart> {
+  refreshCart(id: number): Observable<boolean> {
     const url = `${this.cartUrl}/${id}/refresh`;
-    return this.http.put<ShoppingCart>(url, this.httpOptions).pipe(
+    return this.http.put<boolean>(url, this.httpOptions).pipe(
       tap(_ => this.log(`refreshed cart id=${id}`)),
-      catchError(this.handleError<ShoppingCart>(`refreshCart id=${id}`))
+      catchError(this.handleError<boolean>(`refreshCart id=${id}`))
     );
   }
 

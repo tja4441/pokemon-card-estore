@@ -101,6 +101,10 @@ export class UserService {
     return {id: this.id, UserName: this.username}
   }
 
+  getId(): number {
+    return this.id;
+  }
+
 
   /**
    * @returns returns true if there is a logged in "global" user

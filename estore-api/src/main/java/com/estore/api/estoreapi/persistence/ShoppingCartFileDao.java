@@ -72,7 +72,6 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     public ShoppingCart getCart(int id, InventoryController inventoryController) throws IOException {
         synchronized(carts){
             if(carts.containsKey(id)){
-                refreshCart(id,inventoryController);
                 return carts.get(id);
             }else {
                 return null;
