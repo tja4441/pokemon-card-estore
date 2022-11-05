@@ -255,6 +255,13 @@ public class ShoppingCartController {
         }
     }
 
+    /**
+     * Responds to a GET Request for all of the {@linkplain OrderHistory} in the system
+     * 
+     * @return ResponseEntity with {@link OrderHistory} array and HTTP status of OK if orders are found
+     * @return ResponseEntity with HTTP status of NOT_FOUND if no orders were found
+     * @return ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
     @GetMapping("/history")
     public ResponseEntity<OrderHistory[]> getAllOrderHistory() {
         LOG.info("GET /history");
@@ -273,6 +280,15 @@ public class ShoppingCartController {
         }
     }
 
+    /**
+     * Responds to a GET Request for {@linkplain OrderHistory} from a specified user
+     * 
+     * @param id the identifier for the user
+     * 
+     * @return ResponseEntity with {@link OrderHistory} array and HTTP status of OK if orders are found
+     * @return ResponseEntity with HTTP status of NOT_FOUND if no orders were found
+     * @return ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
     @GetMapping("/history/{id}")
     public ResponseEntity<OrderHistory[]> getOrderHistoryByUser(@PathVariable int id) {
         LOG.info("GET /history/" + id);
