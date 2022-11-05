@@ -5,8 +5,6 @@ import { MessageService } from './message.service';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user';
 import {CookieService} from 'ngx-cookie-service';
-import { ShoppingCart } from './ShoppingCart';
-import { ShoppingCartService } from './shopping-cart.service';
 
 @Injectable({
   providedIn: 'root'
