@@ -1,37 +1,17 @@
 <div class="card" *ngIf="product">
-    <table>
-        <tr>
-            <td class="attribute_headers">
-                Name:
-            </td>
-            <td>
-                {{product.name}}
-            </td>
-        </tr>
-        <tr>
-            <td class="attribute_headers">
-                Price:
-            </td>
-            <td class="td">
-                {{product.price.toFixed(2)}}
-            </td>
-            
-            <td>
-                <button type="button" 
-                (click)="deleteFromCart()">-</button>
-            </td>
-            <td>
-                <p>Quanity: </p>
-                </td>
-            <td>
-                
-                {{product.quantity}}
-                
-            </td>
-            <td>
-                <button type="button" 
-                (click)="addToCart()">+</button>
-            </td>
-        </tr>
-    </table>
+    <body>
+        <p style="text-align:left">Name: {{product.name}}</p>
+        <p style="text-align: left; width: 50%; display: inline-block;">Price: ${{product.price.toFixed(2)}}</p>
+        <p style="text-align: right; width: 50%; display: inline-block;"><button type="button" (click)="deleteFromCart()">-</button>
+                                                                          Quanity: {{product.quantity}}
+                                                                         <button type="button" (click)="addToCart()">+</button>
+        </p>
+    </body>
+
+
+
+
+
+
+
 </div>

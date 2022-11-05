@@ -11,3 +11,7 @@
     height: 5em;
     vertical-align: top;
 }
+
+p {
+    margin-top: 0.5em;
+}
