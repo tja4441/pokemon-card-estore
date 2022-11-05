@@ -17,6 +17,11 @@ export class OrderHistoryService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
+  /**
+  * GETS all orders from the API
+  * 
+  * @returns an Observable that resolves into an array of OrderHistory
+  */
   getAllOrders(): Observable<OrderHistory[]> {
     return this.http.get<OrderHistory[]>(this.historyURL).pipe(
       tap(_ => this.log('fetched orders')),
@@ -24,6 +29,13 @@ export class OrderHistoryService {
     );
   }
 
+  /**
+  * GETS All past Orders made By the User
+  * 
+  * @param id a number reprsenting the id of the user we want to find the orders of
+  * 
+  * @returns an Observable that resolves into an array of OrderHistory
+  */
   getOrdersByUserID(id: number): Observable<OrderHistory[]> {
     const url = `${this.historyURL}/${id}`;
     return this.http.get<OrderHistory[]>(url).pipe(
