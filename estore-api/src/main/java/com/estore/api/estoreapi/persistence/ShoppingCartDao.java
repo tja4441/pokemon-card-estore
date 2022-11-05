@@ -3,6 +3,7 @@ package com.estore.api.estoreapi.persistence;
 import java.io.IOException;
 
 import com.estore.api.estoreapi.controller.InventoryController;
+import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 
@@ -124,4 +125,10 @@ public interface ShoppingCartDao {
      * @author Daniel Pittman
      */
     ShoppingCart checkout(int id, InventoryController inventoryController) throws IOException;
+
+    OrderHistory[] getOrders() throws IOException;
+
+    OrderHistory[] searchOrders(int id) throws IOException;
+
+    void setAndSaveOrder(int id, ShoppingCart cart) throws IOException;
 }

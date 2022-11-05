@@ -1,5 +1,6 @@
 package com.estore.api.estoreapi.controller;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.persistence.ShoppingCartDao;
@@ -242,11 +244,46 @@ public class ShoppingCartController extends Controller{
         try {
             ShoppingCart updatedCart = shoppingCartDao.checkout(id,inventoryController);
             if (updatedCart != null) {
+                shoppingCartDao.setAndSaveOrder(id, updatedCart);
                 return new ResponseEntity<ShoppingCart>(updatedCart,HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/history")
+    public ResponseEntity<OrderHistory[]> getAllOrderHistory() {
+        LOG.info("GET /history");
+        try {
+            OrderHistory[] orders = shoppingCartDao.getOrders();
+            if(orders != null) {
+                return new ResponseEntity<OrderHistory[]>(orders, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/history/{id}")
+    public ResponseEntity<OrderHistory[]> getOrderHistoryByUser(@PathVariable int id) {
+        LOG.info("GET /history/" + id);
+        try {
+            OrderHistory[] orders = shoppingCartDao.searchOrders(id);
+            if(orders != null){
+                return new ResponseEntity<OrderHistory[]>(orders,HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
