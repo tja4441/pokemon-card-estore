@@ -5,7 +5,8 @@ import { MessageService } from './message.service';
 import { Product } from './product';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from './user';
-
+import { ShoppingCart } from './ShoppingCart';
+import { ShoppingCartService } from './shopping-cart.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +15,6 @@ export class UserService {
   private id: number = -1
 
   public username: string = ""
-
-  private shoppingCart: Product[] = [];
 
   //baseline url for user functions
   private userUrl = 'http://localhost:8080/user';
@@ -91,6 +90,7 @@ export class UserService {
     if(user){
       this.id = user.id
       this.username = user.UserName
+      
     }
   }
 
@@ -100,6 +100,11 @@ export class UserService {
   getUser(): User {
     return {id: this.id, UserName: this.username}
   }
+
+  getId(): number {
+    return this.id;
+  }
+
 
   /**
    * @returns returns true if there is a logged in "global" user
@@ -121,6 +126,6 @@ export class UserService {
   logout(): void {
     this.id = -1;
     this.username = ""
-    this.shoppingCart = []
+   
   }
 }
