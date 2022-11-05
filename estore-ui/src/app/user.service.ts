@@ -5,7 +5,8 @@ import { MessageService } from './message.service';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user';
 import {CookieService} from 'ngx-cookie-service';
-
+import { ShoppingCart } from './ShoppingCart';
+import { ShoppingCartService } from './shopping-cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -102,6 +103,11 @@ export class UserService {
   getUser(): User {
     return {id: this.id, UserName: this.username}
   }
+
+  getId(): number {
+    return this.id;
+  }
+
 
   /**
    * @returns returns true if there is a logged in "global" user

@@ -86,7 +86,6 @@ Admins can edit the inventory directly while users can only edit through checkin
 * Add the ability to see Order history on a user's unique page
 * Add a logout button on user & admin pages
 * Add Sales Statistics to the admin's page
-* ...SQL DATABASE
 
 ## Application Domain
 
@@ -134,6 +133,10 @@ with the e-store application.
 <p style='text-align: justify;'>
 The User vists the web application and automatically visits the home page. On the home page the user can see the products in the store, can search for a product and press a button to go to the login page. The login page allows a new user to register an account and login if the user is an existing user. On login the user is directed back to the home page. On login the homepage also has a button for the user to visit their own User page. The user can also click the login button when they are logged in to be redirected to a page to logout. 
 </p>
+
+<p style='text-align: justify;'>
+The User also has access to a user page that displays their shopping cart. The user can reach this page from the home page by clicking on a button in the top right corner of the application. This button will take them to their user page and they will be able to see their shopping cart. The shopping cart has the price of each individual item, the quantity of the item in the user's cart, and the total price of all items in the user's cart. The user can modify the quantity of each item in their cart by using the plus and minus buttons. The minus button is located on the left side of the quantity amount and when pressed will decrement the quantity of the product in the cart. When the quantity falls below 1, the item is removed from the user's cart. The plus button is located to the right of the shown quantity and when pressed will increment the quantity of the product in the cart. When the quantity in the user's cart is the same as the quantity of the product in the inventory, the quantity amount is capped and cannot be incremented further. As the user modifies the quantity of products in their cart, the total price will dynamically change without requiring the user to do any additional routing in the application for the changes to take effect.
+</p>
     
 ### View Tier
 <p style='text-align: justify;'>
@@ -159,7 +162,7 @@ The three controllers are connected as follows: The UserController can see and u
 
 ### Model Tier
 <p style='text-align: justify;'>
-The model tier is the 'heart and soul' of the program. We have three different models that our program is keeping track of. 
+The model tier is the 'heart and soul' of the program. We have four different models that our program is keeping track of. 
 </p>
 <p style='text-align: justify;'>
 The most important is the Product. The product is a template for the cards we are selling. Each card has a number of attributes, including a name, an id that increases sequentially with every product added, and quantity in inventory. The ids do back fill, if ID 1 is deleted then the next product added takes it's id.
@@ -168,7 +171,10 @@ The most important is the Product. The product is a template for the cards we ar
 Next, we have a model representing a user. The user has an id that also increasess sequentially, a username which is provided by on creation, and a hashcode for their password, also provided on creation. 
 </p>
 <p style='text-align: justify;'>
-Finally, we have the shopping cart, which has an id that matches the user it is connected with, a total price that is dynamically calculated when products are added, and a set that contains the products the customer has added to their cart.
+ We also have the shopping cart, which has an id that matches the user it is connected with, a total price that is dynamically calculated when products are added, and a set that contains the products the customer has added to their cart.
+</p>
+<p style='text-align: justify;'>
+  Finally, we have a model which represents order history. An order history object contains an ID which corresponds to the user that placed the order, the shopping cart that was purchased by the user, a unique order number, which increases sequentially and acts as an order ID, separate from the user ID, and a timestamp, representing the date and time that the order was placed.
 </p>
 
 ### Static Code Analysis/Design Improvements

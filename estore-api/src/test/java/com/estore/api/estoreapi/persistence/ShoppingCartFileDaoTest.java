@@ -9,6 +9,8 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +18,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.estore.api.estoreapi.controller.InventoryController;
+import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,10 +34,12 @@ public class ShoppingCartFileDaoTest {
     ShoppingCartFileDao shoppingCartFileDao;
     ShoppingCart[] testShoppingCarts;
     Product[] testProducts;
+    OrderHistory[] testOrderHistories;
     ObjectMapper mockInvObjectMapper;
     ObjectMapper mockObjectMapper;
     InventoryFileDao mockInventoryFileDao;
     InventoryController inventoryController;
+    DateTimeFormatter dtf;
 
     /**
      * Before each test, we will create and inject a Mock Object Mapper to
@@ -53,6 +58,12 @@ public class ShoppingCartFileDaoTest {
         testShoppingCarts[1] = new ShoppingCart(2);
         testShoppingCarts[2] = new ShoppingCart(3);
 
+        testOrderHistories = new OrderHistory[3];
+        testOrderHistories[0] = new OrderHistory(1, testShoppingCarts[0], 1, "10/31/2022 09:40:00");
+        testOrderHistories[1] = new OrderHistory(3, testShoppingCarts[2], 2, "10/31/2022 09:42:00");
+        testOrderHistories[2] = new OrderHistory(3, testShoppingCarts[2], 3, "10/31/2022 09:43:00");
+        
+
         testProducts = new Product[5];
         testProducts[0] = new Product(2,"Pikachu",4,100.00f);
         testProducts[1] = new Product(3, "Bulbasaur",5,2.50f);
@@ -60,13 +71,18 @@ public class ShoppingCartFileDaoTest {
         testProducts[3] = new Product(5, "Charmander",3,50.05f);
         testProducts[4] = new Product(7, "Clefairy", 10, 2.00f);
 
+        dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+
         when(mockInvObjectMapper.readValue(new File("Charmander_Is_Better.txt"),Product[].class)).thenReturn(testProducts);
         when(mockInvObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockInvObjectMapper);
         inventoryController = new InventoryController(mockInventoryFileDao);
 
-        when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"),ShoppingCart[].class)).thenReturn(testShoppingCarts);
+        when(mockObjectMapper.readValue(new File("Charmander_Is_Better.txt"), ShoppingCart[].class)).thenReturn(testShoppingCarts);
+        OrderHistory[] orders = new OrderHistory[3];
+        when(mockObjectMapper.readValue(new File("Squirtle_Is_Worse.txt"), OrderHistory[].class)).thenReturn(orders);
+        //when(mockObjectMapper.readValue(new File("Squirtle_Is_Worse.txt"), OrderHistory[].class)).thenReturn(testOrderHistories);
         when(mockObjectMapper.enable(SerializationFeature.INDENT_OUTPUT)).thenReturn(mockObjectMapper);
-        shoppingCartFileDao = new ShoppingCartFileDao("Charmander_Is_Better.txt",mockObjectMapper);
+        shoppingCartFileDao = new ShoppingCartFileDao("Charmander_Is_Better.txt", "Squirtle_Is_Worse.txt",mockObjectMapper);
     }
 
     @Test
@@ -81,7 +97,7 @@ public class ShoppingCartFileDaoTest {
 
         // Analyze
         assertNotNull(result);
-        ShoppingCart actual = shoppingCartFileDao.getCart(cart.getId());
+        ShoppingCart actual = shoppingCartFileDao.getCart(cart.getId(), inventoryController);
         assertEquals(actual, cart);
     }
 
@@ -100,18 +116,18 @@ public class ShoppingCartFileDaoTest {
     }
 
     @Test
-    public void testGetCart() {
+    public void testGetCart() throws IOException {
         // Invoke
-        ShoppingCart cart = shoppingCartFileDao.getCart(1);
+        ShoppingCart cart = shoppingCartFileDao.getCart(1,inventoryController);
 
         // Analyze
         assertEquals(testShoppingCarts[0], cart);
     }
 
     @Test
-    public void testGetCartNotFound() {
+    public void testGetCartNotFound() throws IOException {
         // Invoke
-        ShoppingCart cart = shoppingCartFileDao.getCart(4);
+        ShoppingCart cart = shoppingCartFileDao.getCart(4,inventoryController);
 
         // Analyze
         assertNull(cart);
@@ -327,5 +343,67 @@ public class ShoppingCartFileDaoTest {
 
         assertNull(nullCart);
         assertEquals(emptyContents,cart.getContents());
+    }
+
+    @Test
+    public void testGetOrders() throws IOException{
+        when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
+        when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
+        when(mockInventoryFileDao.getProduct(4)).thenReturn(testProducts[2]);
+        when(mockInventoryFileDao.getProduct(5)).thenReturn(testProducts[3]);
+        when(mockInventoryFileDao.getProduct(6)).thenReturn(null);
+
+        //Invoke
+        testShoppingCarts[0].addToCart(testProducts[1]);
+        testShoppingCarts[0].addToCart(testProducts[2]);
+
+        shoppingCartFileDao.checkout(1, inventoryController);
+
+        OrderHistory[] orders = shoppingCartFileDao.getOrders();
+        
+        //Analyze
+        assertEquals(testOrderHistories[0].getId(), orders[0].getId());
+        assertEquals(testOrderHistories[0].getPurchasedCart(), orders[0].getPurchasedCart());
+        assertEquals(testOrderHistories[0].getOrderNumber(), orders[0].getOrderNumber());
+        assertEquals(LocalDateTime.now().format(dtf), orders[0].getTimeStamp());
+    }
+
+    @Test
+    public void testSearchOrders() throws IOException{
+        when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
+        when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
+        when(mockInventoryFileDao.getProduct(4)).thenReturn(testProducts[2]);
+        when(mockInventoryFileDao.getProduct(5)).thenReturn(testProducts[3]);
+        when(mockInventoryFileDao.getProduct(6)).thenReturn(null);
+
+        //Invoke
+        testShoppingCarts[0].addToCart(testProducts[0]);
+        shoppingCartFileDao.checkout(1, inventoryController);
+        testShoppingCarts[2].addToCart(testProducts[1]);
+        shoppingCartFileDao.checkout(3, inventoryController);
+        testShoppingCarts[2].addToCart(testProducts[2]);
+        shoppingCartFileDao.checkout(3, inventoryController);
+
+        OrderHistory[] orderArray1 = shoppingCartFileDao.searchOrders(1);
+        OrderHistory[] orderArray3 = shoppingCartFileDao.searchOrders(3);
+
+        //Analyze
+        assertEquals(1, orderArray1.length);
+        assertEquals(2,orderArray3.length);
+
+        assertEquals(testOrderHistories[0].getId(), orderArray1[0].getId());
+        assertEquals(testOrderHistories[0].getPurchasedCart(), orderArray1[0].getPurchasedCart());
+        assertEquals(testOrderHistories[0].getOrderNumber(), orderArray1[0].getOrderNumber());
+        assertEquals(LocalDateTime.now().format(dtf), orderArray1[0].getTimeStamp());
+
+        assertEquals(testOrderHistories[1].getId(), orderArray3[0].getId());
+        assertEquals(testOrderHistories[1].getPurchasedCart(), orderArray3[0].getPurchasedCart());
+        assertEquals(testOrderHistories[1].getOrderNumber(), orderArray3[0].getOrderNumber());
+        assertEquals(LocalDateTime.now().format(dtf), orderArray3[0].getTimeStamp());
+
+        assertEquals(testOrderHistories[2].getId(), orderArray3[1].getId());
+        assertEquals(testOrderHistories[2].getPurchasedCart(), orderArray3[1].getPurchasedCart());
+        assertEquals(testOrderHistories[2].getOrderNumber(), orderArray3[1].getOrderNumber());
+        assertEquals(LocalDateTime.now().format(dtf), orderArray3[1].getTimeStamp());
     }
 }

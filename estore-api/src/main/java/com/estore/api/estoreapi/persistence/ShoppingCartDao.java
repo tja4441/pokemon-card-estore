@@ -37,7 +37,7 @@ public interface ShoppingCartDao {
      * 
      * @author Daniel Pittman
      */
-    ShoppingCart getCart(int id) throws IOException;
+    ShoppingCart getCart(int id, InventoryController inventoryController) throws IOException;
 
     /**
      * Creates and stores {@linkplain Shoppingcart cart}

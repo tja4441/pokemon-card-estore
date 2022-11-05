@@ -26,6 +26,9 @@
                 </td>
             </tr>
         </table>
+        <div *ngIf="notAdmin()">
+            <app-add-to-cart [product]="card" ></app-add-to-cart>
+        </div>
     </div>
     <div *ngIf="editing">
         <app-edit-product (changedProductEvent)="itemChange($event)" [card]="card"></app-edit-product>
