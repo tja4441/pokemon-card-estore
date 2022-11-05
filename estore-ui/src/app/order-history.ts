@@ -1,6 +1,6 @@
 import { Product } from "./product";
 
-export interface orderHistory {
+export interface OrderHistory {
     userID: number,
     cart: Product[],
     orderNumber: number,
