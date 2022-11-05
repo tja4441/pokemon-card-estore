@@ -1,7 +1,7 @@
 import { Component, OnInit, Type } from '@angular/core';
 
 import { ProductService } from '../product.service';
-import { CardType, CardTypeConverter, Product } from '../product'
+import { Product } from '../product'
 
 @Component({
   selector: 'app-add-products',
@@ -11,19 +11,19 @@ import { CardType, CardTypeConverter, Product } from '../product'
 export class AddProductsComponent implements OnInit {
 
   products: Product[] = [];
-  public typeDict: any = {[CardType.DARK] : false,
-                          [CardType.DRAGON] : false,
-                          [CardType.ELECTRIC] : false,
-                          [CardType.FAIRY] : false,
-                          [CardType.FIGHTING] : false,
-                          [CardType.FIRE] : false,
-                          [CardType.GRASS] : false,
-                          [CardType.NORMAL] : false,
-                          [CardType.PSYCHIC] : false,
-                          [CardType.STEEL] : false,
-                          [CardType.WATER] : false,
-                          [CardType.TRAINER] : false}
-  public typeList: CardType[] = []
+  public typeDict: any = {"DARK" : false,
+                          "DRAGON" : false,
+                          "ELECTRIC" : false,
+                          "FAIRY" : false,
+                          "FIGHTING" : false,
+                          "FIRE" : false,
+                          "GRASS" : false,
+                          "NORMAL" : false,
+                          "PSYCHIC" : false,
+                          "STEEL" : false,
+                          "WATER" : false,
+                          "TRAINER" : false}
+  public typeList: string[] = []
 
   constructor(private productService: ProductService) { }
 
@@ -31,9 +31,8 @@ export class AddProductsComponent implements OnInit {
     this.getProducts();
   }
 
-  flipBool(typeString: string) {
-    this.typeDict[typeString] = !this.typeDict[typeString]
-    let type: CardType = CardTypeConverter.stringToType(typeString)
+  flipBool(type: string) {
+    this.typeDict[type] = !this.typeDict[type]
     if(Object.values(this.typeDict).includes(type)) this.typeList.push(type)
     else this.typeList.splice(this.typeList.indexOf(type), 1)
   }
@@ -53,7 +52,7 @@ export class AddProductsComponent implements OnInit {
    * @param quantity quantity of product
    * @param price price of the card
    */
-  add(name: string, types: CardType[], quantity: any, price: any): void {
+  add(name: string, types: string[], quantity: any, price: any): void {
     //removes whitespace
     name = name.trim();
     //tries to add product to the server using productService

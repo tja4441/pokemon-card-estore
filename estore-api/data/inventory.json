@@ -76,28 +76,4 @@
   "types" : [ "FIRE", "PSYCHIC" ],
   "quantity" : 2,
   "price" : 2.0
-}, {
-  "id" : 14,
-  "name" : "Articuno",
-  "types" : [ ],
-  "quantity" : 200,
-  "price" : 2.5
-}, {
-  "id" : 15,
-  "name" : "Swampert",
-  "types" : [ ],
-  "quantity" : 20,
-  "price" : 10.0
-}, {
-  "id" : 16,
-  "name" : "Tangerine",
-  "types" : null,
-  "quantity" : 1000,
-  "price" : 2.0
-}, {
-  "id" : 17,
-  "name" : "Steven",
-  "types" : null,
-  "quantity" : 1000,
-  "price" : 2.0
-} ]
+}]

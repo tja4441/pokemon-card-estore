@@ -18,7 +18,7 @@ public class Product {
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
-    @JsonProperty("types") private Type[] types;
+    @JsonProperty("types") private String[] types;
     @JsonProperty("quantity") private int quantity;
     @JsonProperty("price") private float price;
     
@@ -31,7 +31,7 @@ public class Product {
      * @param quantity the amount of an item there is
      * @param price the price of an item
      */
-    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("types") Type[] types, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
+    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("types") String[] types, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
         this.id = id;
         this.name = name;
         this.types = types;
@@ -65,7 +65,7 @@ public class Product {
     /** 
      * @return returns the type of this product
      */
-    public Type[] getTypes() {
+    public String[] getTypes() {
         return types;
     }
 

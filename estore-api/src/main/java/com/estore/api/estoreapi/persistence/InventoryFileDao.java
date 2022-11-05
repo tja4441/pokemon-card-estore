@@ -1,6 +1,5 @@
 package com.estore.api.estoreapi.persistence;
 import com.estore.api.estoreapi.model.Product;
-import com.estore.api.estoreapi.model.Type;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -212,7 +211,7 @@ public class InventoryFileDao implements InventoryDao {
         synchronized(products) {
             ArrayList<Product> productsList = new ArrayList<>();
             for (Product product : products.values()) {
-                if (type == null || Arrays.asList(product.getTypes()).contains(Type.valueOf(type))) {
+                if (type == null || Arrays.asList(product.getTypes()).contains(type)) {
                     productsList.add(product);
                 }
             }

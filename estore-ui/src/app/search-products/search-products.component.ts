@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
-import { Product, CardType, CardTypeConverter} from '../product';
+import { Product } from '../product';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -11,18 +11,18 @@ import { ProductService } from '../product.service';
 export class SearchProductsComponent implements OnInit {
   public products: Product[] = []
   private searchTerms = new Subject<string>();
-  public typeDict: any = {[CardType.DARK] : false,
-                          [CardType.DRAGON] : false,
-                          [CardType.ELECTRIC] : false,
-                          [CardType.FAIRY] : false,
-                          [CardType.FIGHTING] : false,
-                          [CardType.FIRE] : false,
-                          [CardType.GRASS] : false,
-                          [CardType.NORMAL] : false,
-                          [CardType.PSYCHIC] : false,
-                          [CardType.STEEL] : false,
-                          [CardType.WATER] : false,
-                          [CardType.TRAINER] : false}
+  public typeDict: any = {"DARK" : false,
+                          "DRAGON" : false,
+                          "ELECTRIC" : false,
+                          "FAIRY" : false,
+                          "FIGHTING" : false,
+                          "FIRE" : false,
+                          "GRASS" : false,
+                          "NORMAL" : false,
+                          "PSYCHIC" : false,
+                          "STEEL" : false,
+                          "WATER" : false,
+                          "TRAINER" : false}
   public empty = true
   constructor(private productService: ProductService) {}
 
@@ -41,7 +41,7 @@ export class SearchProductsComponent implements OnInit {
   filterByTypes(products: Product[]): Product[] {
     for(let key in this.typeDict) {
       if(this.typeDict[key]) {
-        products = products.filter(val => val.types.includes(CardTypeConverter.stringToType(key)))
+        products = products.filter(val => val.types.includes(key))
       }
     }
     return products
