@@ -288,5 +288,4 @@ public class ShoppingCartController extends Controller{
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }
