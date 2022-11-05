@@ -76,4 +76,10 @@
   "types" : [ "FIRE", "PSYCHIC" ],
   "quantity" : 2,
   "price" : 2.0
-}]
+}, {
+  "id" : 14,
+  "name" : "Swampert",
+  "types" : [ ],
+  "quantity" : 200,
+  "price" : 10.0
+} ]
