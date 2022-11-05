@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrderHistory } from '../order-history';
+import { OrderHistoryService } from '../order-history.service';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user',
@@ -7,12 +11,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  public username: string = ""
+  public user: User
+  public orderHistory: OrderHistory[] = []
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private orderHistoryService: OrderHistoryService, private userService: UserService) {
+    this.user = userService.getUser()
+  }
 
   ngOnInit(): void {
-    const username = this.route.snapshot.paramMap.get('username')
-    this.username = username ? username: ""
+    this.orderHistoryService.getOrdersByUserID(this.user.id).subscribe(p => this.orderHistory = p)
   }
 }

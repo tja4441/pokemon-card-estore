@@ -1,3 +1,11 @@
 <app-dashboard></app-dashboard>
 <h1>User Page:</h1>
-<p>Hello {{username | titlecase}}!</p>
+<p>Hello {{user.UserName | titlecase}}!</p>
+
+<p>Order History</p>
+<div *ngFor="let order of orderHistory">
+    <p>{{order.timestamp}}</p>
+    <div *ngFor="let product of order.cart" style="display: inline-block;">
+        <app-product-card [card]="product"></app-product-card>
+    </div>
+</div>
