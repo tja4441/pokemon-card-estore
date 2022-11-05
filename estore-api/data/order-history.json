@@ -1,1 +1,29 @@
-[]
+[ {
+  "id" : 1,
+  "purchasedCart" : {
+    "id" : 1,
+    "contents" : [ {
+      "id" : 1,
+      "name" : "Pikachu",
+      "quantity" : 1,
+      "price" : 3.0
+    }, {
+      "id" : 3,
+      "name" : "Charmander",
+      "quantity" : 2,
+      "price" : 4.5
+    } ],
+    "totalPrice" : 12.0
+  },
+  "orderNumber" : 1,
+  "timeStamp" : "11/05/2022 15:40:50"
+}, {
+  "id" : 1,
+  "purchasedCart" : {
+    "id" : 1,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
+  "orderNumber" : 2,
+  "timeStamp" : "11/05/2022 15:40:50"
+} ]

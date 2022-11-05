@@ -1,12 +1,12 @@
 [ {
   "id" : 1,
   "name" : "Pikachu",
-  "quantity" : 1,
+  "quantity" : 0,
   "price" : 3.0
 }, {
   "id" : 3,
   "name" : "Charmander",
-  "quantity" : 10,
+  "quantity" : 8,
   "price" : 4.5
 }, {
   "id" : 4,
