@@ -97,7 +97,7 @@ public class ShoppingCartFileDaoTest {
 
         // Analyze
         assertNotNull(result);
-        ShoppingCart actual = shoppingCartFileDao.getCart(cart.getId());
+        ShoppingCart actual = shoppingCartFileDao.getCart(cart.getId(), inventoryController);
         assertEquals(actual, cart);
     }
 
@@ -116,18 +116,18 @@ public class ShoppingCartFileDaoTest {
     }
 
     @Test
-    public void testGetCart() {
+    public void testGetCart() throws IOException {
         // Invoke
-        ShoppingCart cart = shoppingCartFileDao.getCart(1);
+        ShoppingCart cart = shoppingCartFileDao.getCart(1,inventoryController);
 
         // Analyze
         assertEquals(testShoppingCarts[0], cart);
     }
 
     @Test
-    public void testGetCartNotFound() {
+    public void testGetCartNotFound() throws IOException {
         // Invoke
-        ShoppingCart cart = shoppingCartFileDao.getCart(4);
+        ShoppingCart cart = shoppingCartFileDao.getCart(4,inventoryController);
 
         // Analyze
         assertNull(cart);

@@ -18,6 +18,9 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { CartProductComponent } from './cart-product/cart-product.component';
+import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ProductCardComponent,
     RemoveProductComponent,
     SearchProductsComponent,
-    DashboardComponent
+    DashboardComponent,
+    ShoppingCartComponent,
+    CartProductComponent,
+    AddToCartComponent
   ],
   imports: [
     BrowserModule,

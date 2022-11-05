@@ -103,7 +103,7 @@ public class ShoppingCartControllerTest {
     public void testGetCart() throws IOException{
         ShoppingCart cart = new ShoppingCart(1);
         
-        when(mockShoppingCartDao.getCart(1)).thenReturn(cart);
+        when(mockShoppingCartDao.getCart(1,mockInventoryController)).thenReturn(cart);
 
         ResponseEntity<ShoppingCart> response = shoppingCartController.getCart(1);
 
@@ -113,7 +113,7 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testGetCartNotFound() throws IOException{
-        when(mockShoppingCartDao.getCart(1)).thenReturn(null);
+        when(mockShoppingCartDao.getCart(1,mockInventoryController)).thenReturn(null);
 
         ResponseEntity<ShoppingCart> response = shoppingCartController.getCart(1);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -121,7 +121,7 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testGetCartHandleException() throws IOException{
-        doThrow(new IOException()).when(mockShoppingCartDao).getCart(3);
+        doThrow(new IOException()).when(mockShoppingCartDao).getCart(3,mockInventoryController);
 
         ResponseEntity<ShoppingCart> response = shoppingCartController.getCart(3);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());

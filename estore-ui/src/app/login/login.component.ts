@@ -4,6 +4,7 @@ import { User } from '../user';
 import { Location } from '@angular/common';
 import { MessageService } from '../message.service';
 import { Router } from '@angular/router';
+import { ShoppingCartService } from '../shopping-cart.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,11 @@ export class LoginComponent implements OnInit {
   public username = ""
   public loginFailed = false
   public registerFailed = false
-  constructor(private userService: UserService, private logger: MessageService, private router: Router,private location: Location) { }
+  constructor(private userService: UserService,
+     private logger: MessageService, 
+     private router: Router,
+     private location: Location,
+     private cartService: ShoppingCartService) { }
 
   ngOnInit(): void {
     //when home page loads looks to see if the user is logged in
@@ -54,6 +59,7 @@ export class LoginComponent implements OnInit {
     this.logger.add(`Logging in as User: ${username}`)
     this.userService.login(username)
       .subscribe(user=> this.addedUser(user))
+    
   }
 
   register(username: string): void {

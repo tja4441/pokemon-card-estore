@@ -66,9 +66,10 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
 
     /**
      ** {@inheritDoc}
+     * @throws IOException
      */
     @Override
-    public ShoppingCart getCart(int id) {
+    public ShoppingCart getCart(int id, InventoryController inventoryController) throws IOException {
         synchronized(carts){
             if(carts.containsKey(id)){
                 return carts.get(id);
@@ -159,7 +160,11 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                     } 
                 }
                 if (!productIncremented) {
-                    cart.addToCart(new Product(product.getId(), product.getName(), 1, product.getPrice()));
+                    if (product.getQuantity() < 1) {
+                        return cart;
+                    } else{
+                        cart.addToCart(new Product(product.getId(), product.getName(), 1, product.getPrice()));
+                    }
                 }
                 updateCart(cart);
                 return cart;
