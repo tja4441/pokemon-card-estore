@@ -77,12 +77,6 @@ export class ProductService {
    * @returns an observable that resolves to a product after it has been added to the database
    */
   addProduct(product: Product): Observable<Product> {
-    let pName = product.name
-    let pTypes = product.typesToString()
-    let pQuantity = product.quantity
-    let pPrice = product.price
-
-    let productString = '{"name":"' + pName + '", "types":' + pTypes + ', "quantity":' + pQuantity + ', "price": "' + pPrice + '}'
     return this.http.post<Product>(this.inventoryUrl, product, this.httpOptions).pipe(
       tap((newProduct: Product) => this.log(`added product w/ id=${newProduct.id}`)),
       catchError(this.handleError<Product>('addProduct'))

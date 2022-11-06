@@ -27,15 +27,4 @@ export class Product {
         this.quantity = quantity
         this.price = price
     }
-
-    public typesToString(): string {
-        let typesString: string = '['
-        this.types.forEach(val => {
-            if(val) typesString += '"' + val + '", '
-        });
-        if(typesString.length == 1) {
-            return typesString + ']'
-        }
-        return typesString.slice(0, -2) + ']'
-    }
 }
