@@ -55,6 +55,6 @@ export class SearchProductsComponent implements OnInit {
       distinctUntilChanged(),
 
       switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p) => this.products = this.filterByTypes(p))
+    ).subscribe((p) => this.products = p)
   }
 }
