@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { render } from 'creditcardpayments/creditCardPayments';
 
 @Component({
   selector: 'app-checkout',
@@ -8,24 +8,20 @@ import { Router } from '@angular/router';
 })
 export class CheckoutComponent implements OnInit {
 
-  name: String | undefined
-
-  checkout = false
-
-  constructor(private route: Router) { }
+  constructor() { 
+    render(
+      {
+        id: "#myPayPalButtons",
+        currency: "USD",
+        value: "100.00",
+        onApprove: (details) => {
+          alert("Hello!");
+        }
+      }
+    );
+  }
 
   ngOnInit(): void {
-
+    
   }
-  
-  CheckedOut(): Boolean{
-    this.checkout = true
-    return this.checkout
-  }
-
-
-  
-
-
-
 }
