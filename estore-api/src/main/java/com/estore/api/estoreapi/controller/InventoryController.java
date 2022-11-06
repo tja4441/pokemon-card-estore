@@ -29,7 +29,7 @@ import com.estore.api.estoreapi.persistence.InventoryDao;
 
 @RestController
 @RequestMapping("products")
-public class InventoryController extends Controller {
+public class InventoryController {
     private static final Logger LOG = Logger.getLogger(InventoryController.class.getName());
     private InventoryDao inventoryDao;
 

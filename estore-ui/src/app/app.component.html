@@ -3,7 +3,6 @@
     <p>Admin DashBoard</p>
   </div>
   <div class="usertag" *ngIf="isLoggedInUser()"  (click)="redirect()" >
-    <p>Logged in as: {{userService.username | titlecase}}</p>
-    <p>Click here to go to your page!</p>
+    <p>Cart</p>
   </div>
   <router-outlet></router-outlet>

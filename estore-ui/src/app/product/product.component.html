@@ -32,7 +32,9 @@
                 <td>
                     {{product.quantity}}
                 </td>
+
             </tr>
         </table>
+        <app-add-to-cart [product]="product"></app-add-to-cart>
 </div>
 <button type="button" (click)="goBack()">go back</button>
