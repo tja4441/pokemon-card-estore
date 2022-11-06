@@ -79,7 +79,7 @@
 }, {
   "id" : 14,
   "name" : "Zeraora",
-  "types" : [ "ELECTRIC", "FIGHTING"],
+  "types" : [ "ELECTRIC", "FIGHTING" ],
   "quantity" : 200,
   "price" : 1.0
 } ]
