@@ -35,7 +35,7 @@ An online E-store system built in JDK 17.0.4.1, Rest API, and Angular web servic
 - Curl.exe -X GET 'http://localhost:8080/products'
     - This gives full list of products
 
-- Curl.exe -X POST 'http://localhost:8080/products' -H 'Content-Type: application/json' -d '{\"name\": \"Tangerine\", \"types\":[\"FIRE\", \"quantity\":\"1000\", \"price\":\"2.00\"}'
+- Curl.exe -X POST 'http://localhost:8080/products' -H 'Content-Type: application/json' -d '{\"name\": \"Tangerine\", \"types\":[\"FIRE\]", \"quantity\":\"1000\", \"price\":\"2.00\"}'
     - This makes a product
 
 - Curl.exe -X GET 'http://localhost:8080/products/name/an’

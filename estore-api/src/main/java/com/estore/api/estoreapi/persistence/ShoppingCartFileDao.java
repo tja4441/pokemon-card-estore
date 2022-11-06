@@ -159,15 +159,11 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                     } 
                 }
                 if (!productIncremented) {
-<<<<<<< HEAD
-                    cart.addToCart(new Product(product.getId(), product.getName(), product.getTypes(), 1, product.getPrice()));
-=======
                     if (product.getQuantity() < 1) {
                         return cart;
                     } else{
-                        cart.addToCart(new Product(product.getId(), product.getName(), 1, product.getPrice()));
+                        cart.addToCart(new Product(product.getId(), product.getName(), product.getTypes(), 1, product.getPrice()));
                     }
->>>>>>> main
                 }
                 updateCart(cart);
                 return cart;

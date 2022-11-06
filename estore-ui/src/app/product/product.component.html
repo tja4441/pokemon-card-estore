@@ -1,40 +1,9 @@
 <app-dashboard></app-dashboard>
 <div *ngIf="product" >
-        <table>
-            <tr>
-                <td>
-                    Name:
-                </td>
-                <td>
-                    {{product.name}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Types:
-                </td>
-                <td>
-                    {{product.types}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Price:
-                </td>
-                <td>
-                    {{product.price.toFixed(2)}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    In Stock:
-                </td>
-                <td>
-                    {{product.quantity}}
-                </td>
-
-            </tr>
-        </table>
+        <p>Name: {{product.name}}</p> 
+        <p>Types: {{product.types}}</p>
+        <p>Price: {{product.price}}</p>
+        <p>We have {{product.quantity}} in stock!</p>
         <app-add-to-cart [product]="product"></app-add-to-cart>
 </div>
 <button type="button" (click)="goBack()">go back</button>

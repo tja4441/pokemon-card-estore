@@ -82,4 +82,28 @@
   "types" : [ ],
   "quantity" : 200,
   "price" : 10.0
+}, {
+  "id" : 15,
+  "name" : "Hydreigon",
+  "types" : [ ],
+  "quantity" : 200,
+  "price" : 10.0
+}, {
+  "id" : 16,
+  "name" : "Tangerine",
+  "types" : [ "FIRE" ],
+  "quantity" : 1000,
+  "price" : 2.0
+}, {
+  "id" : 17,
+  "name" : "Bitches",
+  "types" : [ ],
+  "quantity" : 1,
+  "price" : 99.0
+}, {
+  "id" : 18,
+  "name" : "Tim",
+  "types" : [ ],
+  "quantity" : 1,
+  "price" : 0.01
 } ]

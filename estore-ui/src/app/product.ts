@@ -28,14 +28,14 @@ export class Product {
         this.price = price
     }
 
-    public typesToJSONString(): string {
+    public typesToString(): string {
         let typesString: string = '['
         this.types.forEach(val => {
-            if(val) typesString += '"' + val + '",'
+            if(val) typesString += '"' + val + '", '
         });
         if(typesString.length == 1) {
             return typesString + ']'
         }
-        return typesString.slice(0, -1) + ']'
+        return typesString.slice(0, -2) + ']'
     }
 }
