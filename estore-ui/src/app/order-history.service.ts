@@ -8,7 +8,7 @@ import { OrderHistory } from './order-history';
   providedIn: 'root'
 })
 export class OrderHistoryService {
-  private historyURL = 'http://localhost:8080/history';   // URL to web api
+  private historyURL = 'http://localhost:8080/ShoppingCarts/history';   // URL to web api
 
   httpOptions = { 
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

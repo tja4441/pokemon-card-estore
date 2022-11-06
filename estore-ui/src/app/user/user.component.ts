@@ -16,9 +16,8 @@ export class UserComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private orderHistoryService: OrderHistoryService, private userService: UserService) {
     this.user = userService.getUser()
-  }
-
-  ngOnInit(): void {
     this.orderHistoryService.getOrdersByUserID(this.user.id).subscribe(p => this.orderHistory = p)
   }
+
+  ngOnInit(): void {}
 }
