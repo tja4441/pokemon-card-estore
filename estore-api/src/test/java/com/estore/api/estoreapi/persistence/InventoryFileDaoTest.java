@@ -256,7 +256,7 @@ public class InventoryFileDaoTest {
     @Test
     public void testGetProductsByType() throws IOException {
         // Invoke
-        Product[] products = inventoryFileDao.getProductsType("FIRE");
+        Product[] products = inventoryFileDao.getProductsType(CardType.valueOf("FIRE"));
 
         // Analyze
         assertEquals(products.length, 1);

@@ -2,6 +2,7 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
 
+import com.estore.api.estoreapi.model.CardType;
 import com.estore.api.estoreapi.model.Product;
 
 /**
@@ -76,6 +77,6 @@ public interface InventoryDao {
      * @return Returns an Array of Products that are the type specified
      * @throws IOException if it fails to access the information
      */
-    Product[] getProductsType(String type) throws IOException;
+    Product[] getProductsType(CardType type) throws IOException;
 }
 

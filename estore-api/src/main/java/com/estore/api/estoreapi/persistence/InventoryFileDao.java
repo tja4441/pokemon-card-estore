@@ -1,4 +1,5 @@
 package com.estore.api.estoreapi.persistence;
+import com.estore.api.estoreapi.model.CardType;
 import com.estore.api.estoreapi.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -207,7 +208,7 @@ public class InventoryFileDao implements InventoryDao {
     /**
      * {@inheritDoc}
      */
-    public Product[] getProductsType(String type) {
+    public Product[] getProductsType(CardType type) {
         synchronized(products) {
             ArrayList<Product> productsList = new ArrayList<>();
             for (Product product : products.values()) {

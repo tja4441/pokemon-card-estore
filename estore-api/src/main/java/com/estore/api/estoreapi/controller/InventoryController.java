@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.estore.api.estoreapi.model.CardType;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.persistence.InventoryDao;
 
@@ -199,7 +200,7 @@ public class InventoryController extends Controller {
     public ResponseEntity<Product[]> getProductsByType(@PathVariable String type) {
         LOG.info("GET /products/type/"+type);
         try {
-            Product[] products = inventoryDao.getProductsType(type);
+            Product[] products = inventoryDao.getProductsType(CardType.valueOf(type));
             if (products.length == 0) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
