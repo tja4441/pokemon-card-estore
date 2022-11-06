@@ -6,11 +6,11 @@ export enum CardType {
     FIGHTING = "FIGHTING",
     FIRE = "FIRE",
     GRASS = "GRASS",
-    NORMAL = "DARK",
-    PSYCHIC = "DARK",
-    STEEL = "DARK",
-    WATER = "DARK",
-    TRAINER = "DARK"
+    NORMAL = "NORMAL",
+    PSYCHIC = "PSYCHIC",
+    STEEL = "STEEL",
+    WATER = "WATER",
+    TRAINER = "TRAINER"
 }
 
 export class Product {

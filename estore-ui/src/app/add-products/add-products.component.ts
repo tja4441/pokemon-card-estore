@@ -1,7 +1,7 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ProductService } from '../product.service';
-import { Product } from '../product'
+import { Product, CardType } from '../product'
 
 @Component({
   selector: 'app-add-products',
@@ -23,7 +23,7 @@ export class AddProductsComponent implements OnInit {
                           "STEEL" : false,
                           "WATER" : false,
                           "TRAINER" : false}
-  public typeList: string[] = []
+  public typeList: CardType[] = []
 
   constructor(private productService: ProductService) { }
 
@@ -31,9 +31,10 @@ export class AddProductsComponent implements OnInit {
     this.getProducts();
   }
 
-  flipBool(type: string) {
-    this.typeDict[type] = !this.typeDict[type]
-    if(Object.values(this.typeDict).includes(type)) this.typeList.push(type)
+  flipBool(typeString: keyof typeof CardType) {
+    let type: CardType = CardType[typeString]
+    this.typeDict[typeString] = !this.typeDict[typeString]
+    if(this.typeDict[typeString]) this.typeList.push(type)
     else this.typeList.splice(this.typeList.indexOf(type), 1)
   }
 
@@ -52,7 +53,7 @@ export class AddProductsComponent implements OnInit {
    * @param quantity quantity of product
    * @param price price of the card
    */
-  add(name: string, types: string[], quantity: any, price: any): void {
+  add(name: string, types: CardType[], quantity: any, price: any): void {
     //removes whitespace
     name = name.trim();
     //tries to add product to the server using productService
