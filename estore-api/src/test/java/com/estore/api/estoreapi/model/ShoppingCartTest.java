@@ -34,8 +34,8 @@ public class ShoppingCartTest {
 
     @Test
     public void testAddProduct() {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         HashSet<Product> expectedContents = new HashSet<Product>();
         Product p = new Product(1,"Carrots",typeArray,50,2.10f);
         expectedContents.add(p);
@@ -48,8 +48,8 @@ public class ShoppingCartTest {
 
     @Test
     public void testRemoveProduct() {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         HashSet<Product> expectedContents = new HashSet<Product>();
         Product p = new Product(1,"Carrots",typeArray,50,2.10f);
         expectedContents.add(p);
@@ -64,8 +64,8 @@ public class ShoppingCartTest {
 
     @Test
     public void testUpdateProductInCart() {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         HashSet<Product> expectedContents = new HashSet<Product>();
         Product oldP = new Product(1,"Carrots",typeArray,50,2.10f);
         Product newP = new Product(1,"Carrot",typeArray,25,2f);
@@ -81,8 +81,8 @@ public class ShoppingCartTest {
 
     @Test
     public void testSizeOf() {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         HashSet<Product> expectedContents = new HashSet<Product>();
         Product p = new Product(1,"Carrots",typeArray,50,2.10f);
         expectedContents.add(p);
@@ -127,8 +127,8 @@ public class ShoppingCartTest {
 
     @Test
     public void testEqualCartToNonCart() {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         Product p = new Product(1,"Carrots",typeArray,50,2.10f);
 
         boolean equal = testCart.equals(p);

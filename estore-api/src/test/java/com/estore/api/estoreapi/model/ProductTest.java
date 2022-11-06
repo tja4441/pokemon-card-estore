@@ -17,8 +17,8 @@ public class ProductTest {
         // Setup
         int expected_id = 1;
         String expected_name = "Charmander";
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FIRE;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         int expected_quantity = 2;
         float expected_price = 100.00f;
 
@@ -38,8 +38,8 @@ public class ProductTest {
         // Setup
         int id = 1;
         String name = "Charmander";
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FIRE;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         int quantity = 2;
         float price = 100.00f;
         Product product = new Product(id,name,typeArray,quantity,price);
@@ -58,8 +58,8 @@ public class ProductTest {
         // Setup
         int id = 1;
         String name = "Charmander";
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FIRE;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         int quantity = 2;
         float price = 100.00f;
         Product product = new Product(id,name,typeArray,quantity,price);
@@ -78,8 +78,8 @@ public class ProductTest {
         // Setup
         int id = 1;
         String name = "Charmander";
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         int quantity = 2;
         float price = 100.00f;
         Product product = new Product(id,name,typeArray,quantity,price);
@@ -98,8 +98,8 @@ public class ProductTest {
         // Setup
         int id = 1;
         String name = "Charmander";
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FIRE;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         int quantity = 2;
         float price = 100.00f;
         String expected_string = String.format(Product.STRING_FORMAT,id,name,typeArray,quantity,price);
@@ -117,8 +117,8 @@ public class ProductTest {
         // Setup
         int id = 1;
         String name = "Charmander";
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         int quantity = 2;
         float price = 100.00f;
         Product product = new Product(id,name,typeArray,quantity,price);

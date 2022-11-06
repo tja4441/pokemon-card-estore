@@ -23,7 +23,7 @@ import com.estore.api.estoreapi.controller.InventoryController;
 import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
-import com.estore.api.estoreapi.model.Type;
+import com.estore.api.estoreapi.model.CardType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -66,16 +66,16 @@ public class ShoppingCartFileDaoTest {
         testOrderHistories[1] = new OrderHistory(3, testShoppingCarts[2], 2, "10/31/2022 09:42:00");
         testOrderHistories[2] = new OrderHistory(3, testShoppingCarts[2], 3, "10/31/2022 09:43:00");
         
-        Type[] eTypeArray = new Type[1];
-        eTypeArray[0] = Type.ELECTRIC;
-        Type[] gTypeArray = new Type[1];
-        gTypeArray[0] = Type.GRASS;
-        Type[] wTypeArray = new Type[1];
-        wTypeArray[0] = Type.WATER;
-        Type[] fTypeArray = new Type[1];
-        fTypeArray[0] = Type.FIRE;
-        Type[] faTypeArray = new Type[1];
-        faTypeArray[0] = Type.FAIRY;
+        CardType[] eTypeArray = new CardType[1];
+        eTypeArray[0] = CardType.ELECTRIC;
+        CardType[] gTypeArray = new CardType[1];
+        gTypeArray[0] = CardType.GRASS;
+        CardType[] wTypeArray = new CardType[1];
+        wTypeArray[0] = CardType.WATER;
+        CardType[] fTypeArray = new CardType[1];
+        fTypeArray[0] = CardType.FIRE;
+        CardType[] faTypeArray = new CardType[1];
+        faTypeArray[0] = CardType.FAIRY;
 
         testProducts = new Product[5];
         testProducts[0] = new Product(2,"Pikachu",eTypeArray,4,100.00f);
@@ -210,8 +210,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testAddToCartIncrement() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FAIRY;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
         testShoppingCarts[0].getContents().add(new Product(7,"Clefairy",typeArray,1,2.00f));
         ShoppingCart expectedCart = testShoppingCarts[0];
@@ -227,8 +227,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testDeleteFromCartMultiple() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.ELECTRIC;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.ELECTRIC;
         // Invoke
         testShoppingCarts[1].getContents().add(testProducts[0]);
         testShoppingCarts[1].calculateTotalPrice();
@@ -247,8 +247,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testDeleteFromCartSingle() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.ELECTRIC;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.ELECTRIC;
         // Invoke
         testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",typeArray,1,100.00f));
         testShoppingCarts[1].calculateTotalPrice();
@@ -265,8 +265,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testDeleteFromCartProductNotFound() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.ELECTRIC;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.ELECTRIC;
         // Invoke
         testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",typeArray,1,100.00f));
         testShoppingCarts[1].calculateTotalPrice();
@@ -281,8 +281,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testRefreshCart() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.DARK;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.DARK;
         // Invoke
         when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
         when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
@@ -304,8 +304,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testRefreshCartInventoryLess() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FAIRY;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
         when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
         when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
@@ -328,8 +328,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testRefreshCartPriceDif() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FAIRY;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
         when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
         when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
@@ -352,8 +352,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testCheckout() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FAIRY;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
         HashSet<Product> emptyContents = new HashSet<Product>();
 

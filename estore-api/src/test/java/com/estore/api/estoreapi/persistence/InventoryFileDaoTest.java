@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.estore.api.estoreapi.model.Product;
-import com.estore.api.estoreapi.model.Type;
+import com.estore.api.estoreapi.model.CardType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -40,14 +40,14 @@ public class InventoryFileDaoTest {
      */
     @BeforeEach
     public void setupInventoryFileDao() throws IOException {
-        Type[] eTypeArray = new Type[1];
-        eTypeArray[0] = Type.ELECTRIC;
-        Type[] gTypeArray = new Type[1];
-        gTypeArray[0] = Type.GRASS;
-        Type[] wTypeArray = new Type[1];
-        wTypeArray[0] = Type.WATER;
-        Type[] fTypeArray = new Type[1];
-        fTypeArray[0] = Type.FIRE;
+        CardType[] eTypeArray = new CardType[1];
+        eTypeArray[0] = CardType.ELECTRIC;
+        CardType[] gTypeArray = new CardType[1];
+        gTypeArray[0] = CardType.GRASS;
+        CardType[] wTypeArray = new CardType[1];
+        wTypeArray[0] = CardType.WATER;
+        CardType[] fTypeArray = new CardType[1];
+        fTypeArray[0] = CardType.FIRE;
         mockObjectMapper = mock(ObjectMapper.class);
         testProducts = new Product[4];
         testProducts[0] = new Product(2,"Pikachu",eTypeArray, 1,100.00f);
@@ -108,8 +108,8 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProduct() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.PSYCHIC;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.PSYCHIC;
         // Setup
         Product product = new Product(1,"Mew",typeArray,1,0.50f);
 
@@ -129,8 +129,8 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testUpdateProduct() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.WATER;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.WATER;
         // Setup
         Product product = inventoryFileDao.createProduct(new Product(4,"Wartortle",typeArray,1,10.00f));
 
@@ -146,8 +146,8 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testSaveException() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.ELECTRIC;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.ELECTRIC;
         doThrow(new IOException()).when(mockObjectMapper)
             .writeValue(any(File.class),any(Product[].class));
         
@@ -180,8 +180,8 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testUpdateProductNotFound() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FIGHTING;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIGHTING;
         // Setup
         Product product = new Product(10, "Lucario",typeArray,1,20.00f);
 
@@ -195,8 +195,8 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProductSameName() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FIRE;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         // Invoke
         Product product = inventoryFileDao.createProduct(new Product(11,"Charmander",typeArray,1,50.05f));
 
@@ -206,8 +206,8 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProductSpaceAsName() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.NORMAL;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.NORMAL;
         // Invoke
         Product product = inventoryFileDao.createProduct(new Product(8," ",typeArray,1,50.05f));
 
@@ -217,8 +217,8 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProductNegativePrice() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FAIRY;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
         Product product = inventoryFileDao.createProduct(new Product(8,"Clefairy",typeArray,1,-50.05f));
 
@@ -228,8 +228,8 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProductNegativeQuantity() throws IOException {
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.FAIRY;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
         Product product = inventoryFileDao.createProduct(new Product(8,"Clefairy",typeArray,-2,50.05f));
 

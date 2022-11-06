@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.estore.api.estoreapi.model.Product;
-import com.estore.api.estoreapi.model.Type;
+import com.estore.api.estoreapi.model.CardType;
 import com.estore.api.estoreapi.persistence.InventoryDao;
 
 /**
@@ -33,8 +33,8 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProduct() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
 
         Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
@@ -50,8 +50,8 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProductNotFound() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
 
         Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
@@ -77,8 +77,8 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProduct() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         when(mockInventoryDao.createProduct(product)).thenReturn(product);
@@ -92,8 +92,8 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProductFailed() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         when(mockInventoryDao.createProduct(product)).thenReturn(null);
@@ -105,8 +105,8 @@ public class InventoryControllerTest {
 
     @Test
     public void testCreateProductHandleException() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         doThrow(new IOException()).when(mockInventoryDao).createProduct(product);
@@ -118,8 +118,8 @@ public class InventoryControllerTest {
 
     @Test
     public void testUpdateProduct() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         when(mockInventoryDao.updateProduct(product)).thenReturn(product);
@@ -134,8 +134,8 @@ public class InventoryControllerTest {
 
     @Test
     public void testUpdateProductHandleException() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         Product product = new Product(5,"Apple",typeArray,1,1.00f);
 
         doThrow(new IOException()).when(mockInventoryDao).updateProduct(product);
@@ -147,8 +147,8 @@ public class InventoryControllerTest {
 
     @Test
     public void testGetProducts() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         Product[] products = new Product[2];
         products[0] = new Product(5,"Apple",typeArray,1,1.00f);
         products[1] = new Product(2,"Pear",typeArray,100,0.50F);
@@ -173,8 +173,8 @@ public class InventoryControllerTest {
 
     @Test
     public void testSearchProducts() throws IOException{
-        Type[] typeArray = new Type[1];
-        typeArray[0] = Type.GRASS;
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         String searchString = "berries";
         Product[] products = new Product[3];
         products[0] = new Product(1,"Blueberries",typeArray,10,1.00F);
