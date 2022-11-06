@@ -8,12 +8,23 @@ import { Router } from '@angular/router';
 })
 export class CheckoutComponent implements OnInit {
 
+  name: String | undefined
 
+  checkout = false
 
   constructor(private route: Router) { }
 
   ngOnInit(): void {
+
   }
+  
+  CheckedOut(): Boolean{
+    this.checkout = true
+    return this.checkout
+  }
+
+
+  
 
 
 
