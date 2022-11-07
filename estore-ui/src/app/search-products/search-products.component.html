@@ -2,29 +2,29 @@
     <label for="search-box" style="float: left;">Product Search</label>
     <input #searchBox id="search-box" (input)="search(searchBox.value)" style="float: left;">
 
-    <input type="checkbox" id="dark" (change)="flipBool('DARK', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('DARK')" [id]="'DARK'">
     <label for="dark">Dark</label>
-    <input type="checkbox" id="dragon" (change)="flipBool('DRAGON', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('DRAGON')" [id]="'DRAGON'">
     <label for="dragon">Dragon</label>
-    <input type="checkbox" id="electric" (change)="flipBool('ELECTRIC', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('ELECTRIC')" [id]="'ELECTRIC'">
     <label for="electric">Electric</label>
-    <input type="checkbox" id="fairy" (change)="flipBool('FAIRY', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('FAIRY')" [id]="'FAIRY'">
     <label for="fairy">Fairy</label>
-    <input type="checkbox" id="fighting" (change)="flipBool('FIGHTING', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('FIGHTING')" [id]="'FIGHTING'">
     <label for="fighting">Fighting</label>
-    <input type="checkbox" id="fire" (change)="flipBool('FIRE', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('FIRE')" [id]="'FIRE'">
     <label for="fire">Fire</label>
-    <input type="checkbox" id="grass" (change)="flipBool('GRASS', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('GRASS')" [id]="'GRASS'">
     <label for="grass">Grass</label>
-    <input type="checkbox" id="normal" (change)="flipBool('NORMAL', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('NORMAL')" [id]="'NORMAL'">
     <label for="normal">Normal</label>
-    <input type="checkbox" id="psychic" (change)="flipBool('PSYCHIC', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('PSYCHIC')" [id]="'PSYCHIC'">
     <label for="psychic">Psychic</label>
-    <input type="checkbox" id="steel" (change)="flipBool('STEEL', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('STEEL')" [id]="'STEEL'">
     <label for="steel">Steel</label>
-    <input type="checkbox" id="water" (change)="flipBool('WATER', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('WATER')" [id]="'WATER'">
     <label for="water">Water</label>
-    <input type="checkbox" id="trainer" (change)="flipBool('TRAINER', searchBox.value)">
+    <input type="checkbox" (click)="handleClick('TRAINER')" [id]="'TRAINER'">
     <label for="trainer">Trainer</label>
     <br>
     <br>

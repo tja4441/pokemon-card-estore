@@ -11,7 +11,7 @@ import { Product, CardType } from '../product'
 export class AddProductsComponent implements OnInit {
 
   products: Product[] = [];
-  public typeDict: any = {"DARK" : false,
+  public typeDictAdd: any = {"DARK" : false,
                           "DRAGON" : false,
                           "ELECTRIC" : false,
                           "FAIRY" : false,
@@ -23,7 +23,7 @@ export class AddProductsComponent implements OnInit {
                           "STEEL" : false,
                           "WATER" : false,
                           "TRAINER" : false}
-  public typeList: CardType[] = []
+  public typeListAdd: CardType[] = []
 
   constructor(private productService: ProductService) { }
 
@@ -32,18 +32,18 @@ export class AddProductsComponent implements OnInit {
   }
 
   handleClick(type: keyof typeof CardType) {
-    if((this.typeList.length < 2) || this.typeDict[type]) {
+    if((this.typeListAdd.length < 2) || this.typeDictAdd[type]) {
         this.flipBool(CardType[type])
     }
     let checkBox = document.getElementById(type) as HTMLInputElement
-    if(checkBox) checkBox.checked = this.typeDict[type]
-}
+    if(checkBox) checkBox.checked = this.typeDictAdd[type]
+  }
 
   flipBool(typeString: keyof typeof CardType) {
     let type: CardType = CardType[typeString]
-    this.typeDict[typeString] = !this.typeDict[typeString]
-    if(this.typeDict[typeString]) this.typeList.push(type)
-    else this.typeList.splice(this.typeList.indexOf(type), 1)
+    this.typeDictAdd[typeString] = !this.typeDictAdd[typeString]
+    if(this.typeDictAdd[typeString]) this.typeListAdd.push(type)
+    else this.typeListAdd.splice(this.typeListAdd.indexOf(type), 1)
   }
 
   /**
