@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, filter, Subject, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, Observable, Subject, switchMap } from 'rxjs';
 import { CardType, Product } from '../product';
 import { ProductService } from '../product.service';
 
@@ -50,11 +50,13 @@ export class SearchProductsComponent implements OnInit {
   searchByTypes(): Product[] {
     let filteredProducts: Product[] = []
     if(this.typeListSearch.length == 0) {
-      this.productService.getProducts().subscribe(p => filteredProducts = p)
+      let observableList: Observable<Product[]> = this.productService.getProducts()
+      observableList.subscribe(p => filteredProducts = p)
     }
     else {
       for(let type in this.typeListSearch) {
-        this.productService.getProductsByType(type).subscribe(p => filteredProducts = filteredProducts.concat(p))
+        let observableList: Observable<Product[]> = this.productService.getProductsByType(type)
+        observableList.subscribe(p => filteredProducts = filteredProducts.concat(p))
       }
       filteredProducts = [...new Set(filteredProducts)]
     }
