@@ -6,29 +6,29 @@
     <tr>
         <td><label for="new-product">Product Types: </label></td>
         <td>
-            <input type="checkbox" id="dark" (click)="flipBool('DARK')">
+            <input type="checkbox" (click)="handleClick('DARK')" [checked]="typeDict['DARK']">
             <label for="dark">Dark</label>
-            <input type="checkbox" id="dragon" (click)="flipBool('DRAGON')">
+            <input type="checkbox" (click)="handleClick('DRAGON')" [checked]="typeDict['DRAGON']">
             <label for="dragon">Dragon</label>
-            <input type="checkbox" id="electric" (click)="flipBool('ELECTRIC')">
+            <input type="checkbox" (click)="handleClick('ELECTRIC')" [checked]="typeDict['ELECTRIC']">
             <label for="electric">Electric</label>
-            <input type="checkbox" id="fairy" (click)="flipBool('FAIRY')">
+            <input type="checkbox" (click)="handleClick('FAIRY')" [checked]="typeDict['FAIRY']">
             <label for="fairy">Fairy</label>
-            <input type="checkbox" id="fighting" (click)="flipBool('FIGHTING')">
+            <input type="checkbox" (click)="handleClick('FIGHTING')" [checked]="typeDict['FIGHTING']">
             <label for="fighting">Fighting</label>
-            <input type="checkbox" id="fire" (click)="flipBool('FIRE')">
+            <input type="checkbox" (click)="handleClick('FIRE')" [checked]="typeDict['FIRE']">
             <label for="fire">Fire</label>
-            <input type="checkbox" id="grass" (click)="flipBool('GRASS')">
+            <input type="checkbox" (click)="handleClick('GRASS')" [checked]="typeDict['GRASS']">
             <label for="grass">Grass</label>
-            <input type="checkbox" id="normal" (click)="flipBool('NORMAL')">
+            <input type="checkbox" (click)="handleClick('NORMAL')" [checked]="typeDict['NORMAL']">
             <label for="normal">Normal</label>
-            <input type="checkbox" id="psychic" (click)="flipBool('PSYCHIC')">
+            <input type="checkbox" (click)="handleClick('PSYCHIC')" [checked]="typeDict['PSYCHIC']">
             <label for="psychic">Psychic</label>
-            <input type="checkbox" id="steel" (click)="flipBool('STEEL')">
+            <input type="checkbox" (click)="handleClick('STEEL')" [checked]="typeDict['STEEL']">
             <label for="steel">Steel</label>
-            <input type="checkbox" id="water" (click)="flipBool('WATER')">
+            <input type="checkbox" (click)="handleClick('WATER')" [checked]="typeDict['WATER']">
             <label for="water">Water</label>
-            <input type="checkbox" id="trainer" (click)="flipBool('TRAINER')">
+            <input type="checkbox" (click)="handleClick('TRAINER')" [checked]="typeDict['TRAINER']">
             <label for="trainer">Trainer</label>
         </td>
     </tr>

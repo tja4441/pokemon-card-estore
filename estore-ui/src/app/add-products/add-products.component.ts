@@ -31,6 +31,12 @@ export class AddProductsComponent implements OnInit {
     this.getProducts();
   }
 
+  handleClick(type: keyof typeof CardType) {
+    if((this.typeList.length < 2) || this.typeDict[type]) {
+        this.flipBool(CardType[type])
+    }
+}
+
   flipBool(typeString: keyof typeof CardType) {
     let type: CardType = CardType[typeString]
     this.typeDict[typeString] = !this.typeDict[typeString]
