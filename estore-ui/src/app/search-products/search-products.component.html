@@ -2,29 +2,29 @@
     <label for="search-box" style="float: left;">Product Search</label>
     <input #searchBox id="search-box" (input)="search(searchBox.value)" style="float: left;">
 
-    <input type="checkbox" (click)="handleClick('DARK')" [id]="'DARK'">
+    <input type="checkbox" (click)="handleClick('DARK', searchBox.value)" [id]="'DARK'">
     <label for="dark">Dark</label>
-    <input type="checkbox" (click)="handleClick('DRAGON')" [id]="'DRAGON'">
+    <input type="checkbox" (click)="handleClick('DRAGON', searchBox.value)" [id]="'DRAGON'">
     <label for="dragon">Dragon</label>
-    <input type="checkbox" (click)="handleClick('ELECTRIC')" [id]="'ELECTRIC'">
+    <input type="checkbox" (click)="handleClick('ELECTRIC', searchBox.value)" [id]="'ELECTRIC'">
     <label for="electric">Electric</label>
-    <input type="checkbox" (click)="handleClick('FAIRY')" [id]="'FAIRY'">
+    <input type="checkbox" (click)="handleClick('FAIRY', searchBox.value)" [id]="'FAIRY'">
     <label for="fairy">Fairy</label>
-    <input type="checkbox" (click)="handleClick('FIGHTING')" [id]="'FIGHTING'">
+    <input type="checkbox" (click)="handleClick('FIGHTING', searchBox.value)" [id]="'FIGHTING'">
     <label for="fighting">Fighting</label>
-    <input type="checkbox" (click)="handleClick('FIRE')" [id]="'FIRE'">
+    <input type="checkbox" (click)="handleClick('FIRE', searchBox.value)" [id]="'FIRE'">
     <label for="fire">Fire</label>
-    <input type="checkbox" (click)="handleClick('GRASS')" [id]="'GRASS'">
+    <input type="checkbox" (click)="handleClick('GRASS', searchBox.value)" [id]="'GRASS'">
     <label for="grass">Grass</label>
-    <input type="checkbox" (click)="handleClick('NORMAL')" [id]="'NORMAL'">
+    <input type="checkbox" (click)="handleClick('NORMAL', searchBox.value)" [id]="'NORMAL'">
     <label for="normal">Normal</label>
-    <input type="checkbox" (click)="handleClick('PSYCHIC')" [id]="'PSYCHIC'">
+    <input type="checkbox" (click)="handleClick('PSYCHIC', searchBox.value)" [id]="'PSYCHIC'">
     <label for="psychic">Psychic</label>
-    <input type="checkbox" (click)="handleClick('STEEL')" [id]="'STEEL'">
+    <input type="checkbox" (click)="handleClick('STEEL', searchBox.value)" [id]="'STEEL'">
     <label for="steel">Steel</label>
-    <input type="checkbox" (click)="handleClick('WATER')" [id]="'WATER'">
+    <input type="checkbox" (click)="handleClick('WATER', searchBox.value)" [id]="'WATER'">
     <label for="water">Water</label>
-    <input type="checkbox" (click)="handleClick('TRAINER')" [id]="'TRAINER'">
+    <input type="checkbox" (click)="handleClick('TRAINER', searchBox.value)" [id]="'TRAINER'">
     <label for="trainer">Trainer</label>
     <br>
     <br>

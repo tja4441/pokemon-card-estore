@@ -27,9 +27,10 @@ export class SearchProductsComponent implements OnInit {
   public empty = true
   constructor(private productService: ProductService) {}
 
-  handleClick(type: keyof typeof CardType) {
+  handleClick(type: keyof typeof CardType, term: string) {
     if((this.typeListSearch.length < 2) || this.typeDictSearch[type]) {
         this.flipBool(CardType[type])
+        this.search(term)
     }
     let checkBox = document.getElementById(type) as HTMLInputElement
     if(checkBox) checkBox.checked = this.typeDictSearch[type]
@@ -44,18 +45,18 @@ export class SearchProductsComponent implements OnInit {
 
   search(term: string): void {
     term = term.trim()
-    if (!term) this.empty = true
+    if (!term && this.typeListSearch.length == 0) this.empty = true
     else this.empty = false
     this.searchTerms.next(term)
   }
 
-  filterByTypes(products: Product[]): Product[] {
-    for(let key in this.typeDictSearch) {
-      if(this.typeDictSearch[key]) {
-        products = products.filter(val => val.types.includes(key))
-      }
+  filterByTypes(filteredProducts: Product[]): Product[] {
+    for(let type in this.typeListSearch) {
+      let productsOfType: Product[]
+      this.productService.getProductsByType(type).subscribe(p => productsOfType = p)
+      filteredProducts = filteredProducts.filter(val => productsOfType.includes(val))
     }
-    return products
+    return filteredProducts
   }
 
   ngOnInit(): void {
@@ -66,6 +67,6 @@ export class SearchProductsComponent implements OnInit {
       distinctUntilChanged(),
 
       switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p) => this.products = p)
+    ).subscribe((p) => this.products = this.products.filter(val => this.filterByTypes(p).includes(val)))
   }
 }
