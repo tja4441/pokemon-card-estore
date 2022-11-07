@@ -1,23 +1,22 @@
 package com.estore.api.estoreapi.model;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ch.qos.logback.core.subst.Token.Type;
 
 public class UserStatistic {
-    static final String STRING_FORMAT = "UserStatistic [id=%d, contents=%s, totalPrice=%f]";
+    static final String STRING_FORMAT = "UserStatistic [id=%d, loginCounter=%d, purchaseCounter=%d, lifetimeSpending=%f, lifetimeSessionTime=%f, averagePurchase=%f, purchasedCounts=%s, mostPurchased=%d, mostExpensiveOrder=%s, typeCounts=%s, typeRevenues=%s, mostPopularType=%s, averageSessionTime=%f]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("loginCounter")private int loginCounter;
     @JsonProperty("purchaseCounter")private int purchaseCounter;
     @JsonProperty("lifetimeSpending")private float lifetimeSpending;
-    @JsonProperty("LifetimeSessionTime")private float lifetimeSessionTime;
+    @JsonProperty("lifetimeSessionTime")private float lifetimeSessionTime;
     @JsonProperty("averagePurchase")private float averagePurchaseAmt;
-    @JsonProperty("purchasedCounts")private HashMap<Product,Integer> purchasedCounts;
-    @JsonProperty("mostPurchased")private Product mostPurchased;
+    @JsonProperty("purchasedCounts")private HashMap<Integer,Integer> purchasedCounts;
+    @JsonProperty("mostPurchased")private int mostPurchased;
     @JsonProperty("mostExpensiveOrder")private ShoppingCart mostExpensiveOrder;
     @JsonProperty("typeCounts")private HashMap<Type,Integer> typeCounts;
     @JsonProperty("typeRevenues")private HashMap<Type,Float> typeRevenues;
@@ -43,118 +42,326 @@ public class UserStatistic {
         this.typeRevenues = new HashMap<>();
         this.averageSessionTime = 0.0f;
         this.mostExpensiveOrder = null;
-        this.mostPurchased = null;
+        this.mostPurchased = -1;
         this.mostPopularType = null;
     }
 
+    /**
+     * getter for the id of the User statistic
+     * 
+     * @return id of the user the statistic belongs to
+     */
     public int getId() {return this.id;}
 
+    /**
+     * getter for the login counter
+     * 
+     * @return loginCounter that tells the number of times the user has logged into the store
+     */
     public int getLoginCounter(){return this.loginCounter;}
 
+    /**
+     * getter for the purchaseCounter
+     * 
+     * @return purchaseCounter that tells the number of times the user has made a purchase
+     */
     public int getPurchaseCounter(){return this.purchaseCounter;}
 
+    /**
+     * getter for the lifetimeSpending
+     * 
+     * @return lifetimeSpending that tells how much a user has spent in account lifetime
+     */
     public float getLifetimeSpending(){return this.lifetimeSpending;}
 
+    /**
+     * getter for the averagePurchase
+     * 
+     * @return averagePurchase that tells how much the user spends on average on the e-store
+     */
     public float getAveragePurchase(){return this.averagePurchaseAmt;}
 
-    public HashMap<Product,Integer> getPurchasedCounts(){return this.purchasedCounts;}
+    /**
+     * getter for the purchasedCounts
+     * 
+     * @return purchaseCounts that tells how many of each product the user has purchased in account lifetime
+     */
+    public HashMap<Integer,Integer> getPurchasedCounts(){return this.purchasedCounts;}
 
+    /**
+     * getter for the typeCounts
+     * 
+     * @return typeCounts that tells how many products the user has purchased of the specific type in account lifetime
+     */
     public HashMap<Type,Integer> getTypeCounts(){return this.typeCounts;}
 
+    /**
+     * getter for typeRevenues
+     * 
+     * @return typeRevenues that tells how much money the user has spent on each card type in account lifetime
+     */
     public HashMap<Type,Float> getTypeRevenues(){return this.typeRevenues;}
 
+    /**
+     * getter for averageSessionTime
+     * 
+     * @return averageSessionTime that tells how much time the user spends on average when visiting the e-store
+     */
     public Float getAverageSessionTime(){return this.averageSessionTime;}
 
+    /**
+     * getter for mostExpensiveOrder
+     * 
+     * @return mostExpensiveOrder that tells the most expensive order that the user has purchased in account lifetime
+     */
     public ShoppingCart getMostExpensiveOrder(){return this.mostExpensiveOrder;}
 
-    public Product getMostPurchased(){return this.mostPurchased;}
+    /**
+     * getter for mostPurchased
+     * 
+     * @return mostPurchased that tells which product the user has purchased the most via the product id
+     */
+    public int getMostPurchased(){return this.mostPurchased;}
 
+    /**
+     * getter for lifetimeSessionTime
+     * 
+     * @return lifetimeSessionTime that tells how much time the user has spent in the e-store in account lifetime
+     */
     public float getLifetimeSessionTime(){return this.lifetimeSessionTime;}
 
+    /**
+     * getter for mostPopularType
+     * 
+     * @return mostPopularType that tells which card type the user has purchased more of on the e-store in account lifetime
+     */
     public Type getMostPopularType(){return this.mostPopularType;}
 
+    /**
+     * setter for the id of the User statistic
+     * 
+     * @param id the id of the user who the statistics belongs
+     */
     public void setId(int id) {this.id = id;}
 
+    /**
+     * setter for the loginCounter
+     * 
+     * @param loginCounter the number of times the user has logged into the e-store
+     */
     public void setLoginCounter(int loginCounter){this.loginCounter = loginCounter;}
 
+    /**
+     * setter for purchaseCounter
+     * 
+     * @param purchaseCounter the number of times the user has purchased from the e-store
+     */
     public void setPurchaseCounter(int purchaseCounter){this.purchaseCounter = purchaseCounter;}
 
+    /**
+     * setter for lifetimeSpending
+     * 
+     * @param lifetimeSpending the lifetime amount that a user has spend on the e-store
+     */
     public void setLifetimeSpending(float lifetimeSpending){this.lifetimeSpending = lifetimeSpending;}
 
+    /**
+     * setter for averagePurchase
+     * 
+     * @param averagePurchaseAmt the average amount that the user purchases on the e-store
+     */
     public void setAveragePurchase(float averagePurchaseAmt){this.averagePurchaseAmt = averagePurchaseAmt;}
 
-    public void setPurchasedCounts(HashMap<Product,Integer> purchasedCounts){this.purchasedCounts = purchasedCounts;}
+    /**
+     * setter for purchasedCounts
+     * 
+     * @param purchasedCounts the dictionary for how many times the user has purchased each product in the e-store
+     */
+    public void setPurchasedCounts(HashMap<Integer,Integer> purchasedCounts){this.purchasedCounts = purchasedCounts;}
 
+    /**
+     * setter for typeCounts
+     * 
+     * @param typeCounts the dictionary for how many times the user has purchased cards of each type in the e-store
+     */
     public void setTypeCounts(HashMap<Type,Integer> typeCounts){this.typeCounts = typeCounts;}
 
+    /**
+     * setter for typeRevenues
+     * 
+     * @param typeRevenues the dictionary for the total amount of money spent by the user of each card type in the e-store
+     */
     public void setTypeRevenues(HashMap<Type,Float> typeRevenues){this.typeRevenues = typeRevenues;}
 
+    /**
+     * setter for averageSessionTime
+     * 
+     * @param averageSessionTime the average amount of time the user spends while on the e-store
+     */
     public void setAverageSessionTime(float averageSessionTime){this.averageSessionTime = averageSessionTime;}
 
+    /**
+     * setter for mostExpensiveOrder
+     * 
+     * @param mostExpensiveOrder the most expensive order that the user has purchased, in the form of a shopping cart
+     */
     public void setMostExpensiveOrder(ShoppingCart mostExpensiveOrder){this.mostExpensiveOrder = mostExpensiveOrder;}
 
-    public void setMostPurchased(Product mostPurchased){this.mostPurchased = mostPurchased;}
+    /**
+     * setter for mostPurchased
+     * 
+     * @param productId the product Id of the card the user has purchased the most of
+     */
+    public void setMostPurchased(int productId){this.mostPurchased = productId;}
 
+    /**
+     * setter for lifetimeSessionTime
+     * 
+     * @param lifetimeSessionTime the total time the user has spent on the e-store
+     */
     public void setLifetimeSessionTime(float lifetimeSessionTime){this.lifetimeSessionTime = lifetimeSessionTime;}
 
+    /**
+     * setter for mostPopularType
+     * 
+     * @param mostPopularType the type the user has purchased the most of
+     */
     public void setMostPopularType(Type mostPopularType){this.mostPopularType = mostPopularType;}
 
+    /**
+     * the method increments the login counter for the user
+     */
     public void incrementLoginCounter(){
-        // TODO this
+        this.loginCounter++;
     }
 
+    /**
+     * the method increments the purchase counter for the user
+     */
     public void incrementPurchaseCounter(){
-        //TODO this
+        this.purchaseCounter++;
     }
 
+    /**
+     * the method adds to the total amount of money spent by the user
+     * 
+     * @param lifetimeIncrease the new money spent by the user
+     */
     public void incrementLifetimeAmount(float lifetimeIncrease){
-        //TODO this
+        this.lifetimeSpending += lifetimeIncrease;
     }
 
+    /**
+     * 
+     * @param type
+     * @param amount
+     */
     public void increaseTypeTally(Type type, int amount){
         //TODO make this
     }
 
+    /**
+     * 
+     * @param type
+     * @param amount
+     */
     public void increaseTypeRevenue(Type type, float amount){
         //TODO Make this
     }
 
+    /**
+     * this method increments the counts of the products the user has purchased in their account lifetime
+     * 
+     * @param products the products that the user has purchased in an array of products
+     */
     public void increaseProductTally(Product[] products){
-        //TODO make this
+        for (Product product : products) {
+            if (this.purchasedCounts.containsKey(product.getId())) {
+                int currentCount = this.purchasedCounts.get(product.getId());
+                currentCount += product.getQuantity();
+                this.purchasedCounts.put(product.getId(), currentCount);
+            } else {
+                this.purchasedCounts.put(product.getId(), product.getQuantity());
+            }
+        }
     }
 
+    /**
+     * this method calculates the average purchase amount for the user by taking the lifetimeSpending divided by the number of lifetime purchases
+     */
     public void calculateAveragePurchaseAmount(){
-        //TODO make this
+        this.averagePurchaseAmt = (float) this.lifetimeSpending / this.purchaseCounter;
     }
 
+    /**
+     * this method determines the most purchased product by going through the dictionary of purchasedCounts
+     */
     public void determineMostPurchasedProduct(){
-        //TODO make this
+        int mostPurchasedIndex = -1;
+        Integer[] keys = (Integer[]) this.purchasedCounts.keySet().toArray();
+        Integer[] values = (Integer[]) this.purchasedCounts.values().toArray();
+        for (int i = 0; i < values.length; i++) {
+            if (mostPurchasedIndex < 0) {
+                mostPurchasedIndex = i;
+            } else if(values[i] > values[i - 1]){
+                mostPurchasedIndex = i;
+            }
+        }
+        this.mostPurchased = keys[mostPurchasedIndex];
     }
 
-    public void determineMostExpensiveOrder(){
-        //TODO make this
+    /**
+     * this method compares the new order to the current most expensive order and replaces it if the new order cost more
+     * 
+     * @param cart the new order the user has made
+     */
+    public void determineMostExpensiveOrder(ShoppingCart cart){
+        if (this.mostExpensiveOrder.GetTotalPrice() < cart.GetTotalPrice()) {
+            this.mostExpensiveOrder = cart;
+        }
     }
 
+    /**
+     * this method calculates the average session time by taking the total time the user has spent on the e-store divided by the number of times they logged in
+     */
     public void calculateAverageSessionTime(){
-        //TODO make this
+        this.averageSessionTime = (float) this.lifetimeSessionTime / this.loginCounter;
     }
 
+    /**
+     * this method determines the most popular card type for this user by going through the dictionary typeCounts
+     */
     public void determineMostPopularType(){
         //TODO make this
     }
 
+    /**
+     * this method creates a string representation of a userStatistic object
+     */
     @Override
     public String toString(){
-        return ""; //TODO make a toString
+        return String.format(STRING_FORMAT,id,loginCounter,purchaseCounter,lifetimeSpending,lifetimeSessionTime,
+                             averagePurchaseAmt,purchasedCounts,mostPurchased,mostExpensiveOrder,typeCounts,
+                             typeRevenues,mostPopularType,averageSessionTime);
     }
 
+    /**
+     * this method determines if two userStatistics are equal by comparing hashcodes
+     */
     @Override
     public boolean equals(Object other){
-        return true; //TODO make an equals method
+        if (!(other instanceof UserStatistic)) {
+            return false;
+        }
+        UserStatistic otherStatistic = (UserStatistic) other;
+        return (this.hashCode() == otherStatistic.hashCode());
     }
 
+    /**
+     * this method uses id for the hashcode
+     */
     @Override
     public int hashCode(){
-        return 0; //TODO make a hashcode method
+        return this.id; 
     }
 }
