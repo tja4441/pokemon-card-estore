@@ -35,6 +35,9 @@ export class AddProductsComponent implements OnInit {
     if((this.typeListAdd.length < 2) || this.typeDictAdd[type]) {
         this.flipBool(CardType[type])
     }
+    else{
+      alert("You can Only Select 2 Types")
+    }
     let checkBox = document.getElementById(type) as HTMLInputElement
     if(checkBox) checkBox.checked = this.typeDictAdd[type]
   }

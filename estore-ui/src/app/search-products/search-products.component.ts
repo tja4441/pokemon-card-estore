@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, Subject, switchMap } from 'rxjs';
 import { CardType, Product } from '../product';
 import { ProductService } from '../product.service';
 
@@ -10,7 +10,7 @@ import { ProductService } from '../product.service';
 })
 export class SearchProductsComponent implements OnInit {
   public products: Product[] = []
-  private searchTerms = new Subject<string>();
+  private searchTerms = new Subject<string>()
   public typeDictSearch: any = {"DARK" : false,
                           "DRAGON" : false,
                           "ELECTRIC" : false,
@@ -28,12 +28,8 @@ export class SearchProductsComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   handleClick(type: keyof typeof CardType, term: string) {
-    if((this.typeListSearch.length < 2) || this.typeDictSearch[type]) {
-        this.flipBool(CardType[type])
-        this.search(term)
-    }
-    let checkBox = document.getElementById(type) as HTMLInputElement
-    if(checkBox) checkBox.checked = this.typeDictSearch[type]
+    this.flipBool(CardType[type])
+    this.search(term)
   }
 
   flipBool(typeString: keyof typeof CardType) {
@@ -47,14 +43,20 @@ export class SearchProductsComponent implements OnInit {
     term = term.trim()
     if (!term && this.typeListSearch.length == 0) this.empty = true
     else this.empty = false
-    this.searchTerms.next(term)
+    let typeProducts: Product[] = this.searchByTypes()
+    this.productService.getProductsByString(term).subscribe(p => this.products = p.filter(val => typeProducts.includes(val)))
   }
 
-  filterByTypes(filteredProducts: Product[]): Product[] {
-    for(let type in this.typeListSearch) {
-      let productsOfType: Product[]
-      this.productService.getProductsByType(type).subscribe(p => productsOfType = p)
-      filteredProducts = filteredProducts.filter(val => productsOfType.includes(val))
+  searchByTypes(): Product[] {
+    let filteredProducts: Product[] = []
+    if(this.typeListSearch.length == 0) {
+      this.productService.getProducts().subscribe(p => filteredProducts = p)
+    }
+    else {
+      for(let type in this.typeListSearch) {
+        this.productService.getProductsByType(type).subscribe(p => filteredProducts = filteredProducts.concat(p))
+      }
+      filteredProducts = [...new Set(filteredProducts)]
     }
     return filteredProducts
   }
@@ -67,6 +69,6 @@ export class SearchProductsComponent implements OnInit {
       distinctUntilChanged(),
 
       switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p) => this.products = this.products.filter(val => this.filterByTypes(p).includes(val)))
+    ).subscribe((p) => this.products = this.products.filter(val => this.searchByTypes().includes(val)))
   }
 }
