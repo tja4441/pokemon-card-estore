@@ -82,4 +82,10 @@
   "types" : [ "ELECTRIC", "FIGHTING" ],
   "quantity" : 200,
   "price" : 1.0
+}, {
+  "id" : 15,
+  "name" : "Hydreigon",
+  "types" : [ "DARK", "DRAGON" ],
+  "quantity" : 200,
+  "price" : 10.0
 } ]

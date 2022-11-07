@@ -35,6 +35,8 @@ export class AddProductsComponent implements OnInit {
     if((this.typeList.length < 2) || this.typeDict[type]) {
         this.flipBool(CardType[type])
     }
+    let checkBox = document.getElementById(type) as HTMLInputElement
+    if(checkBox) checkBox.checked = this.typeDict[type]
 }
 
   flipBool(typeString: keyof typeof CardType) {
