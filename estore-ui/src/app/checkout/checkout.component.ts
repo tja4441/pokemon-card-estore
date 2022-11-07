@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { render } from 'creditcardpayments/creditCardPayments';
+import { ShoppingCartService } from '../shopping-cart.service';
+import { ShoppingCart } from '../ShoppingCart';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-checkout',
@@ -7,21 +9,21 @@ import { render } from 'creditcardpayments/creditCardPayments';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+  
+  public shoppingCart!: ShoppingCart 
 
-  constructor() { 
-    render(
-      {
-        id: "#myPayPalButtons",
-        currency: "USD",
-        value: "100.00",
-        onApprove: (details) => {
-          alert("Hello!");
-        }
-      }
-    );
+  constructor(private cartService: ShoppingCartService,
+              private userService: UserService) { 
+   
   }
 
   ngOnInit(): void {
-    
+    this.getCart();
   }
+
+  getCart(){
+    this.cartService.getCart(this.userService.getUser().id)
+    .subscribe(shoppingCart => this.shoppingCart = shoppingCart)
+  }
+
 }
