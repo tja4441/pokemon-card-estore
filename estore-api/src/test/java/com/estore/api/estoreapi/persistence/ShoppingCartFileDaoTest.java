@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +23,7 @@ import com.estore.api.estoreapi.controller.InventoryController;
 import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
+import com.estore.api.estoreapi.model.CardType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -63,13 +66,23 @@ public class ShoppingCartFileDaoTest {
         testOrderHistories[1] = new OrderHistory(3, testShoppingCarts[2], 2, "10/31/2022 09:42:00");
         testOrderHistories[2] = new OrderHistory(3, testShoppingCarts[2], 3, "10/31/2022 09:43:00");
         
+        CardType[] eTypeArray = new CardType[1];
+        eTypeArray[0] = CardType.ELECTRIC;
+        CardType[] gTypeArray = new CardType[1];
+        gTypeArray[0] = CardType.GRASS;
+        CardType[] wTypeArray = new CardType[1];
+        wTypeArray[0] = CardType.WATER;
+        CardType[] fTypeArray = new CardType[1];
+        fTypeArray[0] = CardType.FIRE;
+        CardType[] faTypeArray = new CardType[1];
+        faTypeArray[0] = CardType.FAIRY;
 
         testProducts = new Product[5];
-        testProducts[0] = new Product(2,"Pikachu",4,100.00f);
-        testProducts[1] = new Product(3, "Bulbasaur",5,2.50f);
-        testProducts[2] = new Product(4,"Squirtle",4,1.00f);
-        testProducts[3] = new Product(5, "Charmander",3,50.05f);
-        testProducts[4] = new Product(7, "Clefairy", 10, 2.00f);
+        testProducts[0] = new Product(2,"Pikachu",eTypeArray,4,100.00f);
+        testProducts[1] = new Product(3,"Bulbasaur",gTypeArray,5,2.50f);
+        testProducts[2] = new Product(4,"Squirtle",wTypeArray,4,1.00f);
+        testProducts[3] = new Product(5, "Charmander",fTypeArray,3,50.05f);
+        testProducts[4] = new Product(7,"Clefairy",faTypeArray,10,2.00f);
 
         dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
 
@@ -197,10 +210,12 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testAddToCartIncrement() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
-        testShoppingCarts[0].getContents().add(new Product(7, "Clefairy", 1, 2.00f));
+        testShoppingCarts[0].getContents().add(new Product(7,"Clefairy",typeArray,1,2.00f));
         ShoppingCart expectedCart = testShoppingCarts[0];
-        expectedCart.getContents().add(new Product(7, "Clefairy", 2, 2.00f));
+        expectedCart.getContents().add(new Product(7, "Clefairy", typeArray, 2, 2.00f));
 
         ShoppingCart cart = shoppingCartFileDao.addToCart(1, testProducts[4]);
         ShoppingCart nullResult = shoppingCartFileDao.addToCart(4, testProducts[1]);
@@ -212,12 +227,14 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testDeleteFromCartMultiple() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.ELECTRIC;
         // Invoke
         testShoppingCarts[1].getContents().add(testProducts[0]);
         testShoppingCarts[1].calculateTotalPrice();
 
         ShoppingCart expectedCart = new ShoppingCart(2);
-        expectedCart.getContents().add(new Product(2,"Pikachu",3,100.00f));
+        expectedCart.getContents().add(new Product(2,"Pikachu",typeArray,3,100.00f));
         expectedCart.calculateTotalPrice();
 
         ShoppingCart cart = shoppingCartFileDao.deleteFromCart(2, testProducts[0]);
@@ -230,8 +247,10 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testDeleteFromCartSingle() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.ELECTRIC;
         // Invoke
-        testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",1,100.00f));
+        testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",typeArray,1,100.00f));
         testShoppingCarts[1].calculateTotalPrice();
 
         ShoppingCart expectedCart = new ShoppingCart(2);
@@ -246,13 +265,15 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testDeleteFromCartProductNotFound() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.ELECTRIC;
         // Invoke
-        testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",1,100.00f));
+        testShoppingCarts[1].getContents().add(new Product(2,"Pikachu",typeArray,1,100.00f));
         testShoppingCarts[1].calculateTotalPrice();
 
         ShoppingCart expectedCart = null;
 
-        ShoppingCart nullCart = shoppingCartFileDao.deleteFromCart(2, new Product(10,"Pichu",10,100.00f));
+        ShoppingCart nullCart = shoppingCartFileDao.deleteFromCart(2, new Product(10,"Pichu",typeArray,10,100.00f));
 
         // Analyze
         assertEquals(expectedCart, nullCart);
@@ -260,6 +281,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testRefreshCart() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.DARK;
         // Invoke
         when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
         when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
@@ -272,7 +295,7 @@ public class ShoppingCartFileDaoTest {
 
         ShoppingCart cart = testShoppingCarts[2];
         shoppingCartFileDao.addToCart(3, testProducts[0]);
-        shoppingCartFileDao.addToCart(3, new Product(6, "Greninja", 25, 149.99f));
+        shoppingCartFileDao.addToCart(3, new Product(6,"Greninja",typeArray,25,149.99f));
         shoppingCartFileDao.refreshCart(3, inventoryController);
 
         // Analyze
@@ -281,6 +304,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testRefreshCartInventoryLess() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
         when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
         when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
@@ -293,7 +318,7 @@ public class ShoppingCartFileDaoTest {
         expectedCart.getContents().add(testProducts[4]);
 
         ShoppingCart cart = testShoppingCarts[2];
-        cart.getContents().add(new Product(7, "Clefairy", 20, 2.00f));
+        cart.getContents().add(new Product(7,"Clefairy",typeArray,20,2.00f));
         cart.calculateTotalPrice();
         shoppingCartFileDao.refreshCart(3, inventoryController);
 
@@ -303,6 +328,8 @@ public class ShoppingCartFileDaoTest {
 
     @Test
     public void testRefreshCartPriceDif() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
         when(mockInventoryFileDao.getProduct(2)).thenReturn(testProducts[0]);
         when(mockInventoryFileDao.getProduct(3)).thenReturn(testProducts[1]);
@@ -315,16 +342,18 @@ public class ShoppingCartFileDaoTest {
         expectedCart.getContents().add(testProducts[4]);
 
         ShoppingCart cart = testShoppingCarts[2];
-        cart.getContents().add(new Product(7, "Clefairy", 10, 4.00f));
+        cart.getContents().add(new Product(7,"Clefairy",typeArray,10,4.00f));
         cart.calculateTotalPrice();
         shoppingCartFileDao.refreshCart(3, inventoryController);
 
         // Analyze
-        assertEquals(expectedCart.getContents(), cart.getContents());
+        assertTrue(Arrays.equals(cart.getContents().toArray(), expectedCart.getContents().toArray()));
     }
 
     @Test
     public void testCheckout() throws IOException{
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
         HashSet<Product> emptyContents = new HashSet<Product>();
 
@@ -336,7 +365,7 @@ public class ShoppingCartFileDaoTest {
 
         testShoppingCarts[1].addToCart(testProducts[1]);
         testShoppingCarts[1].addToCart(testProducts[2]);
-        testShoppingCarts[2].addToCart(new Product(6,"Clefairy", 3,1.00f));
+        testShoppingCarts[2].addToCart(new Product(6,"Clefairy",typeArray,3,1.00f));
 
         ShoppingCart cart = shoppingCartFileDao.checkout(2, inventoryController);
         ShoppingCart nullCart = shoppingCartFileDao.checkout(3, inventoryController);

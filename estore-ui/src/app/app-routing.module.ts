@@ -19,8 +19,9 @@ const routes: Routes = [
   canActivate: [UserGuard]},
   { path: 'products', component: AddProductsComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'search/:name:types', component: SearchProductsComponent },
+  { path: 'product/:id', component: ProductComponent}
   { path: 'search/:name', component: SearchProductsComponent },
-  { path: 'product/:id', component: ProductComponent},
   { path: 'checkout', component: CheckoutComponent}
 ];
 

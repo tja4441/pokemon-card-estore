@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from 'rxjs';
-import { Product } from '../product';
+import { ResourceLoader } from '@angular/compiler';
+import { Component, Input, OnInit } from '@angular/core';
+import { CardType, Product } from '../product';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -10,25 +10,65 @@ import { ProductService } from '../product.service';
 })
 export class SearchProductsComponent implements OnInit {
   public products: Product[] = []
-  private searchTerms = new Subject<string>();
-  public empty = false
+  @Input() searchTerm?: string = "";
+  public typeDictSearch: any = {"DARK" : false,
+                          "DRAGON" : false,
+                          "ELECTRIC" : false,
+                          "FAIRY" : false,
+                          "FIGHTING" : false,
+                          "FIRE" : false,
+                          "GRASS" : false,
+                          "NORMAL" : false,
+                          "PSYCHIC" : false,
+                          "STEEL" : false,
+                          "WATER" : false,
+                          "TRAINER" : false}
+  public typeListSearch: CardType[] = []
   constructor(private productService: ProductService) {}
 
+  handleClick(type: keyof typeof CardType, term: string) {
+    this.flipBool(CardType[type]);
+    this.search(term);
+  }
+
+  flipBool(typeString: keyof typeof CardType) {
+    let type: CardType = CardType[typeString]
+    this.typeDictSearch[typeString] = !this.typeDictSearch[typeString]
+    if(this.typeDictSearch[typeString]) this.typeListSearch.push(type)
+    else this.typeListSearch.splice(this.typeListSearch.indexOf(type))
+  }
+
   search(term: string): void {
-    term = term.trim()
-    if(!term) this.empty = true
-    else this.empty = false
-    this.searchTerms.next(term);
+    if (term == "") {
+      this.productService.getProducts().subscribe(p => {
+        this.products = p;
+      })
+    } else {
+      this.productService.getProductsByString(term).subscribe(p => {
+        this.products = p;
+      });
+    }
+    this.products = this.filterByTypes(this.products);
+  }
+
+  filterByTypes(products: Product[]): Product[] {
+    let typeProducts: Product[] = [];
+    for(let key in this.typeDictSearch) {
+      if(this.typeDictSearch[key]) {
+        typeProducts = typeProducts.concat((products.filter(val => val.types.includes(key))), typeProducts);
+      }
+    }
+    const filteredProducts = typeProducts.filter((value, index) => typeProducts.indexOf(value) === index);
+    return filteredProducts;
   }
 
   ngOnInit(): void {
-    this.searchTerms.pipe(
-      //time to wait for another input before actually triggering
-      debounceTime(300),
-
-      distinctUntilChanged(),
-
-      switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p)=>this.products = p)
+    if ( this.searchTerm == "" ) {
+      this.search(this.searchTerm);
+    } else {
+      this.productService.getProducts().subscribe(p => {
+        this.products = p;
+      })
+    }
   }
 }

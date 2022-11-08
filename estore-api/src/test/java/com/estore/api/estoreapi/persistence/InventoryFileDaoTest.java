@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.estore.api.estoreapi.model.Product;
+import com.estore.api.estoreapi.model.CardType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -39,12 +40,20 @@ public class InventoryFileDaoTest {
      */
     @BeforeEach
     public void setupInventoryFileDao() throws IOException {
+        CardType[] eTypeArray = new CardType[1];
+        eTypeArray[0] = CardType.ELECTRIC;
+        CardType[] gTypeArray = new CardType[1];
+        gTypeArray[0] = CardType.GRASS;
+        CardType[] wTypeArray = new CardType[1];
+        wTypeArray[0] = CardType.WATER;
+        CardType[] fTypeArray = new CardType[1];
+        fTypeArray[0] = CardType.FIRE;
         mockObjectMapper = mock(ObjectMapper.class);
         testProducts = new Product[4];
-        testProducts[0] = new Product(2,"Pikachu",1,100.00f);
-        testProducts[1] = new Product(3, "Bulbasaur",2,2.50f);
-        testProducts[2] = new Product(4,"Squirtle",1,1.00f);
-        testProducts[3] = new Product(5, "Charmander",1,50.05f);
+        testProducts[0] = new Product(2,"Pikachu",eTypeArray, 1,100.00f);
+        testProducts[1] = new Product(3, "Bulbasaur",gTypeArray,2,2.50f);
+        testProducts[2] = new Product(4,"Squirtle",wTypeArray,1,1.00f);
+        testProducts[3] = new Product(5, "Charmander",fTypeArray,1,50.05f);
 
         // When the object mapper is supposed to read from the file
         // the mock object mapper will return the Product array above
@@ -99,8 +108,10 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProduct() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.PSYCHIC;
         // Setup
-        Product product = new Product(1,"Mew",1,0.50f);
+        Product product = new Product(1,"Mew",typeArray,1,0.50f);
 
         // Invoke
         Product result = assertDoesNotThrow(() -> inventoryFileDao.createProduct(product),
@@ -111,14 +122,17 @@ public class InventoryFileDaoTest {
         Product actual = inventoryFileDao.getProduct(product.getId());
         assertEquals(actual.getId(),product.getId());
         assertEquals(actual.getName(),product.getName());
+        assertEquals(actual.getTypes(),product.getTypes());
         assertEquals(actual.getQuantity(),product.getQuantity());
         assertEquals(actual.getPrice(),product.getPrice());
     }
 
     @Test
     public void testUpdateProduct() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.WATER;
         // Setup
-        Product product = inventoryFileDao.createProduct(new Product(4,"Wartortle",1,10.00f));
+        Product product = inventoryFileDao.createProduct(new Product(4,"Wartortle",typeArray,1,10.00f));
 
         // Invoke
         Product result = assertDoesNotThrow(() -> inventoryFileDao.updateProduct(product),
@@ -132,10 +146,12 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testSaveException() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.ELECTRIC;
         doThrow(new IOException()).when(mockObjectMapper)
             .writeValue(any(File.class),any(Product[].class));
         
-        Product product = new Product(6, "Raichu",1,20.00f);
+        Product product = new Product(6, "Raichu",typeArray,1,20.00f);
 
         assertThrows(IOException.class,
                         () -> inventoryFileDao.createProduct(product),
@@ -164,8 +180,10 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testUpdateProductNotFound() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIGHTING;
         // Setup
-        Product product = new Product(10, "Lucario",1,20.00f);
+        Product product = new Product(10, "Lucario",typeArray,1,20.00f);
 
         // Invoke
         Product result = assertDoesNotThrow(() -> inventoryFileDao.updateProduct(product),
@@ -177,8 +195,10 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProductSameName() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         // Invoke
-        Product product = inventoryFileDao.createProduct(new Product(11, "Charmander",1,50.05f));
+        Product product = inventoryFileDao.createProduct(new Product(11,"Charmander",typeArray,1,50.05f));
 
         // Analyze
         assertNull(product);
@@ -186,8 +206,10 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProductSpaceAsName() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.NORMAL;
         // Invoke
-        Product product = inventoryFileDao.createProduct(new Product(8, " ",1,50.05f));
+        Product product = inventoryFileDao.createProduct(new Product(8," ",typeArray,1,50.05f));
 
         // Analyze
         assertNull(product);
@@ -195,8 +217,10 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProductNegativePrice() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
-        Product product = inventoryFileDao.createProduct(new Product(8, "Clefairy",1,-50.05f));
+        Product product = inventoryFileDao.createProduct(new Product(8,"Clefairy",typeArray,1,-50.05f));
 
         // Analyze
         assertNull(product);
@@ -204,8 +228,10 @@ public class InventoryFileDaoTest {
 
     @Test
     public void testCreateProductNegativeQuantity() throws IOException {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FAIRY;
         // Invoke
-        Product product = inventoryFileDao.createProduct(new Product(8, "Clefairy",-2,50.05f));
+        Product product = inventoryFileDao.createProduct(new Product(8,"Clefairy",typeArray,-2,50.05f));
 
         // Analyze
         assertNull(product);
@@ -225,5 +251,15 @@ public class InventoryFileDaoTest {
         assertThrows(IOException.class,
                         () -> new InventoryFileDao("Ash_Ketchum.txt",mockObjectMapper),
                         "IOException not thrown");
+    }
+
+    @Test
+    public void testGetProductsByType() throws IOException {
+        // Invoke
+        Product[] products = inventoryFileDao.getProductsType(CardType.valueOf("FIRE"));
+
+        // Analyze
+        assertEquals(products.length, 1);
+        assertEquals(products[0], testProducts[3]);
     }
 }

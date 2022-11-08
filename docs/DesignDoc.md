@@ -165,7 +165,7 @@ The three controllers are connected as follows: The UserController can see and u
 The model tier is the 'heart and soul' of the program. We have four different models that our program is keeping track of. 
 </p>
 <p style='text-align: justify;'>
-The most important is the Product. The product is a template for the cards we are selling. Each card has a number of attributes, including a name, an id that increases sequentially with every product added, and quantity in inventory. The ids do back fill, if ID 1 is deleted then the next product added takes it's id.
+The most important is the Product. The product is a template for the cards we are selling. Each card has a number of attributes, including a name, an id that increases sequentially with every product added, the quantity in inventory, the type of the pokemon, and the price of the card. The ids do back fill, if ID 1 is deleted then the next product added takes it's id.
 </p>
 <p style='text-align: justify;'>
 Next, we have a model representing a user. The user has an id that also increasess sequentially, a username which is provided by on creation, and a hashcode for their password, also provided on creation. 

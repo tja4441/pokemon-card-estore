@@ -17,15 +17,18 @@ public class ProductTest {
         // Setup
         int expected_id = 1;
         String expected_name = "Charmander";
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         int expected_quantity = 2;
         float expected_price = 100.00f;
 
         // Invoke
-        Product product = new Product(expected_id,expected_name,expected_quantity,expected_price);
+        Product product = new Product(expected_id,expected_name,typeArray,expected_quantity,expected_price);
 
         // Analyze
         assertEquals(expected_id,product.getId());
         assertEquals(expected_name,product.getName());
+        assertEquals(typeArray, product.getTypes());
         assertEquals(expected_quantity, product.getQuantity());
         assertEquals(expected_price, product.getPrice());
     }
@@ -35,9 +38,11 @@ public class ProductTest {
         // Setup
         int id = 1;
         String name = "Charmander";
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         int quantity = 2;
         float price = 100.00f;
-        Product product = new Product(id,name,quantity,price);
+        Product product = new Product(id,name,typeArray,quantity,price);
 
         String expected_name = "Charmander";
 
@@ -53,9 +58,11 @@ public class ProductTest {
         // Setup
         int id = 1;
         String name = "Charmander";
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         int quantity = 2;
         float price = 100.00f;
-        Product product = new Product(id,name,quantity,price);
+        Product product = new Product(id,name,typeArray,quantity,price);
 
         int expected_quantity = 2;
 
@@ -71,9 +78,11 @@ public class ProductTest {
         // Setup
         int id = 1;
         String name = "Charmander";
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         int quantity = 2;
         float price = 100.00f;
-        Product product = new Product(id,name,quantity,price);
+        Product product = new Product(id,name,typeArray,quantity,price);
 
         float expected_price = 100.00f;
 
@@ -89,16 +98,34 @@ public class ProductTest {
         // Setup
         int id = 1;
         String name = "Charmander";
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.FIRE;
         int quantity = 2;
         float price = 100.00f;
-        String expected_string = String.format(Product.STRING_FORMAT,id,name,quantity,price);
-        Product product = new Product(id,name,quantity,price);
+        String expected_string = String.format(Product.STRING_FORMAT,id,name,typeArray,quantity,price);
+        Product product = new Product(id,name,typeArray,quantity,price);
 
         // Invoke
         String actual_string = product.toString();
 
         // Analyze
         assertEquals(expected_string,actual_string);
+    }
+
+    @Test
+    public void testEqualsNotProduct() {
+        // Setup
+        int id = 1;
+        String name = "Charmander";
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
+        int quantity = 2;
+        float price = 100.00f;
+        Product product = new Product(id,name,typeArray,quantity,price);
+
+        String object = "not a product";
+        Boolean result = product.equals(object);
+        assertEquals(false, result);
     }
     
 }

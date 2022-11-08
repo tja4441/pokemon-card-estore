@@ -2,13 +2,13 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -24,12 +24,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class ShoppingCartFileDao implements ShoppingCartDao {
 
     Map<Integer,ShoppingCart> carts;            // provides a local cache of the carts
-    Map<Integer,OrderHistory> orders;           // provides a local cache of all orders
-    private ObjectMapper objectMapper;          // converts ShoppingCart or OrderHistory objects to/from JSON text file formats
+    Map<Integer,OrderHistory> orders;
+    private ObjectMapper objectMapper;          // converts between ShoppingCart objects and JSON text file formats
     private ObjectMapper orderMapper;
-    private String cartFilename;                // Filename to read/write carts
-    private String orderFilename;               // Filename to read/write orders
-    private static final Logger LOG = Logger.getLogger(ShoppingCartFileDao.class.getName());
+    private String cartFilename;                    // Filename to read/write
+    private String orderFilename;
 
     /**
      * Creates a {@linkplain ShoppingCart cart} File Data Access Object
@@ -163,7 +162,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
                     if (product.getQuantity() < 1) {
                         return cart;
                     } else{
-                        cart.addToCart(new Product(product.getId(), product.getName(), 1, product.getPrice()));
+                        cart.addToCart(new Product(product.getId(), product.getName(), product.getTypes(), 1, product.getPrice()));
                     }
                 }
                 updateCart(cart);
@@ -219,13 +218,13 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
 
             for (Product product : products) {
                 Product invProduct = inventoryController.getProduct(product.getId()).getBody();
-                if (invProduct != null && invProduct.getName().equals(product.getName()) && invProduct.getQuantity() > 0) {
+                if (invProduct != null && invProduct.getName().equals(product.getName()) && invProduct.getQuantity() > 0 && Arrays.equals(product.getTypes(), invProduct.getTypes())) {
                     if (invProduct.getQuantity() < product.getQuantity()) {
                         cart.updateProductInCart(product, invProduct);
                         nothingChanged = false;
                     }
                     else if (invProduct.getPrice() != product.getPrice()){
-                        Product newProduct = new Product(product.getId(), product.getName(), product.getQuantity(), invProduct.getPrice());
+                        Product newProduct = new Product(product.getId(), product.getName(), product.getTypes(), product.getQuantity(), invProduct.getPrice());
                         cart.updateProductInCart(product, newProduct);
                         nothingChanged = false;
                     }
@@ -421,7 +420,7 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
             HashSet<Product> newContents = new HashSet<>();
 
             for (Product product : cart.getContents()) {
-                Product newProduct = new Product(product.getId(), product.getName(), product.getQuantity(), product.getPrice());
+                Product newProduct = new Product(product.getId(), product.getName(), product.getTypes(), product.getQuantity(), product.getPrice());
                 newContents.add(newProduct);
             }
             orderCart.setContents(newContents);

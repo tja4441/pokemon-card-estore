@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -20,7 +19,6 @@ public class UserFileDao implements UserDao {
     private Map<Integer,User> users;            // provides a local cache of the User objects
     private ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
     private String filename;                    //Filename to read/write
-    private static final Logger LOG = Logger.getLogger(UserFileDao.class.getName());
     
     /**
      * Creates a User File Data Access Object
