@@ -15,25 +15,15 @@ export class PaypalButtonComponent implements OnInit {
 
   @Input() order!: ShoppingCart
 
-  canCheckOut = true;
-
   @ViewChild('paypal', {static: true}) paypalElement!: ElementRef
 
   constructor(private cartService: ShoppingCartService,
-              private userService: UserService,
               private route: Router) { }
   
   ngOnInit(): void {
     const self = this;
     paypal
     .Buttons({
-      onClick: () => {
-        self.cartService.refreshCart(self.userService.getId())
-      .subscribe(boolean => self.canCheckOut = boolean)
-      if(!this.canCheckOut){
-        self.route.navigate([''])
-      }
-      },
       createOrder: (data: any, actions: any) => {
         return actions.order.create({
           purchase_units: [
