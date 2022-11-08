@@ -5,6 +5,8 @@ import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StoreStatistic {
+    @JsonProperty("purchaseCount") private int purchaseCount;
+    @JsonProperty("loginCount") private int loginCount;
     @JsonProperty("avgPurchaseAmt") private float averagePurchaseAmt;
     @JsonProperty("fiveMostPopular") private int[] mostPopularProducts;
     @JsonProperty("fiveMostExpensiveOrders") private ShoppingCart[] mostExpensiveCarts;
@@ -16,12 +18,30 @@ public class StoreStatistic {
      *  Store Statistics always exist
      */
     public StoreStatistic() {
+        this.purchaseCount = 0;
+        this.loginCount = 0;
         this.averagePurchaseAmt = 0;
         this.mostPopularProducts = new int[5];
         this.mostExpensiveCarts = new ShoppingCart[5];
         this.mostPopType = null;
         this.typeRevenue = new HashMap<CardType, Float>();
         this.avgSessionTime = 0;
+    }
+
+    /**gets the purchase count
+     * 
+     * @return the purchase count
+     */
+    public int getPurchaseCount() {
+        return purchaseCount;
+    }
+
+    /**gets the total logins across the store
+     * 
+     * @return the total number of logins across the store
+     */
+    public int getLoginCount() {
+        return loginCount;
     }
 
     /**Retreives the Average Purchase Amount
@@ -72,6 +92,22 @@ public class StoreStatistic {
         return avgSessionTime;
     }
 
+    /**sets the purchase count to the given value
+     * 
+     * @param purchaseCount the value to set the purchasedCount to
+     */
+    public void setPurchaseCount(int purchaseCount) {
+        this.purchaseCount = purchaseCount;
+    }
+
+    /**sets thee total login count to the given value
+     * 
+     * @param loginCount the value to set the loginCount to
+     */
+    public void setLoginCount(int loginCount) {
+        this.loginCount = loginCount;
+    }
+
     /**Sets the averagePurchaseAmt to the provided Value
      * 
      * @param averagePurchaseAmt the value to set the AvgPA
@@ -118,5 +154,28 @@ public class StoreStatistic {
      */
     public void setAvgSessionTime(float avgSessionTime) {
         this.avgSessionTime = avgSessionTime;
+    }
+
+    /**Adds the given amount to the revenue map for the given type
+     * 
+     * @param type the type to add the amount to
+     * @param amount the amount to add to the revenue
+     */
+    public void increaseTypeRevenue(CardType type, float amount) {
+        this.typeRevenue.put(type, this.typeRevenue.get(type) + amount);
+    }
+
+    /**Increments the number of Total Purchases by one
+     * 
+     */
+    public void incrementTotalPurchases() {
+        this.purchaseCount++;
+    }
+
+    /**Increments the number of Total Logins by one
+     * 
+     */
+    public void incrementLoginCounter() {
+        this.loginCount++;
     }
 }
