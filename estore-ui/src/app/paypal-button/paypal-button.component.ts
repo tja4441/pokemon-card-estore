@@ -2,7 +2,9 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ShoppingCartService } from '../shopping-cart.service';
 import { ShoppingCart } from '../ShoppingCart';
+import { User } from '../user';
 import { UserService } from '../user.service';
+import { Location } from '@angular/common';
 
 declare var paypal: any;
 
@@ -15,10 +17,16 @@ export class PaypalButtonComponent implements OnInit {
 
   @Input() order!: ShoppingCart
 
+  success = false;
+
+  public count = 0;
+
   @ViewChild('paypal', {static: true}) paypalElement!: ElementRef
 
   constructor(private cartService: ShoppingCartService,
-              private route: Router) { }
+              private route: Router,
+              private userService: UserService,
+              private location: Location) { }
   
   ngOnInit(): void {
     const self = this;
@@ -37,19 +45,34 @@ export class PaypalButtonComponent implements OnInit {
         });
       },
       onApprove: async (data: any, actions: any) => {
+
         const payment = await actions.order.capture();
+      
+        this.success = true;
+
         self.cartService.checkout(self.order.id)
           .subscribe(shoppingCart => self.order = shoppingCart)
-
         },
       
       onError: (err: any) => {
         alert('Payment Failed')
-        self.route.navigate([''])
+        this.location.back()
       },
     })
     .render(this.paypalElement.nativeElement);
     
   }
+
+  getCount(): Boolean{
+    return this.count < 1
+  }
+
+  redirect(){
+    this.count +=1
+    alert('Payment Success')
+    this.route.navigate([''])
+  }
+
+  
 
 }
