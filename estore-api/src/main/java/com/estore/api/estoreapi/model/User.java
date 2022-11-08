@@ -50,7 +50,7 @@ public class User {
      *         False if the user is not an admin
      */
     @JsonIgnore
-    public Boolean isAdmin(){return this.id == 0 && this.userName == "admin";}
+    public Boolean isAdmin(){return this.id == 0 && this.userName.equals("admin");}
     
     /**
      * {@inheritDoc}

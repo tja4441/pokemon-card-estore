@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+
+import { AdminGuard } from './AdminGuard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddProductsComponent } from './add-products/add-products.component'
@@ -18,6 +20,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserGuard } from 'src/UserGuard';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './cart-product/cart-product.component';
 import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
@@ -50,9 +53,9 @@ import { PaypalButtonComponent } from './paypal-button/paypal-button.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [],
+  providers: [AdminGuard, UserGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
