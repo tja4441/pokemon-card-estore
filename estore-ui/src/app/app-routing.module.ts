@@ -7,15 +7,22 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 import { ProductComponent } from './product/product.component';
+import { AdminGuard } from './AdminGuard';
+import { UserGuard } from 'src/UserGuard';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'admin', component: AdminComponent},
-  { path: 'user', component: UserComponent},
+  { path: 'admin', component: AdminComponent,
+  canActivate: [AdminGuard]},
+  { path: 'user', component: UserComponent,
+  canActivate: [UserGuard]},
   { path: 'products', component: AddProductsComponent},
   { path: 'login', component: LoginComponent},
   { path: 'search/:name:types', component: SearchProductsComponent },
   { path: 'product/:id', component: ProductComponent}
+  { path: 'search/:name', component: SearchProductsComponent },
+  { path: 'checkout', component: CheckoutComponent}
 ];
 
 @NgModule({

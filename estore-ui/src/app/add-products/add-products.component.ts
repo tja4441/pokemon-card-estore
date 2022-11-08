@@ -67,5 +67,7 @@ export class AddProductsComponent implements OnInit {
     this.productService.addProduct(product)
     //productService returns product on success which is added to UI/this.products
     .subscribe(product => this.products.push(product))
+    window.location.reload()
   }
+
 }

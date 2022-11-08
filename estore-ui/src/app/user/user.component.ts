@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user',
@@ -9,10 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserComponent implements OnInit {
   public username: string = ""
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    const username = this.route.snapshot.paramMap.get('username')
+    const username = this.userService.getUser().UserName
     this.username = username ? username: ""
   }
 }
