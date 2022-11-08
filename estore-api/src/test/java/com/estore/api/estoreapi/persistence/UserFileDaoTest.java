@@ -53,7 +53,7 @@ public class UserFileDaoTest {
 
         /** Array of Users for testing */
         testUsers = new User[6];
-        testUsers[0] = new User(0, "admin", "admin");
+        testUsers[0] = new User(-1, "admin", "admin");
         testUsers[1] = new User(1,"Tim", "TimPass");
         testUsers[2] = new User(2, "Zach", "ZachPass");
         testUsers[3] = new User(3,"Daniel", "DanielPass");
@@ -83,7 +83,7 @@ public class UserFileDaoTest {
         User[] users = userFileDao.getUsers();
 
         //Analyze
-        assertEquals(users.length, testUsers.length);
+        assertEquals(testUsers.length, users.length);
         for(int i = 0; i < testUsers.length; ++i) {
             assertEquals(users[i], testUsers[i]);
         }
