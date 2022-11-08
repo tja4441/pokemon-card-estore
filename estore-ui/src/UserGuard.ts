@@ -6,7 +6,7 @@ import {
   UrlTree,
   Router
 } from '@angular/router';
-import { CookieOptions, CookieService } from 'ngx-cookie-service';
+import { CookieOptions, CookieService } from 'ngx-cookie';
 import { Observable } from 'rxjs';
 import { UserService } from './app/user.service';
 

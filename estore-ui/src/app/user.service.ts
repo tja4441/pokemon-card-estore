@@ -4,7 +4,7 @@ import { Observable, of} from 'rxjs';
 import { MessageService } from './message.service';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user';
-import {CookieService} from 'ngx-cookie-service';
+import {CookieService} from 'ngx-cookie';
 
 @Injectable({
   providedIn: 'root'
@@ -131,12 +131,15 @@ export class UserService {
   }
 
   setCookie(){
-    this.cookieSerice.set('username', this.username)
-    this.cookieSerice.set('id', String(this.id))
+    this.cookieSerice.put('username', this.username)
+    this.cookieSerice.put('id', String(this.id))
   }
   
   getCookie(){
-    this.username = this.cookieSerice.get('username')
+    let user  = this.cookieSerice.get('username')
+    if(user){
+      this.username = user;
+    }
     this.id = Number(this.cookieSerice.get('id'))
   }
 }
