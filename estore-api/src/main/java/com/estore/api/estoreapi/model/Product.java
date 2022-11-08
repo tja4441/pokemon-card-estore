@@ -4,6 +4,9 @@
  * that someone might need on an individual product
  */
 package com.estore.api.estoreapi.model;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -34,10 +37,10 @@ public class Product {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
-        this.price = price;
+        BigDecimal bd = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
+        this.price = bd.floatValue();
     }
 
-    
     /**
      * @return returns the id of this product
      */

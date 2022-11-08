@@ -26,6 +26,8 @@ import { DeleteAccountComponent } from './account/delete-account/delete-account.
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './shopping-cart/cart-product/cart-product.component';
 import { AddToCartComponent } from './shopping-cart/add-to-cart/add-to-cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { AddToCartComponent } from './shopping-cart/add-to-cart/add-to-cart.comp
     DeleteAccountComponent,
     ShoppingCartComponent,
     CartProductComponent,
-    AddToCartComponent
+    AddToCartComponent,
+    CheckoutComponent,
+    PaypalButtonComponent
   ],
   imports: [
     BrowserModule,

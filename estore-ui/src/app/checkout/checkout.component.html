@@ -1,0 +1,9 @@
+<div *ngIf="getStatus()">
+    <app-paypal-button [order]="shoppingCart" ></app-paypal-button>
+</div>
+<div *ngIf="!getStatus() && getCount()">
+    {{backToCart()}}
+</div>
+
+
+  
