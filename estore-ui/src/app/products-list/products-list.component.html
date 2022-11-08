@@ -6,10 +6,14 @@
         <div *ngFor="let stype of selTypes">
             <div *ngFor="let ptype of product.types">
                 <div *ngIf="ptype == stype">
-                    <app-product-card [card]="product"></app-product-card>
+                    <div *ngIf="!this.displayed">
+                        <app-product-card [card]="product"></app-product-card>
+                    </div>
+                    <div *ngIf="true then wasDisplayed(true);"></div>
                 </div>
             </div>
         </div>
+        <div *ngIf="true then wasDisplayed(false)"></div>
     </div>
 </div>
 <div *ngIf="productsList!.length == 0">

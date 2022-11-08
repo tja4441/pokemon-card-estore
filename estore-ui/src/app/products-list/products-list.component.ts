@@ -11,8 +11,9 @@ export class ProductsListComponent implements OnInit {
   @Input() productsList?: Product[];
   @Input() selTypes!: CardType[];
   public isTypes: boolean = false;
+  public displayed: boolean = false;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     //gets products from productService and then when they resolve sets productList
@@ -22,6 +23,10 @@ export class ProductsListComponent implements OnInit {
     if( this.selTypes.length != 0 ){
       this.isTypes = true;
     }
+  }
+
+  wasDisplayed(b: boolean){
+    this.displayed = b;
   }
 
   getAllProducts(): void {
