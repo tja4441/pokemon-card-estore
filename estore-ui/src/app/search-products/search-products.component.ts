@@ -33,28 +33,30 @@ export class SearchProductsComponent implements OnInit {
 
   search(term: string): void {
     term = term.trim()
-    if (!term) this.empty = true
-    else this.empty = false
+    this.empty = true;
+    if( !term ) {
+      for(let key in this.typeDict){
+        if ( this.typeDict[key] ){
+          this.empty = false;
+          break;
+        }
+      }
+    } else {
+      this.empty = false;
+    }
+    
     this.searchTerms.next(term)
   }
 
   filterByTypes(products: Product[]): Product[] {
     for(let key in this.typeDict) {
       if(this.typeDict[key]) {
-        products = products.filter(val => val.types.includes(key))
+        products = products.concat((products.filter(val => val.types.includes(key))));
       }
     }
-    return products
+    return products.filter((value, index) => products.indexOf(value) === index);
   }
 
   ngOnInit(): void {
-    this.searchTerms.pipe(
-      //time to wait for another input before triggering
-      debounceTime(300),
-
-      distinctUntilChanged(),
-
-      switchMap((term: string) => this.productService.getProductsByString(term)),
-    ).subscribe((p) => this.products = p)
   }
 }

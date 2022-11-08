@@ -20,7 +20,7 @@ export class Product {
     quantity: number;
     price: number;
 
-    constructor(id: number, name: string, types: CardType[], quantity: number, price: number) {
+    constructor(id: number, name: string, types: string[], quantity: number, price: number) {
         this.id = id
         this.name = name
         this.types = types
