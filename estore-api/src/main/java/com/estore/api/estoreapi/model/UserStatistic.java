@@ -1,10 +1,9 @@
 package com.estore.api.estoreapi.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import ch.qos.logback.core.subst.Token.Type;
 
 public class UserStatistic {
     static final String STRING_FORMAT = "UserStatistic [id=%d, loginCounter=%d, purchaseCounter=%d, lifetimeSpending=%f, lifetimeSessionTime=%f, averagePurchase=%f, purchasedCounts=%s, mostPurchased=%d, mostExpensiveOrder=%s, typeCounts=%s, typeRevenues=%s, mostPopularType=%s, averageSessionTime=%f]";
@@ -18,9 +17,9 @@ public class UserStatistic {
     @JsonProperty("purchasedCounts")private HashMap<Integer,Integer> purchasedCounts;
     @JsonProperty("mostPurchased")private int mostPurchased;
     @JsonProperty("mostExpensiveOrder")private ShoppingCart mostExpensiveOrder;
-    @JsonProperty("typeCounts")private HashMap<Type,Integer> typeCounts;
-    @JsonProperty("typeRevenues")private HashMap<Type,Float> typeRevenues;
-    @JsonProperty("mostPopularType")private Type mostPopularType;
+    @JsonProperty("typeCounts")private HashMap<CardType,Integer> typeCounts;
+    @JsonProperty("typeRevenues")private HashMap<CardType,Float> typeRevenues;
+    @JsonProperty("mostPopularType")private CardType mostPopularType;
     @JsonProperty("averageSessionTime")private Float averageSessionTime;
 
     /**
@@ -93,14 +92,14 @@ public class UserStatistic {
      * 
      * @return typeCounts that tells how many products the user has purchased of the specific type in account lifetime
      */
-    public HashMap<Type,Integer> getTypeCounts(){return this.typeCounts;}
+    public HashMap<CardType,Integer> getTypeCounts(){return this.typeCounts;}
 
     /**
      * getter for typeRevenues
      * 
      * @return typeRevenues that tells how much money the user has spent on each card type in account lifetime
      */
-    public HashMap<Type,Float> getTypeRevenues(){return this.typeRevenues;}
+    public HashMap<CardType,Float> getTypeRevenues(){return this.typeRevenues;}
 
     /**
      * getter for averageSessionTime
@@ -135,7 +134,7 @@ public class UserStatistic {
      * 
      * @return mostPopularType that tells which card type the user has purchased more of on the e-store in account lifetime
      */
-    public Type getMostPopularType(){return this.mostPopularType;}
+    public CardType getMostPopularType(){return this.mostPopularType;}
 
     /**
      * setter for the id of the User statistic
@@ -184,14 +183,14 @@ public class UserStatistic {
      * 
      * @param typeCounts the dictionary for how many times the user has purchased cards of each type in the e-store
      */
-    public void setTypeCounts(HashMap<Type,Integer> typeCounts){this.typeCounts = typeCounts;}
+    public void setTypeCounts(HashMap<CardType,Integer> typeCounts){this.typeCounts = typeCounts;}
 
     /**
      * setter for typeRevenues
      * 
      * @param typeRevenues the dictionary for the total amount of money spent by the user of each card type in the e-store
      */
-    public void setTypeRevenues(HashMap<Type,Float> typeRevenues){this.typeRevenues = typeRevenues;}
+    public void setTypeRevenues(HashMap<CardType,Float> typeRevenues){this.typeRevenues = typeRevenues;}
 
     /**
      * setter for averageSessionTime
@@ -226,7 +225,7 @@ public class UserStatistic {
      * 
      * @param mostPopularType the type the user has purchased the most of
      */
-    public void setMostPopularType(Type mostPopularType){this.mostPopularType = mostPopularType;}
+    public void setMostPopularType(CardType mostPopularType){this.mostPopularType = mostPopularType;}
 
     /**
      * the method increments the login counter for the user
@@ -260,22 +259,22 @@ public class UserStatistic {
         this.lifetimeSessionTime += lifetimeIncrease;
     }
 
-    /**
+    /**Adds amount to the value in the map pointed to by type
      * 
-     * @param type
-     * @param amount
+     * @param type directs to the value
+     * @param amount the amount to be added
      */
-    public void increaseTypeTally(Type type, int amount){
-        //TODO make this
+    public void increaseTypeTally(CardType type, int amount){
+        this.typeCounts.put(type, this.typeCounts.get(type) + amount);
     }
 
-    /**
+    /**Adds amount to the value in the map pointed to by type
      * 
-     * @param type
-     * @param amount
+     * @param type directs to value
+     * @param amount amount to be added
      */
-    public void increaseTypeRevenue(Type type, float amount){
-        //TODO Make this
+    public void increaseTypeRevenue(CardType type, float amount){
+        this.typeRevenues.put(type, this.typeRevenues.get(type) + amount);
     }
 
     /**
@@ -341,7 +340,15 @@ public class UserStatistic {
      * this method determines the most popular card type for this user by going through the dictionary typeCounts
      */
     public void determineMostPopularType(){
-        //TODO make this
+        int count = 0;
+        CardType max = null;
+        for(CardType type : this.typeCounts.keySet()) {
+            if(this.typeCounts.get(type) >= count) {
+                count = this.typeCounts.get(type);
+                max = type;
+            }
+        }
+        this.mostPopularType = max;
     }
 
     /**

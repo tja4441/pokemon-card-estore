@@ -90,13 +90,12 @@ public class StatisticsFileDao implements StatisticsDao{
         stats.incrementPurchaseCounter();
         stats.incrementLifetimeAmount(cart.GetTotalPrice());
         stats.incrementLifetimeSession(sessionTime);
-        stats.calculateAveragePurchaseAmount();
         stats.increaseProductTally(cart.getContents().toArray(new Product[0]));
-        if(cart.GetTotalPrice() > stats.getMostExpensiveOrder().GetTotalPrice()) {
-            stats.setMostExpensiveOrder(cart);
-        }
+        stats.determineMostExpensiveOrder(cart);
         stats.calculateAveragePurchaseAmount();
         stats.calculateAverageSessionTime();
+        stats.determineMostPopularType();
+
 
         return stats;
     }
