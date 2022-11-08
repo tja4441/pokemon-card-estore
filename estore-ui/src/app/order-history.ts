@@ -1,8 +1,8 @@
-import { Product } from "./product";
+import { ShoppingCart } from "./ShoppingCart";
 
 export interface OrderHistory {
     userID: number,
-    cart: Product[],
+    cart: ShoppingCart,
     orderNumber: number,
     timestamp: string
 }
