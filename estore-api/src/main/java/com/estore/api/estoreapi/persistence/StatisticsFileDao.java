@@ -16,6 +16,7 @@ import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.StoreStatistic;
 import com.estore.api.estoreapi.model.UserStatistic;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class StatisticsFileDao implements StatisticsDao{
     private Map<Integer,UserStatistic> usersStats;            // provides a local cache of the UserStatistics
@@ -27,7 +28,7 @@ public class StatisticsFileDao implements StatisticsDao{
     public StatisticsFileDao(@Value("${storeStatistics.file}") String storeFilename, @Value("${userStatistics.file}") String userFilename, ObjectMapper mapper) throws IOException{
         this.storeFilename = storeFilename;
         this.userFilename = userFilename;
-        this.objectMapper = mapper;
+        this.objectMapper = mapper.enable(SerializationFeature.INDENT_OUTPUT);
         load();
         loadStoreStats();
     }
