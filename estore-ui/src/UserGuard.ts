@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
   CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot, 
-  UrlTree,
   Router
 } from '@angular/router';
-import { CookieOptions, CookieService } from 'ngx-cookie';
-import { Observable } from 'rxjs';
 import { UserService } from './app/user.service';
 
 
@@ -15,7 +10,6 @@ import { UserService } from './app/user.service';
 @Injectable({providedIn: 'root'})
 export class UserGuard implements CanActivate {
   constructor(private userService: UserService,
-    private cookieService: CookieService,
     private route: Router) {}
 
     canActivate(): boolean {

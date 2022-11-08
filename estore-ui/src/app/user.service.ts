@@ -4,7 +4,7 @@ import { Observable, of} from 'rxjs';
 import { MessageService } from './message.service';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user';
-import {CookieService} from 'ngx-cookie';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +25,7 @@ export class UserService {
   
   constructor(
     private http: HttpClient,
-    private messageService: MessageService,
-    private cookieSerice: CookieService) { 
+    private messageService: MessageService) { 
     }
   
   //NOTE: is not able to tell when it gets different http for a Conflict
@@ -91,7 +90,7 @@ export class UserService {
     if(user){
       this.id = user.id
       this.username = user.UserName
-      this.setCookie()
+      this.savState()
     }
   }
 
@@ -127,19 +126,22 @@ export class UserService {
   logout(): void {
     this.id = -1;
     this.username = ""
-    this.setCookie()
+    this.savState()
   }
 
-  setCookie(){
-    this.cookieSerice.put('username', this.username)
-    this.cookieSerice.put('id', String(this.id))
+  savState(){
+    sessionStorage.setItem('id',String(this.id))
+    sessionStorage.setItem('userName',this.username)
   }
   
-  getCookie(){
-    let user  = this.cookieSerice.get('username')
-    if(user){
-      this.username = user;
+  getState(){
+    const valueId = sessionStorage.getItem('id')
+    if(valueId){
+      this.id = Number(valueId)
     }
-    this.id = Number(this.cookieSerice.get('id'))
+    const value = sessionStorage.getItem('userName')
+    if(value){
+      this.username = String(value)
+    }
   }
 }

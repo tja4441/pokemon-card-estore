@@ -20,7 +20,6 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {CookieModule, CookieOptionsProvider, CookieService} from 'ngx-cookie';
 import { UserGuard } from 'src/UserGuard';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './cart-product/cart-product.component';
@@ -55,9 +54,8 @@ import { PaypalButtonComponent } from './paypal-button/paypal-button.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    CookieModule.withOptions()
   ],
-  providers: [AdminGuard, UserGuard, CookieService, CookieOptionsProvider],
+  providers: [AdminGuard, UserGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

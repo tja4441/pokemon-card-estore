@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
     private router: Router){
   }
   ngOnInit(): void {
-    this.userService.getCookie()
+    this.userService.getState()
   }
   
 
