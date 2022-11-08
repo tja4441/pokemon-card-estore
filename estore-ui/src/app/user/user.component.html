@@ -2,6 +2,6 @@
 <h1>User Page:</h1>
 <p>Hello {{user.UserName | titlecase}}!</p>
 
-<div *ngFor="let entry in orderHistory">
-    <app-order-history [order]="entry"></app-order-history>
-</div>
+<app-shopping-cart></app-shopping-cart>
+
+<app-order-history [userID]="user.id"></app-order-history>

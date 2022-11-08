@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OrderHistory } from '../order-history';
+import { OrderHistoryService } from '../order-history.service';
 import { ShoppingCart } from '../ShoppingCart';
 
 @Component({
@@ -8,12 +9,14 @@ import { ShoppingCart } from '../ShoppingCart';
   styleUrls: ['./order-history.component.css']
 })
 export class OrderHistoryComponent implements OnInit {
-  @Input() order!: OrderHistory;
-  cart: ShoppingCart
+  @Input() userID!: number;
+   public orderHistory?: OrderHistory[];
 
-  constructor() {
-    this.cart = this.order.cart
+  constructor(private orderHistoryService: OrderHistoryService) {
+    
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.orderHistoryService.getOrdersByUserID(this.userID).subscribe(p => this.orderHistory = p)
+  }
 }

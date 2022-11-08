@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { OrderHistory } from '../order-history';
-import { OrderHistoryService } from '../order-history.service';
-import { Product } from '../product';
+import { OrderHistoryService } from '../order-history.service'
 import { User } from '../user';
 import { UserService } from '../user.service';
 

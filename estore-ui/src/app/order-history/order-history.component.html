@@ -1,5 +1,5 @@
 <p>order-history works!</p>
-<div style="border: 1px solid black;">
+<div *ngFor="let order in orderHistory" style="border: 1px solid black;">
     <p>{{order.orderNumber}}</p>
     <p>{{order.timestamp}}</p>
     <div *ngFor="let product of cart.contents" style="display: inline-block;">
