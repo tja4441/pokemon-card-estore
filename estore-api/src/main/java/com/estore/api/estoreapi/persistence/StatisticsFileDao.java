@@ -3,11 +3,16 @@ package com.estore.api.estoreapi.persistence;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.yaml.snakeyaml.tokens.FlowEntryToken;
 
+import com.estore.api.estoreapi.model.CardType;
+import com.estore.api.estoreapi.model.Product;
+import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.StoreStatistic;
 import com.estore.api.estoreapi.model.UserStatistic;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -78,5 +83,21 @@ public class StatisticsFileDao implements StatisticsDao{
         UserStatistic[] userStatsArray = new UserStatistic[userStatsList.size()];
         userStatsList.toArray(userStatsArray);
         return userStatsArray;
+    }
+
+    @Override
+    public UserStatistic updateUserStatistic(int id, ShoppingCart cart, Float sessionTime) throws IOException {
+        UserStatistic stats = usersStats.get(id);
+        stats.incrementLoginCounter();
+        stats.incrementPurchaseCounter();
+        stats.incrementLifetimeAmount(cart.GetTotalPrice());
+        stats.incrementLifetimeSession(sessionTime);
+        stats.calculateAveragePurchaseAmount();
+        stats.increaseProductTally(cart.getContents().toArray(new Product[0]));
+        stats.calculateAveragePurchaseAmount();
+        stats.calculateAverageSessionTime();
+
+
+        return stats;
     }
 }

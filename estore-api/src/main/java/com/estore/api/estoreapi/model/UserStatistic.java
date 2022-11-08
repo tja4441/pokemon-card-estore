@@ -252,6 +252,15 @@ public class UserStatistic {
     }
 
     /**
+     * Adds to the total amount of time spent logged in
+     * 
+     * @param lifetimeIncrease the new time to add
+     */
+    public void incrementLifetimeSession(float lifetimeIncrease) {
+        this.lifetimeSessionTime += lifetimeIncrease;
+    }
+
+    /**
      * 
      * @param type
      * @param amount
