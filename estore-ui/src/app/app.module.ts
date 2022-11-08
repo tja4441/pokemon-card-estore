@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AdminGuard } from './model/AdminGuard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddProductsComponent } from './products/add-products/add-products.component'
+import { AddProductsComponent } from './products/add-products/add-products.component';
 import { MessagesComponent } from './admin/messages/messages.component';
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';

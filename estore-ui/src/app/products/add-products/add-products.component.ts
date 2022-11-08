@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product, CardType } from '../../model/product'
-import { SearchProductsComponent } from '../search-products/search-products.component';
 
 @Component({
   selector: 'app-add-products',
@@ -25,8 +24,7 @@ export class AddProductsComponent implements OnInit {
                           "TRAINER" : false}
   public typeListAdd: CardType[] = []
 
-  constructor(private productService: ProductService,
-              private searchProduct: SearchProductsComponent) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -62,11 +60,10 @@ export class AddProductsComponent implements OnInit {
     //removes whitespace
     name = name.trim();
     //tries to add product to the server using productService
-    let product: Product = new Product(0, name, types, quantity, price)
+    let product = new Product(0, name, types, quantity, price)
     this.productService.addProduct(product)
     //productService returns product on success which is added to UI/this.products
     .subscribe(product => this.products.push(product))
     window.location.reload()
   }
-
 }

@@ -10,9 +10,9 @@
 </div>
 <p *ngIf="createdSuccess">Successfully created admin</p>
 <form (ngSubmit)="createAdmin(user.value, pass.value, confirm.value)">
-    <label for="user">Username</label>
+    <label for="user">Username: </label>
     <input type="text" id="user" placeholder="Username" #user><br/>
-    <label for="pass">Password</label>
+    <label for="pass">Password: </label>
     <input type="password" id="pass" placeholder="password" #pass><br/>
     <label for="confirm">Retype Password: </label>
     <input type="password" id="confirm" placeholder="Password" #confirm><br/>

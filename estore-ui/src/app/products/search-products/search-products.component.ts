@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap } from 'rxjs';
 import { Product, CardType } from '../../model/product';
 import { ProductService } from '../../services/product.service';
-import { ResourceLoader } from '@angular/compiler';
 
 @Component({
   selector: 'app-search-products',
