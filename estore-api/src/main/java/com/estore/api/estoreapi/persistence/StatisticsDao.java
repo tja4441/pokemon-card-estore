@@ -1,10 +1,7 @@
 package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
-import java.util.HashMap;
 
-import com.estore.api.estoreapi.model.CardType;
-import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.StoreStatistic;
 import com.estore.api.estoreapi.model.UserStatistic;
