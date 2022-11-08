@@ -1,51 +1,85 @@
 [ {
   "id" : 1,
   "name" : "Pikachu",
+  "types" : [ "ELECTRIC" ],
   "quantity" : 1,
-  "price" : 3.0
+  "price" : 9.0
+}, {
+  "id" : 2,
+  "name" : "Bulbasaur",
+  "types" : [ "GRASS" ],
+  "quantity" : 1,
+  "price" : 2.0
 }, {
   "id" : 3,
   "name" : "Charmander",
+  "types" : [ "FIRE" ],
   "quantity" : 10,
   "price" : 4.5
 }, {
   "id" : 4,
   "name" : "Squirtle",
+  "types" : [ "WATER" ],
   "quantity" : 40,
   "price" : 3.99
 }, {
   "id" : 5,
   "name" : "Treecko",
+  "types" : [ "GRASS" ],
   "quantity" : 65,
   "price" : 2.99
 }, {
   "id" : 6,
   "name" : "Mudkip",
+  "types" : [ "WATER" ],
   "quantity" : 200000,
   "price" : 3.99
 }, {
   "id" : 7,
   "name" : "Torchic",
+  "types" : [ "FIRE" ],
   "quantity" : 35,
   "price" : 2.0
 }, {
   "id" : 8,
   "name" : "Magikarp",
+  "types" : [ "WATER" ],
   "quantity" : 1,
   "price" : 1.99
 }, {
   "id" : 9,
   "name" : "Ditto",
+  "types" : [ "NORMAL" ],
   "quantity" : 30,
   "price" : 20.0
 }, {
   "id" : 10,
   "name" : "Blastoise",
+  "types" : [ "WATER" ],
   "quantity" : 32,
   "price" : 20.48
 }, {
   "id" : 11,
   "name" : "Volcarona",
+  "types" : [ "FIRE", "GRASS" ],
   "quantity" : 1,
   "price" : 2500.0
+}, {
+  "id" : 12,
+  "name" : "Emboar",
+  "types" : [ "FIRE", "FIGHTING" ],
+  "quantity" : 20,
+  "price" : 1.0
+}, {
+  "id" : 13,
+  "name" : "Delphox",
+  "types" : [ "FIRE", "PSYCHIC" ],
+  "quantity" : 2,
+  "price" : 2.0
+}, {
+  "id" : 14,
+  "name" : "Zeraora",
+  "types" : [ "ELECTRIC", "FIGHTING" ],
+  "quantity" : 200,
+  "price" : 1.0
 } ]

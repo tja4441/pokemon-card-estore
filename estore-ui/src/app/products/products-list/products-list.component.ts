@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../model/product';
+import { Component, OnInit, Input } from '@angular/core';
+import { Product, CardType } from '../../model/product';
 import { ProductService } from '../../services/product.service';
 
 @Component({
@@ -8,24 +8,28 @@ import { ProductService } from '../../services/product.service';
   styleUrls: ['./products-list.component.css']
 })
 export class ProductsListComponent implements OnInit {
-  productsList: Product[] = [];
+  @Input() productsList?: Product[];
+  @Input() selTypes!: CardType[];
+  public isTypes: boolean = false;
+  public displayed: boolean = false;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     //gets products from productService and then when they resolve sets productList
-    this.getProducts();
+    if( !this.productsList ){
+      this.getAllProducts();
+    }
+    if( this.selTypes.length != 0 ){
+      this.isTypes = true;
+    }
   }
 
-  getProducts(): void {
+  wasDisplayed(b: boolean){
+    this.displayed = b;
+  }
+
+  getAllProducts(): void {
     this.productService.getProducts().subscribe(productsList => this.productsList = productsList)
-  }
-
-  /**
-   * deletes "all"(should really only ever be 1) products from the product list that have id "id"
-   * @param id id of product to remove from list
-   */
-  deleteItem(id: number): void {
-    this.productsList = this.productsList.filter((p: Product) => p.id != id)
   }
 }

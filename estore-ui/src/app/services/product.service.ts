@@ -46,7 +46,21 @@ export class ProductService {
    * @returns returns an observable that resolves to a a product array holding all cards that contain substring
    */
   getProductsByString(substring: String): Observable<Product[]> {
-    const inventoryUrlByName = this.inventoryUrl + '/?name=' + substring;
+    const inventoryUrlByName = this.inventoryUrl + '/name/' + substring;
+    return this.http.get<Product[]>(inventoryUrlByName)
+      .pipe(
+        tap(_ => this.log('fetched products')),
+        catchError(this.handleError<Product[]>('getProducts', []))
+      );
+  }
+
+  /**
+   * GETs products from backend that are the given type
+   * @param type the type being searched for
+   * @returns an observable that resolves into a product array of cards with the given type
+   */
+  getProductsByType(type: String): Observable<Product[]> {
+    const inventoryUrlByName = this.inventoryUrl + '/type/' + type;
     return this.http.get<Product[]>(inventoryUrlByName)
       .pipe(
         tap(_ => this.log('fetched products')),
