@@ -3,32 +3,35 @@
     <input #searchBox id="search-box" (input)="this.searchTerm = searchBox.value" style="float: left;">
 
     <label for="search-button"></label>
-    <button id="search-button" style="float: left; margin:1em;" (click)="this.search(searchBox.value, this.products)">Search</button>
+    <button id="search-button" style="float: left; margin-left:1em; margin-right:1em;" (click)="this.search(searchBox.value)">Search</button>
 
-    <label class="type" for="dark">Dark</label>
+    <label class="typeL" for="dark">Dark</label>
     <input class="type" type="checkbox" id="dark" (change)="flipBool('DARK')">
-    <label class="type" for="dragon">Dragon</label>
+    <label class="typeL" for="dragon">Dragon</label>
     <input class="type" type="checkbox" id="dragon" (change)="flipBool('DRAGON')">
-    <label class="type" for="electric">Electric</label>
+    <label class="typeL" for="electric">Electric</label>
     <input class="type" type="checkbox" id="electric" (change)="flipBool('ELECTRIC')">
-    <label class="type" for="fairy">Fairy</label>
+    <label class="typeL" for="fairy">Fairy</label>
     <input class="type" type="checkbox" id="fairy" (change)="flipBool('FAIRY')">
-    <label class="type" for="fighting">Fighting</label>
+    <label class="typeL" for="fighting">Fighting</label>
     <input class="type" type="checkbox" id="fighting" (change)="flipBool('FIGHTING')">
-    <label class="type" for="fire">Fire</label>
+    <label class="typeL" for="fire">Fire</label>
     <input class="type" type="checkbox" id="fire" (change)="flipBool('FIRE')">
-    <label class="type" for="grass">Grass</label>
+    <label class="typeL" for="grass">Grass</label>
     <input class="type" type="checkbox" id="grass" (change)="flipBool('GRASS')">
-    <label class="type" for="normal">Normal</label>
+    <label class="typeL" for="normal">Normal</label>
     <input class="type" type="checkbox" id="normal" (change)="flipBool('NORMAL')">
-    <label class="type" for="psychic">Psychic</label>
+    <label class="typeL" for="psychic">Psychic</label>
     <input class="type" type="checkbox" id="psychic" (change)="flipBool('PSYCHIC')">
-    <label class="type" for="steel">Steel</label>
+    <label class="typeL" for="steel">Steel</label>
     <input class="type" type="checkbox" id="steel" (change)="flipBool('STEEL')">
-    <label class="type" for="water">Water</label>
+    <label class="typeL" for="water">Water</label>
     <input class="type" type="checkbox" id="water" (change)="flipBool('WATER')">
-    <label class="type" for="trainer">Trainer</label>
+    <label class="typeL" for="trainer">Trainer</label>
     <input class="type" type="checkbox" id="trainer" (change)="flipBool('TRAINER')">
     <br>
     <br>
+</div>
+<div>
+    <app-products-list [productsList]="products" [selTypes]="typeListSearch"></app-products-list>
 </div>

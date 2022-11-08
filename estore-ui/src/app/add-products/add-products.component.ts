@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ProductService } from '../product.service';
 import { Product, CardType } from '../product'
+import { SearchProductsComponent } from '../search-products/search-products.component';
 
 @Component({
   selector: 'app-add-products',
@@ -23,9 +24,10 @@ export class AddProductsComponent implements OnInit {
                           "STEEL" : false,
                           "WATER" : false,
                           "TRAINER" : false}
-  public typeList: CardType[] = []
+  public typeListAdd: CardType[] = []
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              private searchProduct: SearchProductsComponent) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -34,8 +36,12 @@ export class AddProductsComponent implements OnInit {
   flipBool(typeString: keyof typeof CardType) {
     let type: CardType = CardType[typeString]
     this.typeDict[typeString] = !this.typeDict[typeString]
-    if(this.typeDict[typeString]) this.typeList.push(type)
-    else this.typeList.splice(this.typeList.indexOf(type), 1)
+    if(this.typeDict[typeString]) this.typeListAdd.push(type)
+    else this.typeListAdd.splice(this.typeListAdd.indexOf(type), 1)
+  }
+
+  handleClick(type: keyof typeof CardType) {
+    this.flipBool(CardType[type]);
   }
 
   /**
