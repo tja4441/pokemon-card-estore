@@ -21,6 +21,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './cart-product/cart-product.component';
 import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PaypalButtonComponent } from './paypal-button/paypal-button.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
     DashboardComponent,
     ShoppingCartComponent,
     CartProductComponent,
-    AddToCartComponent
+    AddToCartComponent,
+    CheckoutComponent,
+    PaypalButtonComponent
   ],
   imports: [
     BrowserModule,
