@@ -20,9 +20,5 @@ export class UserComponent implements OnInit {
     this.orderHistoryService.getOrdersByUserID(this.user.id).subscribe(p => this.orderHistory = p)
   }
 
-  getContents(order: OrderHistory): Product[] {
-    return Array.from(order.cart.contents)
-  }
-
   ngOnInit(): void {}
 }

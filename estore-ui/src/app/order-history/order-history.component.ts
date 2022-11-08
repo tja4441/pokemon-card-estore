@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { OrderHistory } from '../order-history';
+import { ShoppingCart } from '../ShoppingCart';
 
 @Component({
   selector: 'app-order-history',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-history.component.css']
 })
 export class OrderHistoryComponent implements OnInit {
+  @Input() order!: OrderHistory;
+  cart: ShoppingCart
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
+    this.cart = this.order.cart
   }
 
+  ngOnInit(): void { }
 }
