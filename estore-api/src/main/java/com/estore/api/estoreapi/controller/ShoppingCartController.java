@@ -244,7 +244,6 @@ public class ShoppingCartController {
         try {
             ShoppingCart updatedCart = shoppingCartDao.checkout(id,inventoryController);
             if (updatedCart != null) {
-                shoppingCartDao.setAndSaveOrder(id, updatedCart);
                 return new ResponseEntity<ShoppingCart>(updatedCart,HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
