@@ -274,7 +274,10 @@ public class UserStatistic {
      */
     public void increaseTypeRevenue(Product[] purchasedProducts){
         for(Product product: purchasedProducts) {
-            this.typeRevenues.put(product.getType(), product.getPrice() * product.getQuantity());
+            CardType[] typeArray = product.getTypes();
+            for(CardType type : typeArray) {
+                this.typeRevenues.put(type, product.getPrice() * product.getQuantity());
+            }
         }
     }
 

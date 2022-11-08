@@ -16,6 +16,7 @@ public class Product {
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
+    @JsonProperty("types") private CardType[] types;
     @JsonProperty("quantity") private int quantity;
     @JsonProperty("price") private float price;
     
@@ -56,6 +57,14 @@ public class Product {
      */
     public String getName() {
         return name;
+    }
+
+    /**gets the type array representing the array of types
+     * 
+     * @return a card array containing the types of the card
+     */
+    public CardType[] getTypes() {
+        return types;
     }
 
     /**
