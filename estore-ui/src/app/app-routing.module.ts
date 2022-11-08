@@ -9,6 +9,7 @@ import { SearchProductsComponent } from './search-products/search-products.compo
 import { ProductComponent } from './product/product.component';
 import { AdminGuard } from './AdminGuard';
 import { UserGuard } from 'src/UserGuard';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'products', component: AddProductsComponent},
   { path: 'login', component: LoginComponent},
   { path: 'search/:name', component: SearchProductsComponent },
-  { path: 'product/:id', component: ProductComponent}
+  { path: 'product/:id', component: ProductComponent},
+  { path: 'checkout', component: CheckoutComponent}
 ];
 
 @NgModule({
