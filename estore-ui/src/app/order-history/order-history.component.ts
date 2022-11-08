@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OrderHistory } from '../order-history';
 import { OrderHistoryService } from '../order-history.service';
-import { ShoppingCart } from '../ShoppingCart';
 
 @Component({
   selector: 'app-order-history',
@@ -10,13 +9,15 @@ import { ShoppingCart } from '../ShoppingCart';
 })
 export class OrderHistoryComponent implements OnInit {
   @Input() userID!: number;
-   public orderHistory?: OrderHistory[];
+   public orderHistory: OrderHistory[] = [];
+   public empty: boolean = true
 
-  constructor(private orderHistoryService: OrderHistoryService) {
-    
-  }
+  constructor(private orderHistoryService: OrderHistoryService) {}
 
   ngOnInit(): void {
     this.orderHistoryService.getOrdersByUserID(this.userID).subscribe(p => this.orderHistory = p)
+    if(this.orderHistory.length != 0) {
+      this.empty = false
+    }
   }
 }

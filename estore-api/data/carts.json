@@ -1,7 +1,12 @@
 [ {
   "id" : 1,
-  "contents" : [ ],
-  "totalPrice" : 0.0
+  "contents" : [ {
+    "id" : 10,
+    "name" : "Blastoise",
+    "quantity" : 2,
+    "price" : 20.48
+  } ],
+  "totalPrice" : 40.96
 }, {
   "id" : 2,
   "contents" : [ ],
