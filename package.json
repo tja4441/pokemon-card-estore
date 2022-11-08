@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "creditcardpayments": "^1.0.3"
+    "ngx-cookie-service": "^14.0.1"
   }
 }

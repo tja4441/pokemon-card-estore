@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AdminGuard } from './model/AdminGuard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddProductsComponent } from './products/add-products/add-products.component'
@@ -23,6 +23,7 @@ import { AdminAccountsComponent } from './admin/admin-accounts/admin-accounts.co
 import { ChangePasswordFormComponent } from './account/change-password-form/change-password-form.component';
 import { DisplayUserInfoComponent } from './account/display-user-info/display-user-info.component';
 import { DeleteAccountComponent } from './account/delete-account/delete-account.component';
+import { UserGuard } from 'src/app/model/UserGuard';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './shopping-cart/cart-product/cart-product.component';
 import { AddToCartComponent } from './shopping-cart/add-to-cart/add-to-cart.component';
@@ -60,9 +61,9 @@ import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.co
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [],
+  providers: [AdminGuard, UserGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

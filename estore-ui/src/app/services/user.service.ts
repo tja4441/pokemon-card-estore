@@ -25,7 +25,8 @@ export class UserService {
   
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService) { 
+    }
   
   //NOTE: is not able to tell when it gets different http for a Conflict
   /**
@@ -120,7 +121,7 @@ export class UserService {
     if(user){
       this.id = user.id
       this.username = user.UserName
-      
+      this.savState()
     }
   }
 
@@ -156,5 +157,22 @@ export class UserService {
   logout(): void {
     this.id = 0;
     this.username = ""
+    this.savState()
+  }
+
+  savState(){
+    sessionStorage.setItem('id',String(this.id))
+    sessionStorage.setItem('userName',this.username)
+  }
+  
+  getState(){
+    const valueId = sessionStorage.getItem('id')
+    if(valueId){
+      this.id = Number(valueId)
+    }
+    const value = sessionStorage.getItem('userName')
+    if(value){
+      this.username = String(value)
+    }
   }
 }
