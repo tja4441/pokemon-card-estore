@@ -29,7 +29,7 @@ import java.util.logging.Level;
 
 @RestController
 @RequestMapping("user")
-public class UserController extends Controller {
+public class UserController {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDao userDao;
     private ShoppingCartController shoppingCartController;

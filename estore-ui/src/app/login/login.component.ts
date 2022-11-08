@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { MessageService } from '../services/message.service';
 import { Router } from '@angular/router';
 import { PassUser } from '../model/passUser';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,11 @@ export class LoginComponent implements OnInit {
   public username = ""
   public loginFailed = false
   public registerFailed = false
-  constructor(private userService: UserService, private logger: MessageService, private router: Router,private location: Location) { }
+  constructor(private userService: UserService,
+     private logger: MessageService, 
+     private router: Router,
+     private location: Location,
+     private cartService: ShoppingCartService) { }
 
   ngOnInit(): void {
     //when home page loads looks to see if the user is logged in

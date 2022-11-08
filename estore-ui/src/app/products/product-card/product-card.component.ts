@@ -43,4 +43,8 @@ export class ProductCardComponent implements OnInit {
   deleteItem(id: number) {
     this.deletedItemEvent.emit(id);
   }
+
+  notAdmin(): Boolean{
+    return this.userService.isLoggedIn() && !this.userService.isAdmin()
+  }
 }

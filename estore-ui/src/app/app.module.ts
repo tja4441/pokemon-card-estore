@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddProductsComponent } from './products/add-products/add-products.component'
-import { MessagesComponent } from './messages/messages.component';
+import { MessagesComponent } from './admin/messages/messages.component';
 import { AdminComponent } from './admin/admin.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -23,6 +23,9 @@ import { AdminAccountsComponent } from './admin/admin-accounts/admin-accounts.co
 import { ChangePasswordFormComponent } from './account/change-password-form/change-password-form.component';
 import { DisplayUserInfoComponent } from './account/display-user-info/display-user-info.component';
 import { DeleteAccountComponent } from './account/delete-account/delete-account.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { CartProductComponent } from './shopping-cart/cart-product/cart-product.component';
+import { AddToCartComponent } from './shopping-cart/add-to-cart/add-to-cart.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { DeleteAccountComponent } from './account/delete-account/delete-account.
     AdminAccountsComponent,
     ChangePasswordFormComponent,
     DisplayUserInfoComponent,
-    DeleteAccountComponent
+    DeleteAccountComponent,
+    ShoppingCartComponent,
+    CartProductComponent,
+    AddToCartComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,17 @@
 [ {
   "id" : 1,
-  "contents" : [ ],
-  "totalPrice" : 0.0
+  "contents" : [ {
+    "id" : 1,
+    "name" : "Pikachu",
+    "quantity" : 1,
+    "price" : 3.0
+  }, {
+    "id" : 3,
+    "name" : "Charmander",
+    "quantity" : 1,
+    "price" : 4.5
+  } ],
+  "totalPrice" : 7.5
 }, {
   "id" : 2,
   "contents" : [ ],
@@ -10,4 +20,18 @@
   "id" : 3,
   "contents" : [ ],
   "totalPrice" : 0.0
+}, {
+  "id" : 4,
+  "contents" : [ {
+    "id" : 4,
+    "name" : "Squirtle",
+    "quantity" : 2,
+    "price" : 3.99
+  }, {
+    "id" : 9,
+    "name" : "Ditto",
+    "quantity" : 2,
+    "price" : 20.0
+  } ],
+  "totalPrice" : 47.98
 } ]

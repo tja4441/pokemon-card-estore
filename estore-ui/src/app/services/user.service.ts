@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of} from 'rxjs';
 import { MessageService } from './message.service';
-import { Product } from '../model/product';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../model/user';
 import { PassUser } from '../model/passUser';
 import { ChangePass } from '../model/changePass';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +14,6 @@ export class UserService {
   private id: number = 0
 
   public username: string = ""
-
-  private shoppingCart: Product[] = [];
 
   //baseline url for user functions
   private userUrl = 'http://localhost:8080/user';
@@ -124,6 +120,7 @@ export class UserService {
     if(user){
       this.id = user.id
       this.username = user.UserName
+      
     }
   }
 
@@ -133,6 +130,11 @@ export class UserService {
   getUser(): User {
     return {id: this.id, UserName: this.username}
   }
+
+  getId(): number {
+    return this.id;
+  }
+
 
   /**
    * @returns returns true if there is a logged in "global" user
@@ -154,6 +156,5 @@ export class UserService {
   logout(): void {
     this.id = 0;
     this.username = ""
-    this.shoppingCart = []
   }
 }

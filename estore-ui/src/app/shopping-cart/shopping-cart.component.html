@@ -1,0 +1,11 @@
+<div *ngIf="shoppingCart" >
+    <div *ngIf="nothingChangedWhileGone; else alert">Welcome back to your cart!</div>
+    <ng-template #alert>One or more items in your cart have changed or are no longer available</ng-template>
+
+    <div *ngFor="let product of contents" >
+        <app-cart-product [product]="product" (shoppingCart)="getCart()" ></app-cart-product>
+    </div>
+    <div>
+    <p>Total: ${{shoppingCart.totalPrice.toFixed(2)}}</p>
+    </div>
+</div>
