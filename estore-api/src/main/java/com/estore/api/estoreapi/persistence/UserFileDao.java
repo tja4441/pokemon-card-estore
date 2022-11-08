@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.estore.api.estoreapi.model.PassChange;
 import com.estore.api.estoreapi.model.User;
 
 @Component
@@ -19,6 +21,8 @@ public class UserFileDao implements UserDao {
     private Map<Integer,User> users;            // provides a local cache of the User objects
     private ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
     private String filename;                    //Filename to read/write
+    private static final Logger LOG = Logger.getLogger(UserFileDao.class.getName());
+    private static final int ADMIN_ID = -1;
     
     /**
      * Creates a User File Data Access Object
@@ -65,7 +69,7 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     private void init() throws IOException{
-        users.put(0,new User(0,"admin"));
+        users.put(ADMIN_ID,new User(ADMIN_ID,"admin", "admin"));
         save();
     }
     /**
@@ -138,8 +142,8 @@ public class UserFileDao implements UserDao {
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users) {
-            User newUser = new User(nextID(),user.getUserName());
-            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ")) {
+            User newUser = new User(nextUserID(), user.getUserName(), user.getPassword());
+            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ") || user.getPassword().isBlank()) {
                 return null;                                 // Username is blank or contains a space
             }
             for (User other : users.values()) {
@@ -150,10 +154,47 @@ public class UserFileDao implements UserDao {
             users.put(newUser.getId(), newUser);
             save();
             return newUser;
-
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User createAdmin(User user) throws IOException {
+        synchronized(users) {
+            User newUser = new User(nextAdminID(), user.getUserName(), user.getPassword());
+            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ") || user.getPassword().isBlank()) {
+                return null;                                 // Username is blank or contains a space
+            }
+            for (User other : users.values()) {
+                if(user.equals(other)){
+                    return null;
+                }
+            }
+            users.put(newUser.getId(), newUser);
+            save();
+            return newUser;
+        }
+    }
+
+    /**
+    * *{@inheritDoc}
+    */
+    @Override
+    public boolean changePassword(int id, PassChange change) throws IOException {
+        synchronized(users) {
+            User user = users.get(id);
+            if(user == null) return false;
+            else if(!user.getPassword().equals(change.getOld())) return false;
+            else {
+                user.setPassword(change.getNew());
+                users.put(id, user);
+                save();
+                return true;
+            }
+        }
+    }
 
      /**
      * *{@inheritDoc}
@@ -164,12 +205,36 @@ public class UserFileDao implements UserDao {
             return getUsersArray();
         }
     }
+    
+    /**
+     * *{@inheritDoc}}
+     */
+    @Override
+    public boolean deleteUser(int id) throws IOException {
+        if(id == ADMIN_ID) return false;
+        synchronized(users) {
+            User removedUser = users.remove(id);
+            if(removedUser == null) return false;
+            save();
+            return true;
+        }
+    }
    
-    private int nextID() {
+    private int nextUserID() {
         synchronized(users) {
             int i = 1;
             while(users.containsKey(i)) {
                 i++;
+            }
+            return i;
+        }
+    }
+
+    private int nextAdminID() {
+        synchronized(users) {
+            int i = -1;
+            while(users.containsKey(i)) {
+                i--;
             }
             return i;
         }

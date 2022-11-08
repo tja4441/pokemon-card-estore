@@ -1,12 +1,18 @@
-<div *ngIf="!username">
-    <nav><a routerLink=""><button>Home</button></a></nav>
-</div>
 <div *ngIf="!username" class="login">
     <div class="card">
         <h2>Login:</h2>
-        <form (ngSubmit)="login(loginName.value)">
-            <input type="text" placeholder="Username" #loginName>
-            <input type="submit">
+        <form (ngSubmit)="login(loginName.value, loginpass.value)">
+            <div class="input">
+                <label for="user">Username: </label>
+                <input id="user" type="text" placeholder="Username" #loginName><br/>
+            </div>
+            <div class="input">
+                <label for="pass">Password: </label>
+                <input type="password" id="pass" #loginpass>
+            </div>
+            <div class="input">
+                <input type="submit">
+            </div>
         </form>
         <div *ngIf="loginFailed">
             <p style="color: red;">Login Failed.
@@ -16,9 +22,17 @@
 
     <div class="card">
         <h2>Register:</h2>
-        <form (ngSubmit)="register(registerName.value)">
-            <input type="text" placeholder="Username" #registerName>
-            <input type="submit">
+        <form>
+            <!-- <p>Password must contain at least one number and one uppercase and lowercase letter, and at least 8 characters</p> -->
+            <div class="input">
+                <label for="ruser">Username: </label>
+                <input id="ruser" type="text" placeholder="Username" #regName><br/>
+                <label for="rpass">Password: </label>
+                <input type="password" id="rpass" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #regPass><br/>
+                <label for="confirm">Retype Password: </label>
+                <input type="password" id="confirm" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #confirm><br/>
+                <input type="submit" (click)="register(regName.value, regPass.value, confirm.value)">
+            </div>
             <div *ngIf="registerFailed">
                 <p style="color: red;">
                 Username is Taken. Please Try again!</p>

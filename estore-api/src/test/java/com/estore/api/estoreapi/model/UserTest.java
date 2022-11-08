@@ -16,13 +16,15 @@ public class UserTest {
     @Test
     public void testAdminCtor(){
 
-        int expected_id = 0;
+        int expected_id = -1;
         String expected_userName = "admin";
+        String expected_password = "admin";
         
-        User user = new User(expected_id,expected_userName);
+        User user = new User(expected_id,expected_userName, expected_password);
 
         assertEquals(expected_id, user.getId());
         assertEquals(expected_userName, user.getUserName());
+        assertEquals(expected_password, user.getPassword());
     }
 
     @Test
@@ -30,19 +32,22 @@ public class UserTest {
 
         int expected_id = 1;
         String expected_userName = "Zach";
+        String expected_password = "ZachPass";
         
-        User user = new User(expected_id,expected_userName);
+        User user = new User(expected_id,expected_userName, expected_password);
 
         assertEquals(expected_id, user.getId());
         assertEquals(expected_userName, user.getUserName());  
+        assertEquals(expected_password, user.getPassword());  
     }
     @Test
     public void testToString(){
         int id = 1;
         String userName = "Zach";
+        String passWord = "ZachPass";
         String expected_String = String.format(User.STRING_FORMAT, id, userName);
 
-        User user = new User(id, userName);
+        User user = new User(id, userName, passWord);
 
         String actual_string = user.toString();
 
@@ -51,10 +56,11 @@ public class UserTest {
 
     @Test
     public void testisAdmin(){
-        int id = 0;
+        int id = -1;
         String userName = "admin";
+        String password = "admin";
 
-        User user = new User(id, userName);
+        User user = new User(id, userName, password);
 
         assertEquals(true, user.isAdmin());
     }
@@ -63,7 +69,9 @@ public class UserTest {
     public void testnotAdmin(){
         int id = 1;
         String userName = "Zach";
-        User user = new User(id, userName);
+        String passWord = "ZachPass";
+        
+        User user = new User(id, userName, passWord);
 
         assertEquals(false, user.isAdmin());
     }

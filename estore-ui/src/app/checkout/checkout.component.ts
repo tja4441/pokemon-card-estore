@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ShoppingCartService } from '../shopping-cart.service';
-import { ShoppingCart } from '../ShoppingCart';
-import { UserService } from '../user.service';
+import { ShoppingCartService } from '../services/shopping-cart.service';
+import { ShoppingCart } from '../model/ShoppingCart';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-checkout',

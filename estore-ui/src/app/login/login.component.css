@@ -4,9 +4,13 @@
     display: inline-block;
     padding: 0.5em;
     margin: 0.5em;
-    width: 16em;
-    height: 12em;
+    width: 20em;
+    height: 16em;
     vertical-align: top;
+}
+
+.input {
+    text-align: left;
 }
 
 .login{
