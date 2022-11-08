@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StatisticsService } from '../statistics.service';
+import { StoreStatistics } from '../StoreStatistics';
 import { UserStatistics } from '../UserStatistics';
 
 @Component({
@@ -8,12 +9,14 @@ import { UserStatistics } from '../UserStatistics';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
-  public userStats: UserStatistics[];
+  public userStats: UserStatistics[] = [];
+  public storeStats!: StoreStatistics;
 
-  constructor(statisticsService: StatisticsService) { }
+  constructor(private statsService: StatisticsService) { }
 
   ngOnInit(): void {
-
+    this.statsService.getAllUserStats().subscribe(p => this.userStats = p);
+    this.statsService.getStoreStats().subscribe(p => this.storeStats = p);
   }
 
 }

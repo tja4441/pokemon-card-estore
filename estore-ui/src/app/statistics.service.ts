@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { MessageService } from './message.service';
+import { StoreStatistics } from './StoreStatistics';
 import { UserStatistics } from './UserStatistics';
 
 @Injectable({
@@ -19,6 +20,14 @@ export class StatisticsService {
       .pipe(
         tap(_ => this.log('fetched UserStats')),
         catchError(this.handleError<UserStatistics[]>('getAllUserStats', []))
+      );
+  }
+
+  getStoreStats(): Observable<StoreStatistics> {
+    return this.http.get<StoreStatistics>('http://localhost:8080/stats/store')
+      .pipe(
+        tap(_ => this.log('fetched UserStats')),
+        catchError(this.handleError<StoreStatistics>('getStoreStats', undefined))
       );
   }
 
