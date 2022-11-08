@@ -7,7 +7,6 @@
     <div *ngFor="let order of orderHistory" style="border: 1px solid black;">
         <p>{{order.orderNumber}}</p>
         <p>{{order.timeStamp}}</p>
-        <p>{{order.cart.totalPrice}}</p>
         <div *ngFor="let product of this.getContents(order)" style="display: inline-block;">
             <app-product-card [card]="product"></app-product-card>
         </div>
