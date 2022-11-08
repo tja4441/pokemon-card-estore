@@ -12,7 +12,7 @@ import com.estore.api.estoreapi.model.StoreStatistic;
 import com.estore.api.estoreapi.model.UserStatistic;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class StatisticsFileDao {
+public class StatisticsFileDao implements StatisticsDao{
     private Map<Integer,UserStatistic> usersStats;            // provides a local cache of the UserStatistics
     private StoreStatistic store;               //local 
     private ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
@@ -64,11 +64,11 @@ public class StatisticsFileDao {
         return true;
     }
 
-    public StoreStatistic getStore() {
+    public StoreStatistic getStoreStatistic(){
         return store;
     }
 
-    public UserStatistic[] getAllStats() {
+    public UserStatistic[] getAllUserStats() {
         ArrayList<UserStatistic> userStatsList = new ArrayList<>();
 
         for (UserStatistic stats : usersStats.values()) {
