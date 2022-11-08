@@ -1,9 +1,9 @@
 <div id="search-component">
     <label for="search-box" style="float: left;">Product Search</label>
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" style="float: left;">
+    <input #searchBox id="search-box" (input)="this.searchTerm = searchBox.value" style="float: left;">
 
     <label for="search-button"></label>
-    <!-- <button id="search-button" style="float: left; margin:1em;" (click)="routeToSearch()">Search</button> -->
+    <button id="search-button" style="float: left; margin:1em;" (click)="this.search(searchBox.value, this.products)">Search</button>
 
     <label class="type" for="dark">Dark</label>
     <input class="type" type="checkbox" id="dark" (change)="flipBool('DARK')">

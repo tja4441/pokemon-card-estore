@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, filter, Observable, Subject, switchMap } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { CardType, Product } from '../product';
 import { ProductService } from '../product.service';
 
@@ -10,7 +9,7 @@ import { ProductService } from '../product.service';
 })
 export class SearchProductsComponent implements OnInit {
   public products: Product[] = []
-  private searchTerms = new Subject<string>()
+  @Input() searchTerm!: string;
   public typeDictSearch: any = {"DARK" : false,
                           "DRAGON" : false,
                           "ELECTRIC" : false,
@@ -28,8 +27,8 @@ export class SearchProductsComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   handleClick(type: keyof typeof CardType, term: string) {
-    this.flipBool(CardType[type])
-    this.search(term)
+    this.flipBool(CardType[type]);
+    this.search(term, this.products);
   }
 
   flipBool(typeString: keyof typeof CardType) {
@@ -39,21 +38,11 @@ export class SearchProductsComponent implements OnInit {
     else this.typeListSearch.splice(this.typeListSearch.indexOf(type), 1)
   }
 
-  search(term: string): void {
-    term = term.trim()
-    this.empty = true;
-    if( !term ) {
-      for(let key in this.typeDictSearch){
-        if ( this.typeDictSearch[key] ){
-          this.empty = false;
-          break;
-        }
-      }
-    } else {
-      this.empty = false;
-    }
-    
-    this.searchTerms.next(term)
+  search(term: string, products: Product[]): void {
+    this.productService.getProductsByString(term).subscribe(p => {
+      products = p;
+      return this.filterByTypes(products)
+    });
   }
 
   filterByTypes(products: Product[]): Product[] {
@@ -66,5 +55,6 @@ export class SearchProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.search
   }
 }
