@@ -20,22 +20,28 @@
   "totalPrice" : 0.0
 }, {
   "id" : 3,
-  "contents" : [ ],
-  "totalPrice" : 0.0
+  "contents" : [ {
+    "id" : 14,
+    "name" : "Zeraora",
+    "types" : [ "ELECTRIC", "FIGHTING" ],
+    "quantity" : 1,
+    "price" : 1.0
+  } ],
+  "totalPrice" : 1.0
 }, {
   "id" : 4,
   "contents" : [ {
-    "id" : 1,
-    "name" : "Pikachu",
-    "types" : [ "ELECTRIC" ],
-    "quantity" : 1,
-    "price" : 9.0
-  }, {
     "id" : 3,
     "name" : "Charmander",
     "types" : [ "FIRE" ],
     "quantity" : 1,
     "price" : 4.5
+  }, {
+    "id" : 1,
+    "name" : "Pikachu",
+    "types" : [ "ELECTRIC" ],
+    "quantity" : 1,
+    "price" : 9.0
   } ],
   "totalPrice" : 13.5
 } ]

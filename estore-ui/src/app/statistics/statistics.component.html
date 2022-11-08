@@ -1,0 +1,22 @@
+<p>statistics works!</p>
+
+
+
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Avg. Spending</th>
+        <th>Favorite Type</th>
+        <th>Favorite Card</th>
+        <th>Avg. Session</th>
+        <th>Highest Spent</th>
+    </tr>
+    <tr *ngFor="let user in userStats">
+        <td>{{user.username}}</td>
+        <td>{{user.averagePurchaseAmt}}.tofixed(2)</td>
+        <td>{{user.mostPopularType}}</td>
+        <td>{{user.mostPurchased.name}}</td>
+        <td>{{user.averageSessionTime}}</td>
+        <td>{{user.mostExpensiveOrder.totalPrice}}.tofixed(2)</td>
+    </tr>
+</table>
