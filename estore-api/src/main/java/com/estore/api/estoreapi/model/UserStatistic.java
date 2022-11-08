@@ -1,7 +1,6 @@
 package com.estore.api.estoreapi.model;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,6 +8,7 @@ public class UserStatistic {
     static final String STRING_FORMAT = "UserStatistic [id=%d, loginCounter=%d, purchaseCounter=%d, lifetimeSpending=%f, lifetimeSessionTime=%f, averagePurchase=%f, purchasedCounts=%s, mostPurchased=%d, mostExpensiveOrder=%s, typeCounts=%s, typeRevenues=%s, mostPopularType=%s, averageSessionTime=%f]";
 
     @JsonProperty("id") private int id;
+    @JsonProperty("username") private String username;
     @JsonProperty("loginCounter")private int loginCounter;
     @JsonProperty("purchaseCounter")private int purchaseCounter;
     @JsonProperty("lifetimeSpending")private float lifetimeSpending;
@@ -29,8 +29,10 @@ public class UserStatistic {
      * 
      * @author Daniel Pittman
      */
-    public UserStatistic(@JsonProperty("id") int id) {
+    public UserStatistic(@JsonProperty("id") int id, @JsonProperty("username") String username) {
         this.id = id;
+        this.username = username;
+        this.username = "";
         this.loginCounter = 0;
         this.purchaseCounter = 0;
         this.lifetimeSpending = 0.0f;
@@ -51,6 +53,14 @@ public class UserStatistic {
      * @return id of the user the statistic belongs to
      */
     public int getId() {return this.id;}
+
+    /**gets the username of the user
+     * 
+     * @return the username of the user
+     */
+    public String getUsername() {
+        return username;
+    }
 
     /**
      * getter for the login counter

@@ -22,7 +22,6 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './cart-product/cart-product.component';
 import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { StatisticsService } from './statistics.service';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,7 @@ import { StatisticsService } from './statistics.service';
     ShoppingCartComponent,
     CartProductComponent,
     AddToCartComponent,
-    StatisticsComponent,
-    StatisticsService
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

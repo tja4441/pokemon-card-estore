@@ -1,6 +1,8 @@
+import { Product } from "./product";
 import { ShoppingCart } from "./ShoppingCart";
 
 export interface UserStatistics {
+    username: string;
     id: number;
     loginCounter: number;
     purchaseCounter: number;
@@ -12,6 +14,6 @@ export interface UserStatistics {
     typeRevenues: Map<String, number>;
     averageSessionTime: number;
     mostExpensiveOrder: ShoppingCart;
-    mostPurchased: number;
+    mostPurchased: Product;
     mostPopularType: String;
 }
