@@ -16,7 +16,7 @@ public interface StatisticsDao {
      * 
      * @throws IOException if there is some error reading the file
      */
-    UserStatistic[] getAllUserStats();
+    UserStatistic[] getUserStats();
 
     /** Gets the {@linkplain StoreStatistic} from the DAO
      * 

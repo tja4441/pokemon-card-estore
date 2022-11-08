@@ -1,5 +1,78 @@
 package com.estore.api.estoreapi.controller;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.estore.api.estoreapi.model.ShoppingCart;
+import com.estore.api.estoreapi.model.StoreStatistic;
+import com.estore.api.estoreapi.model.UserStatistic;
+import com.estore.api.estoreapi.persistence.StatisticsDao;
+
 public class StatisticsController {
-    
+    private static final Logger LOG = Logger.getLogger(UserController.class.getName());
+    private StatisticsDao statsDao;
+
+    @GetMapping("/stats")
+    public ResponseEntity<UserStatistic[]> getAllUserStats() {
+        LOG.info("GET /stats");
+
+        try {
+            UserStatistic[] userStats = statsDao.getUserStats();
+            if(userStats != null) {
+                return new ResponseEntity<>(userStats, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        catch(Exception e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/stats/store")
+    public ResponseEntity<StoreStatistic> getStoreStats() {
+        LOG.info("GET /stats/store");
+
+        try {
+            StoreStatistic storeStats = statsDao.getStoreStatistic();
+            if(storeStats != null) {
+                return new ResponseEntity<>(storeStats, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        catch(Exception e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/stats/{id}")
+    public ResponseEntity<UserStatistic> updateUserStats(@PathVariable int id, @RequestBody ShoppingCart cart, @RequestBody float sessionTime) {
+        LOG.info("PUT /stats/ " + id);
+
+        try {
+            UserStatistic s = statsDao.updateUserStatistic(id, cart, sessionTime);
+            if (s != null){
+            return new ResponseEntity<UserStatistic>(s,HttpStatus.OK);
+            }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

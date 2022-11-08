@@ -74,7 +74,7 @@ public class StatisticsFileDao implements StatisticsDao{
         return store;
     }
 
-    public UserStatistic[] getAllUserStats() {
+    public UserStatistic[] getUserStats() {
         ArrayList<UserStatistic> userStatsList = new ArrayList<>();
 
         for (UserStatistic stats : usersStats.values()) {
