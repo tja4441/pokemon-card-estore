@@ -268,13 +268,14 @@ public class UserStatistic {
         this.typeCounts.put(type, this.typeCounts.get(type) + amount);
     }
 
-    /**Adds amount to the value in the map pointed to by type
+    /**Takes an array of products and adds the revenue generated to the typeRevenues map
      * 
-     * @param type directs to value
-     * @param amount amount to be added
+     * @param purchasedProducts an array of the products purchased
      */
-    public void increaseTypeRevenue(CardType type, float amount){
-        this.typeRevenues.put(type, this.typeRevenues.get(type) + amount);
+    public void increaseTypeRevenue(Product[] purchasedProducts){
+        for(Product product: purchasedProducts) {
+            this.typeRevenues.put(product.getType(), product.getPrice() * product.getQuantity());
+        }
     }
 
     /**

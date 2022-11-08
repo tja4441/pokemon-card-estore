@@ -91,11 +91,11 @@ public class StatisticsFileDao implements StatisticsDao{
         stats.incrementLifetimeAmount(cart.GetTotalPrice());
         stats.incrementLifetimeSession(sessionTime);
         stats.increaseProductTally(cart.getContents().toArray(new Product[0]));
+        stats.increaseTypeRevenue(cart.getContents().toArray(new Product[0]));
         stats.determineMostExpensiveOrder(cart);
         stats.calculateAveragePurchaseAmount();
         stats.calculateAverageSessionTime();
         stats.determineMostPopularType();
-
 
         return stats;
     }
