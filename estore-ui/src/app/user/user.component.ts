@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderHistory } from '../order-history';
 import { OrderHistoryService } from '../order-history.service';
+import { Product } from '../product';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -17,6 +18,10 @@ export class UserComponent implements OnInit {
   constructor(private route: ActivatedRoute, private orderHistoryService: OrderHistoryService, private userService: UserService) {
     this.user = userService.getUser()
     this.orderHistoryService.getOrdersByUserID(this.user.id).subscribe(p => this.orderHistory = p)
+  }
+
+  getContents(order: OrderHistory): Product[] {
+    return Array.from(order.cart.contents)
   }
 
   ngOnInit(): void {}

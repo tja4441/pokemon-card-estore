@@ -8,7 +8,7 @@
         <p>{{order.orderNumber}}</p>
         <p>{{order.timeStamp}}</p>
         <p>{{order.cart.totalPrice}}</p>
-        <div *ngFor="let product of order.cart.contents" style="display: inline-block;">
+        <div *ngFor="let product of this.getContents(order)" style="display: inline-block;">
             <app-product-card [card]="product"></app-product-card>
         </div>
     </div>
