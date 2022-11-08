@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StatisticsService } from '../statistics.service';
 import { UserStatistics } from '../UserStatistics';
 
 @Component({
@@ -9,9 +10,10 @@ import { UserStatistics } from '../UserStatistics';
 export class StatisticsComponent implements OnInit {
   public userStats: UserStatistics[];
 
-  constructor() { }
+  constructor(statisticsService: StatisticsService) { }
 
   ngOnInit(): void {
+
   }
 
 }
