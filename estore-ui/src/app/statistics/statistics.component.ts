@@ -1,0 +1,22 @@
+import { Component, OnInit } from '@angular/core';
+import { StatisticsService } from '../statistics.service';
+import { StoreStatistics } from '../StoreStatistics';
+import { UserStatistics } from '../UserStatistics';
+
+@Component({
+  selector: 'app-statistics',
+  templateUrl: './statistics.component.html',
+  styleUrls: ['./statistics.component.css']
+})
+export class StatisticsComponent implements OnInit {
+  public userStats: UserStatistics[] = [];
+  public storeStats!: StoreStatistics;
+
+  constructor(private statsService: StatisticsService) { }
+
+  ngOnInit(): void {
+    this.statsService.getAllUserStats().subscribe(p => this.userStats = p);
+    this.statsService.getStoreStats().subscribe(p => this.storeStats = p);
+  }
+
+}

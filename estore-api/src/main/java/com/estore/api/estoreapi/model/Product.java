@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.logging.Logger;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -65,8 +64,9 @@ public class Product {
         return name;
     }
 
-    /** 
-     * @return returns the type of this product
+    /**gets the type array representing the array of types
+     * 
+     * @return a card array containing the types of the card
      */
     public CardType[] getTypes() {
         return types;
