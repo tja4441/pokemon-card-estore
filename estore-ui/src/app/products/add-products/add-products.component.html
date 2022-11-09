@@ -1,52 +1,46 @@
-<table>
-    <tr>
-        <td><label for="new-product">Product name: </label></td>
-        <td><input id="new-product" #productName /></td>
-    </tr>
-    <tr>
-        <td><label for="new-product">Product Types: </label></td>
-        <td>
-            <input type="checkbox" (click)="handleClick('DARK')" id="dark">
-            <label for="dark">Dark</label>
-            <input type="checkbox" (click)="handleClick('DRAGON')" id="dragon">
-            <label for="dragon">Dragon</label>
-            <input type="checkbox" (click)="handleClick('ELECTRIC')" id="electric">
-            <label for="electric">Electric</label>
-            <input type="checkbox" (click)="handleClick('FAIRY')" id="fairy">
-            <label for="fairy">Fairy</label>
-            <input type="checkbox" (click)="handleClick('FIGHTING')" id="fighting">
-            <label for="fighting">Fighting</label>
-            <input type="checkbox" (click)="handleClick('FIRE')" id="fire">
-            <label for="fire">Fire</label>
-            <input type="checkbox" (click)="handleClick('GRASS')" id="grass">
-            <label for="grass">Grass</label>
-            <input type="checkbox" (click)="handleClick('NORMAL')" id="normal">
-            <label for="normal">Normal</label>
-            <input type="checkbox" (click)="handleClick('PSYCHIC')" id="psychic">
-            <label for="psychic">Psychic</label>
-            <input type="checkbox" (click)="handleClick('STEEL')" id="steel">
-            <label for="steel">Steel</label>
-            <input type="checkbox" (click)="handleClick('WATER')" id="water">
-            <label for="water">Water</label>
-            <input type="checkbox" (click)="handleClick('TRAINER')" id="trainer">
-            <label for="trainer">Trainer</label>
-        </td>
-    </tr>
-    <tr>
-        <td><label for="new-product">Product quantity: </label></td>
-        <td><input id="new-product" #productQuantity min="0"/></td>
-    </tr>
-    <tr>
-        <td><label for="new-product">Product price: </label></td>
-        <td><input id="new-product" #productPrice /></td>
-    </tr>
-    <tr>
-        <td><button type="button" class="add-button"
-            (click)="add(productName.value, typeListAdd, productQuantity.value, productPrice.value); 
-            productName.value='';
-            productPrice.value=null;
-            productQuantity.value=null">
-            Add product
-        </button></td>
-    </tr>
-</table>
+<form style="margin: 10px;">
+    <h3>Add a Card:</h3>
+    <label for="new-product">Product name: </label><br/>
+    <input type="text" id="new-product" #productName /><br/>
+
+    <label for="new-product">Product price: </label><br/>
+    <input type="text" id="new-product" #productPrice /><br/>
+
+    <label for="new-product">Product quantity: </label><br/>
+    <input type="text" id="new-product" #productQuantity min="0"/><br/>
+
+    <label for="new-product">Product Types: </label>
+    <label for="adddark">Dark</label>
+    <input class="type" type="checkbox" (click)="handleClick('DARK')" id="adddark">
+    <label for="adddragon">Dragon</label>
+    <input class="type" type="checkbox" (click)="handleClick('DRAGON')" id="adddragon">
+    <label for="addelectric">Electric</label>
+    <input class="type" type="checkbox" (click)="handleClick('ELECTRIC')" id="addelectric">
+    <label for="addfairy">Fairy</label>
+    <input class="type" type="checkbox" (click)="handleClick('FAIRY')" id="addfairy">
+    <label for="addfighting">Fighting</label>
+    <input class="type" type="checkbox" (click)="handleClick('FIGHTING')" id="addfighting">
+    <label for="addfire">Fire</label>
+    <input class="type" type="checkbox" (click)="handleClick('FIRE')" id="addfire">
+    <label for="addgrass">Grass</label>
+    <input class="type" type="checkbox" (click)="handleClick('GRASS')" id="addgrass">
+    <label for="addnormal">Normal</label>
+    <input class="type" type="checkbox" (click)="handleClick('NORMAL')" id="addnormal">
+    <label for="addpsychic">Psychic</label>
+    <input class="type" type="checkbox" (click)="handleClick('PSYCHIC')" id="addpsychic">
+    <label for="addsteel">Steel</label>
+    <input class="type" type="checkbox" (click)="handleClick('STEEL')" id="addsteel">
+    <label for="addwater">Water</label>
+    <input class="type" type="checkbox" (click)="handleClick('WATER')" id="addwater">
+    <label for="addtrainer">Trainer</label>
+    <input class="type" type="checkbox" (click)="handleClick('TRAINER')" id="addtrainer">
+    <br/>
+
+    <button type="button" class="add-button"
+        (click)="add(productName.value, typeListAdd, productQuantity.value, productPrice.value); 
+        productName.value='';
+        productPrice.value=null;
+        productQuantity.value=null">
+        Add product
+    </button>
+</form>

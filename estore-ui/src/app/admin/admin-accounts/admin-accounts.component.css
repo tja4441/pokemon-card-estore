@@ -1,0 +1,19 @@
+form{
+    margin-bottom: 1em;
+}
+
+input[type=text] {
+    padding: 12px 12px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    height: 20px;
+    border-radius: 12px;
+}
+
+input[type=password] {
+    padding: 12px 12px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    height: 20px;
+    border-radius: 12px;
+}

@@ -10,6 +10,15 @@ h1  {color: white;
     font-size: 12px;
     padding: 1em;
     border: 2px solid black;
+    width: 150px;
+    height: 30px;
+    text-align: center;
     border-radius: 12px;
     margin: 1em;
+    transition-duration: 0.4s;
+}
+
+.usertag:hover {
+    background-color: blue;
+    color:white;
 }

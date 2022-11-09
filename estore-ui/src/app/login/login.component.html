@@ -2,20 +2,16 @@
     <div class="card">
         <h2>Login:</h2>
         <form (ngSubmit)="login(loginName.value, loginpass.value)">
-            <div class="input">
-                <label for="user">Username: </label>
-                <input id="user" type="text" placeholder="Username" #loginName><br/>
-            </div>
-            <div class="input">
-                <label for="pass">Password: </label>
-                <input type="password" id="pass" #loginpass>
-            </div>
+            <label for="user">Username: </label><br/>
+            <input id="user" type="text" placeholder="Username" #loginName><br/>
+            <label for="pass">Password: </label><br/>
+            <input type="password" placeholder="Password" id="pass" #loginpass>
             <div class="input">
                 <input type="submit">
             </div>
         </form>
         <div *ngIf="loginFailed">
-            <p style="color: red;">Login Failed.
+            <p class="error">Login Failed.
                 If you don't have an account try registering instead.</p>
         </div>
     </div>
@@ -25,23 +21,20 @@
         <form>
             <!-- <p>Password must contain at least one number and one uppercase and lowercase letter, and at least 8 characters</p> -->
             <div class="input">
-                <label for="ruser">Username: </label>
+                <label for="ruser">Username: </label><br/>
                 <input id="ruser" type="text" placeholder="Username" #regName><br/>
-                <label for="rpass">Password: </label>
+                <label for="rpass">Password: </label><br/>
                 <input type="password" id="rpass" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #regPass><br/>
-                <label for="confirm">Retype Password: </label>
+                <label for="confirm">Retype Password: </label><br/>
                 <input type="password" id="confirm" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" #confirm><br/>
                 <input type="submit" (click)="register(regName.value, regPass.value, confirm.value)">
             </div>
-            <div *ngIf="registerFailed">
-                <p style="color: red;">
-                Username is Taken. Please Try again!</p>
-            </div>
         </form>
+        <p *ngIf="registerFailed" class="error">Username is Taken. Please Try again!</p>
     </div>
 </div>
 <div *ngIf="username" class="loggedIn">
-    <h2>Already logged in as {{username | titlecase}}</h2>
+    <h2>Already logged in as {{username}}</h2>
     <button (click)="goBack()">continue as user</button>
     <button (click)="logout()">log out</button>
 </div>

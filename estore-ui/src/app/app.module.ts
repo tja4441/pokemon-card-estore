@@ -27,6 +27,7 @@ import { UserGuard } from 'src/app/model/UserGuard';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './shopping-cart/cart-product/cart-product.component';
 import { AddToCartComponent } from './shopping-cart/add-to-cart/add-to-cart.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.component';
 
@@ -54,6 +55,7 @@ import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.co
     ShoppingCartComponent,
     CartProductComponent,
     AddToCartComponent,
+    StatisticsComponent,
     CheckoutComponent,
     PaypalButtonComponent
   ],

@@ -57,4 +57,12 @@ public interface UserDao {
      * @throws IOException throws exeption if there is an issue with changing persistant storage
      */
     public boolean deleteUser(int id) throws IOException;
+
+    /**
+     * Compares a string password given when hashed to stored hashed password
+     * @param user the user you are checking if the password matches
+     * @param password the string password that has been sent
+     * @return returns true if the password matches and false if it does not.
+     */
+    public boolean validatePassword(User user, String password);
 }
