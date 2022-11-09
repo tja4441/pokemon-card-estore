@@ -1,5 +1,4 @@
 package com.estore.api.estoreapi.controller;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 /**
  * Handles the REST API requests for the User
