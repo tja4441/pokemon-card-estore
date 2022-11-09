@@ -65,8 +65,7 @@ public class UserController {
             }
             if(userDao.getUser(user.getUserName()) != null) return new ResponseEntity<>(HttpStatus.CONFLICT);
             User newUser = userDao.createUser(user);
-            if (newUser != null) {
-                LOG.info("Registered user:" + user + " Pass:" + user.getPassword());
+            if(newUser != null) {
                 shoppingCartController.createCart(newUser.getId());
                 return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
             }
@@ -121,8 +120,8 @@ public class UserController {
         try {
             User user = userDao.getUser(userName);
             if(user != null){
-                if(!user.getPassword().equals(password)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-                return new ResponseEntity<User>(user,HttpStatus.OK);
+                if(userDao.validatePassword(user, password)) return new ResponseEntity<User>(user,HttpStatus.OK);
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

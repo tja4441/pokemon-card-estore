@@ -1,41 +1,5 @@
 [ {
   "id" : 1,
-  "contents" : [ {
-    "id" : 1,
-    "name" : "Pikachu",
-    "types" : null,
-    "quantity" : 1,
-    "price" : 3.0
-  }, {
-    "id" : 3,
-    "name" : "Charmander",
-    "types" : null,
-    "quantity" : 1,
-    "price" : 4.5
-  } ],
-  "totalPrice" : 7.5
-}, {
-  "id" : 2,
   "contents" : [ ],
   "totalPrice" : 0.0
-}, {
-  "id" : 3,
-  "contents" : [ ],
-  "totalPrice" : 0.0
-}, {
-  "id" : 4,
-  "contents" : [ {
-    "id" : 1,
-    "name" : "Pikachu",
-    "types" : [ "ELECTRIC" ],
-    "quantity" : 1,
-    "price" : 9.0
-  }, {
-    "id" : 3,
-    "name" : "Charmander",
-    "types" : [ "FIRE" ],
-    "quantity" : 1,
-    "price" : 4.5
-  } ],
-  "totalPrice" : 13.5
 } ]

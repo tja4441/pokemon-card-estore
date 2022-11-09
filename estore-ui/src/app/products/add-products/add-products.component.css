@@ -1,0 +1,21 @@
+input[type=text] {
+    padding: 12px 12px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    height: 20px;
+    border-radius: 12px;
+}
+
+.add-button {
+    width: 200px;
+    height: 60px;
+    background-color: lightblue;
+    color: black;
+    transition-duration: 0.4s;
+    border-radius: 15px;
+}
+
+.add-button:hover {
+    background-color: blue;
+    color: white;
+}

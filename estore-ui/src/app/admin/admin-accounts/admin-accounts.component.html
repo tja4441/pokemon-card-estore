@@ -2,7 +2,7 @@
 
 <app-change-password-form></app-change-password-form>
 
-<h2>Create New Admin</h2>
+<h2>Create New Admin:</h2>
 <div *ngIf="attempted">
     <p class="error" *ngIf="emptyField">One or more fields has been left empty</p>
     <p class="error" *ngif="confirmDoesntMatch">Passwords do not match</p>
@@ -10,12 +10,12 @@
 </div>
 <p *ngIf="createdSuccess">Successfully created admin</p>
 <form (ngSubmit)="createAdmin(user.value, pass.value, confirm.value)">
-    <label for="user">Username: </label>
-    <input type="text" id="user" placeholder="Username" #user><br/>
-    <label for="pass">Password: </label>
-    <input type="password" id="pass" placeholder="password" #pass><br/>
-    <label for="confirm">Retype Password: </label>
-    <input type="password" id="confirm" placeholder="Password" #confirm><br/>
+    <label for="user">Username: </label><br/>
+    <input type="text" id="user" #user><br/>
+    <label for="pass">Password: </label><br/>
+    <input type="password" id="pass" #pass><br/>
+    <label for="confirm">Retype Password: </label><br/>
+    <input type="password" id="confirm" #confirm><br/>
     <input type="submit">
 </form>
 

@@ -14,7 +14,8 @@ public class User {
 
     @JsonProperty("id") private int id;
     @JsonProperty("UserName") private String userName;
-    @JsonProperty("Password") private String password;
+    private String password;
+    @JsonProperty("HashedPass") private byte[] hashedPass;
 
     /**
      * Create a user with the given id and username
@@ -26,6 +27,13 @@ public class User {
         this.id = id;
         this.userName = userName;
         this.password = password;
+        this.hashedPass = null;
+    }
+    public User(int id, String userName, byte[] hashedPass) {
+        this.id = id;
+        this.userName = userName;
+        this.hashedPass = hashedPass;
+        this.password = "";
     }
 
     /**
@@ -44,7 +52,14 @@ public class User {
      * Retrieves the password of the User
      * @return The password of the User
      */
+    @JsonIgnore
     public String getPassword() {return password;}
+
+    /**
+     * Retrieves hashed password
+     * @return returns the users hashed password
+     */
+    public byte[] getHashedPass() {return hashedPass;}
 
     /**
      * Sets the username of the User
@@ -53,10 +68,10 @@ public class User {
     public void setUserName(String userName) {this.userName = userName;}
 
     /**
-     * Sets the password of the User
+     * Sets the hashed password of the User
      * @param password The password of the User
      */
-    public void setPassword(String password) {this.password = password;}
+    public void setHashPass(byte[] password) {this.hashedPass = password;}
 
     /**
      * Checks if the user is an admin by checking if the user has an id of 0 and a 

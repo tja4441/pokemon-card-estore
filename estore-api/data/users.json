@@ -1,29 +1,13 @@
 [ {
-  "id" : -3,
-  "UserName" : "MrMert",
-  "Password" : "Mert"
-}, {
   "id" : -2,
-  "UserName" : "Jabe",
-  "Password" : "Jabepass"
+  "UserName" : "Jorb",
+  "HashedPass" : "mvlGI8vpqrbJOZrtBu/gZj01FkLOUgAu6RRoi6UVlfo="
 }, {
   "id" : -1,
   "UserName" : "admin",
-  "Password" : "admin"
+  "HashedPass" : "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg="
 }, {
   "id" : 1,
-  "UserName" : "zach",
-  "Password" : "Password"
-}, {
-  "id" : 2,
-  "UserName" : "jorb",
-  "Password" : "JorbPass"
-}, {
-  "id" : 3,
   "UserName" : "gabe",
-  "Password" : "Password"
-}, {
-  "id" : 4,
-  "UserName" : "daniel",
-  "Password" : "Mert"
+  "HashedPass" : "588+9PF8OZmpTyxvYS6KiI5bECaHjk4ZOYsjvTjsIho="
 } ]

@@ -2,9 +2,15 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +29,8 @@ public class UserFileDao implements UserDao {
     private String filename;                    //Filename to read/write
     private static final Logger LOG = Logger.getLogger(UserFileDao.class.getName());
     private static final int ADMIN_ID = -1;
+    private static final Charset CHARSET = StandardCharsets.UTF_8;
+    private static MessageDigest DIGEST;
     
     /**
      * Creates a User File Data Access Object
@@ -33,10 +41,14 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     public UserFileDao(@Value("${users.file}") String filename, 
-                        ObjectMapper objectMapper )throws IOException{
+                        ObjectMapper objectMapper )throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        
+        try {
+            UserFileDao.DIGEST = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            LOG.log(Level.SEVERE, e.getMessage());
+        }
         load();
     }
 
@@ -69,7 +81,7 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     private void init() throws IOException{
-        users.put(ADMIN_ID,new User(ADMIN_ID,"admin", "admin"));
+        users.put(ADMIN_ID,new User(ADMIN_ID,"admin", hash("admin")));
         save();
     }
     /**
@@ -142,16 +154,18 @@ public class UserFileDao implements UserDao {
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users) {
-            User newUser = new User(nextUserID(), user.getUserName(), user.getPassword());
-            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ") || user.getPassword().isBlank()) {
-                return null;                                 // Username is blank or contains a space
+            if (user.getUserName().isBlank() || user.getUserName().contains(" ") || user.getPassword().isBlank()) {
+                return null;                                 // Username is blank or contains a space or no password
             }
             for (User other : users.values()) {
                 if(user.equals(other)){
                     return null;
                 }
             }
-            users.put(newUser.getId(), newUser);
+            int id = nextUserID();
+            byte[] hashedPass = hash(user.getPassword());
+            User newUser = new User(id, user.getUserName(), hashedPass);
+            users.put(id, newUser);
             save();
             return newUser;
         }
@@ -163,16 +177,18 @@ public class UserFileDao implements UserDao {
     @Override
     public User createAdmin(User user) throws IOException {
         synchronized(users) {
-            User newUser = new User(nextAdminID(), user.getUserName(), user.getPassword());
-            if (newUser.getUserName().isBlank() || newUser.getUserName().contains(" ") || user.getPassword().isBlank()) {
-                return null;                                 // Username is blank or contains a space
+            if (user.getUserName().isBlank() || user.getUserName().contains(" ") || user.getPassword().isBlank()) {
+                return null;                                 // Username is blank or contains a space or no password
             }
             for (User other : users.values()) {
                 if(user.equals(other)){
                     return null;
                 }
             }
-            users.put(newUser.getId(), newUser);
+            int id = nextAdminID();
+            byte[] hashedPass = hash(user.getPassword());
+            User newUser = new User(id, user.getUserName(), hashedPass);
+            users.put(id, newUser);
             save();
             return newUser;
         }
@@ -186,9 +202,9 @@ public class UserFileDao implements UserDao {
         synchronized(users) {
             User user = users.get(id);
             if(user == null) return false;
-            else if(!user.getPassword().equals(change.getOld())) return false;
+            else if(!validatePassword(user, change.getOld())) return false;
             else {
-                user.setPassword(change.getNew());
+                user.setHashPass(hash(change.getNew()));
                 users.put(id, user);
                 save();
                 return true;
@@ -219,6 +235,12 @@ public class UserFileDao implements UserDao {
             return true;
         }
     }
+
+    @Override
+    public boolean validatePassword(User user, String password) {
+        byte[] hashedPass = hash(password);
+        return Arrays.equals(hashedPass, user.getHashedPass());
+    }
    
     private int nextUserID() {
         synchronized(users) {
@@ -238,5 +260,9 @@ public class UserFileDao implements UserDao {
             }
             return i;
         }
+    }
+
+    private byte[] hash(String string) {
+        return DIGEST.digest(string.getBytes(CHARSET));
     }
 }

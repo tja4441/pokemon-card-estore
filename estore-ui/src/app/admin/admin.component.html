@@ -1,20 +1,17 @@
 <h1>Admin Control Panel:</h1>
 <nav>
-    <button (click)="edit()">Edit Products</button>
-    <button (click)="stats()">Sales Statistics</button>
-    <button (click)="account()">Account Info</button>
+    <button [class.selected]="EDIT" (click)="edit()">Edit Inventory</button>
+    <button [class.selected]="STATS" (click)="stats()">Sales Statistics</button>
+    <button [class.selected]="ACCOUNTS" (click)="account()">Account Info</button>
 </nav>
 <div *ngIf="EDIT">
-    <h2>Edit Products:</h2>
     <app-admin-edit></app-admin-edit>
 </div>
 
 <div *ngIf="STATS">
-<h2>Sales Statistics:</h2>
 <app-admin-stats></app-admin-stats>
 </div>
 
 <div *ngIf="ACCOUNTS">
-    <h2>Account Info:</h2>
     <app-admin-accounts></app-admin-accounts>
 </div>
