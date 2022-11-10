@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { MessageService } from './message.service';
-import { OrderHistory } from './order-history';
+import { OrderHistory } from '../model/order-history';
 
 @Injectable({
   providedIn: 'root'

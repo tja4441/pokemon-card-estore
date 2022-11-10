@@ -56,7 +56,8 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
     AddToCartComponent,
     OrderHistoryComponent,
     CheckoutComponent,
-    PaypalButtonComponent
+    PaypalButtonComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
