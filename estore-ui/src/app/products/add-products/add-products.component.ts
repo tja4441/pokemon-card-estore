@@ -38,7 +38,14 @@ export class AddProductsComponent implements OnInit {
   }
 
   handleClick(type: keyof typeof CardType) {
-    this.flipBool(CardType[type]);
+    if(this.typeDict[CardType[type]] || this.typeListAdd.length < 2) {
+      this.flipBool(CardType[type]);
+    }
+    else {
+      alert("Each Pokemon can only have 2 types")
+    }
+    var element = document.getElementById(type) as HTMLInputElement
+    element.checked = this.typeDict[CardType[type]]
   }
 
   /**
@@ -57,6 +64,10 @@ export class AddProductsComponent implements OnInit {
    * @param price price of the card
    */
   add(name: string, types: CardType[], quantity: any, price: any): void {
+    if(this.typeListAdd.length == 0) {
+      alert("A Pokemon Must have at least 1 type")
+      return
+    }
     //removes whitespace
     name = name.trim();
     //tries to add product to the server using productService
