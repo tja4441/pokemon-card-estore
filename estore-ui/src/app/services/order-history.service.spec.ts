@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { OrderHistoryService } from './services/order-history.service';
+import { OrderHistoryService } from './order-history.service';
 
 describe('OrderHistoryService', () => {
   let service: OrderHistoryService;
