@@ -26,7 +26,7 @@
   "id" : 5,
   "name" : "Treecko",
   "types" : [ "GRASS" ],
-  "quantity" : 65,
+  "quantity" : 60,
   "price" : 2.99
 }, {
   "id" : 6,

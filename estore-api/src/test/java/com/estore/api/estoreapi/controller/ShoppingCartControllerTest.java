@@ -7,8 +7,6 @@ import com.estore.api.estoreapi.model.CardType;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.ShoppingCartDao;
 
-import net.bytebuddy.agent.VirtualMachine.ForHotSpot.Connection.Response;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;

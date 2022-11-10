@@ -5,11 +5,13 @@
     "contents" : [ {
       "id" : 1,
       "name" : "Pikachu",
+      "types" : null,
       "quantity" : 1,
       "price" : 3.0
     }, {
       "id" : 3,
       "name" : "Charmander",
+      "types" : null,
       "quantity" : 2,
       "price" : 4.5
     } ],
@@ -24,6 +26,7 @@
     "contents" : [ {
       "id" : 3,
       "name" : "Charmander",
+      "types" : null,
       "quantity" : 8,
       "price" : 4.5
     } ],
@@ -31,4 +34,19 @@
   },
   "orderNumber" : 2,
   "timeStamp" : "11/08/2022 00:57:54"
+}, {
+  "id" : 3,
+  "purchasedCart" : {
+    "id" : 3,
+    "contents" : [ {
+      "id" : 5,
+      "name" : "Treecko",
+      "types" : [ "GRASS" ],
+      "quantity" : 5,
+      "price" : 2.99
+    } ],
+    "totalPrice" : 14.95
+  },
+  "orderNumber" : 3,
+  "timeStamp" : "11/10/2022 17:15:31"
 } ]
