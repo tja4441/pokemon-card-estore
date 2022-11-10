@@ -81,7 +81,7 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     private void init() throws IOException{
-        users.put(ADMIN_ID,new User(ADMIN_ID,"admin", hash("admin")));
+        users.put(ADMIN_ID,new User(ADMIN_ID,"admin", hash("admin","admin")));
         save();
     }
     /**
@@ -163,7 +163,7 @@ public class UserFileDao implements UserDao {
                 }
             }
             int id = nextUserID();
-            byte[] hashedPass = hash(user.getPassword());
+            byte[] hashedPass = hash(user.getPassword(),user.getUserName());
             User newUser = new User(id, user.getUserName(), hashedPass);
             users.put(id, newUser);
             save();
@@ -186,7 +186,7 @@ public class UserFileDao implements UserDao {
                 }
             }
             int id = nextAdminID();
-            byte[] hashedPass = hash(user.getPassword());
+            byte[] hashedPass = hash(user.getPassword(),user.getUserName());
             User newUser = new User(id, user.getUserName(), hashedPass);
             users.put(id, newUser);
             save();
@@ -204,7 +204,7 @@ public class UserFileDao implements UserDao {
             if(user == null) return false;
             else if(!validatePassword(user, change.getOld())) return false;
             else {
-                user.setHashPass(hash(change.getNew()));
+                user.setHashPass(hash(change.getNew(),user.getUserName()));
                 users.put(id, user);
                 save();
                 return true;
@@ -238,7 +238,7 @@ public class UserFileDao implements UserDao {
 
     @Override
     public boolean validatePassword(User user, String password) {
-        byte[] hashedPass = hash(password);
+        byte[] hashedPass = hash(password,user.getUserName());
         return Arrays.equals(hashedPass, user.getHashedPass());
     }
    
@@ -262,7 +262,8 @@ public class UserFileDao implements UserDao {
         }
     }
 
-    private byte[] hash(String string) {
+    private byte[] hash(String string, String username) {
+        DIGEST.update(username.getBytes(CHARSET));
         return DIGEST.digest(string.getBytes(CHARSET));
     }
 }
