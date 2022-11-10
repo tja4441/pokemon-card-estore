@@ -1,10 +1,29 @@
 [ {
-  "id" : 0,
-  "UserName" : "admin"
+  "id" : -2,
+  "UserName" : "Jorb",
+  "HashedPass" : "o6HUUTRtJMZ5OfcMlO92A50DutSTHRLj+5pL2pHlafM="
+}, {
+  "id" : -1,
+  "UserName" : "admin",
+  "HashedPass" : "2CSU8F1pF7oC96qilonMtES7c/IDgIdssF0fN1N7eJI="
 }, {
   "id" : 1,
-  "UserName" : "zach"
+  "UserName" : "Gabe",
+  "HashedPass" : "HX9whizjmCOAn3D/V6nGXQiUhn6vjatmemydBG8qo7U="
 }, {
   "id" : 2,
-  "UserName" : "bob"
+  "UserName" : "Zach",
+  "HashedPass" : "GJ3tgE6bU2RdFcfY16mslxhzQKLoAc9c9AJAXGQFU2A="
+}, {
+  "id" : 3,
+  "UserName" : "Jensen",
+  "HashedPass" : "Mutm7No2V+TBDxp1CnTdlrGnk3yDrz/I8sRpisYXBLQ="
+}, {
+  "id" : 4,
+  "UserName" : "Tim",
+  "HashedPass" : "v30r+VxbJB9KP27oK3UjBhIooRO6JLTuvetTmT9LN7o="
+}, {
+  "id" : 5,
+  "UserName" : "Daniel",
+  "HashedPass" : "WNZt6lt2NLI8NBBE9L1btcx5OIBfb6WermapwPnW374="
 } ]

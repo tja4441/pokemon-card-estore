@@ -31,7 +31,7 @@ public class UserControllerTest {
 
     
     private static User createTestUser() {
-        User user = new User(1, "Jeff");
+        User user = new User(1, "Jeff", "password");
         return user;
     }
 
@@ -63,7 +63,7 @@ public class UserControllerTest {
     public void testLogin() throws IOException{
         User user = createTestUser();
         when(mockUserDao.getUser(user.getUserName())).thenReturn(user);
-        ResponseEntity<User> response = userController.login(user.getUserName());
+        ResponseEntity<User> response = userController.login(user.getUserName(), user.getPassword());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(user, response.getBody());
     }
@@ -71,22 +71,24 @@ public class UserControllerTest {
     @Test
     public void testLoginNotFound() throws IOException{
         String name = "Jeff";
+        String pass = "pass";
         when(mockUserDao.getUser(name)).thenReturn(null);
-        ResponseEntity<User> response = userController.login(name);
+        ResponseEntity<User> response = userController.login(name, pass);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
     public void testLoginHandlesException() throws IOException {
         String name = "Jeff";
+        String pass = "pass";
         doThrow(new IOException()).when(mockUserDao).getUser(name);
-        ResponseEntity<User> response = userController.login(name);
+        ResponseEntity<User> response = userController.login(name, pass);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
     
     @Test
     public void getUsers() throws IOException{
-        User[] users = {createTestUser(), new User(5, "Mary")};
+        User[] users = {createTestUser(), new User(5, "Mary", "password")};
         when(mockUserDao.getUsers()).thenReturn(users);
         ResponseEntity<User[]> response = userController.getUsers();
         assertEquals(HttpStatus.OK, response.getStatusCode());

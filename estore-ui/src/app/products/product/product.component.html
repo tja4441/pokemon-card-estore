@@ -1,0 +1,8 @@
+<div *ngIf="product" >
+        <p>Name: {{product.name}}</p> 
+        <p>Types: {{product.types}}</p>
+        <p>Price: {{product.price}}</p>
+        <p>We have {{product.quantity}} in stock!</p>
+        <app-add-to-cart [product]="product"></app-add-to-cart>
+</div>
+<button type="button" (click)="goBack()">go back</button>

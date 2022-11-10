@@ -4,6 +4,10 @@
  * that someone might need on an individual product
  */
 package com.estore.api.estoreapi.model;
+import java.util.Arrays;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,12 +16,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * price hashmap that links product ID to a price
  */
 public class Product {
-    private static final Logger LOG = Logger.getLogger(Product.class.getName());
     // Package private for tests
-    static final String STRING_FORMAT = "Product [id=%d, name=%s, quantity=%d, price=%f]";
+    static final String STRING_FORMAT = "Product [id=%d, name=%s, types=%s, quantity=%d, price=%f]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
+    @JsonProperty("types") private CardType[] types;
     @JsonProperty("quantity") private int quantity;
     @JsonProperty("price") private float price;
     
@@ -30,14 +34,15 @@ public class Product {
      * @param quantity the amount of an item there is
      * @param price the price of an item
      */
-    public Product(@JsonProperty("id") int id,@JsonProperty("name") String name, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
+    public Product(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("types") CardType[] types, @JsonProperty("quantity")int quantity, @JsonProperty("price")float price) {
         this.id = id;
         this.name = name;
+        this.types = types;
         this.quantity = quantity;
-        this.price = price;
+        BigDecimal bd = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
+        this.price = bd.floatValue();
     }
 
-    
     /**
      * @return returns the id of this product
      */
@@ -58,6 +63,13 @@ public class Product {
      */
     public String getName() {
         return name;
+    }
+
+    /** 
+     * @return returns the type of this product
+     */
+    public CardType[] getTypes() {
+        return types;
     }
 
     /**
@@ -92,7 +104,7 @@ public class Product {
      */
     @Override
     public String toString(){
-        return String.format(STRING_FORMAT,id,name,quantity,price);
+        return String.format(STRING_FORMAT,id,name,types,quantity,price);
     }
 
     /**
@@ -104,7 +116,7 @@ public class Product {
             return false;
         }
         Product otherProduct = (Product) other;
-        if(this.name.toLowerCase().equals(otherProduct.name.toLowerCase())) {
+        if((this.name.toLowerCase().equals(otherProduct.name.toLowerCase())) && Arrays.equals(this.types, otherProduct.getTypes())) {
             return true;
         }
         else {
@@ -117,6 +129,7 @@ public class Product {
      */
     @Override
     public int hashCode() {
-        return name.toLowerCase().hashCode();
+        String hashString = name + types;
+        return hashString.toLowerCase().hashCode();
     }
 }

@@ -3,6 +3,7 @@ package com.estore.api.estoreapi.controller;
 import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
+import com.estore.api.estoreapi.model.CardType;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.ShoppingCartDao;
 
@@ -35,7 +36,7 @@ public class ShoppingCartControllerTest {
     }
 
     private static User createTestUser() {
-        User user = new User(1, "Jeff");
+        User user = new User(1, "Jeff", "");
         return user;
     }
 
@@ -160,9 +161,11 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testAddToCart() throws IOException{
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         ShoppingCart cart = new ShoppingCart(1);
-        Product nProduct = new Product(5, "Apples", 10, 1.00f);
-        Product expectedProduct = new Product(5, "Apple", 1, 1.00f);
+        Product nProduct = new Product(5,"Apples",typeArray,10,1.00f);
+        Product expectedProduct = new Product(5,"Apple",typeArray,1,1.00f);
         cart.getContents().add(expectedProduct);
         
         when(mockShoppingCartDao.addToCart(1,nProduct)).thenReturn(cart);
@@ -175,7 +178,9 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testAddToCartHandleException() throws IOException{
-        Product nProduct = new Product(5, "Apples", 10, 1.00f);
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         doThrow(new IOException()).when(mockShoppingCartDao).addToCart(1, nProduct);
 
@@ -186,7 +191,9 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testAddToCartHandleNotFound() throws IOException{
-        Product nProduct = new Product(5, "Apples", 10, 1.00f);
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         when(mockShoppingCartDao.addToCart(1, nProduct)).thenReturn(null);
 
@@ -197,8 +204,10 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testDeleteFromCart() throws IOException{
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         ShoppingCart cart = new ShoppingCart(1);
-        Product nProduct = new Product(5, "Apples", 10, 1.00f);
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         when(mockShoppingCartDao.deleteFromCart(1,nProduct)).thenReturn(cart);
 
@@ -210,7 +219,9 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testDeleteFromCartHandleException() throws IOException{
-        Product nProduct = new Product(5, "Apples", 10, 1.00f);
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         doThrow(new IOException()).when(mockShoppingCartDao).deleteFromCart(1, nProduct);
 
@@ -221,7 +232,9 @@ public class ShoppingCartControllerTest {
 
     @Test
     public void testDeleteFromCartConflict() throws IOException{
-        Product nProduct = new Product(5, "Apples", 10, 1.00f);
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
+        Product nProduct = new Product(5,"Apple",typeArray,1,1.00f);
         
         when(mockShoppingCartDao.deleteFromCart(1, nProduct)).thenReturn(null);
 

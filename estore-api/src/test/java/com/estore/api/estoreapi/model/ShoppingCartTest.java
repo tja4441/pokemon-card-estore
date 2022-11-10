@@ -34,8 +34,10 @@ public class ShoppingCartTest {
 
     @Test
     public void testAddProduct() {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         HashSet<Product> expectedContents = new HashSet<Product>();
-        Product p = new Product(1, "Carrots", 50, 2.10f);
+        Product p = new Product(1,"Carrots",typeArray,50,2.10f);
         expectedContents.add(p);
         testCart.addToCart(p);
         float expectedTotalPrice = p.getPrice() * p.getQuantity();
@@ -46,8 +48,10 @@ public class ShoppingCartTest {
 
     @Test
     public void testRemoveProduct() {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         HashSet<Product> expectedContents = new HashSet<Product>();
-        Product p = new Product(1, "Carrots", 50, 2.10f);
+        Product p = new Product(1,"Carrots",typeArray,50,2.10f);
         expectedContents.add(p);
         testCart.addToCart(p);
 
@@ -60,9 +64,11 @@ public class ShoppingCartTest {
 
     @Test
     public void testUpdateProductInCart() {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         HashSet<Product> expectedContents = new HashSet<Product>();
-        Product oldP = new Product(1, "Carrots", 50, 2.10f);
-        Product newP = new Product(1, "Carrot", 25, 2f);
+        Product oldP = new Product(1,"Carrots",typeArray,50,2.10f);
+        Product newP = new Product(1,"Carrot",typeArray,25,2f);
         expectedContents.add(newP);
         float expectedTotalPrice = newP.getPrice() * newP.getQuantity();
         
@@ -75,8 +81,10 @@ public class ShoppingCartTest {
 
     @Test
     public void testSizeOf() {
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
         HashSet<Product> expectedContents = new HashSet<Product>();
-        Product p = new Product(1, "Carrots", 50, 2.10f);
+        Product p = new Product(1,"Carrots",typeArray,50,2.10f);
         expectedContents.add(p);
         int expectedSize = expectedContents.size();
         
@@ -119,7 +127,9 @@ public class ShoppingCartTest {
 
     @Test
     public void testEqualCartToNonCart() {
-        Product p = new Product(1, "Carrots", 50, 2.10f);
+        CardType[] typeArray = new CardType[1];
+        typeArray[0] = CardType.GRASS;
+        Product p = new Product(1,"Carrots",typeArray,50,2.10f);
 
         boolean equal = testCart.equals(p);
 

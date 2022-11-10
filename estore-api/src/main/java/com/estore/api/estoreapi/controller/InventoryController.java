@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.estore.api.estoreapi.model.CardType;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.persistence.InventoryDao;
 
@@ -170,14 +170,14 @@ public class InventoryController {
     }
 
     /**
-     * Respongs to a get request for an array of products that contain a
+     * Responds to a get request for an array of products that contain a
      * specified substring in their name property
      * @param name the substring that is being searched for in products
      * @return ResponseEntity with a status of OK with product
      */
-    @GetMapping("/")
-    public ResponseEntity<Product[]> searchProducts(@RequestParam String name) {
-        LOG.info("GET /products/?name="+name);
+    @GetMapping("/name/{name}")
+    public ResponseEntity<Product[]> searchProducts(@PathVariable String name) {
+        LOG.info("GET /products/name/"+name);
         try {
             Product[] products = inventoryDao.findProducts(name);
             if (products.length == 0) {
@@ -190,5 +190,25 @@ public class InventoryController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-}
 
+    /**
+     * Responds to a get request for an array of products that are a certain type
+     * @param type the string that represents the type being searched for
+     * @return ResponseEntity with a status of OK with the products
+     */
+    @GetMapping("/type/{type}")
+    public ResponseEntity<Product[]> getProductsByType(@PathVariable String type) {
+        LOG.info("GET /products/type/"+type);
+        try {
+            Product[] products = inventoryDao.getProductsType(CardType.valueOf(type));
+            if (products.length == 0) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<Product[]>(products,HttpStatus.OK);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}

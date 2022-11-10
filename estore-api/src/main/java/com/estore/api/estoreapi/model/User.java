@@ -14,15 +14,26 @@ public class User {
 
     @JsonProperty("id") private int id;
     @JsonProperty("UserName") private String userName;
+    private String password;
+    @JsonProperty("HashedPass") private byte[] hashedPass;
 
     /**
      * Create a user with the given id and username
      * @param id The id of the User
      * @param userName The username of the User
+     * @param password The user's password
      */
-    public User( @JsonProperty("id") int id,@JsonProperty("UserName") String userName) {
+    public User( @JsonProperty("id") int id, @JsonProperty("UserName") String userName, @JsonProperty("Password") String password) {
         this.id = id;
         this.userName = userName;
+        this.password = password;
+        this.hashedPass = null;
+    }
+    public User(int id, String userName, byte[] hashedPass) {
+        this.id = id;
+        this.userName = userName;
+        this.hashedPass = hashedPass;
+        this.password = "";
     }
 
     /**
@@ -38,10 +49,29 @@ public class User {
     public String getUserName() {return userName;}
 
     /**
+     * Retrieves the password of the User
+     * @return The password of the User
+     */
+    @JsonIgnore
+    public String getPassword() {return password;}
+
+    /**
+     * Retrieves hashed password
+     * @return returns the users hashed password
+     */
+    public byte[] getHashedPass() {return hashedPass;}
+
+    /**
      * Sets the username of the User
      * @param userName The username of the User
      */
-    public void setUserName(String userName){this.userName = userName;}
+    public void setUserName(String userName) {this.userName = userName;}
+
+    /**
+     * Sets the hashed password of the User
+     * @param password The password of the User
+     */
+    public void setHashPass(byte[] password) {this.hashedPass = password;}
 
     /**
      * Checks if the user is an admin by checking if the user has an id of 0 and a 
@@ -50,7 +80,7 @@ public class User {
      *         False if the user is not an admin
      */
     @JsonIgnore
-    public Boolean isAdmin(){return this.id == 0 && this.userName == "admin";}
+    public Boolean isAdmin(){return this.id < 0;}
     
     /**
      * {@inheritDoc}
@@ -67,12 +97,7 @@ public class User {
             return false;
         }
         User otherUser = (User) other;
-        if(this.userName.toLowerCase().equals(otherUser.userName.toLowerCase())) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.userName.equals(otherUser.userName);
     }
 
     @Override

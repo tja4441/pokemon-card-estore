@@ -1,0 +1,46 @@
+<form style="margin: 10px;">
+    <h3>Add a Card:</h3>
+    <label for="new-product">Product name: </label><br/>
+    <input type="text" id="new-product" #productName /><br/>
+
+    <label for="new-product">Product price: </label><br/>
+    <input type="text" id="new-product" #productPrice /><br/>
+
+    <label for="new-product">Product quantity: </label><br/>
+    <input type="text" id="new-product" #productQuantity min="0"/><br/>
+
+    <label for="new-product">Product Types: </label>
+    <label for="adddark">Dark</label>
+    <input class="type" type="checkbox" (click)="handleClick('DARK')" id="DARK">
+    <label for="adddragon">Dragon</label>
+    <input class="type" type="checkbox" (click)="handleClick('DRAGON')" id="DRAGON">
+    <label for="addelectric">Electric</label>
+    <input class="type" type="checkbox" (click)="handleClick('ELECTRIC')" id="ELECTRIC">
+    <label for="addfairy">Fairy</label>
+    <input class="type" type="checkbox" (click)="handleClick('FAIRY')" id="FAIRY">
+    <label for="addfighting">Fighting</label>
+    <input class="type" type="checkbox" (click)="handleClick('FIGHTING')" id="FIGHTING">
+    <label for="addfire">Fire</label>
+    <input class="type" type="checkbox" (click)="handleClick('FIRE')" id="FIRE">
+    <label for="addgrass">Grass</label>
+    <input class="type" type="checkbox" (click)="handleClick('GRASS')" id="GRASS">
+    <label for="addnormal">Normal</label>
+    <input class="type" type="checkbox" (click)="handleClick('NORMAL')" id="NORMAL">
+    <label for="addpsychic">Psychic</label>
+    <input class="type" type="checkbox" (click)="handleClick('PSYCHIC')" id="PSYCHIC">
+    <label for="addsteel">Steel</label>
+    <input class="type" type="checkbox" (click)="handleClick('STEEL')" id="STEEL">
+    <label for="addwater">Water</label>
+    <input class="type" type="checkbox" (click)="handleClick('WATER')" id="WATER">
+    <label for="addtrainer">Trainer</label>
+    <input class="type" type="checkbox" (click)="handleClick('TRAINER')" id="TRAINER">
+    <br/>
+
+    <button type="button" class="add-button"
+        (click)="add(productName.value, typeListAdd, productQuantity.value, productPrice.value); 
+        productName.value='';
+        productPrice.value=null;
+        productQuantity.value=null">
+        Add product
+    </button>
+</form>
