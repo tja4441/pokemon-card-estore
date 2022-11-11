@@ -1,8 +1,8 @@
-<div *ngFor="let order in orderHistory" style="border: 1px solid black;">
+<div *ngFor="let order of orderHistory" style="border: 1px solid black;">
     <p>{{order.orderNumber}}</p>
-    <p>{{order.timestamp}}</p>
-    <div *ngFor="let product of cart.contents" style="display: inline-block;">
-        <app-product-card [card]="product"></app-product-card>
+    <p>{{order.timeStamp}}</p>
+    <div *ngFor="let product of order.purchasedCart.contents" style="display: inline-block;">
+        <app-product-card [card]="product" [inCart]="true"></app-product-card>
     </div>
 </div>
 

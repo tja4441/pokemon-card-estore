@@ -49,4 +49,31 @@
   },
   "orderNumber" : 3,
   "timeStamp" : "11/10/2022 17:15:31"
+}, {
+  "id" : 3,
+  "purchasedCart" : {
+    "id" : 3,
+    "contents" : [ {
+      "id" : 1,
+      "name" : "Pikachu",
+      "types" : [ "ELECTRIC" ],
+      "quantity" : 1,
+      "price" : 9.0
+    }, {
+      "id" : 2,
+      "name" : "Bulbasaur",
+      "types" : [ "GRASS" ],
+      "quantity" : 1,
+      "price" : 2.0
+    }, {
+      "id" : 3,
+      "name" : "Charmander",
+      "types" : [ "FIRE" ],
+      "quantity" : 5,
+      "price" : 4.5
+    } ],
+    "totalPrice" : 33.5
+  },
+  "orderNumber" : 4,
+  "timeStamp" : "11/11/2022 14:57:03"
 } ]
