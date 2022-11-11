@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
-import { User } from '../user';
+import { UserService } from '../services/user.service';
+import { User } from '../model/user';
 import { Location } from '@angular/common';
-import { MessageService } from '../message.service';
+import { MessageService } from '../services/message.service';
 import { Router } from '@angular/router';
-import { ShoppingCartService } from '../shopping-cart.service';
+import { PassUser } from '../model/passUser';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-login',
@@ -50,25 +51,27 @@ export class LoginComponent implements OnInit {
    * with a username thats not in the database sets loginFailed to true
    * @param username entered username
    */
-  login(username: string): void {
-    //removes whitespace and casing from name during as preprocessing
-    username = username.trim().toLowerCase()
+  login(username: string, password: string): void {
+    //removes whitespace from name during as preprocessing
+    username = username.trim()
     //does nothing if user entered nothing or just whitespace
-    if(!username) return
+    if(!username || !password ) return
     //checks if user is in the backend
     this.logger.add(`Logging in as User: ${username}`)
-    this.userService.login(username)
-      .subscribe(user=> this.addedUser(user))
-    
+    this.userService.login(username, password)
+      .subscribe(user => this.addedUser(user))
   }
 
-  register(username: string): void {
-    //removes whitespace and casing from name during as preprocessing
-    username = username.trim().toLowerCase()
+  register(username: string, password: string, confirm: string): void {
+    this.logger.add(`Trying to Register User: ${username} Pass: ${password} Confirm: ${password}`)
+    //removes whitespace from name during as preprocessing
+    username = username.trim()
     //does nothing if user entered nothing or just whitespace
-    if(!username) return
+    if(!username || !password || !confirm) return
+    if(password != confirm) return
+    this.logger.add(`username not empty, password and confirm match`)
     this.logger.add(`Registering User: ${username}`)
-    this.userService.register({UserName: username, id: -1} as User)
+    this.userService.register({UserName: username, id: -1, Password: password} as PassUser)
       .subscribe(user => this.addedRegister(user))
   }
 
