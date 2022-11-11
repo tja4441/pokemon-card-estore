@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
@@ -15,9 +16,10 @@ import com.estore.api.estoreapi.model.UserStatistic;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+@Component
 public class StatisticsFileDao implements StatisticsDao{
-    private Map<Integer,UserStatistic> usersStats;            // provides a local cache of the UserStatistics
-    private StoreStatistic store;               //local 
+    private Map<Integer,UserStatistic> usersStats;              // provides a local cache of the UserStatistics
+    private StoreStatistic store;                               //local cache of Store Statistics
     private ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
     private String userFilename;                    //Filename for UserStatistics
     private String storeFilename;                   //Filename for StoreStastics
@@ -63,7 +65,6 @@ public class StatisticsFileDao implements StatisticsDao{
      */
     private boolean loadStoreStats() throws IOException {
         store = objectMapper.readValue(new File(storeFilename),StoreStatistic.class);
-        
         return true;
     }
 

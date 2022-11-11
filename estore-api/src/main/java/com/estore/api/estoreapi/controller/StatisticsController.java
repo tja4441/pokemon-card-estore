@@ -10,17 +10,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.StoreStatistic;
 import com.estore.api.estoreapi.model.UserStatistic;
 import com.estore.api.estoreapi.persistence.StatisticsDao;
 
+@RestController
+@RequestMapping("stats")
 public class StatisticsController {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private StatisticsDao statsDao;
 
-    @GetMapping("/stats")
+    public StatisticsController(StatisticsDao statsDao) {
+        this.statsDao = statsDao;
+    }
+
+    @GetMapping("")
     public ResponseEntity<UserStatistic[]> getAllUserStats() {
         LOG.info("GET /stats");
 
@@ -39,7 +47,7 @@ public class StatisticsController {
         }
     }
 
-    @GetMapping("/stats/store")
+    @GetMapping("/store")
     public ResponseEntity<StoreStatistic> getStoreStats() {
         LOG.info("GET /stats/store");
 
@@ -58,7 +66,7 @@ public class StatisticsController {
         }
     }
 
-    @PutMapping("/stats/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserStatistic> updateUserStats(@PathVariable int id, @RequestBody ShoppingCart cart, @RequestBody float sessionTime) {
         LOG.info("PUT /stats/ " + id);
 

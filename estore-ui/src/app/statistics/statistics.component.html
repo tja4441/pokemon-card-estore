@@ -1,7 +1,3 @@
-<p>statistics works!</p>
-
-
-
 <table>
     <tr>
         <th>Username</th>
@@ -11,12 +7,47 @@
         <th>Avg. Session</th>
         <th>Highest Spent</th>
     </tr>
-    <tr *ngFor="let user in userStats">
+    <tr *ngFor="let user of userStats">
         <td>{{user.username}}</td>
         <td>{{user.averagePurchaseAmt}}.tofixed(2)</td>
         <td>{{user.mostPopularType}}</td>
         <td>{{user.mostPurchased.name}}</td>
         <td>{{user.averageSessionTime}}</td>
         <td>{{user.mostExpensiveOrder.totalPrice}}.tofixed(2)</td>
+    </tr>
+</table>
+<br/>
+<table>
+    <tr>
+        <th>purchaseCount:</th>
+        <td>{{storeStats.purchaseCount}}</td>
+    </tr>
+    <tr>
+        <th>loginCount:</th>
+        <td>{{storeStats.loginCount}}</td>
+    </tr>
+    <tr>
+        <th>averagePurchaseAmt:</th>
+        <td>{{storeStats.averagePurchaseAmt}}</td>
+    </tr>
+    <tr>
+        <th>mostPopularProducts:</th>
+        <td>{{storeStats.mostPopularProducts}}</td>
+    </tr>
+    <tr>
+        <th>mostExpensiveCarts:</th>
+        <td>{{storeStats.mostExpensiveCarts}}</td>
+    </tr>
+    <tr>
+        <th>mostPopType:</th>
+        <td>{{storeStats.mostPopType}}</td>
+    </tr>
+    <tr>
+        <th>typeRevenue:</th>
+        <td>{{storeStats.typeRevenue}}</td>
+    </tr>
+    <tr>
+        <th>avgSessionTime:</th>
+        <td>{{storeStats.avgSessionTime}}</td>
     </tr>
 </table>

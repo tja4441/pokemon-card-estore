@@ -2,15 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of} from 'rxjs';
 import { MessageService } from './message.service';
+<<<<<<< HEAD
 <<<<<<< HEAD:estore-ui/src/app/user.service.ts
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user';
 =======
+=======
+>>>>>>> 5facdcced454295bf8df64d45aae8c2a012d940c
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../model/user';
 import { PassUser } from '../model/passUser';
 import { ChangePass } from '../model/changePass';
+<<<<<<< HEAD
 >>>>>>> main:estore-ui/src/app/services/user.service.ts
+=======
+>>>>>>> 5facdcced454295bf8df64d45aae8c2a012d940c
 @Injectable({
   providedIn: 'root'
 })

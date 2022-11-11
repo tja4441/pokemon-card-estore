@@ -27,9 +27,13 @@ import { UserGuard } from 'src/app/model/UserGuard';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './shopping-cart/cart-product/cart-product.component';
 import { AddToCartComponent } from './shopping-cart/add-to-cart/add-to-cart.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.component';
+<<<<<<< HEAD
 import { StatisticsComponent } from './statistics/statistics.component';
+=======
+>>>>>>> 5facdcced454295bf8df64d45aae8c2a012d940c
 
 @NgModule({
   declarations: [
@@ -57,7 +61,11 @@ import { StatisticsComponent } from './statistics/statistics.component';
     AddToCartComponent,
     StatisticsComponent,
     CheckoutComponent,
+<<<<<<< HEAD
     PaypalButtonComponent,
+=======
+    PaypalButtonComponent
+>>>>>>> 5facdcced454295bf8df64d45aae8c2a012d940c
   ],
   imports: [
     BrowserModule,

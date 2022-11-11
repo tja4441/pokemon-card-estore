@@ -7,8 +7,11 @@ package com.estore.api.estoreapi.model;
 import java.util.Arrays;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+<<<<<<< HEAD
 import java.text.DecimalFormat;
 import java.util.logging.Logger;
+=======
+>>>>>>> 5facdcced454295bf8df64d45aae8c2a012d940c
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
