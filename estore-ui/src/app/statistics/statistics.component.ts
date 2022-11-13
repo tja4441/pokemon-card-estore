@@ -15,8 +15,11 @@ export class StatisticsComponent implements OnInit {
   constructor(private statsService: StatisticsService) { }
 
   ngOnInit(): void {
+    this.getStats()
+  }
+
+  getStats(): void {
     this.statsService.getAllUserStats().subscribe(p => this.userStats = p);
     this.statsService.getStoreStats().subscribe(p => this.storeStats = p);
   }
-
 }

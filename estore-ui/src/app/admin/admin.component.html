@@ -2,14 +2,14 @@
 <nav>
     <button [class.selected]="EDIT" (click)="edit()">Edit Inventory</button>
     <button [class.selected]="ACCOUNTS" (click)="account()">Account Info</button>
+    <button [class.selected]="STATS" (click)="stats()">Statistics Page</button>
 </nav>
 <div *ngIf="EDIT">
     <app-admin-edit></app-admin-edit>
 </div>
 <div *ngIf="ACCOUNTS">
     <app-admin-accounts></app-admin-accounts>
-<<<<<<< HEAD
 </div>
-=======
+<div *ngIf="STATS">
+    <app-statistics></app-statistics>
 </div>
->>>>>>> 5facdcced454295bf8df64d45aae8c2a012d940c
