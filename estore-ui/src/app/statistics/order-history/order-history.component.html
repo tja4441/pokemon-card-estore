@@ -1,0 +1,16 @@
+<br>
+<div *ngFor="let order of orderHistory" style="border: 1px solid black; width: 20%;">
+    <div style="border-bottom: 2px dashed grey;">
+        <p>Order Number: {{order.orderNumber}}</p>
+        <p>{{order.timeStamp}}</p>
+        <p>Grand Total: ${{order.purchasedCart.totalPrice}}</p>
+    </div>
+    <div *ngFor="let product of order.purchasedCart.contents">
+        <p>{{product.name}} x{{product.quantity}}</p>
+    </div>
+    <br>
+</div>
+
+<div *ngIf="empty">
+    <p>No Past Orders</p>
+</div>

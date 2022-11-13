@@ -15,7 +15,7 @@ geometry: margin=1in
 ## Executive Summary
 
 <p style='text-align: justify;'>
-This is an E-Store designed to sell Pokémon Cards to customers. There are two types of users, customers and the admin. The Customers can register and login to add cards to their shopping cart before checking out. Checking out removes the indicated quantity from each product and charges the customer accordingly. The admin is unique user that is allowed to change the inventory of products directly. This includes decreasing the quantity in stock, changing the price, and adding/removing products.
+This is an E-Store designed to sell Pokémon Cards to customers. There are two types of users, customers and the admin. The Customers can register and login to add cards to their shopping cart before checking out. Checking out removes the indicated quantity from each product and charges the customer accordingly. The customer can also view every order they have ever placed with the store. The admin is a classification of user that is allowed to change the inventory of products directly. This includes decreasing the quantity in stock, changing the price, and adding/removing products and creating new admins. The admin also has access to a statistics page that shows them important information about the users, for example their favorite type and how muc hthey spend on average. They also see statistics that are aggregated from all users.
 </p>
 
 <p style='text-align: justify;'>

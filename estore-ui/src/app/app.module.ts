@@ -29,6 +29,7 @@ import { CartProductComponent } from './shopping-cart/cart-product/cart-product.
 import { AddToCartComponent } from './shopping-cart/add-to-cart/add-to-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.component';
+import { OrderHistoryComponent } from './statistics/order-history/order-history.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,6 @@ import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.co
     AdminComponent,
     HomeComponent,
     LoginComponent,
-    UserComponent,
     ProductComponent,
     ProductsListComponent,
     EditProductComponent,
@@ -54,8 +54,10 @@ import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.co
     ShoppingCartComponent,
     CartProductComponent,
     AddToCartComponent,
+    OrderHistoryComponent,
     CheckoutComponent,
-    PaypalButtonComponent
+    PaypalButtonComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
