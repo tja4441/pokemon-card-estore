@@ -13,7 +13,7 @@ import { UserService } from '../services/user.service';
 export class UserComponent implements OnInit {
   public user: User
   public orderHistory: OrderHistory[] = []
-  public CART = false
+  public CART = true
   public ACCOUNT = false
   public HISTORY = false
 

@@ -1,65 +1,41 @@
 [ {
-  "id" : 1,
-  "purchasedCart" : {
-    "id" : 1,
-    "contents" : [ {
-      "id" : 1,
-      "name" : "Pikachu",
-      "types" : null,
-      "quantity" : 1,
-      "price" : 3.0
-    }, {
-      "id" : 3,
-      "name" : "Charmander",
-      "types" : null,
-      "quantity" : 2,
-      "price" : 4.5
-    } ],
-    "totalPrice" : 12.0
-  },
-  "orderNumber" : 1,
-  "timeStamp" : "11/05/2022 15:40:50"
-}, {
-  "id" : 1,
-  "purchasedCart" : {
-    "id" : 1,
-    "contents" : [ {
-      "id" : 3,
-      "name" : "Charmander",
-      "types" : null,
-      "quantity" : 8,
-      "price" : 4.5
-    } ],
-    "totalPrice" : 36.0
-  },
-  "orderNumber" : 2,
-  "timeStamp" : "11/08/2022 00:57:54"
-}, {
   "id" : 3,
   "purchasedCart" : {
     "id" : 3,
     "contents" : [ {
+      "id" : 4,
+      "name" : "Squirtle",
+      "types" : [ "WATER" ],
+      "quantity" : 10,
+      "price" : 3.99
+    }, {
+      "id" : 6,
+      "name" : "Mudkip",
+      "types" : [ "WATER" ],
+      "quantity" : 30,
+      "price" : 3.99
+    }, {
+      "id" : 11,
+      "name" : "Volcarona",
+      "types" : [ "FIRE", "GRASS" ],
+      "quantity" : 1,
+      "price" : 2500.0
+    }, {
       "id" : 5,
       "name" : "Treecko",
       "types" : [ "GRASS" ],
       "quantity" : 5,
       "price" : 2.99
     } ],
-    "totalPrice" : 14.95
+    "totalPrice" : 2674.55
   },
-  "orderNumber" : 3,
-  "timeStamp" : "11/10/2022 17:15:31"
+  "orderNumber" : 1,
+  "timeStamp" : "11/13/2022 13:10:19"
 }, {
   "id" : 3,
   "purchasedCart" : {
     "id" : 3,
     "contents" : [ {
-      "id" : 1,
-      "name" : "Pikachu",
-      "types" : [ "ELECTRIC" ],
-      "quantity" : 1,
-      "price" : 9.0
-    }, {
       "id" : 2,
       "name" : "Bulbasaur",
       "types" : [ "GRASS" ],
@@ -69,11 +45,50 @@
       "id" : 3,
       "name" : "Charmander",
       "types" : [ "FIRE" ],
-      "quantity" : 5,
+      "quantity" : 2,
       "price" : 4.5
+    }, {
+      "id" : 1,
+      "name" : "Pikachu",
+      "types" : [ "ELECTRIC" ],
+      "quantity" : 1,
+      "price" : 9.0
+    }, {
+      "id" : 4,
+      "name" : "Squirtle",
+      "types" : [ "WATER" ],
+      "quantity" : 2,
+      "price" : 3.99
     } ],
-    "totalPrice" : 33.5
+    "totalPrice" : 27.98
   },
-  "orderNumber" : 4,
-  "timeStamp" : "11/11/2022 14:57:03"
+  "orderNumber" : 2,
+  "timeStamp" : "11/13/2022 13:11:04"
+}, {
+  "id" : 2,
+  "purchasedCart" : {
+    "id" : 2,
+    "contents" : [ {
+      "id" : 12,
+      "name" : "Emboar",
+      "types" : [ "FIRE", "FIGHTING" ],
+      "quantity" : 1,
+      "price" : 1.0
+    }, {
+      "id" : 10,
+      "name" : "Blastoise",
+      "types" : [ "WATER" ],
+      "quantity" : 3,
+      "price" : 20.48
+    }, {
+      "id" : 7,
+      "name" : "Torchic",
+      "types" : [ "FIRE" ],
+      "quantity" : 5,
+      "price" : 2.0
+    } ],
+    "totalPrice" : 72.44
+  },
+  "orderNumber" : 3,
+  "timeStamp" : "11/13/2022 13:11:39"
 } ]

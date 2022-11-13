@@ -8,13 +8,13 @@ import { OrderHistory } from '../../model/order-history';
 })
 export class OrderHistoryComponent implements OnInit {
   @Input() orderHistory!: OrderHistory[];
-  public empty: boolean = true
+  public empty: boolean = false
 
   constructor() {}
 
   ngOnInit(): void {
-    if(this.orderHistory) {
-      this.empty = false
+    if(this.orderHistory.length == 0) {
+      this.empty = true
     }
   }
 }
