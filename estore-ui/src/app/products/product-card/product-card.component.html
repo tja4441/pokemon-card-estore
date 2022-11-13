@@ -3,8 +3,7 @@
         <p>Name: {{card.name}}</p>
         <p>Types: {{card.types}}</p>
         <p>Price: {{card.price.toFixed(2)}}</p>
-        <p *ngIf="!inCart">We have {{card.quantity}} in stock!</p>
-        <p *ngIf="inCart">Purchased: {{card.quantity}}</p>
+        <p>We have {{card.quantity}} in stock!</p>
         <div *ngIf="notAdmin()">
             <app-add-to-cart [product]="card" ></app-add-to-cart>
         </div>

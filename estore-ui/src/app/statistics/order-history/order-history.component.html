@@ -1,9 +1,13 @@
-<div *ngFor="let order of orderHistory" style="border: 1px solid black;">
-    <p>{{order.orderNumber}}</p>
-    <p>{{order.timeStamp}}</p>
-    <div *ngFor="let product of order.purchasedCart.contents" style="display: inline-block;">
-        <app-product-card [card]="product" [inCart]="true"></app-product-card>
+<br>
+<div *ngFor="let order of orderHistory" style="border: 1px solid black; width: 20%;">
+    <div style="border-bottom: 2px dashed grey;">
+        <p>Order Number: {{order.orderNumber}}</p>
+        <p>{{order.timeStamp}}</p>
     </div>
+    <div *ngFor="let product of order.purchasedCart.contents">
+        <p>{{product.name}} x{{product.quantity}}</p>
+    </div>
+
 </div>
 
 <div *ngIf="empty">

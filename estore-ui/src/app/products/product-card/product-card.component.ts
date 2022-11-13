@@ -9,7 +9,6 @@ import { UserService } from '../../services/user.service';
 })
 export class ProductCardComponent implements OnInit {
   @Input() card: Product | undefined;
-  @Input() inCart: boolean = false;
   @Output() deletedItemEvent = new EventEmitter<number>()
   public editing: boolean = false;
   constructor(private userService: UserService) { }
