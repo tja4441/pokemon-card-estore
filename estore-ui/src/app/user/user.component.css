@@ -1,0 +1,18 @@
+button {
+    width: 120px;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 12px;
+    transition-duration: 0.4s;
+    margin-right: 10px;
+}
+
+button:hover{
+    background-color: blue;
+    color: white;
+}
+
+button.selected {
+    background-color: gray;
+    color:black;
+}

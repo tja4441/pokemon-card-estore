@@ -3,6 +3,7 @@ package com.estore.api.estoreapi.persistence;
 import java.io.IOException;
 
 import com.estore.api.estoreapi.controller.InventoryController;
+import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 
@@ -124,4 +125,35 @@ public interface ShoppingCartDao {
      * @author Daniel Pittman
      */
     ShoppingCart checkout(int id, InventoryController inventoryController) throws IOException;
+
+    /**
+     * Returns the {@linkplain OrderHistory orders} from the order cache
+     * 
+     * @return {@link OrderHistory orders} from the order cache
+     * 
+     * @author Timothy Avila
+     */
+    OrderHistory[] getOrders() throws IOException;
+
+    /**
+     * Returns the {@linkplain OrderHistory orders} from the order cache with a given id
+     * 
+     * @param id integer corresponding to id of user who made an order
+     * 
+     * @return {@link OrderHistory orders} from the order cache with a given id
+     * 
+     * @author Timothy Avila
+     */
+    OrderHistory[] searchOrders(int id) throws IOException;
+
+    /**
+     * Creates and saves an {@link OrderHistory OrderHistory} object to a JSON file for data persistence
+     * 
+     * @param id int corresponding to the ID of the {@link User user} that made the order.
+     * 
+     * @param cart the {@link ShoppingCart shopping cart} that the {@link User user} had when they placed the order.
+     * 
+     * @throws IOException
+     */
+    void setAndSaveOrder(int id, ShoppingCart cart) throws IOException;
 }
