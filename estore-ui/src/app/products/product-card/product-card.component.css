@@ -1,3 +1,37 @@
+.back {
+    background: linear-gradient(180deg, rgba(58, 58, 58, 0.8) 50%, rgba(0, 0, 0, 0) 68%, rgba(54, 54, 54, 0.66) 92%), url("../../../assets/bg.png");
+    background-size: contain;
+    display: inline-block;
+    padding: 0em;
+    margin: 0.5em;
+    width: 11.9em;
+    height: 16.5em;
+    vertical-align: top;
+    color: white;
+    border-radius: 0.8em;
+    font-family: 'M PLUS 1';
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+.front {
+    display:inline-block;
+    padding: 0em;
+    margin: 0.5em;
+    width: 11.9em;
+    height: 16.5em;
+    vertical-align: top;
+}
+
+.attribute_headers {
+    padding: 5%;
+    width: 100px;
+    text-align: right;
+}
+
+
+
+
 .card {
     border: 2px solid black;
     border-radius: 10px;

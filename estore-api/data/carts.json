@@ -4,8 +4,14 @@
   "totalPrice" : 0.0
 }, {
   "id" : 2,
-  "contents" : [ ],
-  "totalPrice" : 0.0
+  "contents" : [ {
+    "id" : 1,
+    "name" : "Pikachu",
+    "types" : [ "ELECTRIC" ],
+    "quantity" : 1,
+    "price" : 9.0
+  } ],
+  "totalPrice" : 9.0
 }, {
   "id" : 3,
   "contents" : [ ],

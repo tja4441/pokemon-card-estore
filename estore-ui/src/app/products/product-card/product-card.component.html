@@ -1,17 +1,23 @@
-<div class = "card" *ngIf="card" (click)="edit()">
-    <div *ngIf="!editing" >
-        <p>Name: {{card.name}}</p>
-        <p>Types: {{card.types}}</p>
-        <p>Price: {{card.price.toFixed(2)}}</p>
-        <p>We have {{card.quantity}} in stock!</p>
-        <div *ngIf="notAdmin()">
-            <app-add-to-cart [product]="card" ></app-add-to-cart>
-        </div>
+<div class="container" *ngIf="card" (click)="turn()">
+    <div class = "front" *ngIf="!turned">
+        <app-card-image  [srcPath]="source" scale="190"></app-card-image>
     </div>
-    <div *ngIf="editing">
-        <app-edit-product (changedProductEvent)="itemChange($event)" [card]="card"></app-edit-product>
-        <!-- event triggered in delete triggers event here which is sent all the way up to product list -->
-        <app-remove-product (deletedItemEvent)="deleteItem($event)" [product]="card"></app-remove-product>
+    <div class = "back" *ngIf="turned">
+        <div *ngIf="!editing">
+            <body>
+                <p style="text-align:left">Name: {{card.name}}</p>
+                <p style="text-align:left">Price: ${{card.price.toFixed(2)}}</p>
+                <p style="text-align:left">In Stock: {{card.quantity}}</p>
+                    <div *ngIf="notAdmin()" style="float:inline-end;">
+                        <app-add-to-cart [product]="card" ></app-add-to-cart>
+                    </div>
+            </body>
+        </div>
+        <div *ngIf="editing">
+            <app-edit-product (changedProductEvent)="itemChange($event)" [card]="card"></app-edit-product>
+            <!-- event triggered in delete triggers event here which is sent all the way up to product list -->
+            <app-remove-product (deletedItemEvent)="deleteItem($event)" [product]="card"></app-remove-product>
+        </div>
     </div>
 
 </div>

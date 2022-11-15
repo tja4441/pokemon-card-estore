@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
 import { Product } from '../../model/product';
 import { UserService } from '../../services/user.service';
 
@@ -10,10 +11,19 @@ import { UserService } from '../../services/user.service';
 export class ProductCardComponent implements OnInit {
   @Input() card: Product | undefined;
   @Output() deletedItemEvent = new EventEmitter<number>()
+  public turned: boolean = false;
+  public source: String | undefined = undefined;
   public editing: boolean = false;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private imageService: ImageService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.card != undefined) {
+      this.imageService.getImageSrc(this.card.name).subscribe(source => {
+        this.source = source;
+      });
+    }
+  }
 
   /**
    * Sets edit to true if the useer is an admin
@@ -42,6 +52,13 @@ export class ProductCardComponent implements OnInit {
    */
   deleteItem(id: number) {
     this.deletedItemEvent.emit(id);
+  }
+
+  turn(){
+    if(!this.editing) {
+      this.turned = !this.turned
+      this.edit()
+    }
   }
 
   notAdmin(): Boolean{
