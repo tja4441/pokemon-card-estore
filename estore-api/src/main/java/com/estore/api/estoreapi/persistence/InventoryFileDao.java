@@ -85,7 +85,7 @@ public class InventoryFileDao implements InventoryDao {
     public boolean deleteProduct(int id) throws IOException {
         synchronized(products) {
             if(products.containsKey(id)){
-                String path = "estore-api/data/cardImages/" + products.get(id).getName() + ".png";
+                String path = "data/cardImages/" + products.get(id).getName() + ".png";
                 Files.deleteIfExists(Paths.get(path));
                 products.remove(id);
 
