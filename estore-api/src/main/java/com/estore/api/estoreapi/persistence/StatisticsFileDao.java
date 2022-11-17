@@ -2,7 +2,6 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
-import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -151,11 +150,14 @@ public class StatisticsFileDao implements StatisticsDao{
             for(CardType type : card.getTypes()) {
                 store.increaseTypeRevenue(type, card.getQuantity() * card.getPrice());
             }
+            store.addProductPurchaseAmounts(card.getId(), card.getQuantity());
         }
         store.increaseTotalPurchase(cart.GetTotalPrice());
         store.increaseTotalSession(sessionTime);
+        store.checkCartAgainstMostExpensive(cart);
+        store.calculateAveragePurchaseAmount();
+        store.calculateAverageSessionTime();
 
-        
         return store;
     }
 }

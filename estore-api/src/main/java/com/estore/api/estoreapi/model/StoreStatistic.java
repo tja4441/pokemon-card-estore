@@ -11,6 +11,7 @@ public class StoreStatistic {
     @JsonProperty("loginCount") private int loginCount;
     @JsonProperty("totalPurchaseAmt") private float totalPurchaseAmt;
     @JsonProperty("avgPurchaseAmt") private float averagePurchaseAmt;
+    @JsonProperty("productPurchaseAmts") private HashMap<Integer, Integer> productPurchaseAmts;
     @JsonProperty("fiveMostPopular") private int[] mostPopularProducts;
     @JsonProperty("fiveMostExpensiveOrders") private ShoppingCart[] mostExpensiveCarts;
     @JsonProperty("mostPopularType") private CardType mostPopType;
@@ -26,6 +27,7 @@ public class StoreStatistic {
         this.loginCount = 0;
         this.totalPurchaseAmt = 0;
         this.averagePurchaseAmt = 0;
+        this.productPurchaseAmts = new HashMap<Integer, Integer>();
         this.mostPopularProducts = new int[5];
         this.mostExpensiveCarts = new ShoppingCart[5];
         this.mostPopType = null;
@@ -221,5 +223,24 @@ public class StoreStatistic {
         for(int i = 0; i < 5; i++) {
             this.mostExpensiveCarts[i] = allCarts[i];
         }
+    }
+
+    /**Increments count of how many times a product has been purchased
+     * 
+     * @param productID the product
+     * @param amount the amount to increment by
+     */
+    public void addProductPurchaseAmounts(int productID, int amount) {
+        int newAmount = this.productPurchaseAmts.get(productID);
+        newAmount += amount;
+        this.productPurchaseAmts.put(productID, newAmount);
+    }
+
+    public void calculateAveragePurchaseAmount() {
+        this.averagePurchaseAmt = (this.totalPurchaseAmt / this.purchaseCount);
+    }
+
+    public void calculateAverageSessionTime() {
+        this.avgSessionTime = this.totalSessionTime / this.loginCount;
     }
 }
