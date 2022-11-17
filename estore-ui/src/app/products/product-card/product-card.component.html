@@ -17,6 +17,10 @@
             <app-edit-product (changedProductEvent)="itemChange($event)" [card]="card"></app-edit-product>
             <!-- event triggered in delete triggers event here which is sent all the way up to product list -->
             <app-remove-product (deletedItemEvent)="deleteItem($event)" [product]="card"></app-remove-product>
+            <p for="new-product" style="text-align: left">Product image: 
+                <input type="file" accept=".png" style="align-content:center" id="file" (change)="onFileChange($event)">
+                <button (click)="uploadImage()"> Upload Image</button>
+            </p>
         </div>
     </div>
 
