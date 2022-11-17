@@ -23,6 +23,7 @@ export class ProductCardComponent implements OnInit {
         this.source = source;
       });
     }
+    
   }
 
   /**
@@ -42,6 +43,7 @@ export class ProductCardComponent implements OnInit {
   itemChange(newCard: Product){
     this.card = newCard;
     this.editing = false
+    this.turned = false;
   }
 
   /**

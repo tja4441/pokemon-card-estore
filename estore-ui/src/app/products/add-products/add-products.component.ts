@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product, CardType } from '../../model/product'
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-add-products',
@@ -8,6 +9,8 @@ import { Product, CardType } from '../../model/product'
   styleUrls: ['./add-products.component.css']
 })
 export class AddProductsComponent implements OnInit {
+
+  image!: File 
 
   products: Product[] = [];
   public typeDict: any = {"DARK" : false,
@@ -24,7 +27,8 @@ export class AddProductsComponent implements OnInit {
                           "TRAINER" : false}
   public typeListAdd: CardType[] = []
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -56,6 +60,18 @@ export class AddProductsComponent implements OnInit {
       .subscribe(products => this.products = products);
   }
 
+  onFileChange(event: any): void {
+    this.image = event.target.files[0];
+  }
+  
+  uploadImage(name: string): void {
+    name = name + ".png";
+    if (this.image) {
+      const image = new File([this.image], name, {type: this.image.type});
+      this.imageService.uploadImage(image).subscribe(_ => window.location.reload())
+    }
+  }
+
   /**
    * adds a new card to the database and then changes this.products to reflect change
    * @param name name of product
@@ -67,6 +83,9 @@ export class AddProductsComponent implements OnInit {
     if(this.typeListAdd.length == 0) {
       alert("A Pokemon Must have at least 1 type")
       return
+    }else if(!this.image){
+      alert("A pokemon must have an image")
+      return 
     }
     //removes whitespace
     name = name.trim();
@@ -75,6 +94,17 @@ export class AddProductsComponent implements OnInit {
     this.productService.addProduct(product)
     //productService returns product on success which is added to UI/this.products
     .subscribe(product => this.products.push(product))
-    window.location.reload()
+
+    setTimeout(() => 
+    {
+      this.uploadImage(name)
+      
+    },
+    250);
+
+    }
+ 
   }
-}
+
+  
+

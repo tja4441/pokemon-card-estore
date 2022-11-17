@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.awt.image.BufferedImage;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,7 +85,10 @@ public class InventoryFileDao implements InventoryDao {
     public boolean deleteProduct(int id) throws IOException {
         synchronized(products) {
             if(products.containsKey(id)){
+                String path = "estore-api/data/cardImages/" + products.get(id).getName() + ".png";
+                Files.deleteIfExists(Paths.get(path));
                 products.remove(id);
+
                 return save();
             }
             else{
