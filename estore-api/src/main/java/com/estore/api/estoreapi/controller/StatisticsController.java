@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,24 @@ public class StatisticsController {
 
     public StatisticsController(StatisticsDao statsDao) {
         this.statsDao = statsDao;
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<UserStatistic> createUserStats(@PathVariable int id, @RequestBody String username) {
+        LOG.info("POST /stats/" + id);
+        try {
+            UserStatistic userStats = statsDao.createUserStats(id, username);
+            if (userStats != null) {
+                return new ResponseEntity<UserStatistic>(userStats, HttpStatus.CREATED);
+            }
+            else{ 
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(Exception e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("")

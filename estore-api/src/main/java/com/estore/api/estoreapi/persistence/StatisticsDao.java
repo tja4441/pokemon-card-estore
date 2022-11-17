@@ -23,6 +23,17 @@ public interface StatisticsDao {
      */
     StoreStatistic getStoreStatistic();
 
+    /**Creates a new {@linkplain UserStatistic} for the given ID
+     * 
+     * @param id the id of the UserStatistic to be created
+     * @param username the username of the user that the stats reflect
+     * 
+     * @return the UserStatistic that was created
+     * 
+     * @throws IOException if there is some error reading the file
+     */
+    UserStatistic createUserStats(int id, String username) throws IOException;
+
     /**
      * Updates the UserStatistic corresponding to the User ID provided
      * 

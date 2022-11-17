@@ -21,12 +21,14 @@ public class UserControllerTest {
     private UserController userController;
     private UserDao mockUserDao;
     private ShoppingCartController mockShoppingCartController;
+    private StatisticsController mockStatisticsController;
 
     @BeforeEach
     public void setupUserController(){
         mockUserDao = mock(UserDao.class);
         mockShoppingCartController = mock(ShoppingCartController.class);
-        userController = new UserController(mockUserDao, mockShoppingCartController);
+        mockStatisticsController = mock(StatisticsController.class);
+        userController = new UserController(mockUserDao, mockShoppingCartController, mockStatisticsController);
     }
 
     

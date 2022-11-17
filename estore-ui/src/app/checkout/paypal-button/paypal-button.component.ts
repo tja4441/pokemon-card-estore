@@ -5,6 +5,7 @@ import { ShoppingCart } from '../../model/ShoppingCart';
 import { User } from '../../model/user';
 import { UserService } from '../../services/user.service';
 import { Location } from '@angular/common';
+import { StatisticsService } from 'src/app/services/statistics.service';
 
 declare var paypal: any;
 
@@ -26,6 +27,7 @@ export class PaypalButtonComponent implements OnInit {
   constructor(private cartService: ShoppingCartService,
               private route: Router,
               private userService: UserService,
+              private statsService: StatisticsService,
               private location: Location) { }
   
   ngOnInit(): void {
@@ -70,9 +72,7 @@ export class PaypalButtonComponent implements OnInit {
   redirect(){
     this.count +=1
     alert('Payment Success')
+    this.statsService.updateStats(this.order, 0)
     this.route.navigate([''])
   }
-
-  
-
 }

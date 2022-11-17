@@ -2,6 +2,7 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
+import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -68,10 +69,45 @@ public class StatisticsFileDao implements StatisticsDao{
         return true;
     }
 
+    private boolean save() throws IOException {
+        UserStatistic[] cartArray = getUserStats();
+        StoreStatistic store = getStoreStatistic();
+
+        // Serializes the Java Objects to JSON objects into the file
+        objectMapper.writeValue(new File(userFilename),cartArray);
+        objectMapper.writeValue(new File(storeFilename), store);
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public StoreStatistic getStoreStatistic(){
         return store;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UserStatistic createUserStats(int uID, String username) throws IOException{
+        synchronized(usersStats) {
+            UserStatistic u = new UserStatistic(uID, username);
+            for(int id : usersStats.keySet()) {
+                if(id == uID) {
+                    return null;
+                }
+            }
+
+            usersStats.put(uID, u);
+            save();
+            return u;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public UserStatistic[] getUserStats() {
         ArrayList<UserStatistic> userStatsList = new ArrayList<>();
 
@@ -84,6 +120,9 @@ public class StatisticsFileDao implements StatisticsDao{
         return userStatsArray;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserStatistic updateUserStatistic(int id, ShoppingCart cart, Float sessionTime) throws IOException {
         UserStatistic stats = usersStats.get(id);

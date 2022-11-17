@@ -4,6 +4,8 @@ import { catchError, Observable, of, tap } from 'rxjs';
 import { MessageService } from './message.service';
 import { StoreStatistics } from '../model/StoreStatistics';
 import { UserStatistics } from '../model/UserStatistics';
+import { ShoppingCart } from '../model/ShoppingCart';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +17,13 @@ export class StatisticsService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private userService: UserService
   ) { }
 
+  /**GETS All user Stats from the backend
+   * @returns An observable that resolves to an array of UserStaistics objects
+   */
   getAllUserStats(): Observable<UserStatistics[]> {
     return this.http.get<UserStatistics[]>(this.statsUrl)
       .pipe(
@@ -26,12 +32,27 @@ export class StatisticsService {
       );
   }
 
+  /**GETS the StoreStatistics Object from the Backend
+   * @returns An observable that resolves to a StoreStatistics objcet
+   */
   getStoreStats(): Observable<StoreStatistics> {
     return this.http.get<StoreStatistics>(this.statsUrl + '/store')
       .pipe(
         tap(_ => this.log('fetched UserStats')),
         catchError(this.handleError<StoreStatistics>('getStoreStats', undefined))
       );
+  }
+
+  /**Sends User ID, shopping cart, and session time to the backend to aggregate the data
+   * 
+   */
+  updateStats(cart: ShoppingCart, sessionTime: number): Observable<UserStatistics> {
+    let uID = this.userService.getId();
+    
+    return this.http.put<UserStatistics>(this.statsUrl + "/" + uID, [uID, cart, sessionTime]).pipe(
+      tap((newStats: UserStatistics) => this.log(`updated stats w/ id=${newStats.id}`)),
+      catchError(this.handleError<UserStatistics>('updateStatistics'))
+    );
   }
 
   /**

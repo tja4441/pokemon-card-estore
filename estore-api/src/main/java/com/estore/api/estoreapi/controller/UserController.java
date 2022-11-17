@@ -32,15 +32,17 @@ public class UserController {
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDao userDao;
     private ShoppingCartController shoppingCartController;
+    private StatisticsController statisticsController;
 
     /**
      * Creates a REST API controller to respond to requests
      * 
      * @param userDao The user data access object to perfom CRUD operations
      */
-    public UserController(UserDao userDao, ShoppingCartController shoppingCartController){
+    public UserController(UserDao userDao, ShoppingCartController shoppingCartController, StatisticsController statisticsController){
         this.userDao = userDao;
         this.shoppingCartController = shoppingCartController;
+        this.statisticsController = statisticsController;
     }
 
     /**
@@ -66,6 +68,7 @@ public class UserController {
             User newUser = userDao.createUser(user);
             if(newUser != null) {
                 shoppingCartController.createCart(newUser.getId());
+                statisticsController.createUserStats(newUser.getId(), newUser.getUserName());
                 return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
             }
             else {
