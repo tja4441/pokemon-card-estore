@@ -1,1 +1,13 @@
-{}
+{
+  "purchaseCount" : 0,
+  "loginCount" : 0,
+  "totalPurchaseAmt" : 0.0,
+  "avgPurchaseAmt" : 0.0,
+  "productPurchaseAmts" : { },
+  "fiveMostPopular" : [ 0, 0, 0, 0, 0 ],
+  "fiveMostExpensiveOrders" : [ null, null, null, null, null ],
+  "mostPopularType" : null,
+  "typeRevenue" : { },
+  "totalSessionTime" : 0.0,
+  "avgSessionTime" : 0.0
+}

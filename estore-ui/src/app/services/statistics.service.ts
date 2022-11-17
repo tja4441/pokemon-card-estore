@@ -49,7 +49,7 @@ export class StatisticsService {
   updateStats(cart: ShoppingCart, sessionTime: number): Observable<UserStatistics> {
     let uID = this.userService.getId();
     
-    return this.http.put<UserStatistics>(this.statsUrl + "/" + uID, [uID, cart, sessionTime]).pipe(
+    return this.http.put<UserStatistics>(this.statsUrl + "/" + uID, [cart, sessionTime]).pipe(
       tap((newStats: UserStatistics) => this.log(`updated stats w/ id=${newStats.id}`)),
       catchError(this.handleError<UserStatistics>('updateStatistics'))
     );
