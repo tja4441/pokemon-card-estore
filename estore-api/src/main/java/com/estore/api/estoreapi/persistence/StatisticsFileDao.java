@@ -139,4 +139,15 @@ public class StatisticsFileDao implements StatisticsDao{
 
         return stats;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public StoreStatistic updateStoreStatistic(UserStatistic newStats) throws IOException {
+        store.incrementTotalPurchases();
+        store.increaseTypeRevenue(null, 0);
+
+        return store;
+    }
 }
