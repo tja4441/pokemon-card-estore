@@ -148,4 +148,10 @@
   "types" : [ "PSYCHIC" ],
   "quantity" : 45,
   "price" : 1.0
+}, {
+  "id" : 26,
+  "name" : "Chansey",
+  "types" : [ "NORMAL" ],
+  "quantity" : 12,
+  "price" : 649.0
 } ]

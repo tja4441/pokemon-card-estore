@@ -255,7 +255,7 @@ public class InventoryFileDao implements InventoryDao {
     public BufferedImage createImage(MultipartFile file) throws IOException {
         
         BufferedImage image = ImageIO.read(file.getInputStream());
-        ImageIO.write(image, "png", new File("estore-api/data/cardImages/" + file.getOriginalFilename()));
+        ImageIO.write(image, "png", new File("data/cardImages/" + file.getOriginalFilename()));
         return image;
     }
 
@@ -264,7 +264,7 @@ public class InventoryFileDao implements InventoryDao {
      */
     @Override
     public String getImage(String name) throws IOException {
-        File f =  new File(("estore-api/data/cardImages/" + name + ".png"));
+        File f =  new File(("data/cardImages/" + name + ".png"));
         String data = encodeFileToBase64Binary(f);
         if(data == null){
             return null;
