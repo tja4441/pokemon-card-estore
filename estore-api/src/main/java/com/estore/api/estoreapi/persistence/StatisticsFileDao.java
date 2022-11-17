@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.estore.api.estoreapi.model.CardType;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.StoreStatistic;
@@ -144,10 +145,17 @@ public class StatisticsFileDao implements StatisticsDao{
      * {@inheritDoc}
      */
     @Override
-    public StoreStatistic updateStoreStatistic(UserStatistic newStats) throws IOException {
+    public StoreStatistic updateStoreStatistic(ShoppingCart cart, float sessionTime) throws IOException {
         store.incrementTotalPurchases();
-        store.increaseTypeRevenue(null, 0);
+        for(Product card : cart.getContents()) {
+            for(CardType type : card.getTypes()) {
+                store.increaseTypeRevenue(type, card.getQuantity() * card.getPrice());
+            }
+        }
+        store.increaseTotalPurchase(cart.GetTotalPrice());
+        store.increaseTotalSession(sessionTime);
 
+        
         return store;
     }
 }

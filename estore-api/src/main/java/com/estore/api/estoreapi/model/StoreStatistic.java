@@ -1,5 +1,7 @@
 package com.estore.api.estoreapi.model;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,11 +9,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class StoreStatistic {
     @JsonProperty("purchaseCount") private int purchaseCount;
     @JsonProperty("loginCount") private int loginCount;
+    @JsonProperty("totalPurchaseAmt") private float totalPurchaseAmt;
     @JsonProperty("avgPurchaseAmt") private float averagePurchaseAmt;
     @JsonProperty("fiveMostPopular") private int[] mostPopularProducts;
     @JsonProperty("fiveMostExpensiveOrders") private ShoppingCart[] mostExpensiveCarts;
     @JsonProperty("mostPopularType") private CardType mostPopType;
     @JsonProperty("typeRevenue") private HashMap<CardType, Float> typeRevenue;
+    @JsonProperty("totalSessionTime") private float totalSessionTime;
     @JsonProperty("avgSessionTime") private float avgSessionTime;
 
     /** Constructor, no Params
@@ -20,11 +24,13 @@ public class StoreStatistic {
     public StoreStatistic() {
         this.purchaseCount = 0;
         this.loginCount = 0;
+        this.totalPurchaseAmt = 0;
         this.averagePurchaseAmt = 0;
         this.mostPopularProducts = new int[5];
         this.mostExpensiveCarts = new ShoppingCart[5];
         this.mostPopType = null;
         this.typeRevenue = new HashMap<CardType, Float>();
+        this.totalSessionTime = 0;
         this.avgSessionTime = 0;
     }
 
@@ -177,5 +183,43 @@ public class StoreStatistic {
      */
     public void incrementLoginCounter() {
         this.loginCount++;
+    }
+
+    /**Adds Amount to totalPurchaseAmt
+     * 
+     * @param amount the amount to be added
+     */
+    public void increaseTotalPurchase(float amount) {
+        this.totalPurchaseAmt += amount;
+    }
+
+    /**Adds amount to totalSessionTime
+     * 
+     * @param amount the amount to be added
+     */
+    public void increaseTotalSession(float amount) {
+        this.totalSessionTime += amount;
+    }
+
+    /**Checks the given cart against the top 5 most expensive carts
+     * If the cart is part of the top 5 most expensive, then it is added to the list
+     * Otherwise nothing changes
+     * 
+     * @param cart the cart to be checked
+     */
+    public void checkCartAgainstMostExpensive(ShoppingCart cart) {
+        ShoppingCart[] allCarts = new ShoppingCart[this.mostExpensiveCarts.length + 1];
+        for(int i = 0; i < 5; i++) {
+            allCarts[i] = this.mostExpensiveCarts[i];
+        }
+        allCarts[5] = cart;
+        Arrays.sort(allCarts, new Comparator<ShoppingCart>() {
+            public int compare(ShoppingCart o1, ShoppingCart o2) {
+                return (int)(o2.GetTotalPrice() - o1.GetTotalPrice());
+            };
+        });
+        for(int i = 0; i < 5; i++) {
+            this.mostExpensiveCarts[i] = allCarts[i];
+        }
     }
 }
