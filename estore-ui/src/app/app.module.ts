@@ -30,6 +30,7 @@ import { AddToCartComponent } from './shopping-cart/add-to-cart/add-to-cart.comp
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.component';
+import { OrderHistoryComponent } from './statistics/order-history/order-history.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,6 @@ import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.co
     AdminComponent,
     HomeComponent,
     LoginComponent,
-    UserComponent,
     ProductComponent,
     ProductsListComponent,
     EditProductComponent,
@@ -56,8 +56,10 @@ import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.co
     CartProductComponent,
     AddToCartComponent,
     StatisticsComponent,
+    OrderHistoryComponent,
     CheckoutComponent,
-    PaypalButtonComponent
+    PaypalButtonComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

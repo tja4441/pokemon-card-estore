@@ -3,8 +3,9 @@
         <p>Name: {{card.name}}</p>
         <p>Types: {{card.types}}</p>
         <p>Price: {{card.price.toFixed(2)}}</p>
-        <p>We have {{card.quantity}} in stock!</p>
-        <div *ngIf="notAdmin()">
+        <p *ngIf="card.quantity > 0; else outOfStock">We have {{card.quantity}} in stock!</p>
+        <ng-template #outOfStock><p style="text-align: center; color: red">Out of Stock!</p></ng-template>
+        <div *ngIf="notAdmin() && card.quantity > 0">
             <app-add-to-cart [product]="card" ></app-add-to-cart>
         </div>
     </div>

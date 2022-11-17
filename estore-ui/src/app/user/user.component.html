@@ -1,5 +1,18 @@
 <h1>User Page:</h1>
-<app-shopping-cart></app-shopping-cart>
-<app-display-user-info></app-display-user-info>
-<app-change-password-form></app-change-password-form>
-<app-delete-account></app-delete-account>
+<nav>
+    <button [class.selected]="CART" (click)="cart()">View Cart</button>
+    <button [class.selected]="ACCOUNT" (click)="account()">Account Info</button>
+    <button [class.selected]="HISTORY" (click)="history()">Order History</button>
+</nav>
+<div *ngIf="CART">
+    <app-shopping-cart></app-shopping-cart>
+</div>
+<div *ngIf="ACCOUNT">
+    <app-display-user-info></app-display-user-info>
+    <app-change-password-form></app-change-password-form>
+    <app-delete-account></app-delete-account>
+</div>
+<div *ngIf="HISTORY">
+    <app-order-history [orderHistory]="orderHistory"></app-order-history>
+</div>
+
