@@ -6,12 +6,12 @@
   "id" : 2,
   "contents" : [ {
     "id" : 1,
-    "name" : "Pikachu",
-    "types" : [ "ELECTRIC" ],
+    "name" : "Vulpix",
+    "types" : [ "FIRE" ],
     "quantity" : 1,
-    "price" : 9.0
+    "price" : 2.0
   } ],
-  "totalPrice" : 9.0
+  "totalPrice" : 2.0
 }, {
   "id" : 3,
   "contents" : [ ],
