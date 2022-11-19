@@ -1,10 +1,11 @@
 <div class="card" *ngIf="product">
     
     <body>
-        <p style="align-content: left"><app-cart-image [srcPath]="source" scale="50"> </app-cart-image></p>
+        <div class="cardImage"><app-cart-image [srcPath]="source" scale="100"> </app-cart-image></div>
         <p style="text-align:left">Name: {{product.name}}</p>
-        <p style="text-align: left; width: 50%; display: inline-block;">Price: ${{product.price.toFixed(2)}}</p>
-        <p style="text-align: right; width: 50%; display: inline-block;"><button type="button" (click)="deleteFromCart()">-</button>
+        <p>Type(s): {{product.types}}</p>
+        <p style="text-align: left; width: 40%; display: inline-block;">Price: ${{product.price.toFixed(2)}}</p>
+        <p style="text-align: right; width: 30%; display: inline-block;"><button type="button" (click)="deleteFromCart()">-</button>
                                                                           Quantity: {{product.quantity}}
                                                                          <button type="button" (click)="addToCart()">+</button>
         </p>
