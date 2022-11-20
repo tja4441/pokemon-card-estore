@@ -5,11 +5,10 @@ import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserStatistic {
-    static final String STRING_FORMAT = "UserStatistic [id=%d, loginCounter=%d, purchaseCounter=%d, lifetimeSpending=%f, lifetimeSessionTime=%f, averagePurchase=%f, purchasedCounts=%s, mostPurchased=%d, mostExpensiveOrder=%s, typeCounts=%s, typeRevenues=%s, mostPopularType=%s, averageSessionTime=%f]";
+    static final String STRING_FORMAT = "UserStatistic [id=%d, purchaseCounter=%d, lifetimeSpending=%f, lifetimeSessionTime=%f, averagePurchase=%f, purchasedCounts=%s, mostPurchased=%d, mostExpensiveOrder=%s, typeCounts=%s, typeRevenues=%s, mostPopularType=%s, averageSessionTime=%f]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("username") private String username;
-    @JsonProperty("loginCounter")private int loginCounter;
     @JsonProperty("purchaseCounter")private int purchaseCounter;
     @JsonProperty("lifetimeSpending")private float lifetimeSpending;
     @JsonProperty("lifetimeSessionTime")private float lifetimeSessionTime;
@@ -32,8 +31,6 @@ public class UserStatistic {
     public UserStatistic(@JsonProperty("id") int id, @JsonProperty("username") String username) {
         this.id = id;
         this.username = username;
-        this.username = "";
-        this.loginCounter = 0;
         this.purchaseCounter = 0;
         this.lifetimeSpending = 0.0f;
         this.lifetimeSessionTime = 0.0f;
@@ -61,13 +58,6 @@ public class UserStatistic {
     public String getUsername() {
         return username;
     }
-
-    /**
-     * getter for the login counter
-     * 
-     * @return loginCounter that tells the number of times the user has logged into the store
-     */
-    public int getLoginCounter(){return this.loginCounter;}
 
     /**
      * getter for the purchaseCounter
@@ -154,13 +144,6 @@ public class UserStatistic {
     public void setId(int id) {this.id = id;}
 
     /**
-     * setter for the loginCounter
-     * 
-     * @param loginCounter the number of times the user has logged into the e-store
-     */
-    public void setLoginCounter(int loginCounter){this.loginCounter = loginCounter;}
-
-    /**
      * setter for purchaseCounter
      * 
      * @param purchaseCounter the number of times the user has purchased from the e-store
@@ -236,13 +219,6 @@ public class UserStatistic {
      * @param mostPopularType the type the user has purchased the most of
      */
     public void setMostPopularType(CardType mostPopularType){this.mostPopularType = mostPopularType;}
-
-    /**
-     * the method increments the login counter for the user
-     */
-    public void incrementLoginCounter(){
-        this.loginCounter++;
-    }
 
     /**
      * the method increments the purchase counter for the user
@@ -344,10 +320,10 @@ public class UserStatistic {
     }
 
     /**
-     * this method calculates the average session time by taking the total time the user has spent on the e-store divided by the number of times they logged in
+     * this method calculates the average session time by taking the total time the user has spent on the e-store divided by the number of times they purchased something
      */
     public void calculateAverageSessionTime(){
-        this.averageSessionTime = (float) this.lifetimeSessionTime / this.loginCounter;
+        this.averageSessionTime = (float) this.lifetimeSessionTime / this.purchaseCounter;
     }
 
     /**
@@ -370,7 +346,7 @@ public class UserStatistic {
      */
     @Override
     public String toString(){
-        return String.format(STRING_FORMAT,id,loginCounter,purchaseCounter,lifetimeSpending,lifetimeSessionTime,
+        return String.format(STRING_FORMAT,id,purchaseCounter,lifetimeSpending,lifetimeSessionTime,
                              averagePurchaseAmt,purchasedCounts,mostPurchased,mostExpensiveOrder,typeCounts,
                              typeRevenues,mostPopularType,averageSessionTime);
     }

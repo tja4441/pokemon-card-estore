@@ -86,11 +86,11 @@ public class StatisticsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserStatistic> updateUserStats(@PathVariable int id, @RequestBody ShoppingCart cart, @RequestBody float sessionTime) {
+    public ResponseEntity<UserStatistic> updateUserStats(@PathVariable int id, @RequestBody ShoppingCart cart) {
         LOG.info("PUT /stats/ " + id);
 
         try {
-            UserStatistic s = statsDao.updateUserStatistic(id, cart, sessionTime);
+            UserStatistic s = statsDao.updateUserStatistic(id, cart);
             if (s != null){
             return new ResponseEntity<UserStatistic>(s,HttpStatus.OK);
             }else{
@@ -102,4 +102,23 @@ public class StatisticsController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/sessionData/{id}")
+    public ResponseEntity<UserStatistic> updateUserSessionData(@PathVariable int id, @RequestBody float sessionTime) {
+        LOG.info("PUT /stats/sessionData" + id);
+
+        try {
+            UserStatistic s = statsDao.updateUserSessionData(id, sessionTime);
+            if (s != null){
+            return new ResponseEntity<UserStatistic>(s,HttpStatus.OK);
+            }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

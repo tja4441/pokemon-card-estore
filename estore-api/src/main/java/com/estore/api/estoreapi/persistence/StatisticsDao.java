@@ -41,7 +41,14 @@ public interface StatisticsDao {
      * 
      * @throws IOException if error accessing underlying data
      */
-    UserStatistic updateUserStatistic(int id, ShoppingCart cart, Float sessionTime) throws IOException;
+    UserStatistic updateUserStatistic(int id, ShoppingCart cart) throws IOException;
+
+    /**
+     * Updates the Session Time Data for the user with the provided ID
+     * 
+     * @return 
+     */
+    UserStatistic updateUserSessionData(int id, float sessionTime) throws IOException;
 
     /**Updates Store Statistics with the data from the passed in cart and session time
      * 

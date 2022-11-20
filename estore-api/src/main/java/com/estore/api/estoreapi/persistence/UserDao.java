@@ -2,6 +2,7 @@ package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
 
+import com.estore.api.estoreapi.controller.ShoppingCartController;
 import com.estore.api.estoreapi.model.PassChange;
 import com.estore.api.estoreapi.model.User;
 
@@ -56,7 +57,7 @@ public interface UserDao {
      * @return returns true on success and false if the given id is -1 or no user exists at the passed id
      * @throws IOException throws exeption if there is an issue with changing persistant storage
      */
-    public boolean deleteUser(int id) throws IOException;
+    public boolean deleteUser(int id, ShoppingCartController shoppingCartController) throws IOException;
 
     /**
      * Compares a string password given when hashed to stored hashed password

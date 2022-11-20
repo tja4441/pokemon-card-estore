@@ -1,8 +1,7 @@
-[{
+[ {
   "id" : 1,
-  "username" : "",
+  "username" : "Gabe",
   "averagePurchase" : 0.0,
-  "loginCounter" : 0,
   "purchaseCounter" : 0,
   "lifetimeSpending" : 0.0,
   "lifetimeSessionTime" : 0.0,
@@ -15,9 +14,8 @@
   "averageSessionTime" : 0.0
 }, {
   "id" : 2,
-  "username" : "",
+  "username" : "Zach",
   "averagePurchase" : 0.0,
-  "loginCounter" : 0,
   "purchaseCounter" : 0,
   "lifetimeSpending" : 0.0,
   "lifetimeSessionTime" : 0.0,
@@ -30,9 +28,8 @@
   "averageSessionTime" : 0.0
 }, {
   "id" : 3,
-  "username" : "",
+  "username" : "Jensen",
   "averagePurchase" : 0.0,
-  "loginCounter" : 0,
   "purchaseCounter" : 0,
   "lifetimeSpending" : 0.0,
   "lifetimeSessionTime" : 0.0,
@@ -45,9 +42,8 @@
   "averageSessionTime" : 0.0
 }, {
   "id" : 4,
-  "username" : "",
+  "username" : "Tim",
   "averagePurchase" : 0.0,
-  "loginCounter" : 0,
   "purchaseCounter" : 0,
   "lifetimeSpending" : 0.0,
   "lifetimeSessionTime" : 0.0,
@@ -60,9 +56,8 @@
   "averageSessionTime" : 0.0
 }, {
   "id" : 5,
-  "username" : "",
+  "username" : "Daniel",
   "averagePurchase" : 0.0,
-  "loginCounter" : 0,
   "purchaseCounter" : 0,
   "lifetimeSpending" : 0.0,
   "lifetimeSessionTime" : 0.0,
@@ -75,9 +70,8 @@
   "averageSessionTime" : 0.0
 }, {
   "id" : 6,
-  "username" : "",
+  "username" : "Roger",
   "averagePurchase" : 0.0,
-  "loginCounter" : 0,
   "purchaseCounter" : 0,
   "lifetimeSpending" : 0.0,
   "lifetimeSessionTime" : 0.0,

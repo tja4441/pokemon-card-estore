@@ -26,4 +26,8 @@
   "id" : 5,
   "UserName" : "Daniel",
   "HashedPass" : "WNZt6lt2NLI8NBBE9L1btcx5OIBfb6WermapwPnW374="
+}, {
+  "id" : 6,
+  "UserName" : "Roger",
+  "HashedPass" : "oNZGz6Aa9zsvY11rdZuTYsuOPyEIrY4fEuGh2MKyWkQ="
 } ]

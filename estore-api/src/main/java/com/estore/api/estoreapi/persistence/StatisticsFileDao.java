@@ -124,18 +124,39 @@ public class StatisticsFileDao implements StatisticsDao{
      * {@inheritDoc}
      */
     @Override
-    public UserStatistic updateUserStatistic(int id, ShoppingCart cart, Float sessionTime) throws IOException {
+    public UserStatistic updateUserStatistic(int id, ShoppingCart cart) throws IOException {
         UserStatistic stats = usersStats.get(id);
-        stats.incrementLoginCounter();
         stats.incrementPurchaseCounter();
         stats.incrementLifetimeAmount(cart.GetTotalPrice());
-        stats.incrementLifetimeSession(sessionTime);
-        stats.increaseProductTally(cart.getContents().toArray(new Product[0]));
-        stats.increaseTypeRevenue(cart.getContents().toArray(new Product[0]));
+
+        // turning the contents of the shopping cart into an array of products for the algorithms in the models to use
+        ArrayList<Product> contentsList = new ArrayList<>();
+        for (Product products : cart.getContents()) {
+            contentsList.add(products);
+        }
+        Product[] contentsArray = new Product[contentsList.size()];
+        contentsList.toArray(contentsArray);
+
+        // using the contents array to calculate the tallies
+        stats.increaseProductTally(contentsArray);
+        stats.increaseTypeRevenue(contentsArray);
+        
         stats.determineMostExpensiveOrder(cart);
         stats.calculateAveragePurchaseAmount();
-        stats.calculateAverageSessionTime();
         stats.determineMostPopularType();
+
+        return stats;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UserStatistic updateUserSessionData(int id, float sessionTime) throws IOException {
+        UserStatistic stats = usersStats.get(id);
+
+        stats.incrementLifetimeSession(sessionTime);
+        stats.calculateAverageSessionTime();
 
         return stats;
     }

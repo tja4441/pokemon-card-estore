@@ -169,7 +169,7 @@ public class UserController {
     public ResponseEntity<Boolean> deleteUser(@PathVariable int id) {
         LOG.info("DELETE /" + id);
         try {
-            boolean success = userDao.deleteUser(id);
+            boolean success = userDao.deleteUser(id,shoppingCartController);
             if(success) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
             else return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
         }

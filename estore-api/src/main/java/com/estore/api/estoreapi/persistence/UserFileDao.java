@@ -14,10 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.estore.api.estoreapi.controller.ShoppingCartController;
 import com.estore.api.estoreapi.model.PassChange;
 import com.estore.api.estoreapi.model.User;
 
@@ -225,11 +227,12 @@ public class UserFileDao implements UserDao {
      * *{@inheritDoc}}
      */
     @Override
-    public boolean deleteUser(int id) throws IOException {
+    public boolean deleteUser(int id, ShoppingCartController shoppingCartController) throws IOException {
         if(id == ADMIN_ID) return false;
         synchronized(users) {
             User removedUser = users.remove(id);
-            if(removedUser == null) return false;
+            HttpStatus removedCart = shoppingCartController.deleteCart(id).getStatusCode();
+            if(removedUser == null && removedCart == HttpStatus.OK) return false;
             save();
             return true;
         }

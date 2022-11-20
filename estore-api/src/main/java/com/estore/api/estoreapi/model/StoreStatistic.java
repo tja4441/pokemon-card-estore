@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StoreStatistic {
     @JsonProperty("purchaseCount") private int purchaseCount;
-    @JsonProperty("loginCount") private int loginCount;
     @JsonProperty("totalPurchaseAmt") private float totalPurchaseAmt;
     @JsonProperty("avgPurchaseAmt") private float averagePurchaseAmt;
     @JsonProperty("productPurchaseAmts") private HashMap<Integer, Integer> productPurchaseAmts;
@@ -24,7 +23,6 @@ public class StoreStatistic {
      */
     public StoreStatistic() {
         this.purchaseCount = 0;
-        this.loginCount = 0;
         this.totalPurchaseAmt = 0;
         this.averagePurchaseAmt = 0;
         this.productPurchaseAmts = new HashMap<Integer, Integer>();
@@ -42,14 +40,6 @@ public class StoreStatistic {
      */
     public int getPurchaseCount() {
         return purchaseCount;
-    }
-
-    /**gets the total logins across the store
-     * 
-     * @return the total number of logins across the store
-     */
-    public int getLoginCount() {
-        return loginCount;
     }
 
     /**Retreives the Average Purchase Amount
@@ -106,14 +96,6 @@ public class StoreStatistic {
      */
     public void setPurchaseCount(int purchaseCount) {
         this.purchaseCount = purchaseCount;
-    }
-
-    /**sets thee total login count to the given value
-     * 
-     * @param loginCount the value to set the loginCount to
-     */
-    public void setLoginCount(int loginCount) {
-        this.loginCount = loginCount;
     }
 
     /**Sets the averagePurchaseAmt to the provided Value
@@ -180,13 +162,6 @@ public class StoreStatistic {
         this.purchaseCount++;
     }
 
-    /**Increments the number of Total Logins by one
-     * 
-     */
-    public void incrementLoginCounter() {
-        this.loginCount++;
-    }
-
     /**Adds Amount to totalPurchaseAmt
      * 
      * @param amount the amount to be added
@@ -241,6 +216,6 @@ public class StoreStatistic {
     }
 
     public void calculateAverageSessionTime() {
-        this.avgSessionTime = this.totalSessionTime / this.loginCount;
+        this.avgSessionTime = this.totalSessionTime / this.purchaseCount;
     }
 }
