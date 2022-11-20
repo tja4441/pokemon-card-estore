@@ -112,9 +112,13 @@ public class UserController {
      * 
      * @param User - The {@link User user} to login
      * 
-     * @return ResponseEntity with {@link User user} object and HTTP status of CREATED
-     * ResponseEntity with HTTP status of NOT_FOUND if not found
-     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     * @return ResponseEntity with {@link User user} object and HTTP status of OK
+     * 
+     * @return ResponseEntity with HTTP status of NOT_FOUND if not found
+     * 
+     * @return ResponseEntity with HTTP status of FORBIDDEN if password not the same
+     * 
+     * @return ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{userName}/{password}")
     public ResponseEntity<User> login(@PathVariable String userName, @PathVariable String password){
@@ -122,8 +126,11 @@ public class UserController {
         try {
             User user = userDao.getUser(userName);
             if(user != null){
-                if(userDao.validatePassword(user, password)) return new ResponseEntity<User>(user,HttpStatus.OK);
-                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                if(userDao.validatePassword(user, password)){
+                    return new ResponseEntity<User>(user,HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                }
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
