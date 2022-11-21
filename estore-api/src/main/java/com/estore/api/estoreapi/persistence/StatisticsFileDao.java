@@ -165,7 +165,7 @@ public class StatisticsFileDao implements StatisticsDao{
      * {@inheritDoc}
      */
     @Override
-    public StoreStatistic updateStoreStatistic(ShoppingCart cart, float sessionTime) throws IOException {
+    public StoreStatistic updateStoreStatistic(ShoppingCart cart) throws IOException {
         store.incrementTotalPurchases();
         for(Product card : cart.getContents()) {
             for(CardType type : card.getTypes()) {
@@ -174,9 +174,18 @@ public class StatisticsFileDao implements StatisticsDao{
             store.addProductPurchaseAmounts(card.getId(), card.getQuantity());
         }
         store.increaseTotalPurchase(cart.GetTotalPrice());
-        store.increaseTotalSession(sessionTime);
         store.checkCartAgainstMostExpensive(cart);
         store.calculateAveragePurchaseAmount();
+
+        return store;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public StoreStatistic updateStoreSessionData(float sessionTime) throws IOException {
+        store.increaseTotalSession(sessionTime);
         store.calculateAverageSessionTime();
 
         return store;

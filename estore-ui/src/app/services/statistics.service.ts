@@ -43,15 +43,49 @@ export class StatisticsService {
       );
   }
 
-  /**Sends User ID, shopping cart, and session time to the backend to aggregate the data
+  /**Sends User ID and shopping cart to the backend to aggregate the data
    * 
    */
-  updateStats(cart: ShoppingCart, sessionTime: number): Observable<UserStatistics> {
+  updateUserStats(cart: ShoppingCart): Observable<UserStatistics> {
     let uID = this.userService.getId();
     
-    return this.http.put<UserStatistics>(this.statsUrl + "/" + uID, [cart, sessionTime]).pipe(
+    return this.http.put<UserStatistics>(this.statsUrl + "/" + uID, [cart]).pipe(
       tap((newStats: UserStatistics) => this.log(`updated stats w/ id=${newStats.id}`)),
       catchError(this.handleError<UserStatistics>('updateStatistics'))
+    );
+  }
+
+  /**
+   * sends the user id and session time to the backend for recalculation of session time statistics
+   * @param sessionTime the amount of time that a user has gone from login to checkout OR last checkout to next checkout
+   * @returns the user statistic that was modified
+   */
+  updateUserSessionData(sessionTime: number): Observable<UserStatistics> {
+    let uID = this.userService.getId();
+
+    return this.http.put<UserStatistics>(this.statsUrl + "/sessionData/" + uID, [sessionTime]).pipe(
+      tap((newStats: UserStatistics) => this.log(`updated session data for user w/ id=${newStats.id}`)),
+      catchError(this.handleError<UserStatistics>('updateSessionData'))
+    );
+  }
+
+  /**Sends shopping cart to the backend to aggregate the data for the store statistics
+   * 
+   */
+   updateStoreStats(cart: ShoppingCart): Observable<StoreStatistics> {
+    return this.http.put<StoreStatistics>(this.statsUrl + "/store", [cart]).pipe(
+      tap((newStoreStats: StoreStatistics) => this.log(`updated store statistics`)),
+      catchError(this.handleError<StoreStatistics>('updateStoreStatistics'))
+    );
+  }
+
+  /**Sends sessionTime to the backend to aggregate the data for the store statistics
+   * 
+   */
+   updateStoreSessionData(sessionTime: number): Observable<StoreStatistics> {
+    return this.http.put<StoreStatistics>(this.statsUrl + "/store/" + sessionTime, []).pipe(
+      tap((newStoreStats: StoreStatistics) => this.log(`updated store statistics w/ Average Time=${newStoreStats.avgSessionTime}`)),
+      catchError(this.handleError<StoreStatistics>('updateStoreSessionData'))
     );
   }
 

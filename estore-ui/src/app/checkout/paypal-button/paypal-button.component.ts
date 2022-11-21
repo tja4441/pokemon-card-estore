@@ -52,6 +52,12 @@ export class PaypalButtonComponent implements OnInit {
       
         this.success = true;
 
+        self.statsService.updateUserStats(this.order);
+        self.statsService.updateUserSessionData(0.0); //Gabriel, put the calculated session time in the place of the zero
+        self.statsService.updateStoreStats(this.order);
+        self.statsService.updateStoreSessionData(0.0); // also replace this
+
+
         self.cartService.checkout(self.order.id)
           .subscribe(shoppingCart => self.order = shoppingCart)
         },
@@ -72,7 +78,6 @@ export class PaypalButtonComponent implements OnInit {
   redirect(){
     this.count +=1
     alert('Payment Success')
-    this.statsService.updateStats(this.order, 0)
     this.route.navigate([''])
   }
 }

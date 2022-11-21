@@ -105,12 +105,48 @@ public class StatisticsController {
 
     @PutMapping("/sessionData/{id}")
     public ResponseEntity<UserStatistic> updateUserSessionData(@PathVariable int id, @RequestBody float sessionTime) {
-        LOG.info("PUT /stats/sessionData" + id);
+        LOG.info("PUT /stats/sessionData/" + id);
 
         try {
             UserStatistic s = statsDao.updateUserSessionData(id, sessionTime);
             if (s != null){
             return new ResponseEntity<UserStatistic>(s,HttpStatus.OK);
+            }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/store")
+    public ResponseEntity<StoreStatistic> updateStoreStatistics(@RequestBody ShoppingCart cart) {
+        LOG.info("PUT /stats/store ");
+
+        try {
+            StoreStatistic s = statsDao.updateStoreStatistic(cart);
+            if (s != null){
+            return new ResponseEntity<StoreStatistic>(s,HttpStatus.OK);
+            }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/store/sessionData/{sessionTime}")
+    public ResponseEntity<StoreStatistic> updateStoreSessionData(@PathVariable float sessionTime) {
+        LOG.info("PUT /stats/store/ " + sessionTime);
+
+        try {
+            StoreStatistic s = statsDao.updateStoreSessionData(sessionTime);
+            if (s != null){
+            return new ResponseEntity<StoreStatistic>(s,HttpStatus.OK);
             }else{
             return new ResponseEntity<>(HttpStatus.CONFLICT);
             }

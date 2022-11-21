@@ -4,7 +4,6 @@ import { ShoppingCart } from "./ShoppingCart";
 export interface UserStatistics {
     username: string;
     id: number;
-    loginCounter: number;
     purchaseCounter: number;
     lifetimeSpending: number;
     lifetimeSessionTime: number;

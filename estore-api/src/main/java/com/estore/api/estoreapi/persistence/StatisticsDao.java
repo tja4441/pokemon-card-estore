@@ -50,14 +50,23 @@ public interface StatisticsDao {
      */
     UserStatistic updateUserSessionData(int id, float sessionTime) throws IOException;
 
-    /**Updates Store Statistics with the data from the passed in cart and session time
+    /**Updates Store Statistics with the data from the passed in cart
      * 
      * @param cart the cart that was just checked out
+     * 
+     * @return the updated Store Statistics
+     * 
+     * @throws IOException if error accessing data
+     */
+    StoreStatistic updateStoreStatistic(ShoppingCart cart) throws IOException;
+
+    /**Updates Store Session Data with the new session time
+     * 
      * @param sessionTime the total session time
      * 
      * @return the updated Store Statistics
      * 
      * @throws IOException if error accessing data
      */
-    StoreStatistic updateStoreStatistic(ShoppingCart cart, float sessionTime) throws IOException;
+    StoreStatistic updateStoreSessionData(float sessionTime) throws IOException;
 }
