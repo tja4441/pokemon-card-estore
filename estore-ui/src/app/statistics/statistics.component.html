@@ -10,7 +10,7 @@
     </tr>
     <tr *ngFor="let user of userStats">
         <td>{{user.username}}</td>
-        <td *ngIf="determineHasPurchased(user)">{{user.averagePurchase.tofixed(2)}}</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.averagePurchase | number : '1.2-2'}}</td>
         <td *ngIf="!determineHasPurchased(user)">0.00</td>
         <td *ngIf="determineHasPurchased(user)">{{user.mostPopularType}}</td>
         <td *ngIf="!determineHasPurchased(user)">None</td>
@@ -18,7 +18,7 @@
         <td *ngIf="!determineHasPurchased(user)">None</td>
         <td *ngIf="determineHasPurchased(user)">{{user.averageSessionTime}}</td>
         <td *ngIf="!determineHasPurchased(user)">0.00</td>
-        <td *ngIf="determineHasPurchased(user)">{{user.mostExpensiveOrder.totalPrice.tofixed(2)}}</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.mostExpensiveOrder.totalPrice | number : '1.2-2'}}</td>
         <td *ngIf="!determineHasPurchased(user)">0.00</td>
     </tr>
 </table>
