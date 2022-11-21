@@ -9,13 +9,17 @@ import { UserStatistics } from '../model/UserStatistics';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
-  public userStats: UserStatistics[] = [];
+  public userStats!: UserStatistics[];
   public storeStats!: StoreStatistics;
 
   constructor(private statsService: StatisticsService) { }
 
   ngOnInit(): void {
     this.getStats()
+  }
+
+  determineHasPurchased(stats: UserStatistics): boolean {
+    return stats.purchaseCounter !== 0
   }
 
   getStats(): void {

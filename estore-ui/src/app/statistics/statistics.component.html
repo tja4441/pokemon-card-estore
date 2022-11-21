@@ -1,4 +1,5 @@
 <table>
+    <caption>Individual User Statistics</caption>
     <tr>
         <th>Username</th>
         <th>Avg. Spending</th>
@@ -9,15 +10,21 @@
     </tr>
     <tr *ngFor="let user of userStats">
         <td>{{user.username}}</td>
-        <td>{{user.averagePurchaseAmt}}.tofixed(2)</td>
-        <td>{{user.mostPopularType}}</td>
-        <td>{{user.mostPurchased.name}}</td>
-        <td>{{user.averageSessionTime}}</td>
-        <td>{{user.mostExpensiveOrder.totalPrice}}.tofixed(2)</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.averagePurchase.tofixed(2)}}</td>
+        <td *ngIf="!determineHasPurchased(user)">0.00</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.mostPopularType}}</td>
+        <td *ngIf="!determineHasPurchased(user)">None</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.mostPurchased}}</td>
+        <td *ngIf="!determineHasPurchased(user)">None</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.averageSessionTime}}</td>
+        <td *ngIf="!determineHasPurchased(user)">0.00</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.mostExpensiveOrder.totalPrice.tofixed(2)}}</td>
+        <td *ngIf="!determineHasPurchased(user)">0.00</td>
     </tr>
 </table>
 <br/>
 <table>
+    <caption>Overall Statistics</caption>
     <tr>
         <th>purchaseCount:</th>
         <td>{{storeStats.purchaseCount}}</td>
