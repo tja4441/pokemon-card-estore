@@ -93,15 +93,7 @@ export class AddProductsComponent implements OnInit {
     let product = new Product(0, name, types, quantity, price)
     this.productService.addProduct(product)
     //productService returns product on success which is added to UI/this.products
-    .subscribe(product => this.products.push(product))
-
-    setTimeout(() => 
-    {
-      this.uploadImage(name)
-      
-    },
-    250);
-
+    .subscribe(product => {this.products.push(product), this.uploadImage(name)})
     }
  
   }

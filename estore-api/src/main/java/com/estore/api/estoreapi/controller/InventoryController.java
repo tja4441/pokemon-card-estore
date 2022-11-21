@@ -217,10 +217,10 @@ public class InventoryController {
     }
 
     @PostMapping("/image")
-    public ResponseEntity<BufferedImage> uploadImage(@RequestParam("file") MultipartFile request) {
+    public ResponseEntity<BufferedImage> uploadImage(@RequestParam("file") MultipartFile file) {
         LOG.info("POST /products/image " );
         try {
-            inventoryDao.createImage(request);
+            inventoryDao.createImage(file);
             return new ResponseEntity<>( HttpStatus.CREATED);
         } catch(IOException io) {
             LOG.log(Level.SEVERE, io.getLocalizedMessage());
