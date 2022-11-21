@@ -86,6 +86,15 @@ export class AddProductsComponent implements OnInit {
     }else if(!this.image){
       alert("A pokemon must have an image")
       return 
+    }else if(!name){
+      alert("A pokemon must have a name")
+      return 
+    }else if(quantity == ""){
+      alert("A pokemon must have a quanity")
+      return 
+    }else if(price == ""){
+      alert("A pokemon must have a price")
+      return 
     }
     //removes whitespace
     name = name.trim();
