@@ -87,7 +87,7 @@ public class StatisticsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserStatistic> updateUserStats(@PathVariable int id, @RequestBody ShoppingCart cart) {
-        LOG.info("PUT /stats/ " + id);
+        LOG.info("PUT /stats/" + id);
 
         try {
             UserStatistic s = statsDao.updateUserStatistic(id, cart);
@@ -123,7 +123,7 @@ public class StatisticsController {
 
     @PutMapping("/store")
     public ResponseEntity<StoreStatistic> updateStoreStatistics(@RequestBody ShoppingCart cart) {
-        LOG.info("PUT /stats/store ");
+        LOG.info("PUT /stats/store");
 
         try {
             StoreStatistic s = statsDao.updateStoreStatistic(cart);
@@ -141,7 +141,7 @@ public class StatisticsController {
 
     @PutMapping("/store/sessionData/{sessionTime}")
     public ResponseEntity<StoreStatistic> updateStoreSessionData(@PathVariable float sessionTime) {
-        LOG.info("PUT /stats/sessionData/store/ " + sessionTime);
+        LOG.info("PUT /stats/sessionData/store/" + sessionTime);
 
         try {
             StoreStatistic s = statsDao.updateStoreSessionData(sessionTime);

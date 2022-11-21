@@ -218,6 +218,10 @@ public class StoreStatistic {
             this.productPurchaseAmts.put(productID, amount);
         }
     }
+    
+    //TODO: Make method for five most popular
+
+    //TODO: Make method for most popular type
 
     public void calculateAveragePurchaseAmount() {
         this.averagePurchaseAmt = (this.totalPurchaseAmt / this.purchaseCount);

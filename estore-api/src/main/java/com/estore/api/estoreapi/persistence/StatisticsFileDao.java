@@ -145,6 +145,7 @@ public class StatisticsFileDao implements StatisticsDao{
         stats.calculateAveragePurchaseAmount();
         stats.determineMostPopularType();
 
+        save();
         return stats;
     }
 
@@ -158,6 +159,7 @@ public class StatisticsFileDao implements StatisticsDao{
         stats.incrementLifetimeSession(sessionTime);
         stats.calculateAverageSessionTime();
 
+        save();
         return stats;
     }
 
@@ -177,6 +179,7 @@ public class StatisticsFileDao implements StatisticsDao{
         store.checkCartAgainstMostExpensive(cart);
         store.calculateAveragePurchaseAmount();
 
+        save();
         return store;
     }
 
@@ -188,6 +191,7 @@ public class StatisticsFileDao implements StatisticsDao{
         store.increaseTotalSession(sessionTime);
         store.calculateAverageSessionTime();
 
+        save();
         return store;
     }
 }
