@@ -34,7 +34,7 @@ export class SearchProductsComponent implements OnInit {
     let type: CardType = CardType[typeString]
     this.typeDictSearch[typeString] = !this.typeDictSearch[typeString]
     if(this.typeDictSearch[typeString]) this.typeListSearch.push(type)
-    else this.typeListSearch.splice(this.typeListSearch.indexOf(type))
+    else this.typeListSearch.splice(this.typeListSearch.indexOf(type),1)
   }
 
   search(term: string): void {
