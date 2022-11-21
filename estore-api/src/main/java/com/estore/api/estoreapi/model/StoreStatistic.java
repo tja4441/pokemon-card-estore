@@ -152,7 +152,11 @@ public class StoreStatistic {
      * @param amount the amount to add to the revenue
      */
     public void increaseTypeRevenue(CardType type, float amount) {
-        this.typeRevenue.put(type, this.typeRevenue.get(type) + amount);
+        if (this.typeRevenue.containsKey(type)) {
+            this.typeRevenue.put(type, this.typeRevenue.get(type) + amount);
+        } else {
+            this.typeRevenue.put(type, amount);
+        }
     }
 
     /**Increments the number of Total Purchases by one
@@ -206,9 +210,13 @@ public class StoreStatistic {
      * @param amount the amount to increment by
      */
     public void addProductPurchaseAmounts(int productID, int amount) {
-        int newAmount = this.productPurchaseAmts.get(productID);
-        newAmount += amount;
-        this.productPurchaseAmts.put(productID, newAmount);
+        if (this.productPurchaseAmts.containsKey(productID)) {
+            int newAmount = this.productPurchaseAmts.get(productID);
+            newAmount += amount;
+            this.productPurchaseAmts.put(productID, newAmount);
+        } else {
+            this.productPurchaseAmts.put(productID, amount);
+        }
     }
 
     public void calculateAveragePurchaseAmount() {

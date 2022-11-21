@@ -5,7 +5,27 @@
   "avgPurchaseAmt" : 0.0,
   "productPurchaseAmts" : { },
   "fiveMostPopular" : [ 0, 0, 0, 0, 0 ],
-  "fiveMostExpensiveOrders" : [ null, null, null, null, null ],
+  "fiveMostExpensiveOrders" : [ {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  }, {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  }, {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  }, {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  }, {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  } ],
   "mostPopularType" : null,
   "typeRevenue" : { },
   "totalSessionTime" : 0.0,
