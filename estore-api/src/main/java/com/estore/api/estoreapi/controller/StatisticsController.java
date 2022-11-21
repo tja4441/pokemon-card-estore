@@ -141,7 +141,7 @@ public class StatisticsController {
 
     @PutMapping("/store/sessionData/{sessionTime}")
     public ResponseEntity<StoreStatistic> updateStoreSessionData(@PathVariable float sessionTime) {
-        LOG.info("PUT /stats/store/ " + sessionTime);
+        LOG.info("PUT /stats/sessionData/store/ " + sessionTime);
 
         try {
             StoreStatistic s = statsDao.updateStoreSessionData(sessionTime);

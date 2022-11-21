@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { MessageService } from './message.service';
@@ -14,6 +14,10 @@ export class StatisticsService {
 
   //baseline url for statistics functions
   private statsUrl = 'http://localhost:8080/stats';
+
+  httpOptions = { 
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(
     private http: HttpClient,
@@ -36,7 +40,8 @@ export class StatisticsService {
    * @returns An observable that resolves to a StoreStatistics objcet
    */
   getStoreStats(): Observable<StoreStatistics> {
-    return this.http.get<StoreStatistics>(this.statsUrl + '/store')
+    const url = `${this.statsUrl}/store`
+    return this.http.get<StoreStatistics>(url)
       .pipe(
         tap(_ => this.log('fetched UserStats')),
         catchError(this.handleError<StoreStatistics>('getStoreStats', undefined))
@@ -48,8 +53,9 @@ export class StatisticsService {
    */
   updateUserStats(cart: ShoppingCart): Observable<UserStatistics> {
     let uID = this.userService.getId();
+    const url = `${this.statsUrl}/${uID}`
     
-    return this.http.put<UserStatistics>(this.statsUrl + "/" + uID, [cart]).pipe(
+    return this.http.put<UserStatistics>(url,cart,this.httpOptions).pipe(
       tap((newStats: UserStatistics) => this.log(`updated stats w/ id=${newStats.id}`)),
       catchError(this.handleError<UserStatistics>('updateStatistics'))
     );
@@ -62,8 +68,9 @@ export class StatisticsService {
    */
   updateUserSessionData(sessionTime: number): Observable<UserStatistics> {
     let uID = this.userService.getId();
+    const url = `${this.statsUrl}/sessionData/${uID}`
 
-    return this.http.put<UserStatistics>(this.statsUrl + "/sessionData/" + uID, [sessionTime]).pipe(
+    return this.http.put<UserStatistics>(url, sessionTime, this.httpOptions).pipe(
       tap((newStats: UserStatistics) => this.log(`updated session data for user w/ id=${newStats.id}`)),
       catchError(this.handleError<UserStatistics>('updateSessionData'))
     );
@@ -73,7 +80,8 @@ export class StatisticsService {
    * 
    */
    updateStoreStats(cart: ShoppingCart): Observable<StoreStatistics> {
-    return this.http.put<StoreStatistics>(this.statsUrl + "/store", [cart]).pipe(
+    const url = `${this.statsUrl}/store`
+    return this.http.put<StoreStatistics>(url, cart, this.httpOptions).pipe(
       tap((newStoreStats: StoreStatistics) => this.log(`updated store statistics`)),
       catchError(this.handleError<StoreStatistics>('updateStoreStatistics'))
     );
@@ -83,7 +91,8 @@ export class StatisticsService {
    * 
    */
    updateStoreSessionData(sessionTime: number): Observable<StoreStatistics> {
-    return this.http.put<StoreStatistics>(this.statsUrl + "/store/" + sessionTime, []).pipe(
+    const url = `${this.statsUrl}/store/sessionData/${sessionTime}`
+    return this.http.put<StoreStatistics>(url, this.httpOptions).pipe(
       tap((newStoreStats: StoreStatistics) => this.log(`updated store statistics w/ Average Time=${newStoreStats.avgSessionTime}`)),
       catchError(this.handleError<StoreStatistics>('updateStoreSessionData'))
     );

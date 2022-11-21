@@ -43,7 +43,11 @@
   "lifetimeSessionTime" : 0.0,
   "purchasedCounts" : { },
   "mostPurchased" : -1,
-  "mostExpensiveOrder" : null,
+  "mostExpensiveOrder" : {
+    "id" : 2,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
   "typeCounts" : { },
   "typeRevenues" : { },
   "mostPopularType" : null,
@@ -57,7 +61,11 @@
   "lifetimeSessionTime" : 0.0,
   "purchasedCounts" : { },
   "mostPurchased" : -1,
-  "mostExpensiveOrder" : null,
+  "mostExpensiveOrder" : {
+    "id" : 3,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
   "typeCounts" : { },
   "typeRevenues" : { },
   "mostPopularType" : null,
@@ -71,7 +79,11 @@
   "lifetimeSessionTime" : 0.0,
   "purchasedCounts" : { },
   "mostPurchased" : -1,
-  "mostExpensiveOrder" : null,
+  "mostExpensiveOrder" : {
+    "id" : 4,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
   "typeCounts" : { },
   "typeRevenues" : { },
   "mostPopularType" : null,
@@ -85,7 +97,11 @@
   "lifetimeSessionTime" : 0.0,
   "purchasedCounts" : { },
   "mostPurchased" : -1,
-  "mostExpensiveOrder" : null,
+  "mostExpensiveOrder" : {
+    "id" : 5,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
   "typeCounts" : { },
   "typeRevenues" : { },
   "mostPopularType" : null,
@@ -99,7 +115,11 @@
   "lifetimeSessionTime" : 0.0,
   "purchasedCounts" : { },
   "mostPurchased" : -1,
-  "mostExpensiveOrder" : null,
+  "mostExpensiveOrder" : {
+    "id" : 6,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
   "typeCounts" : { },
   "typeRevenues" : { },
   "mostPopularType" : null,

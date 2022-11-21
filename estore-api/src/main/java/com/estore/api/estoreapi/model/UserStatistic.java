@@ -39,7 +39,7 @@ public class UserStatistic {
         this.typeCounts = new HashMap<>();
         this.typeRevenues = new HashMap<>();
         this.averageSessionTime = 0.0f;
-        this.mostExpensiveOrder = null;
+        this.mostExpensiveOrder = new ShoppingCart(id);
         this.mostPurchased = -1;
         this.mostPopularType = null;
     }
@@ -251,7 +251,11 @@ public class UserStatistic {
      * @param amount the amount to be added
      */
     public void increaseTypeTally(CardType type, int amount){
-        this.typeCounts.put(type, this.typeCounts.get(type) + amount);
+        if (this.typeCounts.containsKey(type)) {
+            this.typeCounts.put(type, this.typeCounts.get(type) + amount);
+        } else {
+            this.typeCounts.put(type, amount);
+        }
     }
 
     /**Takes an array of products and adds the revenue generated to the typeRevenues map
@@ -262,7 +266,11 @@ public class UserStatistic {
         for(Product product: purchasedProducts) {
             CardType[] typeArray = product.getTypes();
             for(CardType type : typeArray) {
-                this.typeRevenues.put(type, product.getPrice() * product.getQuantity());
+                if (this.typeRevenues.containsKey(type)) {
+                    this.typeRevenues.put(type, this.typeRevenues.get(type) + (product.getPrice() * product.getQuantity()));
+                } else {
+                    this.typeRevenues.put(type, product.getPrice() * product.getQuantity());
+                }
             }
         }
     }
