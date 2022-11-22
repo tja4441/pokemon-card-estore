@@ -10,12 +10,15 @@ import { ProductComponent } from './products/product/product.component';
 import { AdminGuard } from './model/AdminGuard';
 import { UserGuard } from 'src/app/model/UserGuard';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'admin', component: AdminComponent,
   canActivate: [AdminGuard]},
   { path: 'user', component: UserComponent,
+  canActivate: [UserGuard]},
+  { path: 'cart', component: ShoppingCartComponent,
   canActivate: [UserGuard]},
   { path: 'products', component: AddProductsComponent},
   { path: 'login', component: LoginComponent},

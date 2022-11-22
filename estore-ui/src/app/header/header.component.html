@@ -1,0 +1,17 @@
+<nav class="header">
+    <div class="utility">
+        <a style="margin-right:0.25em;" routerLink="/login"><button>Login</button></a>
+        <a routerLink=""><button>Home</button></a>
+    </div>
+
+    <label class="title">Pokémon Card Store</label>
+
+    <div class="navigation" *ngIf="isLoggedInUser()" style="float:inline-end">
+        <button style="margin-right: 0.25em;" (click)="redirect('/cart');">Cart</button>
+        <button (click)="redirect('/user')">Account</button>
+    </div>
+
+    <div class="navigation" *ngIf="isAdmin()" style="float:inline-end">
+        <button style="margin-right: 0.25em;" (click)="router.navigate(['/admin'])" >Dashboard</button>
+    </div>
+</nav>

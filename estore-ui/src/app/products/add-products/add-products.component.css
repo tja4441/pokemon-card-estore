@@ -9,8 +9,7 @@ input[type=text] {
 .add-button {
     width: 200px;
     height: 60px;
-    background-color: lightblue;
-    color: black;
+    
     transition-duration: 0.4s;
     border-radius: 15px;
 }
