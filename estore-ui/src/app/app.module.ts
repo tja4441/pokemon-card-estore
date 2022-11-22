@@ -22,7 +22,6 @@ import { AdminStatsComponent } from './admin/admin-stats/admin-stats.component';
 import { AdminAccountsComponent } from './admin/admin-accounts/admin-accounts.component';
 import { ChangePasswordFormComponent } from './account/change-password-form/change-password-form.component';
 import { DisplayUserInfoComponent } from './account/display-user-info/display-user-info.component';
-import { DeleteAccountComponent } from './account/delete-account/delete-account.component';
 import { UserGuard } from 'src/app/model/UserGuard';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './shopping-cart/cart-product/cart-product.component';
@@ -53,7 +52,6 @@ import { HeaderComponent } from './header/header.component';
     AdminAccountsComponent,
     ChangePasswordFormComponent,
     DisplayUserInfoComponent,
-    DeleteAccountComponent,
     ShoppingCartComponent,
     CartProductComponent,
     AddToCartComponent,
@@ -69,7 +67,7 @@ import { HeaderComponent } from './header/header.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [AdminGuard, UserGuard],
   bootstrap: [AppComponent]
