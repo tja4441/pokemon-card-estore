@@ -3,6 +3,8 @@ package com.estore.api.estoreapi.model;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,7 +15,7 @@ public class StoreStatistic {
     @JsonProperty("productPurchaseAmts") private HashMap<Integer, Integer> productPurchaseAmts;
     @JsonProperty("fiveMostPopular") private int[] mostPopularProducts;
     @JsonProperty("fiveMostExpensiveOrders") private ShoppingCart[] mostExpensiveCarts;
-    @JsonProperty("mostPopularType") private CardType mostPopType;
+    @JsonProperty("mostPopularType") private CardType mostPopularType;
     @JsonProperty("typeRevenue") private HashMap<CardType, Float> typeRevenue;
     @JsonProperty("totalSessionTime") private float totalSessionTime;
     @JsonProperty("avgSessionTime") private float avgSessionTime;
@@ -28,7 +30,7 @@ public class StoreStatistic {
         this.productPurchaseAmts = new HashMap<Integer, Integer>();
         this.mostPopularProducts = new int[5];
         this.mostExpensiveCarts = new ShoppingCart[5];
-        this.mostPopType = null;
+        this.mostPopularType = null;
         this.typeRevenue = new HashMap<CardType, Float>();
         this.totalSessionTime = 0;
         this.avgSessionTime = 0;
@@ -70,8 +72,8 @@ public class StoreStatistic {
      * 
      * @return CardType representing the most popular type
      */
-    public CardType getMostPopType() {
-        return mostPopType;
+    public CardType getMostPopularType() {
+        return mostPopularType;
     }
 
     /**Retreives the Average Purchase Amount
@@ -126,8 +128,8 @@ public class StoreStatistic {
      * 
      * @param mostPopType the value to set the mPT
      */
-    public void setMostPopType(CardType mostPopType) {
-        this.mostPopType = mostPopType;
+    public void setMostPopularType(CardType mostPopType) {
+        this.mostPopularType = mostPopType;
     }
 
     /**Sets the typeRevenue map
@@ -219,9 +221,59 @@ public class StoreStatistic {
         }
     }
     
-    //TODO: Make method for five most popular
+    /**
+     * Calculates the top five purchased products via the purchased amounts
+     */
+    public void calculateMostPopularProducts(int[] productIDs) {
+        HashSet<Integer> allIDsHash = new HashSet<>();
 
-    //TODO: Make method for most popular type
+        //add in all the ids in the top 5
+        for (int topID : this.mostPopularProducts) {
+            allIDsHash.add(topID);
+        }
+
+        //add in all the new ids just purchased
+        for (int newID : productIDs) {
+            allIDsHash.add(newID);
+        }
+
+        // turn the hash into an array
+        Integer[] allIDs = new Integer[allIDsHash.size()];
+        allIDsHash.toArray(allIDs);
+
+        Arrays.sort(allIDs, new Comparator<>() {
+            public int compare(Integer o1, Integer o2) {
+                return (int)(productPurchaseAmts.get(o2) - productPurchaseAmts.get(o1));
+            };
+        });
+
+        for(int i = 0; i < 5; i++) {
+            this.mostPopularProducts[i] = allIDs[i];
+        }
+    }
+
+    public void calculateMostPopularType(Map<Integer,UserStatistic> usersStats){
+        Map<CardType,Integer> popularTally = new HashMap<CardType,Integer>();
+        CardType mostPopular = null;
+        for (int uID : usersStats.keySet()) {
+            UserStatistic userStat = usersStats.get(uID);
+            CardType userFav = userStat.getMostPopularType();
+            if (popularTally.containsKey(userFav)) {
+                popularTally.put(userFav, popularTally.get(userFav) + 1);
+            } else {
+                popularTally.put(userFav, 1);
+            }
+        }
+
+        for (CardType type : popularTally.keySet()) {
+            if (mostPopular == null) {
+                mostPopular = type;
+            } else if (popularTally.get(mostPopular) < popularTally.get(type)) {
+                mostPopular = type;
+            }
+        }
+        this.mostPopularType = mostPopular;
+    }
 
     public void calculateAveragePurchaseAmount() {
         this.averagePurchaseAmt = (this.totalPurchaseAmt / this.purchaseCount);
