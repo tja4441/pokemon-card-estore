@@ -13,8 +13,7 @@ import { UserService } from '../services/user.service';
 export class UserComponent implements OnInit {
   public user: User
   public orderHistory: OrderHistory[] = []
-  public CART = true
-  public ACCOUNT = false
+  public ACCOUNT = true
   public HISTORY = false
 
   constructor(private userService: UserService, private orderHistoryService: OrderHistoryService) { 
@@ -24,18 +23,11 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  public cart() {
-    this.CART = true
-    this.ACCOUNT = false
-    this.HISTORY = false
-  }
   public account() {
-    this.CART = false
     this.ACCOUNT = true
     this.HISTORY = false
   }
   public history() {
-    this.CART = false
     this.ACCOUNT = false
     this.HISTORY = true
   }

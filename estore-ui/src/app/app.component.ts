@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  public title = 'Pokémon Card Store'
   constructor(public userService: UserService, 
     private router: Router){
   }

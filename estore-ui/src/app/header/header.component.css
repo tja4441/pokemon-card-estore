@@ -1,0 +1,42 @@
+.usertag {
+    float: right;
+    background-color: lightblue;
+    font-size: 12px;
+    padding: 1em;
+    border: 2px solid black;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    border-radius: 12px;
+    margin: 1em;
+    transition-duration: 0.4s;
+}
+
+.usertag:hover {
+    background-color: cornflowerblue;
+}
+
+.utility {
+    margin-left: 0.5em;
+    float:left;
+    vertical-align: middle;
+    line-height: 300%;
+}
+
+.navigation {
+    margin-right: 0.5em;
+    float:right;
+    vertical-align: middle;
+    line-height: 300%;
+}
+
+.title  {color: white;
+    font: 2em arial;
+    font-weight: bold;
+    line-height: 150%;
+}
+
+.header {
+    background-color: blue;
+    text-align: center;
+}

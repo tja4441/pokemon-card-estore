@@ -1,12 +1,7 @@
-<h1>User Page:</h1>
-<nav>
-    <button [class.selected]="CART" (click)="cart()">View Cart</button>
+<nav class="tabs">
     <button [class.selected]="ACCOUNT" (click)="account()">Account Info</button>
     <button [class.selected]="HISTORY" (click)="history()">Order History</button>
 </nav>
-<div *ngIf="CART">
-    <app-shopping-cart></app-shopping-cart>
-</div>
 <div *ngIf="ACCOUNT">
     <app-display-user-info></app-display-user-info>
     <app-change-password-form></app-change-password-form>

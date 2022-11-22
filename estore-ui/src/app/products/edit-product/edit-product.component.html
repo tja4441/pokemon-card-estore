@@ -1,4 +1,4 @@
-<div *ngIf="card">
+<div class="form" *ngIf="card">
     <form (submit)="setProduct(priceInput.value, quantityInput.value)">
         <label>Price: </label>
         <input type="number" style="width: 60px;" [value]="card.price" #priceInput><br>

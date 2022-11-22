@@ -16,3 +16,8 @@ button.selected {
     background-color: gray;
     color:black;
 }
+
+.tabs{
+    margin-top: 0.5em;
+    text-align: center;
+}
