@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
   private addedUser(user: User){
     //sets user property of userservice for login persistance accross multiple routes
     this.userService.setUser(user)
+    this.userService.setLoginTime()
     if(this.userService.isLoggedIn()) this.goHome()
     else this.loginFailed = true
   }
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit {
   private addedRegister(user: User){
     //sets user property of userservice for login persistance accross multiple routes
     this.userService.setUser(user)
+    this.userService.setLoginTime();
     if(this.userService.isLoggedIn()) this.goHome()
     else this.registerFailed = true
   }

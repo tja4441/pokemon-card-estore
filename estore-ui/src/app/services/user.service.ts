@@ -13,8 +13,8 @@ import { ChangePass } from '../model/changePass';
 //id = 0, username = "", and shopping cart is an empty array if user is logged out
 export class UserService {
   private id: number = 0
-
   public username: string = ""
+  private loginTime: Date | undefined;
 
   //baseline url for user functions
   private userUrl = 'http://localhost:8080/user';
@@ -115,6 +115,22 @@ export class UserService {
   }
   
   /**
+   * records the log in time
+   */
+  setLoginTime() {
+    if(this.id > 0) this.loginTime = new Date();
+  }
+
+  /**
+   * @returns returns session time in minutes
+   */
+  getSessionTime(): number {
+    if(!this.loginTime) return 0
+    //@ts-ignore
+    else return (new Date() - this.loginTime) / 1000 / 60
+  }
+
+  /**
    * sets the global user to the passed in user
    * @param user the "global" user
    */
@@ -158,6 +174,7 @@ export class UserService {
   logout(): void {
     this.id = 0;
     this.username = ""
+    this.loginTime = undefined;
     this.savState()
   }
 

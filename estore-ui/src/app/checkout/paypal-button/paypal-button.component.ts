@@ -54,10 +54,11 @@ export class PaypalButtonComponent implements OnInit {
       
         this.success = true;
 
+        const sessionTime = self.userService.getSessionTime();
         self.statsService.updateUserStats(this.order).subscribe(p => this.throwaway = p);
-        self.statsService.updateUserSessionData(0.0).subscribe(p => this.throwaway = p); //Gabriel, put the calculated session time in the place of the zero
+        self.statsService.updateUserSessionData(sessionTime).subscribe(p => this.throwaway = p);
         self.statsService.updateStoreStats(this.order).subscribe(p => this.throwaway = p);
-        self.statsService.updateStoreSessionData(0.0).subscribe(p => this.throwaway = p); // also replace this
+        self.statsService.updateStoreSessionData(sessionTime).subscribe(p => this.throwaway = p); 
 
 
         self.cartService.checkout(self.order.id)

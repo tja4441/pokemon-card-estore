@@ -18,7 +18,6 @@ import { EditProductComponent } from './products/edit-product/edit-product.compo
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { SearchProductsComponent } from './products/search-products/search-products.component';
 import { AdminEditComponent } from './admin/admin-edit/admin-edit.component';
-import { AdminStatsComponent } from './admin/admin-stats/admin-stats.component';
 import { AdminAccountsComponent } from './admin/admin-accounts/admin-accounts.component';
 import { ChangePasswordFormComponent } from './account/change-password-form/change-password-form.component';
 import { DisplayUserInfoComponent } from './account/display-user-info/display-user-info.component';
@@ -47,7 +46,6 @@ import { OrderHistoryComponent } from './statistics/order-history/order-history.
     RemoveProductComponent,
     SearchProductsComponent,
     AdminEditComponent,
-    AdminStatsComponent,
     AdminAccountsComponent,
     ChangePasswordFormComponent,
     DisplayUserInfoComponent,

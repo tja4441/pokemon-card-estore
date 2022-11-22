@@ -5,9 +5,8 @@
   <a routerLink=""><button>Home</button></a>
 </nav>
 
-<div class="usertag" *ngIf="isAdmin()"  (click)="redirect()" >Click Here to Go To Admin DashBoard</div>
+<div class="usertag" *ngIf="isAdmin()" (click)="redirect()" >Click Here to Go To Admin DashBoard</div>
 
-<div class="usertag" *ngIf="isLoggedInUser()"  (click)="redirect()" >Click Here to Go To User Page and Cart</div>
+<div class="usertag" *ngIf="isLoggedInUser()" (click)="redirect()" >Click Here to Go To User Page and Cart</div>
 
 <router-outlet></router-outlet>
-
