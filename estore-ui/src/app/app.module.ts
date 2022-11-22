@@ -32,6 +32,7 @@ import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.co
 import { CardImageComponent } from './products/card-image/card-image.component';
 import { OrderHistoryComponent } from './statistics/order-history/order-history.component';
 import { CartImageComponent } from './shopping-cart/cart-image/cart-image.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { CartImageComponent } from './shopping-cart/cart-image/cart-image.compon
     PaypalButtonComponent,
     CardImageComponent,
     UserComponent,
-    CartImageComponent
+    CartImageComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
