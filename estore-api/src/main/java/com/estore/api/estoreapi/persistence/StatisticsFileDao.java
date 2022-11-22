@@ -126,7 +126,6 @@ public class StatisticsFileDao implements StatisticsDao{
     @Override
     public UserStatistic updateUserStatistic(int id, ShoppingCart cart) throws IOException {
         UserStatistic stats = usersStats.get(id);
-        stats.incrementPurchaseCounter();
         stats.incrementLifetimeAmount(cart.GetTotalPrice());
 
         // turning the contents of the shopping cart into an array of products for the algorithms in the models to use
@@ -147,7 +146,6 @@ public class StatisticsFileDao implements StatisticsDao{
                 stats.increaseTypeTally(type, product.getQuantity());
             }
         }
-        
         stats.determineMostExpensiveOrder(cart);
         stats.calculateAveragePurchaseAmount();
         stats.determineMostPopularType();
@@ -176,7 +174,6 @@ public class StatisticsFileDao implements StatisticsDao{
      */
     @Override
     public StoreStatistic updateStoreStatistic(ShoppingCart cart) throws IOException {
-        store.incrementTotalPurchases();
         for(Product card : cart.getContents()) {
             for(CardType type : card.getTypes()) {
                 store.increaseTypeRevenue(type, card.getQuantity() * card.getPrice());

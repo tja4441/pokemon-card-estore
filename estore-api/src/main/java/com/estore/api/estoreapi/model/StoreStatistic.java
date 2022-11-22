@@ -165,7 +165,7 @@ public class StoreStatistic {
      * 
      */
     public void incrementTotalPurchases() {
-        this.purchaseCount++;
+        this.purchaseCount+= 1;
     }
 
     /**Adds Amount to totalPurchaseAmt
@@ -226,9 +226,12 @@ public class StoreStatistic {
      */
     public void calculateMostPopularProducts(Map<Integer,UserStatistic> usersStats) {
         Map<Integer,Integer> popularProductTally = new HashMap<Integer,Integer>();
-        Integer[] mostPopular = new Integer[5];
+        int[] mostPopular = new int[5];
         for (int uID : usersStats.keySet()) {
             UserStatistic userStat = usersStats.get(uID);
+            if (userStat.getPurchaseCounter() == 0) {
+                continue;
+            }
             Integer userFav = userStat.getMostPurchased();
             if (popularProductTally.containsKey(userFav)) {
                 popularProductTally.put(userFav, popularProductTally.get(userFav) + 1);
@@ -239,7 +242,7 @@ public class StoreStatistic {
 
         for (int i = 0; i < 5; i++) {
             for (Integer pID : popularProductTally.keySet()) {
-                if (mostPopular[i] == null) {
+                if (mostPopular[i] == 0) {
                     mostPopular[i] = pID;
                 } else if (popularProductTally.get(mostPopular[i]) < popularProductTally.get(pID)) {
                     mostPopular[i] = pID;
@@ -247,6 +250,8 @@ public class StoreStatistic {
             }
             popularProductTally.remove(mostPopular[i]);
         }
+
+        this.mostPopularProducts = mostPopular;
     }
 
     public void calculateMostPopularType(Map<Integer,UserStatistic> usersStats){
@@ -277,6 +282,7 @@ public class StoreStatistic {
     }
 
     public void calculateAverageSessionTime() {
+        incrementTotalPurchases();
         this.avgSessionTime = this.totalSessionTime / this.purchaseCount;
     }
 }

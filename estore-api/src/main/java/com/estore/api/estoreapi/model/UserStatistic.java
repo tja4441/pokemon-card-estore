@@ -224,7 +224,7 @@ public class UserStatistic {
      * the method increments the purchase counter for the user
      */
     public void incrementPurchaseCounter(){
-        this.purchaseCounter++;
+        this.purchaseCounter+= 1;
     }
 
     /**
@@ -333,6 +333,7 @@ public class UserStatistic {
      * this method calculates the average session time by taking the total time the user has spent on the e-store divided by the number of times they purchased something
      */
     public void calculateAverageSessionTime(){
+        incrementPurchaseCounter();
         this.averageSessionTime = (float) this.lifetimeSessionTime / this.purchaseCounter;
     }
 
