@@ -52,14 +52,6 @@ public interface UserDao {
     public boolean changePassword(int id, PassChange change) throws IOException;
 
     /**
-     * Attempts to delete a user from the database by ID. Can not delete account "admin"/id -1
-     * @param id the id of the user that is to be deleted
-     * @return returns true on success and false if the given id is -1 or no user exists at the passed id
-     * @throws IOException throws exeption if there is an issue with changing persistant storage
-     */
-    public boolean deleteUser(int id, ShoppingCartController shoppingCartController) throws IOException;
-
-    /**
      * Compares a string password given when hashed to stored hashed password
      * @param user the user you are checking if the password matches
      * @param password the string password that has been sent

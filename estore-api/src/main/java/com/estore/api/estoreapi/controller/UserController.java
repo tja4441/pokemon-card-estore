@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
  * @author Team E
  */
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -155,25 +154,6 @@ public class UserController {
             else return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
         }
         catch (IOException e) {
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
-     * 
-     * @param id
-     * @return
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteUser(@PathVariable int id) {
-        LOG.info("DELETE /" + id);
-        try {
-            boolean success = userDao.deleteUser(id,shoppingCartController);
-            if(success) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-            else return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
-        }
-        catch(IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
