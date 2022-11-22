@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
 import { Product } from '../../model/product';
 import { UserService } from '../../services/user.service';
+
+
 
 @Component({
   selector: 'app-product-card',
@@ -8,12 +11,26 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit {
-  @Input() card: Product | undefined;
+  @Input() card!: Product
   @Output() deletedItemEvent = new EventEmitter<number>()
-  public editing: boolean = false;
-  constructor(private userService: UserService) { }
 
-  ngOnInit(): void {}
+  public turned: boolean = false;
+  public source: String | undefined = undefined;
+  public editing: boolean = false;
+  image!: File 
+
+  constructor(private userService: UserService,
+              private imageService: ImageService) {
+               }
+
+  ngOnInit(): void {
+    if (this.card != undefined) {
+      this.imageService.getImageSrc(this.card.name).subscribe(source => {
+        this.source = source;
+      });
+    }
+    
+  }
 
   /**
    * Sets edit to true if the useer is an admin
@@ -32,6 +49,7 @@ export class ProductCardComponent implements OnInit {
   itemChange(newCard: Product){
     this.card = newCard;
     this.editing = false
+    this.turned = false;
   }
 
   /**
@@ -42,6 +60,28 @@ export class ProductCardComponent implements OnInit {
    */
   deleteItem(id: number) {
     this.deletedItemEvent.emit(id);
+  }
+
+  onFileChange(event: any): void {
+    this.image = event.target.files[0];
+  }
+
+  uploadImage(): void {
+
+    let name = this.card.name;
+
+    name = name + ".png";
+    if (this.image) {
+      const image = new File([this.image], name, {type: this.image.type});
+      this.imageService.uploadImage(image).subscribe(_ => window.location.reload())
+    }
+  }
+
+  turn(){
+    if(!this.editing) {
+      this.turned = !this.turned
+      this.edit()
+    }
   }
 
   notAdmin(): Boolean{

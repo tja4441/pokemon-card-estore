@@ -1,91 +1,157 @@
 [ {
   "id" : 1,
-  "name" : "Pikachu",
-  "types" : [ "ELECTRIC" ],
-  "quantity" : 0,
-  "price" : 9.0
+  "name" : "Vulpix",
+  "types" : [ "FIRE" ],
+  "quantity" : 87,
+  "price" : 2.0
 }, {
   "id" : 2,
-  "name" : "Bulbasaur",
-  "types" : [ "GRASS" ],
-  "quantity" : 200,
-  "price" : 2.0
-}, {
-  "id" : 3,
-  "name" : "Charmander",
-  "types" : [ "FIRE" ],
-  "quantity" : 8,
-  "price" : 4.5
-}, {
-  "id" : 4,
-  "name" : "Squirtle",
-  "types" : [ "WATER" ],
-  "quantity" : 28,
-  "price" : 3.99
-}, {
-  "id" : 5,
-  "name" : "Treecko",
-  "types" : [ "GRASS" ],
-  "quantity" : 55,
-  "price" : 2.99
-}, {
-  "id" : 6,
-  "name" : "Mudkip",
-  "types" : [ "WATER" ],
-  "quantity" : 199970,
-  "price" : 3.99
-}, {
-  "id" : 7,
-  "name" : "Torchic",
-  "types" : [ "FIRE" ],
-  "quantity" : 30,
-  "price" : 2.0
-}, {
-  "id" : 8,
-  "name" : "Magikarp",
-  "types" : [ "WATER" ],
-  "quantity" : 1,
+  "name" : "Rattata",
+  "types" : [ "NORMAL" ],
+  "quantity" : 27,
   "price" : 1.99
 }, {
+  "id" : 3,
+  "name" : "Tangela",
+  "types" : [ "GRASS" ],
+  "quantity" : 267,
+  "price" : 0.5
+}, {
+  "id" : 4,
+  "name" : "Staryu",
+  "types" : [ "WATER" ],
+  "quantity" : 32,
+  "price" : 26.0
+}, {
+  "id" : 5,
+  "name" : "Starmie",
+  "types" : [ "PSYCHIC", "WATER" ],
+  "quantity" : 4,
+  "price" : 65.0
+}, {
+  "id" : 6,
+  "name" : "Squirtle",
+  "types" : [ "WATER" ],
+  "quantity" : 67,
+  "price" : 250.0
+}, {
+  "id" : 7,
+  "name" : "Sandshrew",
+  "types" : [ "FIGHTING" ],
+  "quantity" : 78,
+  "price" : 1.0
+}, {
+  "id" : 8,
+  "name" : "Ponyta",
+  "types" : [ "FIRE" ],
+  "quantity" : 26,
+  "price" : 7.99
+}, {
   "id" : 9,
-  "name" : "Ditto",
-  "types" : [ "NORMAL" ],
-  "quantity" : 30,
-  "price" : 20.0
+  "name" : "Poliwag",
+  "types" : [ "WATER" ],
+  "quantity" : 150,
+  "price" : 0.75
 }, {
   "id" : 10,
-  "name" : "Blastoise",
-  "types" : [ "WATER" ],
-  "quantity" : 29,
-  "price" : 20.48
+  "name" : "Pikachu",
+  "types" : [ "ELECTRIC" ],
+  "quantity" : 15,
+  "price" : 260.0
 }, {
   "id" : 11,
-  "name" : "Volcarona",
-  "types" : [ "FIRE", "GRASS" ],
-  "quantity" : 0,
-  "price" : 2500.0
+  "name" : "Pidgey",
+  "types" : [ "NORMAL" ],
+  "quantity" : 178,
+  "price" : 2.05
 }, {
   "id" : 12,
-  "name" : "Emboar",
-  "types" : [ "FIRE", "FIGHTING" ],
-  "quantity" : 19,
-  "price" : 1.0
+  "name" : "Onix",
+  "types" : [ "FIGHTING" ],
+  "quantity" : 24,
+  "price" : 0.5
 }, {
   "id" : 13,
-  "name" : "Delphox",
-  "types" : [ "FIRE", "PSYCHIC" ],
-  "quantity" : 2,
-  "price" : 2.0
-}, {
-  "id" : 14,
-  "name" : "Zeraora",
-  "types" : [ "ELECTRIC", "FIGHTING" ],
-  "quantity" : 200,
+  "name" : "Nidoran",
+  "types" : [ "PSYCHIC" ],
+  "quantity" : 69,
   "price" : 1.0
 }, {
+  "id" : 14,
+  "name" : "Metapod",
+  "types" : [ "GRASS" ],
+  "quantity" : 591,
+  "price" : 4.5
+}, {
   "id" : 15,
-  "name" : "Absol",
-  "types" : [ "DARK" ],
-  "quantity" : 6,
-  "price" : 20.0
+  "name" : "Magnemite",
+  "types" : [ "ELECTRIC" ],
+  "quantity" : 230,
+  "price" : 25.0
+}, {
+  "id" : 16,
+  "name" : "Machop",
+  "types" : [ "FIGHTING" ],
+  "quantity" : 490,
+  "price" : 0.25
+}, {
+  "id" : 17,
+  "name" : "Koffing",
+  "types" : [ "GRASS" ],
+  "quantity" : 41,
+  "price" : 5.99
+}, {
+  "id" : 18,
+  "name" : "Gastly",
+  "types" : [ "PSYCHIC" ],
+  "quantity" : 2,
+  "price" : 4.0
+}, {
+  "id" : 19,
+  "name" : "Drowzee",
+  "types" : [ "PSYCHIC" ],
+  "quantity" : 99,
+  "price" : 1.5
+}, {
+  "id" : 20,
+  "name" : "Doduo",
+  "types" : [ "NORMAL" ],
+  "quantity" : 64,
+  "price" : 27.99
+}, {
+  "id" : 21,
+  "name" : "Diglett",
+  "types" : [ "FIGHTING" ],
+  "quantity" : 57,
+  "price" : 16.5
+}, {
+  "id" : 22,
+  "name" : "Charmander",
+  "types" : [ "FIRE" ],
+  "quantity" : 14,
+  "price" : 4690.0
+}, {
+  "id" : 23,
+  "name" : "Caterpie",
+  "types" : [ "GRASS" ],
+  "quantity" : 670,
+  "price" : 0.1
+}, {
+  "id" : 24,
+  "name" : "Bulbasaur",
+  "types" : [ "GRASS" ],
+  "quantity" : 250,
+  "price" : 69.0
+}, {
+  "id" : 25,
+  "name" : "Abra",
+  "types" : [ "PSYCHIC" ],
+  "quantity" : 45,
+  "price" : 1.0
+}, {
+  "id" : 26,
+  "name" : "Chansey",
+  "types" : [ "NORMAL" ],
+  "quantity" : 12,
+  "price" : 649.0
 } ]

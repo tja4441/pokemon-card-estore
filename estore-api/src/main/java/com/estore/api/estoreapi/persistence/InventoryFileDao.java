@@ -4,14 +4,26 @@ import com.estore.api.estoreapi.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import java.awt.image.BufferedImage;
+
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.TreeMap;
+
+import javax.imageio.ImageIO;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class InventoryFileDao implements InventoryDao {
@@ -73,7 +85,10 @@ public class InventoryFileDao implements InventoryDao {
     public boolean deleteProduct(int id) throws IOException {
         synchronized(products) {
             if(products.containsKey(id)){
+                String path = "data/cardImages/" + products.get(id).getName() + ".png";
+                Files.deleteIfExists(Paths.get(path));
                 products.remove(id);
+
                 return save();
             }
             else{
@@ -231,6 +246,46 @@ public class InventoryFileDao implements InventoryDao {
             }
             return i;
         }
+    }
+
+        /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BufferedImage createImage(MultipartFile file) throws IOException {
+        
+        BufferedImage image = ImageIO.read(file.getInputStream());
+        ImageIO.write(image, "png", new File("data/cardImages/" + file.getOriginalFilename()));
+        return image;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getImage(String name) throws IOException {
+        File f =  new File(("data/cardImages/" + name + ".png"));
+        String data = encodeFileToBase64Binary(f);
+        if(data == null){
+            return null;
+        } 
+        return "data:image/png;base64," + data;
+    }
+
+    private static String encodeFileToBase64Binary(File file){
+        String encodedfile = null;
+        try {
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int)file.length()];
+            fileInputStreamReader.read(bytes);
+            encodedfile = Base64.getEncoder().encodeToString(bytes);
+            fileInputStreamReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return encodedfile;
     }
 }
 
