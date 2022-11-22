@@ -1,38 +1,20 @@
 [ {
   "id" : 1,
   "username" : "Gabe",
-  "averagePurchase" : 50.12847126,
-  "purchaseCounter" : 6,
-  "lifetimeSpending" : 100.72,
+  "averagePurchase" : 0.0,
+  "purchaseCounter" : 0,
+  "lifetimeSpending" : 0.0,
   "lifetimeSessionTime" : 0.0,
   "purchasedCounts" : { },
-  "mostPurchased" : 4,
+  "mostPurchased" : -1,
   "mostExpensiveOrder" : {
     "id" : 1,
-    "contents" : [ {
-      "id" : 2,
-      "name" : "Bulbasaur",
-      "types" : [ "GRASS" ],
-      "quantity" : 5,
-      "price" : 2.0
-    }, {
-      "id" : 4,
-      "name" : "Squirtle",
-      "types" : [ "WATER" ],
-      "quantity" : 3,
-      "price" : 3.99
-    }, {
-      "id" : 3,
-      "name" : "Charmander",
-      "types" : [ "FIRE" ],
-      "quantity" : 2,
-      "price" : 4.5
-    } ],
-    "totalPrice" : 30.970001
+    "contents" : [ ],
+    "totalPrice" : 0.0
   },
   "typeCounts" : { },
   "typeRevenues" : { },
-  "mostPopularType" : "FIRE",
+  "mostPopularType" : null,
   "averageSessionTime" : 0.0
 }, {
   "id" : 2,
