@@ -34,6 +34,9 @@
     <input class="type" type="checkbox" (click)="handleClick('WATER')" id="WATER">
     <label for="addtrainer">Trainer</label>
     <input class="type" type="checkbox" (click)="handleClick('TRAINER')" id="TRAINER">
+    <p for="new-product" style="text-align: left">Product image: 
+        <input type="file" accept=".png" style="float:right" id="file" (change)="onFileChange($event)">
+    </p>
     <br/>
 
     <button type="button" class="add-button"

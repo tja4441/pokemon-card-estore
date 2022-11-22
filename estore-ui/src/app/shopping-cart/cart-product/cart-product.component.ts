@@ -4,6 +4,7 @@ import { ProductService } from '../../services/product.service';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import { ShoppingCart } from '../../model/ShoppingCart';
 import { UserService } from '../../services/user.service';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-cart-product',
@@ -14,14 +15,18 @@ export class CartProductComponent implements OnInit {
 
   @Input() product!: Product
   @Output() shoppingCart = new EventEmitter()
+  public source: String | undefined = undefined;
   invProduct!: Product
+
 
   constructor(private userService: UserService,
     private cartService: ShoppingCartService,
-    private productService: ProductService) { }
+    private productService: ProductService,
+    private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.getProduct()
+    this.getImage();
   }
 
 
@@ -38,6 +43,14 @@ export class CartProductComponent implements OnInit {
   getProduct(){
     this.productService.getProduct(this.product.id).subscribe(
     invproduct => this.invProduct = invproduct)
+  }
+
+  getImage(){
+    if (this.product != undefined) {
+      this.imageService.getImageSrc(this.product.name).subscribe(source => {
+        this.source = source;
+      });
+    }
   }
 
 }

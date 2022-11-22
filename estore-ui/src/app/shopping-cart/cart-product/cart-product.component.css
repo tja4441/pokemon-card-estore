@@ -7,9 +7,15 @@
     display: inline-block;
     padding: 0.5em;
     margin: 0.5em;
-    width: 25em;
-    height: 5em;
+    width: 30em;
+    height: 10em;
     vertical-align: top;
+}
+
+.cardImage {
+    float: left;
+    padding-right: 0.5em;
+    margin-left: 0.1em;
 }
 
 p {

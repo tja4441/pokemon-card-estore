@@ -16,12 +16,12 @@ export class EditProductComponent implements OnInit {
   }
 
   /**
-   * changes this cards price and or quantity in the backend and sends an event
+   * changes this cards price and/or quantity in the backend and sends an event
    * so that the UI knows to change as well
    * @param price price to change to
    * @param quantity quantity to change to
    */
-  setPrice(price: number, quantity: number): void {
+  setProduct(price: number, quantity: number): void {
     if(!this.card || isNaN(price) || isNaN(quantity)) return
     this.card.price = price
     this.card.quantity = quantity

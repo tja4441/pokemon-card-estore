@@ -4,8 +4,14 @@
   "totalPrice" : 0.0
 }, {
   "id" : 2,
-  "contents" : [ ],
-  "totalPrice" : 0.0
+  "contents" : [ {
+    "id" : 1,
+    "name" : "Vulpix",
+    "types" : [ "FIRE" ],
+    "quantity" : 1,
+    "price" : 2.0
+  } ],
+  "totalPrice" : 2.0
 }, {
   "id" : 3,
   "contents" : [ ],
