@@ -193,16 +193,6 @@ Once the server recieves the username and password it asks the UserDao if a user
 </p>
 
 ### Static Code Analysis/Design Improvements
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements._
-
-> _With the results from the Static Code Analysis exercise, 
-> discuss the resulting issues/metrics measurements along with your analysis
-> and recommendations for further improvements. Where relevant, include 
-> screenshots from the tool and/or corresponding source code that was flagged._
     
 If the project were to continue, time would be spent improving everything. Refactoring all the code would clean up a lot of unnecessary complexity that exists in the code. We would also switch the JSON files to SQL databases to improve efficiency and expandability. Another significant change is to improve image/ website load time. The website currently may suffer if many products are added to the inventory. To enhance image load time, we would encode the image into base 64 and store it in the database as a part of the product. This would help improve efficiency since you would only need to make one request and wouldn't need to encode the image whenever you want a particular product. 
     
