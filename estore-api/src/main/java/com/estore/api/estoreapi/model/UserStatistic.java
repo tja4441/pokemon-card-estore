@@ -304,8 +304,10 @@ public class UserStatistic {
      */
     public void determineMostPurchasedProduct(){
         int mostPurchasedIndex = -1;
-        Integer[] keys = (Integer[]) this.purchasedCounts.keySet().toArray();
-        Integer[] values = (Integer[]) this.purchasedCounts.values().toArray();
+        Integer[] keys = new Integer[this.purchasedCounts.size()];
+        this.purchasedCounts.keySet().toArray(keys);
+        Integer[] values = new Integer[this.purchasedCounts.size()];
+        this.purchasedCounts.values().toArray(values);
         for (int i = 0; i < values.length; i++) {
             if (mostPurchasedIndex < 0) {
                 mostPurchasedIndex = i;

@@ -151,6 +151,7 @@ public class StatisticsFileDao implements StatisticsDao{
         stats.determineMostExpensiveOrder(cart);
         stats.calculateAveragePurchaseAmount();
         stats.determineMostPopularType();
+        stats.determineMostPurchasedProduct();
 
         save();
         return stats;
@@ -175,18 +176,14 @@ public class StatisticsFileDao implements StatisticsDao{
      */
     @Override
     public StoreStatistic updateStoreStatistic(ShoppingCart cart) throws IOException {
-        int[] contentsIDs = new int[cart.getContents().size()];
-        int i = 0;
         store.incrementTotalPurchases();
         for(Product card : cart.getContents()) {
             for(CardType type : card.getTypes()) {
                 store.increaseTypeRevenue(type, card.getQuantity() * card.getPrice());
             }
             store.addProductPurchaseAmounts(card.getId(), card.getQuantity());
-            contentsIDs[i] = card.getId();
-            i++;
         }
-        store.calculateMostPopularProducts(contentsIDs);
+        store.calculateMostPopularProducts(usersStats);
         store.increaseTotalPurchase(cart.GetTotalPrice());
         store.checkCartAgainstMostExpensive(cart);
         store.calculateAveragePurchaseAmount();

@@ -224,31 +224,28 @@ public class StoreStatistic {
     /**
      * Calculates the top five purchased products via the purchased amounts
      */
-    public void calculateMostPopularProducts(int[] productIDs) {
-        HashSet<Integer> allIDsHash = new HashSet<>();
-
-        //add in all the ids in the top 5
-        for (int topID : this.mostPopularProducts) {
-            allIDsHash.add(topID);
+    public void calculateMostPopularProducts(Map<Integer,UserStatistic> usersStats) {
+        Map<Integer,Integer> popularProductTally = new HashMap<Integer,Integer>();
+        Integer[] mostPopular = new Integer[5];
+        for (int uID : usersStats.keySet()) {
+            UserStatistic userStat = usersStats.get(uID);
+            Integer userFav = userStat.getMostPurchased();
+            if (popularProductTally.containsKey(userFav)) {
+                popularProductTally.put(userFav, popularProductTally.get(userFav) + 1);
+            } else {
+                popularProductTally.put(userFav, 1);
+            }
         }
 
-        //add in all the new ids just purchased
-        for (int newID : productIDs) {
-            allIDsHash.add(newID);
-        }
-
-        // turn the hash into an array
-        Integer[] allIDs = new Integer[allIDsHash.size()];
-        allIDsHash.toArray(allIDs);
-
-        Arrays.sort(allIDs, new Comparator<>() {
-            public int compare(Integer o1, Integer o2) {
-                return (int)(productPurchaseAmts.get(o2) - productPurchaseAmts.get(o1));
-            };
-        });
-
-        for(int i = 0; i < 5; i++) {
-            this.mostPopularProducts[i] = allIDs[i];
+        for (int i = 0; i < 5; i++) {
+            for (Integer pID : popularProductTally.keySet()) {
+                if (mostPopular[i] == null) {
+                    mostPopular[i] = pID;
+                } else if (popularProductTally.get(mostPopular[i]) < popularProductTally.get(pID)) {
+                    mostPopular[i] = pID;
+                }
+            }
+            popularProductTally.remove(mostPopular[i]);
         }
     }
 

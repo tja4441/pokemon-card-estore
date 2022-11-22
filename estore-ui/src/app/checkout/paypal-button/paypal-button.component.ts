@@ -55,15 +55,27 @@ export class PaypalButtonComponent implements OnInit {
         this.success = true;
 
         const sessionTime = self.userService.getSessionTime();
-        self.statsService.updateUserStats(this.order).subscribe(p => this.throwaway = p);
-        self.statsService.updateUserSessionData(sessionTime).subscribe(p => this.throwaway = p);
-        self.statsService.updateStoreStats(this.order).subscribe(p => this.throwaway = p);
-        self.statsService.updateStoreSessionData(sessionTime).subscribe(p => this.throwaway = p); 
-        self.userService.setLoginTime();
-
-
-        self.cartService.checkout(self.order.id)
-          .subscribe(shoppingCart => self.order = shoppingCart)
+        self.statsService.updateUserSessionData(sessionTime)
+        .subscribe(p => {
+          this.throwaway = p
+          self.statsService.updateUserStats(this.order)
+          .subscribe(p => {
+            this.throwaway = p
+            self.statsService.updateStoreSessionData(sessionTime)
+            .subscribe(p => {
+              this.throwaway = p
+              self.statsService.updateStoreStats(this.order)
+              .subscribe(p => {
+                this.throwaway = p
+                self.cartService.checkout(self.order.id)
+                .subscribe(shoppingCart => {
+                  self.order = shoppingCart
+                  self.userService.setLoginTime();
+                })
+              })
+            })
+          })
+        })
         },
       
       onError: (err: any) => {
