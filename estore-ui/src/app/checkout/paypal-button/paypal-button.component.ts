@@ -59,6 +59,7 @@ export class PaypalButtonComponent implements OnInit {
         self.statsService.updateUserSessionData(sessionTime).subscribe(p => this.throwaway = p);
         self.statsService.updateStoreStats(this.order).subscribe(p => this.throwaway = p);
         self.statsService.updateStoreSessionData(sessionTime).subscribe(p => this.throwaway = p); 
+        self.userService.setLoginTime();
 
 
         self.cartService.checkout(self.order.id)

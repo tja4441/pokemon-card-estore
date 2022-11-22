@@ -14,7 +14,6 @@ export class AppComponent implements OnInit{
     private router: Router){
   }
   ngOnInit(): void {
-    console.log("app component oninit called") 
     this.userService.getState()
     this.userService.setLoginTime()
   }  
