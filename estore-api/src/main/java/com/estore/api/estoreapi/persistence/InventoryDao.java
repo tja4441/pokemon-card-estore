@@ -1,6 +1,9 @@
 package com.estore.api.estoreapi.persistence;
 
 import java.io.IOException;
+import java.awt.image.BufferedImage;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.estore.api.estoreapi.model.CardType;
 import com.estore.api.estoreapi.model.Product;
@@ -78,5 +81,30 @@ public interface InventoryDao {
      * @throws IOException if it fails to access the information
      */
     Product[] getProductsType(CardType type) throws IOException;
+
+     /**
+     * Creates and Stores product image
+     * 
+     * @param file {@link MultipartFile file} containing image data
+     * 
+     * @param id int corresponding to the id of the product that this image
+     *          will be added to
+     * 
+     * @return The {@link BufferedImage image} that was created
+     * 
+     * @throws IOException
+     */
+    BufferedImage createImage(MultipartFile file) throws IOException;
+
+    /**
+     * Retrieves a product image with the given id
+     * 
+     * @param id The id of the product image to get
+     * 
+     * @return a {@link String Base64 binary string} of the image
+     * 
+     * @throws IOException if an issue with storage
+     */
+    String getImage(String name) throws IOException;
 }
 

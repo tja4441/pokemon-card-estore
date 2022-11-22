@@ -1,10 +1,9 @@
 <div *ngIf="card">
-    <h1>{{card.name}}</h1>
-    <form (submit)="setPrice(priceInput.value, quantityInput.value)">
+    <form (submit)="setProduct(priceInput.value, quantityInput.value)">
         <label>Price: </label>
-        <input type="number" [value]="card.price" #priceInput>
+        <input type="number" style="width: 60px;" [value]="card.price" #priceInput><br>
         <label>Quantity: </label>
-        <input type="number" [value]="card.quantity" #quantityInput>
+        <input type="number" style="width: 60px;" [value]="card.quantity" #quantityInput>
         <input type="submit">
     </form>
 </div>

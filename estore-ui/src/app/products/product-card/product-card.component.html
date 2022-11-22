@@ -1,20 +1,31 @@
-<div class = "card" *ngIf="card" (click)="edit()">
-    <div *ngIf="!editing" >
-        <p>Name: {{card.name}}</p>
-        <p>Types: {{card.types}}</p>
-        <p>Price: {{card.price.toFixed(2)}}</p>
-        <p *ngIf="card.quantity > 0; else outOfStock">We have {{card.quantity}} in stock!</p>
-        <ng-template #outOfStock><p style="text-align: center; color: red">Out of Stock!</p></ng-template>
-        <div *ngIf="notAdmin() && card.quantity > 0">
-            <app-add-to-cart [product]="card" ></app-add-to-cart>
+<div class = "card" *ngIf="card" (click)="turn()">
+    <div class = "front" *ngIf="!turned">
+        <app-card-image  [srcPath]="source" scale="190"></app-card-image>
+    </div>
+    <div class = "back" *ngIf="turned">
+        <div *ngIf="!editing" >
+            <body>
+                <p>Name: {{card.name}}</p>
+                <p>Types: {{card.types}}</p>
+                <p>Price: ${{card.price.toFixed(2)}}</p>
+                <p *ngIf="card.quantity > 0; else outOfStock">We have {{card.quantity}} in stock!</p>
+                <ng-template #outOfStock><p style="text-align: center; color: red">Out of Stock!</p></ng-template>
+                <div *ngIf="notAdmin() && card.quantity > 0">
+                <app-add-to-cart [product]="card" ></app-add-to-cart>
+                </div>
+            </body>
+        </div>
+        <div *ngIf="editing" class="contents">
+            <p style="text-align:left; font-size: 1.5em;">{{card.name}}</p>
+            <app-edit-product (changedProductEvent)="itemChange($event)" [card]="card"></app-edit-product>
+            <p for="new-product" style="text-align: left">Product image: 
+                <input type="file" accept=".png" style="align-content:center" id="file" (change)="onFileChange($event)">
+                <button (click)="uploadImage()"> Update Image</button>
+            </p>
+            <!-- event triggered in delete triggers event here which is sent all the way up to product list -->
+            <p class="deleteProduct"><app-remove-product (deletedItemEvent)="deleteItem($event)" [product]="card"></app-remove-product></p>
         </div>
     </div>
-    <div *ngIf="editing">
-        <app-edit-product (changedProductEvent)="itemChange($event)" [card]="card"></app-edit-product>
-        <!-- event triggered in delete triggers event here which is sent all the way up to product list -->
-        <app-remove-product (deletedItemEvent)="deleteItem($event)" [product]="card"></app-remove-product>
-    </div>
-
 </div>
 
 
