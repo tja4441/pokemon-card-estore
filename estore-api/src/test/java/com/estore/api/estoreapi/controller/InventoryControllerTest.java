@@ -7,11 +7,14 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
+import java.awt.image.BufferedImage;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.CardType;
@@ -234,4 +237,38 @@ public class InventoryControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
     
+    // @Test
+    // public void testGetProductsByType() throws IOException {
+    //     CardType[] typeArray = new CardType[1];
+    //     typeArray[0] = CardType.GRASS;
+    //     String searchType = "GRASS";
+    //     Product[] products = new Product[3];
+    //     products[0] = new Product(1,"Blueberries",typeArray,10,1.00F);
+    //     products[1] = new Product(2,"Banana",typeArray,100,0.50F);
+    //     products[2] = new Product(3,"Strawberries",typeArray,40,1.50F);
+
+    //     when(mockInventoryDao.getProductsType(CardType.GRASS)).thenReturn(products);
+
+    //     ResponseEntity<Product[]> response = inventoryController.searchProducts(searchType);
+
+    //     assertEquals(HttpStatus.OK, response.getStatusCode());
+    //     assertEquals(products, response.getBody());
+    // }
+
+    @Test
+    public void testUploadImage() throws IOException{
+        MultipartFile file = null;
+        when(mockInventoryDao.createImage(file)).thenReturn(null);
+        ResponseEntity<BufferedImage> response = inventoryController.uploadImage(file);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    
+    @Test
+    public void testUploadImageHandlesExeption() throws IOException{
+        MultipartFile file = null;
+        doThrow(new IOException()).when(mockInventoryDao).createImage(file);
+        ResponseEntity<BufferedImage> response = inventoryController.uploadImage(file);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
 }
