@@ -22,7 +22,6 @@ import { AdminStatsComponent } from './admin/admin-stats/admin-stats.component';
 import { AdminAccountsComponent } from './admin/admin-accounts/admin-accounts.component';
 import { ChangePasswordFormComponent } from './account/change-password-form/change-password-form.component';
 import { DisplayUserInfoComponent } from './account/display-user-info/display-user-info.component';
-import { DeleteAccountComponent } from './account/delete-account/delete-account.component';
 import { UserGuard } from 'src/app/model/UserGuard';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './shopping-cart/cart-product/cart-product.component';
@@ -32,7 +31,6 @@ import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.co
 import { CardImageComponent } from './products/card-image/card-image.component';
 import { OrderHistoryComponent } from './statistics/order-history/order-history.component';
 import { CartImageComponent } from './shopping-cart/cart-image/cart-image.component';
-import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +51,6 @@ import { HeaderComponent } from './header/header.component';
     AdminAccountsComponent,
     ChangePasswordFormComponent,
     DisplayUserInfoComponent,
-    DeleteAccountComponent,
     ShoppingCartComponent,
     CartProductComponent,
     AddToCartComponent,
@@ -62,8 +59,7 @@ import { HeaderComponent } from './header/header.component';
     PaypalButtonComponent,
     CardImageComponent,
     UserComponent,
-    CartImageComponent,
-    HeaderComponent
+    CartImageComponent
   ],
   imports: [
     BrowserModule,

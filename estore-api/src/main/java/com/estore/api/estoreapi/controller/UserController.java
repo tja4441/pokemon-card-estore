@@ -149,25 +149,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    /**
-     * 
-     * @param id
-     * @return
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteUser(@PathVariable int id) {
-        LOG.info("DELETE /" + id);
-        try {
-            boolean success = userDao.deleteUser(id);
-            if(success) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-            else return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
-        }
-        catch(IOException e) {
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
     
     /**
      * Gets all {@linkplain User user} 

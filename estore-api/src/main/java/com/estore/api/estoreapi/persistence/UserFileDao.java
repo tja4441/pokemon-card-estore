@@ -221,20 +221,6 @@ public class UserFileDao implements UserDao {
             return getUsersArray();
         }
     }
-    
-    /**
-     * *{@inheritDoc}}
-     */
-    @Override
-    public boolean deleteUser(int id) throws IOException {
-        if(id == ADMIN_ID) return false;
-        synchronized(users) {
-            User removedUser = users.remove(id);
-            if(removedUser == null) return false;
-            save();
-            return true;
-        }
-    }
 
     @Override
     public boolean validatePassword(User user, String password) {
@@ -262,8 +248,8 @@ public class UserFileDao implements UserDao {
         }
     }
 
-    private byte[] hash(String string, String username) {
-        DIGEST.update(username.getBytes(CHARSET));
+    private byte[] hash(String string, String salt) {
+        DIGEST.update(salt.getBytes(CHARSET));
         return DIGEST.digest(string.getBytes(CHARSET));
     }
 }
