@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.ArrayList;
@@ -274,16 +273,12 @@ public class InventoryFileDao implements InventoryDao {
 
     private static String encodeFileToBase64Binary(File file){
         String encodedfile = null;
-        try {
-            FileInputStream fileInputStreamReader = new FileInputStream(file);
+        try(FileInputStream fileInputStreamReader = new FileInputStream(file);){
             byte[] bytes = new byte[(int)file.length()];
             fileInputStreamReader.read(bytes);
             encodedfile = Base64.getEncoder().encodeToString(bytes);
-            fileInputStreamReader.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
         return encodedfile;
     }

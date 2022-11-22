@@ -6,7 +6,6 @@
 package com.estore.api.estoreapi.model;
 import java.util.Arrays;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -37,7 +36,7 @@ public class Product {
         this.name = name;
         this.types = types;
         this.quantity = quantity;
-        BigDecimal bd = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal bd = BigDecimal.valueOf(price);
         this.price = bd.floatValue();
     }
 
