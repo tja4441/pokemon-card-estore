@@ -1,13 +1,3 @@
-<h1><b>{{title}}</b></h1>
-
-<nav>
-  <a routerLink="/login"><button>Login</button></a>
-  <a routerLink=""><button>Home</button></a>
-</nav>
-
-<div class="usertag" *ngIf="isAdmin()"  (click)="redirect()" >Click Here to Go To Admin DashBoard</div>
-
-<div class="usertag" *ngIf="isLoggedInUser()"  (click)="redirect()" >Click Here to Go To User Page and Cart</div>
-
+<app-header></app-header>
 <router-outlet></router-outlet>
 
