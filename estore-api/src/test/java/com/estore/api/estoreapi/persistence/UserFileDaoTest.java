@@ -179,5 +179,22 @@ public class UserFileDaoTest {
                         () -> new UserFileDao("filename.txt",mockObjectMapper),
                         "no IOException thrown");
     }
+
+    @Test
+    public void testCreateAdmin() throws IOException {
+        // Setup
+        User admin = new User(-2, "Gabemin", "AdminPass");
+
+        // Invoke
+        User result = assertDoesNotThrow(() -> userFileDao.createUser(admin),
+                                    "Unexpected exception thrown: Bob");
+
+         // Analyze
+        assertNotNull(result);
+        User actual = userFileDao.getUser(admin.getUserName());
+        assertEquals(actual.getUserName(),admin.getUserName());
+        assertEquals(actual.getId(),admin.getId());
+    }
+
 }
 
