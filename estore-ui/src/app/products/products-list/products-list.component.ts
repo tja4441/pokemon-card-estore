@@ -8,7 +8,7 @@ import { ProductService } from '../../services/product.service';
   styleUrls: ['./products-list.component.css']
 })
 export class ProductsListComponent implements OnInit {
-  @Input() productsList?: Product[];
+  @Input() productsList!: Product[];
   @Input() selTypes!: CardType[];
   public isTypes: boolean = false;
   public displayed: boolean = false;
@@ -31,5 +31,9 @@ export class ProductsListComponent implements OnInit {
 
   getAllProducts(): void {
     this.productService.getProducts().subscribe(productsList => this.productsList = productsList)
+  }
+
+  deleteItem(id: number): void {
+    this.productsList = this.productsList.filter((p: Product) => p.id != id)
   }
 }

@@ -1,1 +1,127 @@
-[]
+[ {
+  "id" : 1,
+  "username" : "Gabe",
+  "averagePurchase" : 50.12847126,
+  "purchaseCounter" : 6,
+  "lifetimeSpending" : 100.72,
+  "lifetimeSessionTime" : 0.0,
+  "purchasedCounts" : { },
+  "mostPurchased" : 4,
+  "mostExpensiveOrder" : {
+    "id" : 1,
+    "contents" : [ {
+      "id" : 2,
+      "name" : "Bulbasaur",
+      "types" : [ "GRASS" ],
+      "quantity" : 5,
+      "price" : 2.0
+    }, {
+      "id" : 4,
+      "name" : "Squirtle",
+      "types" : [ "WATER" ],
+      "quantity" : 3,
+      "price" : 3.99
+    }, {
+      "id" : 3,
+      "name" : "Charmander",
+      "types" : [ "FIRE" ],
+      "quantity" : 2,
+      "price" : 4.5
+    } ],
+    "totalPrice" : 30.970001
+  },
+  "typeCounts" : { },
+  "typeRevenues" : { },
+  "mostPopularType" : "FIRE",
+  "averageSessionTime" : 0.0
+}, {
+  "id" : 2,
+  "username" : "Zach",
+  "averagePurchase" : 0.0,
+  "purchaseCounter" : 0,
+  "lifetimeSpending" : 0.0,
+  "lifetimeSessionTime" : 0.0,
+  "purchasedCounts" : { },
+  "mostPurchased" : -1,
+  "mostExpensiveOrder" : {
+    "id" : 2,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
+  "typeCounts" : { },
+  "typeRevenues" : { },
+  "mostPopularType" : null,
+  "averageSessionTime" : 0.0
+}, {
+  "id" : 3,
+  "username" : "Jensen",
+  "averagePurchase" : 0.0,
+  "purchaseCounter" : 0,
+  "lifetimeSpending" : 0.0,
+  "lifetimeSessionTime" : 0.0,
+  "purchasedCounts" : { },
+  "mostPurchased" : -1,
+  "mostExpensiveOrder" : {
+    "id" : 3,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
+  "typeCounts" : { },
+  "typeRevenues" : { },
+  "mostPopularType" : null,
+  "averageSessionTime" : 0.0
+}, {
+  "id" : 4,
+  "username" : "Tim",
+  "averagePurchase" : 0.0,
+  "purchaseCounter" : 0,
+  "lifetimeSpending" : 0.0,
+  "lifetimeSessionTime" : 0.0,
+  "purchasedCounts" : { },
+  "mostPurchased" : -1,
+  "mostExpensiveOrder" : {
+    "id" : 4,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
+  "typeCounts" : { },
+  "typeRevenues" : { },
+  "mostPopularType" : null,
+  "averageSessionTime" : 0.0
+}, {
+  "id" : 5,
+  "username" : "Daniel",
+  "averagePurchase" : 0.0,
+  "purchaseCounter" : 0,
+  "lifetimeSpending" : 0.0,
+  "lifetimeSessionTime" : 0.0,
+  "purchasedCounts" : { },
+  "mostPurchased" : -1,
+  "mostExpensiveOrder" : {
+    "id" : 5,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
+  "typeCounts" : { },
+  "typeRevenues" : { },
+  "mostPopularType" : null,
+  "averageSessionTime" : 0.0
+}, {
+  "id" : 6,
+  "username" : "Roger",
+  "averagePurchase" : 0.0,
+  "purchaseCounter" : 0,
+  "lifetimeSpending" : 0.0,
+  "lifetimeSessionTime" : 0.0,
+  "purchasedCounts" : { },
+  "mostPurchased" : -1,
+  "mostExpensiveOrder" : {
+    "id" : 6,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  },
+  "typeCounts" : { },
+  "typeRevenues" : { },
+  "mostPopularType" : null,
+  "averageSessionTime" : 0.0
+} ]

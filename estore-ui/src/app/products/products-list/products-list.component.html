@@ -1,13 +1,13 @@
 <div *ngIf="productsList!.length != 0">
     <div *ngFor="let product of productsList" style="display: inline-block;">
         <div *ngIf="selTypes.length == 0">
-            <app-product-card [card]="product"></app-product-card>
+            <app-product-card (deletedItemEvent)="deleteItem($event)" [card]="product"></app-product-card>
         </div>
         <div *ngFor="let stype of selTypes">
             <div *ngFor="let ptype of product.types">
                 <div *ngIf="ptype == stype">
                     <div *ngIf="!this.displayed">
-                        <app-product-card [card]="product"></app-product-card>
+                        <app-product-card (deletedItemEvent)="deleteItem($event)" [card]="product"></app-product-card>
                     </div>
                     <div *ngIf="true then wasDisplayed(true);"></div>
                 </div>

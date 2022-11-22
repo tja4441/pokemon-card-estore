@@ -1,17 +1,21 @@
 package com.estore.api.estoreapi.model;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StoreStatistic {
     @JsonProperty("purchaseCount") private int purchaseCount;
-    @JsonProperty("loginCount") private int loginCount;
+    @JsonProperty("totalPurchaseAmt") private float totalPurchaseAmt;
     @JsonProperty("avgPurchaseAmt") private float averagePurchaseAmt;
+    @JsonProperty("productPurchaseAmts") private HashMap<Integer, Integer> productPurchaseAmts;
     @JsonProperty("fiveMostPopular") private int[] mostPopularProducts;
     @JsonProperty("fiveMostExpensiveOrders") private ShoppingCart[] mostExpensiveCarts;
     @JsonProperty("mostPopularType") private CardType mostPopType;
     @JsonProperty("typeRevenue") private HashMap<CardType, Float> typeRevenue;
+    @JsonProperty("totalSessionTime") private float totalSessionTime;
     @JsonProperty("avgSessionTime") private float avgSessionTime;
 
     /** Constructor, no Params
@@ -19,12 +23,14 @@ public class StoreStatistic {
      */
     public StoreStatistic() {
         this.purchaseCount = 0;
-        this.loginCount = 0;
+        this.totalPurchaseAmt = 0;
         this.averagePurchaseAmt = 0;
+        this.productPurchaseAmts = new HashMap<Integer, Integer>();
         this.mostPopularProducts = new int[5];
         this.mostExpensiveCarts = new ShoppingCart[5];
         this.mostPopType = null;
         this.typeRevenue = new HashMap<CardType, Float>();
+        this.totalSessionTime = 0;
         this.avgSessionTime = 0;
     }
 
@@ -34,14 +40,6 @@ public class StoreStatistic {
      */
     public int getPurchaseCount() {
         return purchaseCount;
-    }
-
-    /**gets the total logins across the store
-     * 
-     * @return the total number of logins across the store
-     */
-    public int getLoginCount() {
-        return loginCount;
     }
 
     /**Retreives the Average Purchase Amount
@@ -100,14 +98,6 @@ public class StoreStatistic {
         this.purchaseCount = purchaseCount;
     }
 
-    /**sets thee total login count to the given value
-     * 
-     * @param loginCount the value to set the loginCount to
-     */
-    public void setLoginCount(int loginCount) {
-        this.loginCount = loginCount;
-    }
-
     /**Sets the averagePurchaseAmt to the provided Value
      * 
      * @param averagePurchaseAmt the value to set the AvgPA
@@ -162,7 +152,11 @@ public class StoreStatistic {
      * @param amount the amount to add to the revenue
      */
     public void increaseTypeRevenue(CardType type, float amount) {
-        this.typeRevenue.put(type, this.typeRevenue.get(type) + amount);
+        if (this.typeRevenue.containsKey(type)) {
+            this.typeRevenue.put(type, this.typeRevenue.get(type) + amount);
+        } else {
+            this.typeRevenue.put(type, amount);
+        }
     }
 
     /**Increments the number of Total Purchases by one
@@ -172,10 +166,68 @@ public class StoreStatistic {
         this.purchaseCount++;
     }
 
-    /**Increments the number of Total Logins by one
+    /**Adds Amount to totalPurchaseAmt
      * 
+     * @param amount the amount to be added
      */
-    public void incrementLoginCounter() {
-        this.loginCount++;
+    public void increaseTotalPurchase(float amount) {
+        this.totalPurchaseAmt += amount;
+    }
+
+    /**Adds amount to totalSessionTime
+     * 
+     * @param amount the amount to be added
+     */
+    public void increaseTotalSession(float amount) {
+        this.totalSessionTime += amount;
+    }
+
+    /**Checks the given cart against the top 5 most expensive carts
+     * If the cart is part of the top 5 most expensive, then it is added to the list
+     * Otherwise nothing changes
+     * 
+     * @param cart the cart to be checked
+     */
+    public void checkCartAgainstMostExpensive(ShoppingCart cart) {
+        ShoppingCart[] allCarts = new ShoppingCart[this.mostExpensiveCarts.length + 1];
+        for(int i = 0; i < 5; i++) {
+            allCarts[i] = this.mostExpensiveCarts[i];
+        }
+        allCarts[5] = cart;
+        Arrays.sort(allCarts, new Comparator<ShoppingCart>() {
+            public int compare(ShoppingCart o1, ShoppingCart o2) {
+                return (int)(o2.GetTotalPrice() - o1.GetTotalPrice());
+            };
+        });
+        for(int i = 0; i < 5; i++) {
+            this.mostExpensiveCarts[i] = allCarts[i];
+        }
+    }
+
+    /**Increments count of how many times a product has been purchased
+     * 
+     * @param productID the product
+     * @param amount the amount to increment by
+     */
+    public void addProductPurchaseAmounts(int productID, int amount) {
+        if (this.productPurchaseAmts.containsKey(productID)) {
+            int newAmount = this.productPurchaseAmts.get(productID);
+            newAmount += amount;
+            this.productPurchaseAmts.put(productID, newAmount);
+        } else {
+            this.productPurchaseAmts.put(productID, amount);
+        }
+    }
+    
+    //TODO: Make method for five most popular
+
+    //TODO: Make method for most popular type
+
+    public void calculateAveragePurchaseAmount() {
+        this.averagePurchaseAmt = (this.totalPurchaseAmt / this.purchaseCount);
+    }
+
+    public void calculateAverageSessionTime() {
+        this.avgSessionTime = this.totalSessionTime / this.purchaseCount;
     }
 }

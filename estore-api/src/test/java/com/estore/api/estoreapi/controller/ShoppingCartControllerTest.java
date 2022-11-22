@@ -1,5 +1,6 @@
 package com.estore.api.estoreapi.controller;
 
+import com.estore.api.estoreapi.model.OrderHistory;
 import com.estore.api.estoreapi.model.Product;
 import com.estore.api.estoreapi.model.ShoppingCart;
 import com.estore.api.estoreapi.model.CardType;
@@ -287,6 +288,60 @@ public class ShoppingCartControllerTest {
     public void testCheckoutHandlesException() throws IOException {
         doThrow(new IOException()).when(mockShoppingCartDao).checkout(1, mockInventoryController);
         ResponseEntity<ShoppingCart> response = shoppingCartController.checkout(1);
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetAllOrdersSucceeds() throws IOException {
+        OrderHistory history = new OrderHistory(0, null, 0, null);
+        OrderHistory[] histories = new OrderHistory[1];
+        histories[0] = history;
+        when(mockShoppingCartDao.getOrders()).thenReturn(histories);
+
+        ResponseEntity<OrderHistory[]> response = shoppingCartController.getAllOrderHistory();
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetAllOrdersFindsNothing() throws IOException {
+        when(mockShoppingCartDao.getOrders()).thenReturn(null);
+
+        ResponseEntity<OrderHistory[]> response = shoppingCartController.getAllOrderHistory();
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetAllOrdersHandlesError() throws IOException {
+        doThrow(new IOException()).when(mockShoppingCartDao).getOrders();
+        ResponseEntity<OrderHistory[]> response = shoppingCartController.getAllOrderHistory();
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetOrdersByIDSucceeds() throws IOException {
+        OrderHistory history = new OrderHistory(0, null, 0, null);
+        OrderHistory[] histories = new OrderHistory[1];
+        histories[0] = history;
+        when(mockShoppingCartDao.searchOrders(1)).thenReturn(histories);
+
+        ResponseEntity<OrderHistory[]> response = shoppingCartController.getOrderHistoryByUser(1);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetOrdersByIDFindsNothing() throws IOException {
+        when(mockShoppingCartDao.searchOrders(1)).thenReturn(null);
+
+        ResponseEntity<OrderHistory[]> response = shoppingCartController.getOrderHistoryByUser(1);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetOrdersByIDHandlesErrors() throws IOException {
+        doThrow(new IOException()).when(mockShoppingCartDao).searchOrders(1);
+        ResponseEntity<OrderHistory[]> response = shoppingCartController.getOrderHistoryByUser(1);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }

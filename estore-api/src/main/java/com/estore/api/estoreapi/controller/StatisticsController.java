@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,24 @@ public class StatisticsController {
 
     public StatisticsController(StatisticsDao statsDao) {
         this.statsDao = statsDao;
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<UserStatistic> createUserStats(@PathVariable int id, @RequestBody String username) {
+        LOG.info("POST /stats/" + id);
+        try {
+            UserStatistic userStats = statsDao.createUserStats(id, username);
+            if (userStats != null) {
+                return new ResponseEntity<UserStatistic>(userStats, HttpStatus.CREATED);
+            }
+            else{ 
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(Exception e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("")
@@ -67,11 +86,11 @@ public class StatisticsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserStatistic> updateUserStats(@PathVariable int id, @RequestBody ShoppingCart cart, @RequestBody float sessionTime) {
-        LOG.info("PUT /stats/ " + id);
+    public ResponseEntity<UserStatistic> updateUserStats(@PathVariable int id, @RequestBody ShoppingCart cart) {
+        LOG.info("PUT /stats/" + id);
 
         try {
-            UserStatistic s = statsDao.updateUserStatistic(id, cart, sessionTime);
+            UserStatistic s = statsDao.updateUserStatistic(id, cart);
             if (s != null){
             return new ResponseEntity<UserStatistic>(s,HttpStatus.OK);
             }else{
@@ -83,4 +102,59 @@ public class StatisticsController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/sessionData/{id}")
+    public ResponseEntity<UserStatistic> updateUserSessionData(@PathVariable int id, @RequestBody float sessionTime) {
+        LOG.info("PUT /stats/sessionData/" + id);
+
+        try {
+            UserStatistic s = statsDao.updateUserSessionData(id, sessionTime);
+            if (s != null){
+            return new ResponseEntity<UserStatistic>(s,HttpStatus.OK);
+            }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/store")
+    public ResponseEntity<StoreStatistic> updateStoreStatistics(@RequestBody ShoppingCart cart) {
+        LOG.info("PUT /stats/store");
+
+        try {
+            StoreStatistic s = statsDao.updateStoreStatistic(cart);
+            if (s != null){
+            return new ResponseEntity<StoreStatistic>(s,HttpStatus.OK);
+            }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/store/sessionData/{sessionTime}")
+    public ResponseEntity<StoreStatistic> updateStoreSessionData(@PathVariable float sessionTime) {
+        LOG.info("PUT /stats/sessionData/store/" + sessionTime);
+
+        try {
+            StoreStatistic s = statsDao.updateStoreSessionData(sessionTime);
+            if (s != null){
+            return new ResponseEntity<StoreStatistic>(s,HttpStatus.OK);
+            }else{
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

@@ -7,25 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
   public EDIT = true
-  public STATS = false
   public ACCOUNTS = false
+  public STATS = false
 
   constructor() {}
   ngOnInit(): void {}
 
   public edit() {
     this.EDIT = true
+    this.ACCOUNTS = false
     this.STATS = false
-    this.ACCOUNTS = false
-  }
-  public stats() {
-    this.EDIT = false
-    this.STATS = true
-    this.ACCOUNTS = false
   }
   public account() {
     this.EDIT = false
-    this.STATS = false
     this.ACCOUNTS = true
+    this.STATS = false
+  }
+  public stats() {
+    this.EDIT = false
+    this.ACCOUNTS = false
+    this.STATS = true
   }
 }

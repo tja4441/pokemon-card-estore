@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of} from 'rxjs';
 import { MessageService } from './message.service';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { User } from '../model/user';
 import { PassUser } from '../model/passUser';
 import { ChangePass } from '../model/changePass';
+
 @Injectable({
   providedIn: 'root'
 })

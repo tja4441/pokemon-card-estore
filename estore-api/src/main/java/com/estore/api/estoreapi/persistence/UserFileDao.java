@@ -14,10 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.estore.api.estoreapi.controller.ShoppingCartController;
 import com.estore.api.estoreapi.model.PassChange;
 import com.estore.api.estoreapi.model.User;
 
@@ -80,7 +82,7 @@ public class UserFileDao implements UserDao {
      * @throws IOException when file cannot be accessed or read from
      */
     private void init() throws IOException{
-        users.put(ADMIN_ID,new User(ADMIN_ID,"admin", hash("admin")));
+        users.put(ADMIN_ID,new User(ADMIN_ID,"admin", hash("admin","admin")));
         save();
     }
     /**
@@ -162,7 +164,7 @@ public class UserFileDao implements UserDao {
                 }
             }
             int id = nextUserID();
-            byte[] hashedPass = hash(user.getPassword());
+            byte[] hashedPass = hash(user.getPassword(),user.getUserName());
             User newUser = new User(id, user.getUserName(), hashedPass);
             users.put(id, newUser);
             save();
@@ -185,7 +187,7 @@ public class UserFileDao implements UserDao {
                 }
             }
             int id = nextAdminID();
-            byte[] hashedPass = hash(user.getPassword());
+            byte[] hashedPass = hash(user.getPassword(),user.getUserName());
             User newUser = new User(id, user.getUserName(), hashedPass);
             users.put(id, newUser);
             save();
@@ -203,7 +205,7 @@ public class UserFileDao implements UserDao {
             if(user == null) return false;
             else if(!validatePassword(user, change.getOld())) return false;
             else {
-                user.setHashPass(hash(change.getNew()));
+                user.setHashPass(hash(change.getNew(),user.getUserName()));
                 users.put(id, user);
                 save();
                 return true;
@@ -225,11 +227,12 @@ public class UserFileDao implements UserDao {
      * *{@inheritDoc}}
      */
     @Override
-    public boolean deleteUser(int id) throws IOException {
+    public boolean deleteUser(int id, ShoppingCartController shoppingCartController) throws IOException {
         if(id == ADMIN_ID) return false;
         synchronized(users) {
             User removedUser = users.remove(id);
-            if(removedUser == null) return false;
+            HttpStatus removedCart = shoppingCartController.deleteCart(id).getStatusCode();
+            if(removedUser == null && removedCart == HttpStatus.OK) return false;
             save();
             return true;
         }
@@ -237,7 +240,7 @@ public class UserFileDao implements UserDao {
 
     @Override
     public boolean validatePassword(User user, String password) {
-        byte[] hashedPass = hash(password);
+        byte[] hashedPass = hash(password,user.getUserName());
         return Arrays.equals(hashedPass, user.getHashedPass());
     }
    
@@ -261,7 +264,8 @@ public class UserFileDao implements UserDao {
         }
     }
 
-    private byte[] hash(String string) {
+    private byte[] hash(String string, String username) {
+        DIGEST.update(username.getBytes(CHARSET));
         return DIGEST.digest(string.getBytes(CHARSET));
     }
 }

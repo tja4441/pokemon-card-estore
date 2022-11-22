@@ -1,6 +1,7 @@
 package com.estore.api.estoreapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,12 +22,14 @@ public class UserControllerTest {
     private UserController userController;
     private UserDao mockUserDao;
     private ShoppingCartController mockShoppingCartController;
+    private StatisticsController mockStatisticsController;
 
     @BeforeEach
     public void setupUserController(){
         mockUserDao = mock(UserDao.class);
         mockShoppingCartController = mock(ShoppingCartController.class);
-        userController = new UserController(mockUserDao, mockShoppingCartController);
+        mockStatisticsController = mock(StatisticsController.class);
+        userController = new UserController(mockUserDao, mockShoppingCartController, mockStatisticsController);
     }
 
     
@@ -60,12 +63,23 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testLogin() throws IOException{
+    public void testLoginPasses() throws IOException{
         User user = createTestUser();
         when(mockUserDao.getUser(user.getUserName())).thenReturn(user);
+        when(mockUserDao.validatePassword(user, user.getPassword())).thenReturn(true);
         ResponseEntity<User> response = userController.login(user.getUserName(), user.getPassword());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(user, response.getBody());
+    }
+
+    @Test
+    public void testLoginFails() throws IOException{
+        User user = createTestUser();
+        when(mockUserDao.getUser(user.getUserName())).thenReturn(user);
+        when(mockUserDao.validatePassword(user, user.getPassword())).thenReturn(false);
+        ResponseEntity<User> response = userController.login(user.getUserName(), user.getPassword());
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+        assertNull(response.getBody());
     }
 
     @Test

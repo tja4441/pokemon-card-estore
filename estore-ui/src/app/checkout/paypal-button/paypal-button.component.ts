@@ -5,6 +5,7 @@ import { ShoppingCart } from '../../model/ShoppingCart';
 import { User } from '../../model/user';
 import { UserService } from '../../services/user.service';
 import { Location } from '@angular/common';
+import { StatisticsService } from 'src/app/services/statistics.service';
 
 declare var paypal: any;
 
@@ -19,6 +20,8 @@ export class PaypalButtonComponent implements OnInit {
 
   success = false;
 
+  throwaway: any = null;
+
   public count = 0;
 
   @ViewChild('paypal', {static: true}) paypalElement!: ElementRef
@@ -26,6 +29,7 @@ export class PaypalButtonComponent implements OnInit {
   constructor(private cartService: ShoppingCartService,
               private route: Router,
               private userService: UserService,
+              private statsService: StatisticsService,
               private location: Location) { }
   
   ngOnInit(): void {
@@ -50,6 +54,12 @@ export class PaypalButtonComponent implements OnInit {
       
         this.success = true;
 
+        self.statsService.updateUserStats(this.order).subscribe(p => this.throwaway = p);
+        self.statsService.updateUserSessionData(0.0).subscribe(p => this.throwaway = p); //Gabriel, put the calculated session time in the place of the zero
+        self.statsService.updateStoreStats(this.order).subscribe(p => this.throwaway = p);
+        self.statsService.updateStoreSessionData(0.0).subscribe(p => this.throwaway = p); // also replace this
+
+
         self.cartService.checkout(self.order.id)
           .subscribe(shoppingCart => self.order = shoppingCart)
         },
@@ -72,7 +82,4 @@ export class PaypalButtonComponent implements OnInit {
     alert('Payment Success')
     this.route.navigate([''])
   }
-
-  
-
 }
