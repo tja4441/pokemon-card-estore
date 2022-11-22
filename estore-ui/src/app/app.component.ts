@@ -14,8 +14,8 @@ export class AppComponent implements OnInit{
   }
   ngOnInit(): void {
     this.userService.getState()
-  }
-  
+    this.userService.setLoginTime()
+  }  
 
   redirect(){
     if(this.userService.isAdmin()) this.router.navigate(["/admin"])

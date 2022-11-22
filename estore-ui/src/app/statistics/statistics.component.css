@@ -1,0 +1,11 @@
+table, th, td {
+    border: 2px solid black;
+}
+
+th, td {
+    width: 200px;
+}
+
+caption {
+    font-weight: bold;
+}

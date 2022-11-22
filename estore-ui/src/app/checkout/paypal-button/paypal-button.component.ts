@@ -5,6 +5,7 @@ import { ShoppingCart } from '../../model/ShoppingCart';
 import { User } from '../../model/user';
 import { UserService } from '../../services/user.service';
 import { Location } from '@angular/common';
+import { StatisticsService } from 'src/app/services/statistics.service';
 
 declare var paypal: any;
 
@@ -19,6 +20,8 @@ export class PaypalButtonComponent implements OnInit {
 
   success = false;
 
+  throwaway: any = null;
+
   public count = 0;
 
   @ViewChild('paypal', {static: true}) paypalElement!: ElementRef
@@ -26,6 +29,7 @@ export class PaypalButtonComponent implements OnInit {
   constructor(private cartService: ShoppingCartService,
               private route: Router,
               private userService: UserService,
+              private statsService: StatisticsService,
               private location: Location) { }
   
   ngOnInit(): void {
@@ -50,8 +54,28 @@ export class PaypalButtonComponent implements OnInit {
       
         this.success = true;
 
-        self.cartService.checkout(self.order.id)
-          .subscribe(shoppingCart => self.order = shoppingCart)
+        const sessionTime = self.userService.getSessionTime();
+        self.statsService.updateUserSessionData(sessionTime)
+        .subscribe(p => {
+          this.throwaway = p
+          self.statsService.updateUserStats(this.order)
+          .subscribe(p => {
+            this.throwaway = p
+            self.statsService.updateStoreSessionData(sessionTime)
+            .subscribe(p => {
+              this.throwaway = p
+              self.statsService.updateStoreStats(this.order)
+              .subscribe(p => {
+                this.throwaway = p
+                self.cartService.checkout(self.order.id)
+                .subscribe(shoppingCart => {
+                  self.order = shoppingCart
+                  self.userService.setLoginTime();
+                })
+              })
+            })
+          })
+        })
         },
       
       onError: (err: any) => {
@@ -72,7 +96,4 @@ export class PaypalButtonComponent implements OnInit {
     alert('Payment Success')
     this.route.navigate([''])
   }
-
-  
-
 }

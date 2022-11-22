@@ -27,8 +27,8 @@ public class ShoppingCartFileDao implements ShoppingCartDao {
     Map<Integer,OrderHistory> orders;
     private ObjectMapper objectMapper;          // converts between ShoppingCart objects and JSON text file formats
     private ObjectMapper orderMapper;
-    private String cartFilename;                    // Filename to read/write
-    private String orderFilename;
+    private String cartFilename;                // Filename to read/write carts
+    private String orderFilename;               // Filename to read/write orders
 
     /**
      * Creates a {@linkplain ShoppingCart cart} File Data Access Object

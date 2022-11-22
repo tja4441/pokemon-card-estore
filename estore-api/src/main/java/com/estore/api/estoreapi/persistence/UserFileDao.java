@@ -14,16 +14,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.estore.api.estoreapi.controller.ShoppingCartController;
 import com.estore.api.estoreapi.model.PassChange;
 import com.estore.api.estoreapi.model.User;
 
 @Component
 public class UserFileDao implements UserDao {
-
     private Map<Integer,User> users;            // provides a local cache of the User objects
     private ObjectMapper objectMapper;          //Converts between Product objects and JSON text file formats
     private String filename;                    //Filename to read/write

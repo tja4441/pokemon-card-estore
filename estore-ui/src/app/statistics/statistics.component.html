@@ -1,0 +1,56 @@
+<table>
+    <caption>Individual User Statistics</caption>
+    <tr>
+        <th>Username</th>
+        <th>Avg. Spending</th>
+        <th>Favorite Type</th>
+        <th>Favorite Card</th>
+        <th>Avg. Session</th>
+        <th>Highest Spent</th>
+    </tr>
+    <tr *ngFor="let user of userStats">
+        <td>{{user.username}}</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.averagePurchase | number : '1.2-2'}}</td>
+        <td *ngIf="!determineHasPurchased(user)">0.00</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.mostPopularType}}</td>
+        <td *ngIf="!determineHasPurchased(user)">None</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.mostPurchased}}</td>
+        <td *ngIf="!determineHasPurchased(user)">None</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.averageSessionTime}}</td>
+        <td *ngIf="!determineHasPurchased(user)">0.00</td>
+        <td *ngIf="determineHasPurchased(user)">{{user.mostExpensiveOrder.totalPrice | number : '1.2-2'}}</td>
+        <td *ngIf="!determineHasPurchased(user)">0.00</td>
+    </tr>
+</table>
+<br/>
+<table>
+    <caption>Overall Statistics</caption>
+    <tr>
+        <th>purchaseCount:</th>
+        <td>{{storeStats.purchaseCount}}</td>
+    </tr>
+    <tr>
+        <th>averagePurchaseAmt:</th>
+        <td>{{storeStats.averagePurchaseAmt}}</td>
+    </tr>
+    <tr>
+        <th>mostPopularProducts:</th>
+        <td>{{storeStats.mostPopularProducts}}</td>
+    </tr>
+    <tr>
+        <th>mostExpensiveCarts:</th>
+        <td>{{storeStats.mostExpensiveCarts}}</td>
+    </tr>
+    <tr>
+        <th>mostPopType:</th>
+        <td>{{storeStats.mostPopType}}</td>
+    </tr>
+    <tr>
+        <th>typeRevenue:</th>
+        <td>{{storeStats.typeRevenue}}</td>
+    </tr>
+    <tr>
+        <th>avgSessionTime:</th>
+        <td>{{storeStats.avgSessionTime}}</td>
+    </tr>
+</table>

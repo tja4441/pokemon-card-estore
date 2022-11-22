@@ -18,7 +18,6 @@ import { EditProductComponent } from './products/edit-product/edit-product.compo
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { SearchProductsComponent } from './products/search-products/search-products.component';
 import { AdminEditComponent } from './admin/admin-edit/admin-edit.component';
-import { AdminStatsComponent } from './admin/admin-stats/admin-stats.component';
 import { AdminAccountsComponent } from './admin/admin-accounts/admin-accounts.component';
 import { ChangePasswordFormComponent } from './account/change-password-form/change-password-form.component';
 import { DisplayUserInfoComponent } from './account/display-user-info/display-user-info.component';
@@ -26,6 +25,7 @@ import { UserGuard } from 'src/app/model/UserGuard';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CartProductComponent } from './shopping-cart/cart-product/cart-product.component';
 import { AddToCartComponent } from './shopping-cart/add-to-cart/add-to-cart.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaypalButtonComponent } from './checkout/paypal-button/paypal-button.component';
 import { CardImageComponent } from './products/card-image/card-image.component';
@@ -48,13 +48,13 @@ import { HeaderComponent } from './header/header.component';
     RemoveProductComponent,
     SearchProductsComponent,
     AdminEditComponent,
-    AdminStatsComponent,
     AdminAccountsComponent,
     ChangePasswordFormComponent,
     DisplayUserInfoComponent,
     ShoppingCartComponent,
     CartProductComponent,
     AddToCartComponent,
+    StatisticsComponent,
     OrderHistoryComponent,
     CheckoutComponent,
     PaypalButtonComponent,

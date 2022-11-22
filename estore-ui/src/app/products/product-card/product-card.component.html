@@ -5,9 +5,9 @@
     <div class = "back" *ngIf="turned">
         <div *ngIf="!editing" >
             <body>
-                <p>Name: {{card.name}}</p>
-                <p>Types: {{card.types}}</p>
-                <p>Price: ${{card.price.toFixed(2)}}</p>
+                <p style="text-align: left;">Name: {{card.name}}</p>
+                <p style="text-align: left;">Types: {{card.types}}</p>
+                <p style="text-align: left;">Price: ${{card.price.toFixed(2)}}</p>
                 <p *ngIf="card.quantity > 0; else outOfStock">We have {{card.quantity}} in stock!</p>
                 <ng-template #outOfStock><p style="text-align: center; color: red">Out of Stock!</p></ng-template>
                 <div *ngIf="notAdmin() && card.quantity > 0">

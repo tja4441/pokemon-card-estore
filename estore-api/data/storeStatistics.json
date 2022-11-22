@@ -1,0 +1,33 @@
+{
+  "purchaseCount" : 0,
+  "loginCount" : 0,
+  "totalPurchaseAmt" : 0.0,
+  "avgPurchaseAmt" : 0.0,
+  "productPurchaseAmts" : { },
+  "fiveMostPopular" : [ 0, 0, 0, 0, 0 ],
+  "fiveMostExpensiveOrders" : [ {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  }, {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  }, {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  }, {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  }, {
+    "id" : 0,
+    "contents" : [ ],
+    "totalPrice" : 0.0
+  } ],
+  "mostPopularType" : null,
+  "typeRevenue" : { },
+  "totalSessionTime" : 0.0,
+  "avgSessionTime" : 0.0
+}
