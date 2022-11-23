@@ -63,11 +63,6 @@ The purpose of this project was to create an online store application utilizing 
 * Users should not be able to have duplicate usernames, and each has their own shopping cart that only they can change.
 * The shopping cart is refreshed whenever the user logs in and before checking out
 * Refreshing the cart checks the quantity in the cart against the quantity in the inventory to verify that the transaction can proceed, and updates the price if necessary
-   
-### Roadmap of Enhancements
-
-* Add images to each Pokémon Card
-* Add Sales Statistics to the admin's page
 
 ## Application Domain
 
