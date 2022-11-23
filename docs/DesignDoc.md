@@ -193,8 +193,10 @@ Once the server recieves the username and password it asks the UserDao if a user
 </p>
 
 ### Static Code Analysis/Design Improvements
-![Code Analysis for API](code-analysis-api.pdf)
-![Code Analysis for UI](code-analysis-ui.pdf)
+
+![Code Analysis for API](code-analysis-api.png)
+
+![Code Analysis for UI](code-analysis-ui.png)
 
 <p style='text-align: justify;'>
 Overall the metrics are good except for code coverage. A lot of the missed branches were getters and setters, so we were fine with excluding some of the coverage, since they weren't complicated functions. The only bug is also identified as minor, so we were fine with leaving it. Smells were also minimized.
@@ -223,10 +225,6 @@ Type Search UI Improvement
 Admin DashBoard
     
 ![Admin Dashboard wire frame](AdminDashboard.png)
- 
-Sales Statistics
-    
-![Sales Statistics wire frame](SalesStatistics.png)
 
 
 ## Testing
