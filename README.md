@@ -1,5 +1,4 @@
-# E-Store:  THE Pokemon Card Store
-# Modify this document to expand any and all sections that are applicable for a better understanding from your users/testers/collaborators (remove this comment and other instructions areas for your FINAL release)
+# E-Store: Pokemon Card Store
 
 An online E-store system built in JDK 17.0.4.1, Rest API, and Angular web service.
   
@@ -73,7 +72,7 @@ An online E-store system built in JDK 17.0.4.1, Rest API, and Angular web servic
 
 ## How to test it
 
-The Maven build script provides hooks for run unit tests and generate code coverage
+The Maven build script provides hooks for running unit tests and generate code coverage
 reports in HTML.
 
 To run tests on all tiers together do this:
@@ -101,14 +100,6 @@ To run tests on all the tiers in isolation do this:
 1. Access the `PROJECT_DOCS_HOME/` directory
 2. Execute `mvn exec:exec@docs`
 3. The generated PDF will be in `PROJECT_DOCS_HOME/` directory
-
-
-## How to setup/run/test program 
-1. Tester, first obtain the Acceptance Test plan
-2. IP address of target machine running the app
-3. Execute ________
-4. ...
-5. ...
 
 ## License
 
