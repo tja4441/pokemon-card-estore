@@ -1,17 +1,18 @@
-<nav class="header">
-    <div class="utility">
-        <a style="margin-right:0.25em;" routerLink="/login"><button>Login</button></a>
-        <a routerLink=""><button>Home</button></a>
-    </div>
-
-    <label class="title">Pokémon Card Store</label>
-
-    <div class="navigation" *ngIf="isLoggedInUser()" style="float:inline-end">
-        <button style="margin-right: 0.25em;" (click)="redirect('/cart');">Cart</button>
-        <button (click)="redirect('/user')">Account</button>
-    </div>
-
-    <div class="navigation" *ngIf="isAdmin()" style="float:inline-end">
-        <button style="margin-right: 0.25em;" (click)="router.navigate(['/admin'])" >Dashboard</button>
+<nav class="navbar navbar-expand-lg bg-primary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" routerLink="">
+            <img src="assets/pokeball.svg" alt="Logo" width="30px" class="d-inline-block align-text-top"/>
+            PokéStore
+        </a>
+        <div *ngIf="!(isLoggedInUser() || isAdmin())">
+            <button type="button" class="btn btn-outline-light" routerLink="/login">Login</button>
+        </div>
+        <div class="d-md-flex gap-2" *ngIf="isLoggedInUser()">
+            <button class="btn btn-primary btn-md" type="button" routerLink="/cart" style="width:45px;"><i class="icon fa-solid fa-cart-shopping"></i></button>
+            <button class="btn btn-primary btn-md" type="button" routerLink="/user" style="width:45px;"><i class="fa-solid fa-user"></i></button>
+        </div>
+        <div *ngIf="isAdmin()">
+            <button type="button" class="btn btn-outline-light" routerLink="/admin">Admin Dashboard</button>
+        </div>
     </div>
 </nav>
