@@ -53,12 +53,6 @@
   "quantity" : 150,
   "price" : 0.75
 }, {
-  "id" : 10,
-  "name" : "Pikachu",
-  "types" : [ "ELECTRIC" ],
-  "quantity" : 15,
-  "price" : 260.0
-}, {
   "id" : 11,
   "name" : "Pidgey",
   "types" : [ "NORMAL" ],
